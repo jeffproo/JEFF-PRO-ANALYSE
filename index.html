@@ -1,17 +1,304 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bot Prédictions</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>JEFF PRO ANALYSE</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #f1f3f5;
+  font-family: Arial, sans-serif;
+}
+
+.app {
+  max-width: 500px;
+  margin: auto;
+  min-height: 100vh;
+  background: white;
+}
+
+.header {
+  background: #111;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  font-size: 21px;
+  font-weight: bold;
+}
+
+.online {
+  color: #27d17f;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.chat {
+  padding: 18px;
+}
+
+.bot {
+  background: #eeeeee;
+  padding: 15px;
+  border-radius: 16px 16px 16px 4px;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.user {
+  background: #111;
+  color: white;
+  padding: 13px;
+  border-radius: 16px 16px 4px 16px;
+  margin: 15px 0 15px auto;
+  max-width: 85%;
+}
+
+button,
+a {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  margin: 9px 0;
+  border: 0;
+  border-radius: 12px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.main {
+  background: #111;
+  color: white;
+}
+
+.platform {
+  background: #e9f7ef;
+  color: #111;
+}
+
+.whatsapp {
+  background: #25D366;
+  color: white;
+}
+
+.channel {
+  background: #111;
+  color: white;
+}
+
+.code-box {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.code {
+  flex: 1;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 14px;
+  font-weight: bold;
+}
+
+.copy {
+  width: auto;
+  margin: 0;
+  background: #111;
+  color: white;
+}
+
+.hidden {
+  display: none;
+}
+</style>
 </head>
 
 <body>
-  <h1>🤖 Bot Prédictions</h1>
 
-  <p>Bienvenue sur notre plateforme.</p>
+<div class="app">
 
-  <button>Comment s'inscrire ?</button>
+<div class="header">
+🤖 JEFF PRO ANALYSE
+<div class="online">● En ligne</div>
+</div>
+
+<div class="chat">
+
+<div class="bot">
+👋 Bienvenue sur <b>JEFF PRO ANALYSE</b>.<br><br>
+Je vais te guider étape par étape.
+</div>
+
+<button class="main" onclick="start()">
+COMMENT S’INSCRIRE ?
+</button>
+
+<div id="conversation"></div>
+
+</div>
+
+</div>
+
+<script>
+
+const codePromo = "8F9Y";
+
+const plateformes = {
+
+"1XBET":
+"https://reffpa.com/L?tag=d_4215855m_97c_&site=4215855&ad=97&r=registration",
+
+"PARIPESA":
+"https://paripesa.bet/christtpronoso",
+
+"MELBET":
+"https://refpa3665.com/L?tag=d_4139550m_45415c_&site=4139550&ad=45415&r=registration"
+
+};
+
+function messageBot(texte) {
+
+const zone = document.getElementById("conversation");
+
+const message = document.createElement("div");
+
+message.className = "bot";
+
+message.innerHTML = texte;
+
+zone.appendChild(message);
+
+}
+
+function messageUser(texte) {
+
+const zone = document.getElementById("conversation");
+
+const message = document.createElement("div");
+
+message.className = "user";
+
+message.innerHTML = texte;
+
+zone.appendChild(message);
+
+}
+
+function start() {
+
+messageUser("Comment s’inscrire ?");
+
+setTimeout(() => {
+
+messageBot(`
+<b>Voici les étapes :</b><br><br>
+
+1️⃣ Choisis ta plateforme.<br>
+2️⃣ Utilise le code promo <b>8F9Y</b>.<br>
+3️⃣ Clique sur le bouton d'inscription.<br>
+4️⃣ Après ton inscription, tu peux envoyer ta preuve sur WhatsApp.
+<br><br>
+
+<b>Choisis ta plateforme :</b>
+`);
+
+const zone = document.getElementById("conversation");
+
+zone.innerHTML += `
+
+<button class="platform"
+onclick="choisir('1XBET')">
+1XBET
+</button>
+
+<button class="platform"
+onclick="choisir('PARIPESA')">
+PARIPESA
+</button>
+
+<button class="platform"
+onclick="choisir('MELBET')">
+MELBET
+</button>
+
+`;
+
+}, 400);
+
+}
+
+function choisir(nom) {
+
+messageUser("Je choisis " + nom);
+
+setTimeout(() => {
+
+messageBot(`
+✅ Tu as choisi <b>${nom}</b>.<br><br>
+
+<b>Code promo :</b>
+
+<div class="code-box">
+
+<div class="code">
+${codePromo}
+</div>
+
+<button class="copy"
+onclick="copierCode()">
+COPIER
+</button>
+
+</div>
+`);
+
+const zone = document.getElementById("conversation");
+
+zone.innerHTML += `
+
+<a class="main"
+href="${plateformes[nom]}"
+target="_blank">
+S'INSCRIRE SUR ${nom}
+</a>
+
+<a class="whatsapp"
+href="https://wa.me/22965061408?text=Bonjour%20JEFF%20PRO%20ANALYSE%2C%20je%20viens%20de%20m'inscrire%20sur%20${nom}"
+target="_blank">
+📲 ENVOYER MA PREUVE SUR WHATSAPP
+</a>
+
+<a class="channel"
+href="https://whatsapp.com/channel/0029VbBw8FBDp2Q03qhB4t2b"
+target="_blank">
+📢 REJOINDRE MA CHAÎNE WHATSAPP
+</a>
+
+`;
+
+}, 400);
+
+}
+
+function copierCode() {
+
+navigator.clipboard.writeText(codePromo);
+
+alert("Code promo 8F9Y copié !");
+
+}
+
+</script>
 
 </body>
 </html>
