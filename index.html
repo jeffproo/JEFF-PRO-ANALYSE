@@ -10,7 +10,7 @@
     box-sizing:border-box;
     margin:0;
     padding:0;
-    font-family:Arial, sans-serif;
+    font-family:Arial,Helvetica,sans-serif;
 }
 
 body{
@@ -28,17 +28,17 @@ body{
 
 .header{
     background:#050505;
-    color:white;
+    color:#fff;
     padding:20px 18px;
+    text-align:center;
     font-size:21px;
     font-weight:bold;
-    text-align:center;
 }
 
 .online{
-    font-size:12px;
-    color:#28d17c;
     margin-top:6px;
+    color:#27d17f;
+    font-size:12px;
     font-weight:normal;
 }
 
@@ -50,28 +50,24 @@ body{
     background:#f0f2f5;
     border-radius:18px;
     padding:16px;
-    margin-bottom:14px;
-    line-height:1.55;
-}
-
-.bot strong{
-    font-size:16px;
+    margin-bottom:15px;
+    line-height:1.6;
 }
 
 .user{
     background:#111;
-    color:white;
+    color:#fff;
     border-radius:18px;
     padding:14px;
-    margin:14px 0;
-    text-align:right;
+    margin:15px 0;
+    line-height:1.5;
 }
 
 .title{
     text-align:center;
     font-size:20px;
     font-weight:bold;
-    margin:22px 0 12px;
+    margin:24px 0 14px;
 }
 
 .subtitle{
@@ -85,7 +81,6 @@ body{
 .platform-btn,
 .whatsapp-btn,
 .channel-btn,
-.register-btn,
 .copy-btn{
     display:block;
     width:100%;
@@ -96,89 +91,39 @@ body{
     font-size:16px;
     font-weight:bold;
     cursor:pointer;
-    text-decoration:none;
     text-align:center;
+    text-decoration:none;
 }
 
 .main-btn{
     background:#111;
-    color:white;
+    color:#fff;
 }
 
 .platform-btn{
-    background:#f2f2f2;
+    background:#f3f3f3;
     color:#111;
     border:1px solid #ddd;
 }
 
-.register-btn{
-    background:#111;
-    color:white;
-}
-
 .whatsapp-btn{
     background:#25D366;
-    color:white;
+    color:#fff;
 }
 
 .channel-btn{
     background:#075e54;
-    color:white;
+    color:#fff;
 }
 
 .copy-btn{
-    background:#e9ecef;
+    background:#fff;
     color:#111;
-}
-
-.code-box{
-    background:#111;
-    color:white;
-    border-radius:15px;
-    padding:18px;
-    text-align:center;
-    margin:15px 0;
-}
-
-.code{
-    font-size:28px;
-    letter-spacing:4px;
-    font-weight:bold;
-    margin:8px 0 14px;
-}
-
-.step{
-    display:flex;
-    gap:12px;
-    margin:13px 0;
-    line-height:1.45;
-}
-
-.number{
-    min-width:30px;
-    height:30px;
-    background:#111;
-    color:white;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-weight:bold;
-}
-
-.notice{
-    background:#fff7df;
-    border:1px solid #f0d477;
-    border-radius:14px;
-    padding:14px;
-    margin-top:15px;
-    font-size:13px;
-    line-height:1.5;
 }
 
 .audio-box{
     background:#111;
-    color:white;
+    color:#fff;
     border-radius:18px;
     padding:18px;
     margin:15px 0;
@@ -186,7 +131,60 @@ body{
 
 .audio-box audio{
     width:100%;
-    margin-top:12px;
+    margin-top:13px;
+}
+
+.code-box{
+    background:#111;
+    color:#fff;
+    border-radius:16px;
+    padding:18px;
+    text-align:center;
+    margin:18px 0;
+}
+
+.code{
+    font-size:29px;
+    font-weight:bold;
+    letter-spacing:5px;
+    margin:10px 0 15px;
+}
+
+.step{
+    display:flex;
+    gap:12px;
+    margin:15px 0;
+    line-height:1.55;
+}
+
+.number{
+    min-width:31px;
+    height:31px;
+    background:#111;
+    color:#fff;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+}
+
+.question-box{
+    background:#f7f7f7;
+    border:1px solid #ddd;
+    border-radius:14px;
+    padding:15px;
+    margin-top:15px;
+}
+
+.notice{
+    background:#fff7df;
+    border:1px solid #efd477;
+    border-radius:14px;
+    padding:14px;
+    margin-top:18px;
+    font-size:13px;
+    line-height:1.5;
 }
 
 .hidden{
@@ -213,32 +211,33 @@ body{
 
     <div class="chat">
 
-        <!-- MESSAGE D'ACCUEIL -->
+        <!-- ACCUEIL -->
+
         <div class="bot">
-            👋 <strong>Bonjour et bienvenue !</strong>
+            Bonjour 👋 Je suis Jeff pro.
             <br><br>
-            Je suis <strong>JEFF PRO</strong>.
-            <br><br>
-            Écoute attentivement le message vocal ci-dessous, puis pose ta question.
+            Écoute le message vocal ci-dessous, puis pose ta question.
         </div>
 
         <!-- VOCAL -->
+
         <div class="audio-box">
             🎙️ <strong>Message vocal de JEFF PRO</strong>
-            <br><br>
-            Écoute le message vocal avant de continuer.
-            
+
             <audio controls>
                 <source src="vocal-jeff.m4a" type="audio/mp4">
-                Ton navigateur ne prend pas en charge la lecture audio.
+                Ton navigateur ne peut pas lire ce fichier audio.
             </audio>
         </div>
 
-        <!-- QUESTIONS -->
-        <div class="title">💬 Que veux-tu savoir ?</div>
+        <!-- MENU -->
+
+        <div class="title">
+            💬 Pose ta question
+        </div>
 
         <button class="main-btn" onclick="showSection('apple')">
-            🍀 Comment gagner à Apple of Fortune ?
+            🍎 Comment gagner à Apple of Fortune ?
         </button>
 
         <button class="main-btn" onclick="showSection('des')">
@@ -246,213 +245,380 @@ body{
         </button>
 
         <button class="main-btn" onclick="showSection('inscription')">
-            📝 Comment s'inscrire ?
+            📝 Comment s’inscrire ?
         </button>
 
-        <!-- APPLE -->
+
+        <!-- APPLE OF FORTUNE -->
+
         <div id="apple" class="hidden">
 
             <div class="user">
-                🍀 Comment gagner à Apple of Fortune ?
+                Comment gagner à Apple of Fortune ?
             </div>
 
             <div class="bot">
-                Pour accéder aux méthodes et informations réservées de
-                <strong>JEFF PRO</strong> concernant Apple of Fortune,
-                deux conditions doivent être respectées.
+
+                Pour accéder aux méthodes et informations réservées de JEFF PRO concernant Apple of Fortune, tu dois d'abord remplir les deux conditions obligatoires.
+
                 <br><br>
 
-                <strong>1️⃣</strong> Créer ton compte chez l'une des plateformes partenaires avec le code
-                <strong>8F9Y</strong>.
+                1️⃣ T'inscrire chez un bookmaker partenaire 1xbet Melbet ou PARIPESA avec le code promo <strong>8F9Y</strong>.
+
                 <br><br>
 
-                <strong>2️⃣</strong> Effectuer un premier dépôt d'au moins
-                <strong>1 500 FCFA</strong>.
+                2️⃣ Effectuer un premier dépôt d'au moins <strong>1 500 FCFA</strong> sur ton compte.
+
                 <br><br>
 
-                Une fois ces étapes effectuées, conserve ta preuve de dépôt et contacte JEFF PRO.
+                🔥 Une fois ces étapes validées, tu pourras bénéficier du contenu exclusif de JEFF PRO 🍎.
+
+                <br><br>
+
+                👉 Veux-tu que je te guide étape par étape pour t'inscrire ? 😊
+
             </div>
 
             <button class="main-btn" onclick="showSection('inscription')">
-                📝 Voir la procédure d'inscription
+                👉 Oui, guide-moi étape par étape
             </button>
 
         </div>
 
-        <!-- DES -->
+
+        <!-- JEU DES DÉS -->
+
         <div id="des" class="hidden">
 
             <div class="user">
-                🎲 Comment gagner au Jeu des Dés ?
+                Comment gagner au Jeu des Dés ?
             </div>
 
             <div class="bot">
-                Pour accéder aux analyses et informations de
-                <strong>JEFF PRO</strong> concernant le Jeu des Dés,
-                tu dois d'abord respecter les deux conditions obligatoires :
+
+                Pour accéder aux méthodes et informations réservées de JEFF PRO concernant le jeu des Dés, tu dois d'abord remplir les deux conditions obligatoires.
+
                 <br><br>
 
-                <strong>1️⃣</strong> Inscription avec le code promo
-                <strong>8F9Y</strong>.
+                1️⃣ T'inscrire chez un bookmaker partenaire 1xbet Melbet ou PARIPESA avec le code promo <strong>8F9Y</strong>.
+
                 <br><br>
 
-                <strong>2️⃣</strong> Premier dépôt minimum de
-                <strong>1 500 FCFA</strong>.
+                2️⃣ Effectuer un premier dépôt d'au moins <strong>1 500 FCFA</strong> sur ton compte.
+
                 <br><br>
 
-                Après ton inscription et ton dépôt, garde ta preuve et contacte JEFF PRO.
+                🔥 Une fois ces étapes validées, tu pourras bénéficier du contenu exclusif de JEFF PRO 🍎.
+
+                <br><br>
+
+                👉 Veux-tu que je te guide étape par étape pour t'inscrire ? 😊
+
             </div>
 
             <button class="main-btn" onclick="showSection('inscription')">
-                📝 Voir la procédure d'inscription
+                👉 Oui, guide-moi étape par étape
             </button>
 
         </div>
 
+
         <!-- INSCRIPTION -->
+
         <div id="inscription" class="hidden">
 
-            <div class="title">📝 COMMENT S'INSCRIRE ?</div>
+            <div class="user">
+                Comment s’inscrire ?
+            </div>
 
             <div class="bot">
-                Suis simplement les étapes ci-dessous.
+
+                Bien sûr 👌 Voici les étapes pour t'inscrire et accéder au contenu réservé de JEFF PRO.
+
+                <br><br>
+
+                ⚠️ <strong>Les 2 conditions obligatoires :</strong>
+
+                <br><br>
+
+                Inscription avec le code promo <strong>8F9Y</strong>
+
+                <br>
+
+                Premier dépôt minimum de <strong>1 500 FCFA</strong>
+
             </div>
 
+
+            <!-- ETAPE 1 -->
+
             <div class="step">
+
                 <div class="number">1</div>
+
                 <div>
-                    <strong>Choisis une plateforme partenaire</strong><br>
-                    1XBET, MELBET ou PARIPESA.
+                    <strong>Choisis un bookmaker partenaire</strong>
+
+                    <br><br>
+
+                    Tu peux choisir l'une des plateformes affichées en bas de la page :
+
+                    <br><br>
+
+                    <strong>1XBET</strong>
+                    <br>
+                    <strong>MELBET</strong>
+                    <br>
+                    <strong>PARIPESA</strong>
                 </div>
+
             </div>
 
+
+            <!-- ETAPE 2 -->
+
             <div class="step">
+
                 <div class="number">2</div>
+
                 <div>
-                    <strong>Ouvre le lien d'inscription</strong><br>
-                    Clique sur la plateforme de ton choix ci-dessous.
+                    <strong>Ouvre le lien d'inscription</strong>
+
+                    <br><br>
+
+                    Choisis la plateforme qui t'intéresse et ouvre son lien d'inscription.
                 </div>
+
             </div>
 
+
+            <!-- ETAPE 3 -->
+
             <div class="step">
+
                 <div class="number">3</div>
+
                 <div>
-                    <strong>Remplis le formulaire</strong><br>
-                    Entre correctement tes informations lors de l'inscription.
+                    <strong>Remplis le formulaire</strong>
+
+                    <br><br>
+
+                    Renseigne les informations demandées : nom, prénom, numéro de téléphone, email, mot de passe ou autres informations selon la plateforme.
                 </div>
+
             </div>
 
+
+            <!-- ETAPE 4 -->
+
             <div class="step">
+
                 <div class="number">4</div>
+
                 <div>
-                    <strong>Entre le code promo</strong><br>
-                    Utilise exactement :
+                    <strong>Entre le code promo</strong>
+
+                    <br><br>
+
+                    Dans le champ « Code promo », « Code bonus » ou « Code parrain », saisis :
                 </div>
+
             </div>
+
+
+            <!-- CODE PROMO -->
 
             <div class="code-box">
+
                 <div>TON CODE PROMO</div>
-                <div class="code">8F9Y</div>
+
+                <div class="code">
+                    8F9Y
+                </div>
 
                 <button class="copy-btn" onclick="copyCode()">
                     📋 COPIER LE CODE
                 </button>
+
             </div>
 
+            <div class="bot">
+
+                ⚠️ Vérifie bien que <strong>8F9Y</strong> est appliqué avant de terminer ton inscription.
+
+            </div>
+
+
+            <!-- ETAPE 5 -->
+
             <div class="step">
+
                 <div class="number">5</div>
+
                 <div>
-                    <strong>Effectue ton premier dépôt</strong><br>
-                    Minimum demandé : <strong>1 500 FCFA</strong>.
+                    <strong>Effectue ton premier dépôt</strong>
+
+                    <br><br>
+
+                    Après ton inscription, effectue un premier dépôt d'au moins <strong>1 500 FCFA</strong>.
+
+                    <br><br>
+
+                    Les moyens de paiement disponibles dépendent de la plateforme choisie.
                 </div>
+
             </div>
 
+
+            <!-- ETAPE 6 -->
+
             <div class="step">
+
                 <div class="number">6</div>
+
                 <div>
-                    <strong>Garde ta preuve</strong><br>
-                    Fais une capture d'écran de ton inscription et de ton dépôt.
+                    <strong>Garde ta preuve de dépôt</strong>
+
+                    <br><br>
+
+                    Fais une capture d'écran claire de ton dépôt et conserve-la pour la vérification.
                 </div>
+
             </div>
+
+
+            <!-- ETAPE 7 -->
 
             <div class="step">
+
                 <div class="number">7</div>
+
                 <div>
-                    <strong>Contacte JEFF PRO</strong><br>
-                    Envoie ta preuve sur WhatsApp pour connaître la suite.
+                    <strong>Reviens vers JEFF PRO</strong>
+
+                    <br><br>
+
+                    Une fois les deux conditions remplies, reviens ici pour obtenir l’accès aux exploits et aux analyses exclusives d’Apple of Fortune 🎯, Jeu de dés et tout les autres ....
                 </div>
+
             </div>
 
-            <div class="title">🚀 CHOISIS TA PLATEFORME</div>
 
-            <a class="platform-btn"
-               href="https://reffpa.com/L?tag=d_4215855m_97c_&site=4215855&ad=97&r=registration"
-               target="_blank">
+            <div class="question-box">
+
+                👉 Si tu veux, écris simplement le nom de la plateforme que tu veux utiliser, par exemple <strong>1XBET</strong>, et je te donne les étapes correspondantes.
+
+            </div>
+
+
+            <!-- PLATEFORMES -->
+
+            <div class="title">
+                🚀 PLATEFORME & CODE PROMO
+            </div>
+
+            <a
+                class="platform-btn"
+                href="https://reffpa.com/L?tag=d_4215855m_97c_&site=4215855&ad=97&r=registration"
+                target="_blank"
+            >
                 🔵 S'INSCRIRE SUR 1XBET
             </a>
 
-            <a class="platform-btn"
-               href="https://refpa3665.com/L?tag=d_4139550m_45415c_&site=4139550&ad=45415&r=registration"
-               target="_blank">
+            <a
+                class="platform-btn"
+                href="https://refpa3665.com/L?tag=d_4139550m_45415c_&site=4139550&ad=45415&r=registration"
+                target="_blank"
+            >
                 🟢 S'INSCRIRE SUR MELBET
             </a>
 
-            <a class="platform-btn"
-               href="https://paripesa.bet/christtpronoso"
-               target="_blank">
+            <a
+                class="platform-btn"
+                href="https://paripesa.bet/christtpronoso"
+                target="_blank"
+            >
                 🟣 S'INSCRIRE SUR PARIPESA
             </a>
 
-            <a class="whatsapp-btn"
-               href="https://wa.me/22965061408"
-               target="_blank">
-                💬 MON WHATSAPP
+
+            <!-- WHATSAPP -->
+
+            <div class="title">
+                📱 MON WHATSAPP
+            </div>
+
+            <a
+                class="whatsapp-btn"
+                href="https://wa.me/22965061408"
+                target="_blank"
+            >
+                💬 ÉCRIRE À JEFF PRO
             </a>
 
-            <a class="channel-btn"
-               href="https://whatsapp.com/channel/0029VbBw8FBDp2Q03qhB4t2b"
-               target="_blank">
+
+            <!-- CHAINE -->
+
+            <a
+                class="channel-btn"
+                href="https://whatsapp.com/channel/0029VbBw8FBDp2Q03qhB4t2b"
+                target="_blank"
+            >
                 📢 REJOINDRE MA CHAÎNE WHATSAPP
             </a>
 
-            <div class="notice">
-                ⚠️ Les paris comportent des risques financiers. Les analyses,
-                informations ou pronostics ne garantissent pas un gain.
-                Joue uniquement avec de l'argent que tu peux te permettre de perdre.
-            </div>
-
         </div>
 
-        <!-- PLATEFORMES -->
-        <div class="title">💰 PLATEFORME & CODE PROMO</div>
+
+        <!-- PLATEFORME & CODE PROMO -->
+
+        <div class="title">
+            PLATEFORME & CODE PROMO
+        </div>
 
         <div class="bot">
-            <strong>1XBET • MELBET • PARIPESA</strong>
+
+            <strong>1XBET</strong>
+            &nbsp;&nbsp;
+            <strong>MELBET</strong>
+            &nbsp;&nbsp;
+            <strong>PARIPESA</strong>
+
             <br><br>
-            Code promo :
+
             <strong>8F9Y</strong>
+
         </div>
 
-        <a class="whatsapp-btn"
-           href="https://wa.me/22965061408"
-           target="_blank">
-            💬 ÉCRIRE À JEFF PRO
+
+        <!-- QUESTION -->
+
+        <div class="title">
+            💬 Écrit ta question….
+        </div>
+
+        <a
+            class="whatsapp-btn"
+            href="https://wa.me/22965061408"
+            target="_blank"
+        >
+            💬 MON WHATSAPP
         </a>
 
-        <a class="channel-btn"
-           href="https://whatsapp.com/channel/0029VbBw8FBDp2Q03qhB4t2b"
-           target="_blank">
-            📢 SUIVRE LA CHAÎNE WHATSAPP
-        </a>
+
+        <div class="notice">
+            ⚠️ Les paris comportent des risques financiers. Les analyses et informations présentées ne garantissent pas un gain. Joue de manière responsable.
+        </div>
+
 
         <div class="footer">
             © 2026 JEFF PRO ANALYSE
-            <br><br>
-            Informations et analyses à titre informatif.
         </div>
 
     </div>
+
 </div>
+
 
 <script>
 
@@ -462,29 +628,42 @@ function showSection(section){
     document.getElementById("des").classList.add("hidden");
     document.getElementById("inscription").classList.add("hidden");
 
-    document.getElementById(section).classList.remove("hidden");
+    const element = document.getElementById(section);
+
+    element.classList.remove("hidden");
 
     setTimeout(function(){
-        document.getElementById(section).scrollIntoView({
+
+        element.scrollIntoView({
             behavior:"smooth",
             block:"start"
         });
+
     },100);
 }
+
 
 function copyCode(){
 
     const code = "8F9Y";
 
-    navigator.clipboard.writeText(code).then(function(){
+    if(navigator.clipboard){
 
-        alert("✅ Code promo 8F9Y copié !");
+        navigator.clipboard.writeText(code).then(function(){
 
-    }).catch(function(){
+            alert("✅ Code promo 8F9Y copié !");
+
+        }).catch(function(){
+
+            alert("Code promo : 8F9Y");
+
+        });
+
+    }else{
 
         alert("Code promo : 8F9Y");
 
-    });
+    }
 }
 
 </script>
