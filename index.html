@@ -3,122 +3,201 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>JEFF PRO ANALYSE</title>
 
 <style>
-* {
-  box-sizing: border-box;
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial, sans-serif;
 }
 
-body {
-  margin: 0;
-  background: #f1f3f5;
-  font-family: Arial, sans-serif;
+body{
+    background:#eef1f5;
+    color:#111;
 }
 
-.app {
-  max-width: 500px;
-  margin: auto;
-  min-height: 100vh;
-  background: white;
+.app{
+    max-width:520px;
+    margin:auto;
+    min-height:100vh;
+    background:#fff;
+    box-shadow:0 0 20px rgba(0,0,0,.08);
 }
 
-.header {
-  background: #111;
-  color: white;
-  text-align: center;
-  padding: 20px;
-  font-size: 21px;
-  font-weight: bold;
+.header{
+    background:#050505;
+    color:white;
+    padding:20px 18px;
+    font-size:21px;
+    font-weight:bold;
+    text-align:center;
 }
 
-.online {
-  color: #27d17f;
-  font-size: 12px;
-  margin-top: 5px;
+.online{
+    font-size:12px;
+    color:#28d17c;
+    margin-top:6px;
+    font-weight:normal;
 }
 
-.chat {
-  padding: 18px;
+.chat{
+    padding:18px;
 }
 
-.bot {
-  background: #eeeeee;
-  padding: 15px;
-  border-radius: 16px 16px 16px 4px;
-  margin-bottom: 12px;
-  line-height: 1.5;
+.bot{
+    background:#f0f2f5;
+    border-radius:18px;
+    padding:16px;
+    margin-bottom:14px;
+    line-height:1.55;
 }
 
-.user {
-  background: #111;
-  color: white;
-  padding: 13px;
-  border-radius: 16px 16px 4px 16px;
-  margin: 15px 0 15px auto;
-  max-width: 85%;
+.bot strong{
+    font-size:16px;
 }
 
-button,
-a {
-  display: block;
-  width: 100%;
-  padding: 15px;
-  margin: 9px 0;
-  border: 0;
-  border-radius: 12px;
-  text-align: center;
-  text-decoration: none;
-  font-size: 15px;
-  font-weight: bold;
-  cursor: pointer;
+.user{
+    background:#111;
+    color:white;
+    border-radius:18px;
+    padding:14px;
+    margin:14px 0;
+    text-align:right;
 }
 
-.main {
-  background: #111;
-  color: white;
+.title{
+    text-align:center;
+    font-size:20px;
+    font-weight:bold;
+    margin:22px 0 12px;
 }
 
-.platform {
-  background: #e9f7ef;
-  color: #111;
+.subtitle{
+    text-align:center;
+    color:#666;
+    font-size:14px;
+    margin-bottom:18px;
 }
 
-.whatsapp {
-  background: #25D366;
-  color: white;
+.main-btn,
+.platform-btn,
+.whatsapp-btn,
+.channel-btn,
+.register-btn,
+.copy-btn{
+    display:block;
+    width:100%;
+    border:0;
+    border-radius:13px;
+    padding:15px;
+    margin:10px 0;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    text-decoration:none;
+    text-align:center;
 }
 
-.channel {
-  background: #111;
-  color: white;
+.main-btn{
+    background:#111;
+    color:white;
 }
 
-.code-box {
-  display: flex;
-  gap: 8px;
-  margin-top: 10px;
+.platform-btn{
+    background:#f2f2f2;
+    color:#111;
+    border:1px solid #ddd;
 }
 
-.code {
-  flex: 1;
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 14px;
-  font-weight: bold;
+.register-btn{
+    background:#111;
+    color:white;
 }
 
-.copy {
-  width: auto;
-  margin: 0;
-  background: #111;
-  color: white;
+.whatsapp-btn{
+    background:#25D366;
+    color:white;
 }
 
-.hidden {
-  display: none;
+.channel-btn{
+    background:#075e54;
+    color:white;
+}
+
+.copy-btn{
+    background:#e9ecef;
+    color:#111;
+}
+
+.code-box{
+    background:#111;
+    color:white;
+    border-radius:15px;
+    padding:18px;
+    text-align:center;
+    margin:15px 0;
+}
+
+.code{
+    font-size:28px;
+    letter-spacing:4px;
+    font-weight:bold;
+    margin:8px 0 14px;
+}
+
+.step{
+    display:flex;
+    gap:12px;
+    margin:13px 0;
+    line-height:1.45;
+}
+
+.number{
+    min-width:30px;
+    height:30px;
+    background:#111;
+    color:white;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+}
+
+.notice{
+    background:#fff7df;
+    border:1px solid #f0d477;
+    border-radius:14px;
+    padding:14px;
+    margin-top:15px;
+    font-size:13px;
+    line-height:1.5;
+}
+
+.audio-box{
+    background:#111;
+    color:white;
+    border-radius:18px;
+    padding:18px;
+    margin:15px 0;
+}
+
+.audio-box audio{
+    width:100%;
+    margin-top:12px;
+}
+
+.hidden{
+    display:none;
+}
+
+.footer{
+    text-align:center;
+    color:#777;
+    font-size:12px;
+    padding:25px 15px;
 }
 </style>
 </head>
@@ -127,175 +206,285 @@ a {
 
 <div class="app">
 
-<div class="header">
-🤖 JEFF PRO ANALYSE
-<div class="online">● En ligne</div>
-</div>
+    <div class="header">
+        🤖 JEFF PRO ANALYSE
+        <div class="online">● En ligne</div>
+    </div>
 
-<div class="chat">
+    <div class="chat">
 
-<div class="bot">
-👋 Bienvenue sur <b>JEFF PRO ANALYSE</b>.<br><br>
-Je vais te guider étape par étape.
-</div>
+        <!-- MESSAGE D'ACCUEIL -->
+        <div class="bot">
+            👋 <strong>Bonjour et bienvenue !</strong>
+            <br><br>
+            Je suis <strong>JEFF PRO</strong>.
+            <br><br>
+            Écoute attentivement le message vocal ci-dessous, puis pose ta question.
+        </div>
 
-<button class="main" onclick="start()">
-COMMENT S’INSCRIRE ?
-</button>
+        <!-- VOCAL -->
+        <div class="audio-box">
+            🎙️ <strong>Message vocal de JEFF PRO</strong>
+            <br><br>
+            Écoute le message vocal avant de continuer.
+            
+            <audio controls>
+                <source src="vocal-jeff.m4a" type="audio/mp4">
+                Ton navigateur ne prend pas en charge la lecture audio.
+            </audio>
+        </div>
 
-<div id="conversation"></div>
+        <!-- QUESTIONS -->
+        <div class="title">💬 Que veux-tu savoir ?</div>
 
-</div>
+        <button class="main-btn" onclick="showSection('apple')">
+            🍀 Comment gagner à Apple of Fortune ?
+        </button>
 
+        <button class="main-btn" onclick="showSection('des')">
+            🎲 Comment gagner au Jeu des Dés ?
+        </button>
+
+        <button class="main-btn" onclick="showSection('inscription')">
+            📝 Comment s'inscrire ?
+        </button>
+
+        <!-- APPLE -->
+        <div id="apple" class="hidden">
+
+            <div class="user">
+                🍀 Comment gagner à Apple of Fortune ?
+            </div>
+
+            <div class="bot">
+                Pour accéder aux méthodes et informations réservées de
+                <strong>JEFF PRO</strong> concernant Apple of Fortune,
+                deux conditions doivent être respectées.
+                <br><br>
+
+                <strong>1️⃣</strong> Créer ton compte chez l'une des plateformes partenaires avec le code
+                <strong>8F9Y</strong>.
+                <br><br>
+
+                <strong>2️⃣</strong> Effectuer un premier dépôt d'au moins
+                <strong>1 500 FCFA</strong>.
+                <br><br>
+
+                Une fois ces étapes effectuées, conserve ta preuve de dépôt et contacte JEFF PRO.
+            </div>
+
+            <button class="main-btn" onclick="showSection('inscription')">
+                📝 Voir la procédure d'inscription
+            </button>
+
+        </div>
+
+        <!-- DES -->
+        <div id="des" class="hidden">
+
+            <div class="user">
+                🎲 Comment gagner au Jeu des Dés ?
+            </div>
+
+            <div class="bot">
+                Pour accéder aux analyses et informations de
+                <strong>JEFF PRO</strong> concernant le Jeu des Dés,
+                tu dois d'abord respecter les deux conditions obligatoires :
+                <br><br>
+
+                <strong>1️⃣</strong> Inscription avec le code promo
+                <strong>8F9Y</strong>.
+                <br><br>
+
+                <strong>2️⃣</strong> Premier dépôt minimum de
+                <strong>1 500 FCFA</strong>.
+                <br><br>
+
+                Après ton inscription et ton dépôt, garde ta preuve et contacte JEFF PRO.
+            </div>
+
+            <button class="main-btn" onclick="showSection('inscription')">
+                📝 Voir la procédure d'inscription
+            </button>
+
+        </div>
+
+        <!-- INSCRIPTION -->
+        <div id="inscription" class="hidden">
+
+            <div class="title">📝 COMMENT S'INSCRIRE ?</div>
+
+            <div class="bot">
+                Suis simplement les étapes ci-dessous.
+            </div>
+
+            <div class="step">
+                <div class="number">1</div>
+                <div>
+                    <strong>Choisis une plateforme partenaire</strong><br>
+                    1XBET, MELBET ou PARIPESA.
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="number">2</div>
+                <div>
+                    <strong>Ouvre le lien d'inscription</strong><br>
+                    Clique sur la plateforme de ton choix ci-dessous.
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="number">3</div>
+                <div>
+                    <strong>Remplis le formulaire</strong><br>
+                    Entre correctement tes informations lors de l'inscription.
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="number">4</div>
+                <div>
+                    <strong>Entre le code promo</strong><br>
+                    Utilise exactement :
+                </div>
+            </div>
+
+            <div class="code-box">
+                <div>TON CODE PROMO</div>
+                <div class="code">8F9Y</div>
+
+                <button class="copy-btn" onclick="copyCode()">
+                    📋 COPIER LE CODE
+                </button>
+            </div>
+
+            <div class="step">
+                <div class="number">5</div>
+                <div>
+                    <strong>Effectue ton premier dépôt</strong><br>
+                    Minimum demandé : <strong>1 500 FCFA</strong>.
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="number">6</div>
+                <div>
+                    <strong>Garde ta preuve</strong><br>
+                    Fais une capture d'écran de ton inscription et de ton dépôt.
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="number">7</div>
+                <div>
+                    <strong>Contacte JEFF PRO</strong><br>
+                    Envoie ta preuve sur WhatsApp pour connaître la suite.
+                </div>
+            </div>
+
+            <div class="title">🚀 CHOISIS TA PLATEFORME</div>
+
+            <a class="platform-btn"
+               href="https://reffpa.com/L?tag=d_4215855m_97c_&site=4215855&ad=97&r=registration"
+               target="_blank">
+                🔵 S'INSCRIRE SUR 1XBET
+            </a>
+
+            <a class="platform-btn"
+               href="https://refpa3665.com/L?tag=d_4139550m_45415c_&site=4139550&ad=45415&r=registration"
+               target="_blank">
+                🟢 S'INSCRIRE SUR MELBET
+            </a>
+
+            <a class="platform-btn"
+               href="https://paripesa.bet/christtpronoso"
+               target="_blank">
+                🟣 S'INSCRIRE SUR PARIPESA
+            </a>
+
+            <a class="whatsapp-btn"
+               href="https://wa.me/22965061408"
+               target="_blank">
+                💬 MON WHATSAPP
+            </a>
+
+            <a class="channel-btn"
+               href="https://whatsapp.com/channel/0029VbBw8FBDp2Q03qhB4t2b"
+               target="_blank">
+                📢 REJOINDRE MA CHAÎNE WHATSAPP
+            </a>
+
+            <div class="notice">
+                ⚠️ Les paris comportent des risques financiers. Les analyses,
+                informations ou pronostics ne garantissent pas un gain.
+                Joue uniquement avec de l'argent que tu peux te permettre de perdre.
+            </div>
+
+        </div>
+
+        <!-- PLATEFORMES -->
+        <div class="title">💰 PLATEFORME & CODE PROMO</div>
+
+        <div class="bot">
+            <strong>1XBET • MELBET • PARIPESA</strong>
+            <br><br>
+            Code promo :
+            <strong>8F9Y</strong>
+        </div>
+
+        <a class="whatsapp-btn"
+           href="https://wa.me/22965061408"
+           target="_blank">
+            💬 ÉCRIRE À JEFF PRO
+        </a>
+
+        <a class="channel-btn"
+           href="https://whatsapp.com/channel/0029VbBw8FBDp2Q03qhB4t2b"
+           target="_blank">
+            📢 SUIVRE LA CHAÎNE WHATSAPP
+        </a>
+
+        <div class="footer">
+            © 2026 JEFF PRO ANALYSE
+            <br><br>
+            Informations et analyses à titre informatif.
+        </div>
+
+    </div>
 </div>
 
 <script>
 
-const codePromo = "8F9Y";
+function showSection(section){
 
-const plateformes = {
+    document.getElementById("apple").classList.add("hidden");
+    document.getElementById("des").classList.add("hidden");
+    document.getElementById("inscription").classList.add("hidden");
 
-"1XBET":
-"https://reffpa.com/L?tag=d_4215855m_97c_&site=4215855&ad=97&r=registration",
+    document.getElementById(section).classList.remove("hidden");
 
-"PARIPESA":
-"https://paripesa.bet/christtpronoso",
-
-"MELBET":
-"https://refpa3665.com/L?tag=d_4139550m_45415c_&site=4139550&ad=45415&r=registration"
-
-};
-
-function messageBot(texte) {
-
-const zone = document.getElementById("conversation");
-
-const message = document.createElement("div");
-
-message.className = "bot";
-
-message.innerHTML = texte;
-
-zone.appendChild(message);
-
+    setTimeout(function(){
+        document.getElementById(section).scrollIntoView({
+            behavior:"smooth",
+            block:"start"
+        });
+    },100);
 }
 
-function messageUser(texte) {
+function copyCode(){
 
-const zone = document.getElementById("conversation");
+    const code = "8F9Y";
 
-const message = document.createElement("div");
+    navigator.clipboard.writeText(code).then(function(){
 
-message.className = "user";
+        alert("✅ Code promo 8F9Y copié !");
 
-message.innerHTML = texte;
+    }).catch(function(){
 
-zone.appendChild(message);
+        alert("Code promo : 8F9Y");
 
-}
-
-function start() {
-
-messageUser("Comment s’inscrire ?");
-
-setTimeout(() => {
-
-messageBot(`
-<b>Voici les étapes :</b><br><br>
-
-1️⃣ Choisis ta plateforme.<br>
-2️⃣ Utilise le code promo <b>8F9Y</b>.<br>
-3️⃣ Clique sur le bouton d'inscription.<br>
-4️⃣ Après ton inscription, tu peux envoyer ta preuve sur WhatsApp.
-<br><br>
-
-<b>Choisis ta plateforme :</b>
-`);
-
-const zone = document.getElementById("conversation");
-
-zone.innerHTML += `
-
-<button class="platform"
-onclick="choisir('1XBET')">
-1XBET
-</button>
-
-<button class="platform"
-onclick="choisir('PARIPESA')">
-PARIPESA
-</button>
-
-<button class="platform"
-onclick="choisir('MELBET')">
-MELBET
-</button>
-
-`;
-
-}, 400);
-
-}
-
-function choisir(nom) {
-
-messageUser("Je choisis " + nom);
-
-setTimeout(() => {
-
-messageBot(`
-✅ Tu as choisi <b>${nom}</b>.<br><br>
-
-<b>Code promo :</b>
-
-<div class="code-box">
-
-<div class="code">
-${codePromo}
-</div>
-
-<button class="copy"
-onclick="copierCode()">
-COPIER
-</button>
-
-</div>
-`);
-
-const zone = document.getElementById("conversation");
-
-zone.innerHTML += `
-
-<a class="main"
-href="${plateformes[nom]}"
-target="_blank">
-S'INSCRIRE SUR ${nom}
-</a>
-
-<a class="whatsapp"
-href="https://wa.me/22965061408?text=Bonjour%20JEFF%20PRO%20ANALYSE%2C%20je%20viens%20de%20m'inscrire%20sur%20${nom}"
-target="_blank">
-📲 ENVOYER MA PREUVE SUR WHATSAPP
-</a>
-
-<a class="channel"
-href="https://whatsapp.com/channel/0029VbBw8FBDp2Q03qhB4t2b"
-target="_blank">
-📢 REJOINDRE MA CHAÎNE WHATSAPP
-</a>
-
-`;
-
-}, 400);
-
-}
-
-function copierCode() {
-
-navigator.clipboard.writeText(codePromo);
-
-alert("Code promo 8F9Y copié !");
-
+    });
 }
 
 </script>
