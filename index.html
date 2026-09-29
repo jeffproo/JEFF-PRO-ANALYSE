@@ -329,28 +329,6 @@ body {
     cursor: pointer;
 }
 
-.step {
-    display: none;
-}
-
-.step.active {
-    display: block;
-}
-
-.upload-box {
-    margin-top: 12px;
-    border: 2px dashed #16a34a;
-    border-radius: 15px;
-    padding: 20px 10px;
-    text-align: center;
-    background: #f7fff9;
-}
-
-.upload-box input {
-    width: 100%;
-    margin-top: 12px;
-}
-
 .choice-buttons {
     display: flex;
     flex-direction: column;
@@ -390,9 +368,8 @@ body {
 
 .code-box {
     background: #17201c;
-    color: #fff;
     border-radius: 14px;
-    padding: 15px;
+    padding: 10px;
     margin-top: 10px;
 }
 
@@ -402,7 +379,6 @@ body {
     justify-content: space-between;
     gap: 8px;
     background: white;
-    border: 1px solid #dce5df;
     border-radius: 12px;
     padding: 12px;
     margin-top: 9px;
@@ -411,12 +387,14 @@ body {
 .code-name {
     font-weight: 900;
     color: #17201c;
+    font-size: 13px;
 }
 
 .code-value {
     font-weight: 900;
     color: #16a34a;
     letter-spacing: 1px;
+    margin-top: 4px;
 }
 
 .download-btn {
@@ -432,11 +410,6 @@ body {
 
 .download-btn:hover {
     background: #12813b;
-}
-
-.locked {
-    opacity: .65;
-    pointer-events: none;
 }
 
 .lock-icon {
@@ -459,18 +432,6 @@ body {
     text-align: center;
     font-weight: 900;
     margin-top: 12px;
-}
-
-.copy-btn {
-    width: 100%;
-    margin-top: 10px;
-    border: none;
-    background: #17201c;
-    color: white;
-    padding: 12px;
-    border-radius: 11px;
-    font-weight: 800;
-    cursor: pointer;
 }
 
 @media (max-width: 400px) {
@@ -511,26 +472,15 @@ body {
 <div class="container">
 
     <div class="header">
-
-        <div class="logo">
-            JP
-        </div>
+        <div class="logo">JP</div>
 
         <div class="brand">
-
-            <div class="brand-name">
-                JEFF PRO
-            </div>
-
-            <div class="online">
-                En ligne
-            </div>
-
+            <div class="brand-name">JEFF PRO</div>
+            <div class="online">En ligne</div>
         </div>
-
     </div>
 
-
+    <!-- DESCRIPTION ORIGINALE -->
     <div class="intro">
 
         <h2>Bienvenue 👋</h2>
@@ -538,20 +488,13 @@ body {
         <p>
             Bienvenue sur la page officielle de
             <strong>Jeff Pro</strong> !
-            Si tu es ici, c’est que tu souhaites accéder
-            aux contenus et coupons proposés par JEFF PRO.
-            Choisis l’option qui t’intéresse et suis les
-            étapes indiquées.
-        </p>
-
-        <p style="margin-top:10px;">
-            🔐 L'accès aux coupons est réservé aux utilisateurs
-            ayant créé leur compte partenaire avec le code
-            promo <strong>8F9Y</strong>.
+            Si tu es ici, c’est que tu souhaites récupérer
+            le bot qui me permet de gagner des millions chaque jour 💰🔥
+            Choisis l’option qui te convient et mon assistant te guidera
+            étape par étape pour avoir accès gratuitement à ce bot ✅
         </p>
 
     </div>
-
 
     <div id="home">
 
@@ -605,9 +548,7 @@ body {
 
     </div>
 
-
     <div id="content" class="content"></div>
-
 
     <div class="chat-box">
 
@@ -634,11 +575,9 @@ body {
 
     </div>
 
-
     <div class="platform-title">
         PLATEFORMES
     </div>
-
 
     <div class="platforms">
 
@@ -668,7 +607,6 @@ body {
 
     </div>
 
-
     <div class="bottom-row">
 
         <a
@@ -695,20 +633,15 @@ body {
 
 </div>
 
-
 <script>
-
-/* =====================================================
-   VARIABLES
-===================================================== */
 
 const content = document.getElementById("content");
 
 const PROMO_CODE = "8F9Y";
 
 let selectedUserPlatform = "";
-
 let accessGranted = false;
+let requestedAccess = "";
 
 
 /* =====================================================
@@ -756,8 +689,8 @@ function showApple() {
 
         <p>
             Pour accéder aux contenus concernant
-            Apple of Fortune, tu dois utiliser un compte
-            partenaire créé avec le code promo
+            Apple of Fortune, utilise un compte partenaire
+            créé avec le code promo
             <strong>${PROMO_CODE}</strong>.
         </p>
 
@@ -899,10 +832,6 @@ function showPredictions() {
 }
 
 
-/* =====================================================
-   MATCHS
-===================================================== */
-
 function showDay(day) {
 
     const matches = {
@@ -977,10 +906,12 @@ function showDay(day) {
 
     list.forEach(match => {
 
+        const parts = match.split(" → ");
+
         html += `
             <p>
-                ⚽ <strong>${match.split(" → ")[0]}</strong><br>
-                🎯 ${match.split(" → ")[1] || ""}
+                ⚽ <strong>${parts[0]}</strong><br>
+                🎯 ${parts[1] || ""}
             </p>
         `;
 
@@ -1010,7 +941,7 @@ function showDay(day) {
 
 
 /* =====================================================
-   MATCHS SEMAINE
+   MATCHS DE LA SEMAINE
 ===================================================== */
 
 function showWeekMatches() {
@@ -1043,59 +974,32 @@ function showWeekMatches() {
 
 
 /* =====================================================
-   GROSSE CÔTE NUIT
+   ACCÈS NUIT / POKER
 ===================================================== */
 
 function showNightOdds() {
 
+    requestedAccess = "night";
+
     if (!accessGranted) {
-
-        showContent(`
-
-            <div class="lock-icon">
-                🔐
-            </div>
-
-            <div class="access-title">
-                ACCÈS AUX COUPONS DE NUIT
-            </div>
-
-            <p style="text-align:center;">
-                Les coupons sont accessibles uniquement
-                après validation des conditions d'accès.
-            </p>
-
-            <div class="warning">
-
-                <strong>Conditions :</strong>
-
-                <p style="margin-top:8px;">
-                    1️⃣ Compte 1XBET, MELBET ou PARIPESA
-                    créé avec le code <strong>8F9Y</strong>.
-                </p>
-
-                <p>
-                    2️⃣ Premier dépôt effectué selon les
-                    conditions affichées.
-                </p>
-
-            </div>
-
-            <button class="green-btn" onclick="showRegistration()">
-                🔐 OBTENIR L'ACCÈS
-            </button>
-
-            <button class="back-btn" onclick="backHome()">
-                ← Retour
-            </button>
-
-        `);
-
+        showRegistration();
         return;
     }
 
     showNightCodes();
+}
 
+
+function showPoker() {
+
+    requestedAccess = "poker";
+
+    if (!accessGranted) {
+        showRegistration();
+        return;
+    }
+
+    showPokerCodes();
 }
 
 
@@ -1120,11 +1024,9 @@ function showNightCodes() {
     codes.forEach((code, index) => {
 
         html += `
-
             <div class="code-item">
 
                 <div>
-
                     <div class="code-name">
                         🌙 CODE NUIT ${String(index + 1).padStart(2,"0")}
                     </div>
@@ -1132,7 +1034,6 @@ function showNightCodes() {
                     <div class="code-value">
                         ${code}
                     </div>
-
                 </div>
 
                 <button
@@ -1143,7 +1044,6 @@ function showNightCodes() {
                 </button>
 
             </div>
-
         `;
 
     });
@@ -1159,90 +1059,30 @@ function showNightCodes() {
             </p>
 
             <p>
-                Tu peux maintenant consulter et télécharger
-                les coupons disponibles.
+                Plateforme :
+                <strong>${selectedUserPlatform}</strong>
+            </p>
+
+            <p>
+                Code promo :
+                <strong>${PROMO_CODE}</strong>
+            </p>
+
+            <p>
+                🎟️ Voici tes 7 codes coupons.
             </p>
 
         </div>
 
-        <p style="margin-top:15px;">
-            🎟️ <strong>7 CODES COUPONS</strong>
-        </p>
-
         <div class="code-box">
-
             ${html}
-
         </div>
-
-        <p style="margin-top:15px;font-size:12px;color:#68736d;">
-            ⚠️ Les codes affichés sont des exemples.
-            Remplace-les par tes véritables codes avant
-            de publier le site.
-        </p>
 
         <button class="back-btn" onclick="backHome()">
             ← Retour
         </button>
 
     `);
-
-}
-
-
-/* =====================================================
-   POKER
-===================================================== */
-
-function showPoker() {
-
-    if (!accessGranted) {
-
-        showContent(`
-
-            <div class="lock-icon">
-                🔐
-            </div>
-
-            <div class="access-title">
-                ACCÈS AUX COUPONS POKER
-            </div>
-
-            <p style="text-align:center;">
-                Les coupons Poker sont accessibles uniquement
-                après validation des conditions d'accès.
-            </p>
-
-            <div class="warning">
-
-                <strong>Conditions :</strong>
-
-                <p style="margin-top:8px;">
-                    1️⃣ Compte 1XBET, MELBET ou PARIPESA
-                    créé avec le code <strong>8F9Y</strong>.
-                </p>
-
-                <p>
-                    2️⃣ Premier dépôt effectué selon les
-                    conditions affichées.
-                </p>
-
-            </div>
-
-            <button class="green-btn" onclick="showRegistration()">
-                🔐 OBTENIR L'ACCÈS
-            </button>
-
-            <button class="back-btn" onclick="backHome()">
-                ← Retour
-            </button>
-
-        `);
-
-        return;
-    }
-
-    showPokerCodes();
 
 }
 
@@ -1268,11 +1108,9 @@ function showPokerCodes() {
     codes.forEach((code, index) => {
 
         html += `
-
             <div class="code-item">
 
                 <div>
-
                     <div class="code-name">
                         🃏 CODE POKER ${String(index + 1).padStart(2,"0")}
                     </div>
@@ -1280,7 +1118,6 @@ function showPokerCodes() {
                     <div class="code-value">
                         ${code}
                     </div>
-
                 </div>
 
                 <button
@@ -1291,7 +1128,6 @@ function showPokerCodes() {
                 </button>
 
             </div>
-
         `;
 
     });
@@ -1307,27 +1143,24 @@ function showPokerCodes() {
             </p>
 
             <p>
-                Tu peux maintenant consulter et télécharger
-                les coupons disponibles.
+                Plateforme :
+                <strong>${selectedUserPlatform}</strong>
+            </p>
+
+            <p>
+                Code promo :
+                <strong>${PROMO_CODE}</strong>
+            </p>
+
+            <p>
+                🎟️ Voici tes 7 codes coupons.
             </p>
 
         </div>
 
-        <p style="margin-top:15px;">
-            🎟️ <strong>7 CODES COUPONS</strong>
-        </p>
-
         <div class="code-box">
-
             ${html}
-
         </div>
-
-        <p style="margin-top:15px;font-size:12px;color:#68736d;">
-            ⚠️ Les codes affichés sont des exemples.
-            Remplace-les par tes véritables codes avant
-            de publier le site.
-        </p>
 
         <button class="back-btn" onclick="backHome()">
             ← Retour
@@ -1339,7 +1172,7 @@ function showPokerCodes() {
 
 
 /* =====================================================
-   TÉLÉCHARGEMENT DU CODE
+   TÉLÉCHARGEMENT
 ===================================================== */
 
 function downloadCode(code, filename) {
@@ -1351,8 +1184,9 @@ Coupon : ${code}
 
 Code promo partenaire : ${PROMO_CODE}
 
-Important :
-Ce fichier contient le code du coupon affiché sur la page JEFF PRO.
+Plateforme : ${selectedUserPlatform}
+
+JEFF PRO
 `;
 
     const blob = new Blob(
@@ -1365,7 +1199,6 @@ Ce fichier contient le code du coupon affiché sur la page JEFF PRO.
     const a = document.createElement("a");
 
     a.href = url;
-
     a.download = filename + ".txt";
 
     document.body.appendChild(a);
@@ -1374,13 +1207,15 @@ Ce fichier contient le code du coupon affiché sur la page JEFF PRO.
 
     document.body.removeChild(a);
 
-    URL.revokeObjectURL(url);
+    setTimeout(() => {
+        URL.revokeObjectURL(url);
+    }, 1000);
 
 }
 
 
 /* =====================================================
-   SCORE
+   SCORE EXACT
 ===================================================== */
 
 function showScore() {
@@ -1452,7 +1287,7 @@ function showFifa() {
 
 
 /* =====================================================
-   INSCRIPTION / ACCÈS
+   INSCRIPTION
 ===================================================== */
 
 function showRegistration() {
@@ -1462,21 +1297,28 @@ function showRegistration() {
         <h2>🔐 ACCÈS JEFF PRO</h2>
 
         <p>
-            Pour accéder aux coupons disponibles,
-            sélectionne la plateforme sur laquelle tu as
-            créé ton compte avec le code promo
+            Pour accéder aux coupons, sélectionne la
+            plateforme sur laquelle tu as créé ton compte
+            avec le code promo
             <strong>${PROMO_CODE}</strong>.
         </p>
 
         <div class="warning">
 
-            <strong>⚠️ IMPORTANT</strong>
+            <strong>⚠️ CONDITIONS D'ACCÈS</strong>
 
             <p style="margin-top:8px;">
-                Le site ne peut pas vérifier directement
-                les données de ton compte bookmaker.
-                Cette étape sert à confirmer les conditions
-                d'accès avant d'afficher les coupons.
+                1️⃣ Compte créé sur 1XBET, MELBET ou PARIPESA.
+            </p>
+
+            <p>
+                2️⃣ Code promo utilisé :
+                <strong>${PROMO_CODE}</strong>
+            </p>
+
+            <p>
+                3️⃣ Dépôt minimum demandé :
+                <strong>1 500 FCFA</strong>
             </p>
 
         </div>
@@ -1518,7 +1360,7 @@ function showRegistration() {
 
 
 /* =====================================================
-   SÉLECTION PLATEFORME
+   PLATEFORME
 ===================================================== */
 
 function selectPlatform(platform) {
@@ -1530,16 +1372,14 @@ function selectPlatform(platform) {
         <h2>🔐 VÉRIFICATION D'ACCÈS</h2>
 
         <div class="platform-selected">
-
             ✅ Plateforme :
             <strong>${platform}</strong>
-
         </div>
 
-        <h3>2️⃣ Vérifie ton code promo</h3>
+        <h3>2️⃣ Vérification du code promo</h3>
 
         <p>
-            Le compte doit avoir été créé avec le code :
+            Le compte doit avoir été créé avec :
         </p>
 
         <p style="
@@ -1576,7 +1416,7 @@ function selectPlatform(platform) {
 
 
 /* =====================================================
-   CONFIRMATION CODE
+   CODE PROMO
 ===================================================== */
 
 function confirmPromo() {
@@ -1601,13 +1441,11 @@ function confirmPromo() {
 
         </div>
 
-        <h3>
-            3️⃣ Confirmation
-        </h3>
+        <h3>3️⃣ Confirmation du dépôt</h3>
 
         <p>
-            Confirme que tu as effectué le premier dépôt
-            demandé sur ton compte.
+            Confirme que tu as effectué le dépôt minimum
+            de <strong>1 500 FCFA</strong> sur ton compte.
         </p>
 
         <div class="choice-buttons">
@@ -1616,7 +1454,7 @@ function confirmPromo() {
                 class="choice-btn"
                 onclick="grantAccess()"
             >
-                ✅ OUI, MON COMPTE EST PRÊT
+                ✅ OUI, J'AI EFFECTUÉ LE DÉPÔT
             </button>
 
             <button
@@ -1633,9 +1471,7 @@ function confirmPromo() {
             font-size:12px;
             color:#68736d;
         ">
-            Cette confirmation est déclarative :
-            le site ne vérifie pas directement ton compte
-            bookmaker.
+            Cette confirmation est déclarative.
         </p>
 
     `);
@@ -1644,12 +1480,22 @@ function confirmPromo() {
 
 
 /* =====================================================
-   ACCÈS AUTORISÉ
+   ACCÈS FINAL
 ===================================================== */
 
 function grantAccess() {
 
     accessGranted = true;
+
+    if (requestedAccess === "night") {
+        showNightCodes();
+        return;
+    }
+
+    if (requestedAccess === "poker") {
+        showPokerCodes();
+        return;
+    }
 
     showContent(`
 
@@ -1662,7 +1508,7 @@ function grantAccess() {
             </p>
 
             <p>
-                Plateforme sélectionnée :
+                Plateforme :
                 <strong>${selectedUserPlatform}</strong>
             </p>
 
@@ -1672,22 +1518,21 @@ function grantAccess() {
             </p>
 
             <p>
-                Tu peux maintenant accéder aux coupons
-                disponibles.
+                Ton accès aux coupons est maintenant activé.
             </p>
 
         </div>
 
         <button
             class="green-btn"
-            onclick="showNightCodes()"
+            onclick="requestedAccess='night'; showNightCodes()"
         >
             🌙 COUPONS DE NUIT
         </button>
 
         <button
             class="green-btn"
-            onclick="showPokerCodes()"
+            onclick="requestedAccess='poker'; showPokerCodes()"
         >
             🃏 COUPONS POKER
         </button>
@@ -1725,7 +1570,6 @@ function addMessage(text, type) {
 
     messages.scrollTop =
         messages.scrollHeight;
-
 }
 
 
@@ -1755,9 +1599,7 @@ function sendMessage() {
         .replace(/\s+/g, " ")
         .trim();
 
-
     setTimeout(() => {
-
 
         if (
             text.includes("bonjour") ||
@@ -1853,8 +1695,10 @@ function sendMessage() {
             text.includes("cote 1000")
         ) {
 
+            requestedAccess = "night";
+
             addMessage(
-                "🌙 Les coupons de nuit sont protégés. Ouvre la rubrique et suis les étapes d'accès.",
+                "🌙 Les coupons de nuit sont protégés. Suis les étapes d'accès pour les afficher.",
                 "bot-message"
             );
 
@@ -1869,6 +1713,8 @@ function sendMessage() {
             text.includes("coupon") ||
             text.includes("coupons")
         ) {
+
+            requestedAccess = "poker";
 
             addMessage(
                 "🃏 Voici la rubrique des coupons Poker.",
@@ -1915,9 +1761,7 @@ function sendMessage() {
         }
 
 
-        if (
-            text.includes("1xbet")
-        ) {
+        if (text.includes("1xbet")) {
 
             addMessage(
                 "🔵 Pour 1XBET, utilise le bouton 1XBET situé en bas de la page. Le code indiqué est 8F9Y.",
@@ -1928,9 +1772,7 @@ function sendMessage() {
         }
 
 
-        if (
-            text.includes("melbet")
-        ) {
+        if (text.includes("melbet")) {
 
             addMessage(
                 "🟠 Pour MELBET, utilise le bouton MELBET situé en bas de la page. Le code indiqué est 8F9Y.",
@@ -1941,9 +1783,7 @@ function sendMessage() {
         }
 
 
-        if (
-            text.includes("paripesa")
-        ) {
+        if (text.includes("paripesa")) {
 
             addMessage(
                 "🔵 Pour PARIPESA, utilise le bouton PARIPESA situé en bas de la page. Le code indiqué est 8F9Y.",
@@ -1961,21 +1801,7 @@ function sendMessage() {
         ) {
 
             addMessage(
-                "💰 Consulte les conditions affichées sur la page avant d'effectuer ton dépôt.",
-                "bot-message"
-            );
-
-            return;
-        }
-
-
-        if (
-            text.includes("gratuit") ||
-            text.includes("gratuitement")
-        ) {
-
-            addMessage(
-                "💚 Certains contenus sont présentés comme gratuits, mais des conditions d'accès peuvent s'appliquer.",
+                "💰 Le dépôt minimum indiqué pour l'accès est de 1 500 FCFA.",
                 "bot-message"
             );
 
@@ -2014,9 +1840,7 @@ function sendMessage() {
         }
 
 
-        if (
-            text.includes("fifa")
-        ) {
+        if (text.includes("fifa")) {
 
             addMessage(
                 "⚽ Voici la rubrique FIFA.",
@@ -2046,9 +1870,7 @@ function sendMessage() {
         }
 
 
-        if (
-            text.includes("merci")
-        ) {
+        if (text.includes("merci")) {
 
             addMessage(
                 "Avec plaisir 💚",
@@ -2069,16 +1891,10 @@ function sendMessage() {
 }
 
 
-/* =====================================================
-   ENTRÉE
-===================================================== */
-
 function handleEnter(event) {
 
     if (event.key === "Enter") {
-
         sendMessage();
-
     }
 
 }
