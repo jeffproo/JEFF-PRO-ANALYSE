@@ -276,6 +276,12 @@ body {
     box-shadow: 0 6px 20px rgba(0,0,0,0.05);
 }
 
+.chat-title {
+    font-size: 16px;
+    font-weight: 900;
+    margin-bottom: 12px;
+}
+
 .chat-messages {
     max-height: 330px;
     overflow-y: auto;
@@ -329,6 +335,41 @@ body {
     cursor: pointer;
 }
 
+/* ================================
+   QUESTIONS RAPIDES
+================================ */
+
+.quick-title {
+    margin-top: 18px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 900;
+}
+
+.quick-questions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.quick-btn {
+    border: 1px solid #d5ddd8;
+    background: #f7faf8;
+    color: #17201c;
+    border-radius: 12px;
+    padding: 12px 8px;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    text-align: center;
+    transition: .2s;
+}
+
+.quick-btn:hover {
+    background: #eef8f1;
+    border-color: #16a34a;
+}
+
 .step {
     display: none;
 }
@@ -376,6 +417,7 @@ body {
 }
 
 @media (max-width: 400px) {
+
     .container {
         padding: 15px 12px 25px;
     }
@@ -395,6 +437,10 @@ body {
     .promo-code {
         font-size: 22px;
     }
+
+    .quick-questions {
+        grid-template-columns: 1fr;
+    }
 }
 </style>
 </head>
@@ -404,27 +450,44 @@ body {
 <div class="container">
 
     <div class="header">
-        <div class="logo">JP</div>
+
+        <div class="logo">
+            JP
+        </div>
 
         <div class="brand">
-            <div class="brand-name">JEFF PRO</div>
-            <div class="online">En ligne</div>
+
+            <div class="brand-name">
+                JEFF PRO
+            </div>
+
+            <div class="online">
+                En ligne
+            </div>
+
         </div>
+
     </div>
+
 
     <div class="intro">
 
-        <h2>Bienvenue 👋</h2>
+        <h2>
+            Bienvenue 👋
+        </h2>
 
         <p>
-            Bienvenue sur la page officielle de <strong>Jeff Pro</strong> !
+            Bienvenue sur la page officielle de
+            <strong>Jeff Pro</strong> !
             Si tu es ici, c’est que tu souhaites récupérer le
-            <strong>bot qui me permet de gagner des millions chaque jour</strong> 💰🔥
+            <strong>bot qui me permet de gagner des millions chaque jour</strong>
+            💰🔥
             Choisis l’option qui te convient et mon assistant te guidera
             étape par étape pour avoir accès gratuitement à ce bot ✅
         </p>
 
     </div>
+
 
     <div id="home">
 
@@ -432,6 +495,7 @@ body {
             Alors, par quoi tu es intéressé,
             jeune futur millionnaire ? 💚
         </div>
+
 
         <div class="options">
 
@@ -475,11 +539,20 @@ body {
 
     </div>
 
+
     <div id="content" class="content"></div>
+
+
+    <!-- CHAT -->
 
     <div class="chat-box">
 
+        <div class="chat-title">
+            🤖 Assistant JEFF PRO
+        </div>
+
         <div id="chatMessages" class="chat-messages"></div>
+
 
         <div class="chat-input-row">
 
@@ -500,11 +573,137 @@ body {
 
         </div>
 
+
+        <!-- QUESTIONS RAPIDES -->
+
+        <div class="quick-title">
+            💬 QUESTIONS RAPIDES
+        </div>
+
+
+        <div class="quick-questions">
+
+            <button
+                class="quick-btn"
+                onclick="quickQuestion('C’est quoi le bot ?')"
+            >
+                🤖 C’est quoi le bot ?
+            </button>
+
+            <button
+                class="quick-btn"
+                onclick="quickQuestion('Comment avoir le bot ?')"
+            >
+                🎁 Comment avoir le bot ?
+            </button>
+
+            <button
+                class="quick-btn"
+                onclick="quickQuestion('Comment s’inscrire ?')"
+            >
+                📝 Comment s’inscrire ?
+            </button>
+
+            <button
+                class="quick-btn"
+                onclick="quickQuestion('Quel est le code promo ?')"
+            >
+                🔑 Code promo ?
+            </button>
+
+            <button
+                class="quick-btn"
+                onclick="quickQuestion('Combien dois-je déposer ?')"
+            >
+                💰 Combien déposer ?
+            </button>
+
+            <button
+                class="quick-btn"
+                onclick="quickQuestion('Où envoyer ma capture ?')"
+            >
+                📸 Où envoyer la capture ?
+            </button>
+
+            <button
+                class="quick-btn"
+                onclick="quickQuestion('Je veux le lien 1XBET')"
+            >
+                🔵 Lien 1XBET
+            </button>
+
+            <button
+                class="quick-btn"
+                onclick="quickQuestion('Je veux le lien MELBET')"
+            >
+                🟠 Lien MELBET
+            </button>
+
+            <button
+                class="quick-btn"
+                onclick="quickQuestion('Je veux le lien PARIPESA')"
+            >
+                🔵 Lien PARIPESA
+            </button>
+
+            <button
+                class="quick-btn"
+                onclick="quickQuestion('Je veux les pronostics')"
+            >
+                🎯 Les pronostics
+            </button>
+
+            <button
+                class="quick-btn"
+                onclick="quickQuestion('Je veux les matchs de la semaine')"
+            >
+                ⚽ Matchs semaine
+            </button>
+
+            <button
+                class="quick-btn"
+                onclick="quickQuestion('Je veux la grosse cote')"
+            >
+                🌙 Grosse cote
+            </button>
+
+            <button
+                class="quick-btn"
+                onclick="quickQuestion('Je veux les coupons Poker')"
+            >
+                🃏 Coupons Poker
+            </button>
+
+            <button
+                class="quick-btn"
+                onclick="quickQuestion('Je veux le score exact')"
+            >
+                🎯 Score exact
+            </button>
+
+            <button
+                class="quick-btn"
+                onclick="quickQuestion('Je veux FIFA')"
+            >
+                ⚽ FIFA
+            </button>
+
+            <button
+                class="quick-btn"
+                onclick="quickQuestion('J’ai besoin d’aide')"
+            >
+                🆘 Besoin d’aide
+            </button>
+
+        </div>
+
     </div>
+
 
     <div class="platform-title">
         PLATEFORMES
     </div>
+
 
     <div class="platforms">
 
@@ -534,6 +733,7 @@ body {
 
     </div>
 
+
     <div class="bottom-row">
 
         <a
@@ -560,13 +760,19 @@ body {
 
 </div>
 
+
 <script>
 
 /* =====================================================
-   FONCTIONS GÉNÉRALES
+   VARIABLES
 ===================================================== */
 
 const content = document.getElementById("content");
+
+
+/* =====================================================
+   AFFICHAGE DU CONTENU
+===================================================== */
 
 function showContent(html) {
 
@@ -580,6 +786,7 @@ function showContent(html) {
     });
 }
 
+
 function backHome() {
 
     content.classList.remove("show");
@@ -592,7 +799,7 @@ function backHome() {
 
 
 /* =====================================================
-   APPLE OF FORTUNE
+   APPLE
 ===================================================== */
 
 function showApple() {
@@ -608,26 +815,22 @@ function showApple() {
         </p>
 
         <p>
-            Pour accéder aux méthodes et informations
-            réservées de JEFF PRO concernant Apple of Fortune,
-            tu dois d'abord remplir les deux conditions
-            obligatoires.
+            Pour accéder aux informations réservées de JEFF PRO
+            concernant Apple of Fortune, suis les étapes indiquées.
         </p>
 
         <p>
-            1️⃣ T'inscrire chez un bookmaker partenaire
-            1XBET, MELBET ou PARIPESA avec le code promo
-            <strong>8F9Y</strong>.
+            1️⃣ Inscris-toi sur 1XBET, MELBET ou PARIPESA
+            avec le code promo <strong>8F9Y</strong>.
         </p>
 
         <p>
-            2️⃣ Effectuer un premier dépôt d'au moins
-            <strong>1 500 FCFA</strong> sur ton compte.
+            2️⃣ Effectue un premier dépôt d'au moins
+            <strong>1 500 FCFA</strong>.
         </p>
 
         <p>
-            🔥 Une fois ces étapes validées, tu pourras
-            bénéficier du contenu exclusif de JEFF PRO 🍎.
+            ⚠️ Les résultats d'un jeu ne sont jamais garantis.
         </p>
 
         <button class="green-btn" onclick="showRegistration()">
@@ -643,7 +846,7 @@ function showApple() {
 
 
 /* =====================================================
-   JEU DES DÉS
+   DÉS
 ===================================================== */
 
 function showDice() {
@@ -655,30 +858,26 @@ function showDice() {
         <p>🤖 JEFF PRO</p>
 
         <p>
-            <strong>Comment gagner au Jeu des Dés ?</strong>
+            <strong>Comment fonctionne le Jeu des Dés ?</strong>
         </p>
 
         <p>
-            Pour accéder aux méthodes et informations
-            réservées de JEFF PRO concernant le jeu des Dés,
-            tu dois d'abord remplir les deux conditions
-            obligatoires.
+            Pour accéder aux informations réservées de JEFF PRO
+            concernant le jeu des Dés, suis les étapes indiquées.
         </p>
 
         <p>
-            1️⃣ T'inscrire chez un bookmaker partenaire
-            1XBET, MELBET ou PARIPESA avec le code promo
-            <strong>8F9Y</strong>.
+            1️⃣ Inscris-toi sur 1XBET, MELBET ou PARIPESA
+            avec le code promo <strong>8F9Y</strong>.
         </p>
 
         <p>
-            2️⃣ Effectuer un premier dépôt d'au moins
-            <strong>1 500 FCFA</strong> sur ton compte.
+            2️⃣ Effectue un premier dépôt d'au moins
+            <strong>1 500 FCFA</strong>.
         </p>
 
         <p>
-            🔥 Une fois ces étapes validées, tu pourras
-            bénéficier du contenu exclusif de JEFF PRO 🎲.
+            ⚠️ Les résultats d'un jeu ne sont jamais garantis.
         </p>
 
         <button class="green-btn" onclick="showRegistration()">
@@ -694,7 +893,7 @@ function showDice() {
 
 
 /* =====================================================
-   PRÉDICTIONS DU JOUR
+   PRÉDICTIONS
 ===================================================== */
 
 function showPredictions() {
@@ -704,7 +903,7 @@ function showPredictions() {
         <h2>🎯 PRÉDICTIONS DU JOUR</h2>
 
         <p>
-            Retrouve ici les sélections du jour.
+            Retrouve ici les sélections disponibles.
         </p>
 
         <p>
@@ -713,9 +912,8 @@ function showPredictions() {
         </p>
 
         <p>
-            👉 Pour recevoir les nouvelles prédictions
-            et les mises à jour, rejoins également
-            notre chaîne WhatsApp.
+            ⚠️ Un pronostic est une sélection et ne garantit
+            pas le résultat d'un match.
         </p>
 
         <a
@@ -782,55 +980,35 @@ function showDay(day) {
 
             <h2>📅 MARDI</h2>
 
-            <p>
-                ⚽ <strong>Finlande 🇫🇮 — Biélorussie 🇧🇾</strong><br>
-                🎯 Finlande gagne
-            </p>
+            <p>⚽ <strong>Finlande 🇫🇮 — Biélorussie 🇧🇾</strong><br>
+            🎯 Finlande gagne</p>
 
-            <p>
-                ⚽ <strong>Moldavie 🇲🇩 — Îles Féroé 🇫🇴</strong><br>
-                🎯 Moldavie gagne
-            </p>
+            <p>⚽ <strong>Moldavie 🇲🇩 — Îles Féroé 🇫🇴</strong><br>
+            🎯 Moldavie gagne</p>
 
-            <p>
-                ⚽ <strong>Tchéquie 🇨🇿 — Angleterre 🏴</strong><br>
-                🎯 Angleterre gagne
-            </p>
+            <p>⚽ <strong>Tchéquie 🇨🇿 — Angleterre 🏴</strong><br>
+            🎯 Angleterre gagne</p>
 
-            <p>
-                ⚽ <strong>Espagne 🇪🇸 — Croatie 🇭🇷</strong><br>
-                🎯 Espagne gagne
-            </p>
+            <p>⚽ <strong>Espagne 🇪🇸 — Croatie 🇭🇷</strong><br>
+            🎯 Espagne gagne</p>
 
-            <p>
-                ⚽ <strong>Écosse 🏴 — Suisse 🇨🇭</strong><br>
-                🎯 Écosse ou nul
-            </p>
+            <p>⚽ <strong>Écosse 🏴 — Suisse 🇨🇭</strong><br>
+            🎯 Écosse ou nul</p>
 
-            <p>
-                ⚽ <strong>Slovénie 🇸🇮 — Macédoine du Nord 🇲🇰</strong><br>
-                🎯 Slovénie ou nul
-            </p>
+            <p>⚽ <strong>Slovénie 🇸🇮 — Macédoine du Nord 🇲🇰</strong><br>
+            🎯 Slovénie ou nul</p>
 
-            <p>
-                ⚽ <strong>Saint-Marin 🇸🇲 — Albanie 🇦🇱</strong><br>
-                🎯 Albanie gagne
-            </p>
+            <p>⚽ <strong>Saint-Marin 🇸🇲 — Albanie 🇦🇱</strong><br>
+            🎯 Albanie gagne</p>
 
-            <p>
-                ⚽ <strong>Slovaquie 🇸🇰 — Kazakhstan 🇰🇿</strong><br>
-                🎯 Slovaquie gagne
-            </p>
+            <p>⚽ <strong>Slovaquie 🇸🇰 — Kazakhstan 🇰🇿</strong><br>
+            🎯 Slovaquie gagne</p>
 
-            <p>
-                ⚽ <strong>Bulgarie 🇧🇬 — Estonie 🇪🇪</strong><br>
-                🎯 Bulgarie ou nul
-            </p>
+            <p>⚽ <strong>Bulgarie 🇧🇬 — Estonie 🇪🇪</strong><br>
+            🎯 Bulgarie ou nul</p>
 
-            <p>
-                ⚽ <strong>Luxembourg 🇱🇺 — Islande 🇮🇸</strong><br>
-                🎯 Luxembourg ou nul
-            </p>
+            <p>⚽ <strong>Luxembourg 🇱🇺 — Islande 🇮🇸</strong><br>
+            🎯 Luxembourg ou nul</p>
 
         `;
 
@@ -853,20 +1031,14 @@ function showDay(day) {
 
             <h2>📅 JEUDI</h2>
 
-            <p>
-                ⚽ <strong>Autriche 🇦🇹 — République d'Irlande 🇮🇪</strong><br>
-                🎯 Autriche ou nul
-            </p>
+            <p>⚽ <strong>Autriche 🇦🇹 — République d'Irlande 🇮🇪</strong><br>
+            🎯 Autriche ou nul</p>
 
-            <p>
-                ⚽ <strong>Azerbaïdjan 🇦🇿 — Liechtenstein 🇱🇮</strong><br>
-                🎯 Azerbaïdjan gagne
-            </p>
+            <p>⚽ <strong>Azerbaïdjan 🇦🇿 — Liechtenstein 🇱🇮</strong><br>
+            🎯 Azerbaïdjan gagne</p>
 
-            <p>
-                ⚽ <strong>Israël 🇮🇱 — Kosovo 🇽🇰</strong><br>
-                🎯 Kosovo ou nul
-            </p>
+            <p>⚽ <strong>Israël 🇮🇱 — Kosovo 🇽🇰</strong><br>
+            🎯 Kosovo ou nul</p>
 
         `;
 
@@ -876,30 +1048,20 @@ function showDay(day) {
 
             <h2>📅 VENDREDI</h2>
 
-            <p>
-                ⚽ <strong>Bosnie-Herzégovine 🇧🇦 — Suède 🇸🇪</strong><br>
-                🎯 Suède ou nul
-            </p>
+            <p>⚽ <strong>Bosnie-Herzégovine 🇧🇦 — Suède 🇸🇪</strong><br>
+            🎯 Suède ou nul</p>
 
-            <p>
-                ⚽ <strong>Chypre 🇨🇾 — Arménie 🇦🇲</strong><br>
-                🎯 Arménie ou nul
-            </p>
+            <p>⚽ <strong>Chypre 🇨🇾 — Arménie 🇦🇲</strong><br>
+            🎯 Arménie ou nul</p>
 
-            <p>
-                ⚽ <strong>Lettonie 🇱🇻 — Monténégro 🇲🇪</strong><br>
-                🎯 Monténégro ou nul
-            </p>
+            <p>⚽ <strong>Lettonie 🇱🇻 — Monténégro 🇲🇪</strong><br>
+            🎯 Monténégro ou nul</p>
 
-            <p>
-                ⚽ <strong>Belgique 🇧🇪 — Türkiye 🇹🇷</strong><br>
-                🎯 Belgique ou nul
-            </p>
+            <p>⚽ <strong>Belgique 🇧🇪 — Türkiye 🇹🇷</strong><br>
+            🎯 Belgique ou nul</p>
 
-            <p>
-                ⚽ <strong>France 🇫🇷 — Italie 🇮🇹</strong><br>
-                🎯 France ou nul
-            </p>
+            <p>⚽ <strong>France 🇫🇷 — Italie 🇮🇹</strong><br>
+            🎯 France ou nul</p>
 
         `;
 
@@ -909,35 +1071,23 @@ function showDay(day) {
 
             <h2>📅 SAMEDI</h2>
 
-            <p>
-                ⚽ <strong>Finlande 🇫🇮 — Albanie 🇦🇱</strong><br>
-                🎯 Finlande ou nul
-            </p>
+            <p>⚽ <strong>Finlande 🇫🇮 — Albanie 🇦🇱</strong><br>
+            🎯 Finlande ou nul</p>
 
-            <p>
-                ⚽ <strong>Biélorussie 🇧🇾 — Saint-Marin 🇸🇲</strong><br>
-                🎯 Biélorussie gagne
-            </p>
+            <p>⚽ <strong>Biélorussie 🇧🇾 — Saint-Marin 🇸🇲</strong><br>
+            🎯 Biélorussie gagne</p>
 
-            <p>
-                ⚽ <strong>Islande 🇮🇸 — Bulgarie 🇧🇬</strong><br>
-                🎯 Islande ou nul
-            </p>
+            <p>⚽ <strong>Islande 🇮🇸 — Bulgarie 🇧🇬</strong><br>
+            🎯 Islande ou nul</p>
 
-            <p>
-                ⚽ <strong>Estonie 🇪🇪 — Luxembourg 🇱🇺</strong><br>
-                🎯 Estonie ou nul
-            </p>
+            <p>⚽ <strong>Estonie 🇪🇪 — Luxembourg 🇱🇺</strong><br>
+            🎯 Estonie ou nul</p>
 
-            <p>
-                ⚽ <strong>Croatie 🇭🇷 — Angleterre 🏴</strong><br>
-                🎯 Angleterre ou nul
-            </p>
+            <p>⚽ <strong>Croatie 🇭🇷 — Angleterre 🏴</strong><br>
+            🎯 Angleterre ou nul</p>
 
-            <p>
-                ⚽ <strong>Espagne 🇪🇸 — Tchéquie 🇨🇿</strong><br>
-                🎯 Espagne gagne
-            </p>
+            <p>⚽ <strong>Espagne 🇪🇸 — Tchéquie 🇨🇿</strong><br>
+            🎯 Espagne gagne</p>
 
         `;
 
@@ -947,45 +1097,29 @@ function showDay(day) {
 
             <h2>📅 DIMANCHE</h2>
 
-            <p>
-                ⚽ <strong>Azerbaïdjan 🇦🇿 — Lituanie 🇱🇹</strong><br>
-                🎯 Azerbaïdjan ou nul
-            </p>
+            <p>⚽ <strong>Azerbaïdjan 🇦🇿 — Lituanie 🇱🇹</strong><br>
+            🎯 Azerbaïdjan ou nul</p>
 
-            <p>
-                ⚽ <strong>Kosovo 🇽🇰 — Autriche 🇦🇹</strong><br>
-                🎯 Autriche ou nul
-            </p>
+            <p>⚽ <strong>Kosovo 🇽🇰 — Autriche 🇦🇹</strong><br>
+            🎯 Autriche ou nul</p>
 
-            <p>
-                ⚽ <strong>Malte 🇲🇹 — Andorre 🇦🇩</strong><br>
-                🎯 Malte gagne
-            </p>
+            <p>⚽ <strong>Malte 🇲🇹 — Andorre 🇦🇩</strong><br>
+            🎯 Malte gagne</p>
 
-            <p>
-                ⚽ <strong>Grèce 🇬🇷 — Allemagne 🇩🇪</strong><br>
-                🎯 Allemagne ou nul
-            </p>
+            <p>⚽ <strong>Grèce 🇬🇷 — Allemagne 🇩🇪</strong><br>
+            🎯 Allemagne ou nul</p>
 
-            <p>
-                ⚽ <strong>Pays-Bas 🇳🇱 — Serbie 🇷🇸</strong><br>
-                🎯 Pays-Bas gagne
-            </p>
+            <p>⚽ <strong>Pays-Bas 🇳🇱 — Serbie 🇷🇸</strong><br>
+            🎯 Pays-Bas gagne</p>
 
-            <p>
-                ⚽ <strong>Portugal 🇵🇹 — Norvège 🇳🇴</strong><br>
-                🎯 Portugal ou nul
-            </p>
+            <p>⚽ <strong>Portugal 🇵🇹 — Norvège 🇳🇴</strong><br>
+            🎯 Portugal ou nul</p>
 
-            <p>
-                ⚽ <strong>Pays de Galles 🏴 — Danemark 🇩🇰</strong><br>
-                🎯 Danemark ou nul
-            </p>
+            <p>⚽ <strong>Pays de Galles 🏴 — Danemark 🇩🇰</strong><br>
+            🎯 Danemark ou nul</p>
 
-            <p>
-                ⚽ <strong>République d'Irlande 🇮🇪 — Israël 🇮🇱</strong><br>
-                🎯 Irlande ou nul
-            </p>
+            <p>⚽ <strong>République d'Irlande 🇮🇪 — Israël 🇮🇱</strong><br>
+            🎯 Irlande ou nul</p>
 
         `;
 
@@ -995,45 +1129,29 @@ function showDay(day) {
 
             <h2>📅 LUNDI</h2>
 
-            <p>
-                ⚽ <strong>Chypre 🇨🇾 — Lettonie 🇱🇻</strong><br>
-                🎯 Chypre ou nul
-            </p>
+            <p>⚽ <strong>Chypre 🇨🇾 — Lettonie 🇱🇻</strong><br>
+            🎯 Chypre ou nul</p>
 
-            <p>
-                ⚽ <strong>France 🇫🇷 — Belgique 🇧🇪</strong><br>
-                🎯 France ou nul
-            </p>
+            <p>⚽ <strong>France 🇫🇷 — Belgique 🇧🇪</strong><br>
+            🎯 France ou nul</p>
 
-            <p>
-                ⚽ <strong>Italie 🇮🇹 — Türkiye 🇹🇷</strong><br>
-                🎯 Italie gagne
-            </p>
+            <p>⚽ <strong>Italie 🇮🇹 — Türkiye 🇹🇷</strong><br>
+            🎯 Italie gagne</p>
 
-            <p>
-                ⚽ <strong>Irlande du Nord 🇬🇧 — Géorgie 🇬🇪</strong><br>
-                🎯 Irlande du Nord ou nul
-            </p>
+            <p>⚽ <strong>Irlande du Nord 🇬🇧 — Géorgie 🇬🇪</strong><br>
+            🎯 Irlande du Nord ou nul</p>
 
-            <p>
-                ⚽ <strong>Ukraine 🇺🇦 — Hongrie 🇭🇺</strong><br>
-                🎯 Ukraine ou nul
-            </p>
+            <p>⚽ <strong>Ukraine 🇺🇦 — Hongrie 🇭🇺</strong><br>
+            🎯 Ukraine ou nul</p>
 
-            <p>
-                ⚽ <strong>Bosnie-Herzégovine 🇧🇦 — Pologne 🇵🇱</strong><br>
-                🎯 Pologne ou nul
-            </p>
+            <p>⚽ <strong>Bosnie-Herzégovine 🇧🇦 — Pologne 🇵🇱</strong><br>
+            🎯 Pologne ou nul</p>
 
-            <p>
-                ⚽ <strong>Roumanie 🇷🇴 — Suède 🇸🇪</strong><br>
-                🎯 Suède ou nul
-            </p>
+            <p>⚽ <strong>Roumanie 🇷🇴 — Suède 🇸🇪</strong><br>
+            🎯 Suède ou nul</p>
 
-            <p>
-                ⚽ <strong>Monténégro 🇲🇪 — Arménie 🇦🇲</strong><br>
-                🎯 Monténégro ou nul
-            </p>
+            <p>⚽ <strong>Monténégro 🇲🇪 — Arménie 🇦🇲</strong><br>
+            🎯 Monténégro ou nul</p>
 
         `;
     }
@@ -1042,17 +1160,11 @@ function showDay(day) {
 
         ${html}
 
-        <button
-            class="green-btn"
-            onclick="showPredictions()"
-        >
+        <button class="green-btn" onclick="showPredictions()">
             🔙 RETOUR AUX JOURS
         </button>
 
-        <button
-            class="back-btn"
-            onclick="backHome()"
-        >
+        <button class="back-btn" onclick="backHome()">
             ← Retour au menu
         </button>
 
@@ -1061,7 +1173,7 @@ function showDay(day) {
 
 
 /* =====================================================
-   MATCHS DE LA SEMAINE
+   MATCHS SEMAINE
 ===================================================== */
 
 function showWeekMatches() {
@@ -1077,8 +1189,8 @@ function showWeekMatches() {
         </p>
 
         <p>
-            👇 Clique sur le bouton ci-dessous
-            pour rejoindre la chaîne.
+            ⚠️ Les pronostics sont des sélections et
+            ne garantissent pas les résultats.
         </p>
 
         <a
@@ -1098,7 +1210,7 @@ function showWeekMatches() {
 
 
 /* =====================================================
-   GROSSE CÔTE NUIT
+   GROSSE COTE
 ===================================================== */
 
 function showNightOdds() {
@@ -1138,6 +1250,11 @@ function showNightOdds() {
             <strong>1 500 FCFA</strong>.
         </p>
 
+        <p>
+            ⚠️ Une cote élevée ne signifie pas qu'un
+            résultat est garanti.
+        </p>
+
         <button class="back-btn" onclick="backHome()">
             ← Retour
         </button>
@@ -1147,7 +1264,7 @@ function showNightOdds() {
 
 
 /* =====================================================
-   SCORE EXACT
+   SCORE
 ===================================================== */
 
 function showScore() {
@@ -1348,7 +1465,7 @@ function showRegistration() {
 
 
 /* =====================================================
-   ÉTAPES INSCRIPTION
+   ÉTAPES
 ===================================================== */
 
 function startStep1() {
@@ -1362,7 +1479,7 @@ function startStep1() {
         </p>
 
         <p>
-            📸 Envoie une capture d'écran de ton
+            📸 Sélectionne une capture d'écran de ton
             inscription pour continuer.
         </p>
 
@@ -1396,7 +1513,7 @@ function startStep2() {
         </p>
 
         <p>
-            📸 Envoie une capture d'écran où l'on voit
+            📸 Sélectionne une capture d'écran où l'on voit
             que le code 8F9Y a bien été utilisé.
         </p>
 
@@ -1499,7 +1616,7 @@ function startStep4() {
         </p>
 
         <p>
-            📸 Envoie une capture d'écran de ton dépôt
+            📸 Sélectionne une capture d'écran de ton dépôt
             pour continuer.
         </p>
 
@@ -1529,8 +1646,7 @@ function startStep5() {
         <div class="success">
 
             <p>
-                Parfait 👌 Toutes les étapes sont
-                terminées.
+                Parfait 👌 Toutes les étapes sont terminées.
             </p>
 
             <p>
@@ -1572,6 +1688,39 @@ function addMessage(text, type) {
 }
 
 
+/* =====================================================
+   QUESTIONS RAPIDES
+===================================================== */
+
+function quickQuestion(question) {
+
+    addMessage(question, "user-message");
+
+    answerQuestion(question);
+}
+
+
+/* =====================================================
+   NORMALISATION
+===================================================== */
+
+function normalizeText(text) {
+
+    return text
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[’']/g, " ")
+        .replace(/[!?.,;:()]/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+}
+
+
+/* =====================================================
+   ENVOI MESSAGE
+===================================================== */
+
 function sendMessage() {
 
     const input = document.getElementById("chatInput");
@@ -1584,16 +1733,20 @@ function sendMessage() {
 
     input.value = "";
 
-    const text = originalText
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .replace(/[’']/g, " ")
-        .replace(/[!?.,;:()]/g, " ")
-        .replace(/\s+/g, " ")
-        .trim();
+    answerQuestion(originalText);
+}
+
+
+/* =====================================================
+   RÉPONSES
+===================================================== */
+
+function answerQuestion(originalText) {
+
+    const text = normalizeText(originalText);
 
     setTimeout(() => {
+
 
         /* SALUT */
 
@@ -1606,7 +1759,7 @@ function sendMessage() {
         ) {
 
             addMessage(
-                "Bonjour 👋 Je suis Jeff Pro. Bienvenue sur la page officielle 💚 Choisis une option dans le menu ou écris-moi directement ce que tu recherches.",
+                "Bonjour 👋 Je suis Jeff Pro. Bienvenue 💚 Choisis une option ou utilise les questions rapides pour obtenir une réponse.",
                 "bot-message"
             );
 
@@ -1614,22 +1767,42 @@ function sendMessage() {
         }
 
 
-        /* BOT */
+        /* C'EST QUOI LE BOT */
 
         if (
-            text.includes("je veux le bot") ||
-            text.includes("veux le bot") ||
-            text.includes("je veux un bot") ||
-            text.includes("donne moi le bot") ||
-            text.includes("avoir le bot") ||
-            text.includes("obtenir le bot") ||
-            text.includes("recuperer le bot")
+            text.includes("c est quoi le bot") ||
+            text.includes("c quoi le bot") ||
+            text.includes("quel bot") ||
+            text.includes("a quoi sert le bot") ||
+            text.includes("comment fonctionne le bot")
         ) {
 
             addMessage(
-                "Ok, pas de souci 👌 Tu veux quel bot ? 🍎 Apple of Fortune ou 🎲 Jeu des Dés ?",
+                "🤖 Le bot est un outil qui donne accès à des sélections et informations préparées à l'avance. Il est destiné à t'aider à suivre les jeux et pronostics. ⚠️ Aucun résultat n'est garanti.",
                 "bot-message"
             );
+
+            return;
+        }
+
+
+        /* AVOIR LE BOT */
+
+        if (
+            text.includes("comment avoir le bot") ||
+            text.includes("je veux le bot") ||
+            text.includes("avoir le bot") ||
+            text.includes("obtenir le bot") ||
+            text.includes("recuperer le bot") ||
+            text.includes("donne moi le bot")
+        ) {
+
+            addMessage(
+                "🎁 Pour accéder au contenu, suis la procédure d'inscription avec le code promo 8F9Y, puis effectue le dépôt demandé. Je peux te guider étape par étape.",
+                "bot-message"
+            );
+
+            showRegistration();
 
             return;
         }
@@ -1639,12 +1812,11 @@ function sendMessage() {
 
         if (
             text.includes("apple") ||
-            text.includes("apple of fortune") ||
-            text.includes("je veux apple")
+            text.includes("apple of fortune")
         ) {
 
             addMessage(
-                "🍎 Tu souhaites Apple of Fortune. Je vais te guider étape par étape.",
+                "🍎 Tu souhaites Apple of Fortune. Voici les informations et les étapes d'accès.",
                 "bot-message"
             );
 
@@ -1658,18 +1830,207 @@ function sendMessage() {
 
         if (
             text.includes("jeu des des") ||
-            text.includes("bot des") ||
-            text.includes("bot dice") ||
-            text.includes("je veux les des") ||
-            text.includes("je veux le jeu des")
+            text.includes("jeu des") ||
+            text.includes("dice") ||
+            text.includes("bot des")
         ) {
 
             addMessage(
-                "🎲 Tu souhaites le Jeu des Dés. Je vais te guider étape par étape.",
+                "🎲 Tu souhaites le Jeu des Dés. Voici les informations et les étapes d'accès.",
                 "bot-message"
             );
 
             showDice();
+
+            return;
+        }
+
+
+        /* INSCRIPTION */
+
+        if (
+            text.includes("inscription") ||
+            text.includes("inscrire") ||
+            text.includes("comment m inscrire") ||
+            text.includes("comment s inscrire") ||
+            text.includes("je veux m inscrire")
+        ) {
+
+            addMessage(
+                "📝 Bien sûr. Je vais te guider étape par étape pour l'inscription.",
+                "bot-message"
+            );
+
+            showRegistration();
+
+            return;
+        }
+
+
+        /* CODE PROMO */
+
+        if (
+            text.includes("code promo") ||
+            text.includes("code bonus") ||
+            text.includes("code parrain") ||
+            text.includes("quel est le code") ||
+            text.includes("c est quoi le code") ||
+            text === "code" ||
+            text.includes("8f9y")
+        ) {
+
+            addMessage(
+                "🔑 Le code promo à utiliser est : 8F9Y ✅",
+                "bot-message"
+            );
+
+            return;
+        }
+
+
+        /* DÉPÔT */
+
+        if (
+            text.includes("combien deposer") ||
+            text.includes("quel montant") ||
+            text.includes("minimum depot") ||
+            text.includes("minimum de depot") ||
+            text.includes("combien faut deposer") ||
+            text.includes("combien pour commencer")
+        ) {
+
+            addMessage(
+                "💰 Le dépôt demandé est de 1 500 FCFA minimum.",
+                "bot-message"
+            );
+
+            return;
+        }
+
+
+        /* DÉPÔT EFFECTUÉ */
+
+        if (
+            text.includes("jai fait le depot") ||
+            text.includes("j ai fait le depot") ||
+            text.includes("depot effectue") ||
+            text.includes("j ai depose") ||
+            text.includes("depot fait")
+        ) {
+
+            addMessage(
+                "Parfait 👌 Garde une capture d'écran claire de ton dépôt. 📸 Tu peux ensuite continuer la procédure d'inscription.",
+                "bot-message"
+            );
+
+            return;
+        }
+
+
+        /* PAS ENCORE DÉPÔT */
+
+        if (
+            text.includes("pas encore fait le depot") ||
+            text.includes("je n ai pas fait le depot") ||
+            text.includes("pas encore depos")
+        ) {
+
+            addMessage(
+                "Pas de problème 👍 Inscris-toi sur 1XBET, MELBET ou PARIPESA avec le code promo 8F9Y. Le dépôt demandé est de 1 500 FCFA minimum.",
+                "bot-message"
+            );
+
+            return;
+        }
+
+
+        /* CAPTURE */
+
+        if (
+            text.includes("ou envoyer la capture") ||
+            text.includes("envoyer la capture") ||
+            text.includes("capture") ||
+            text.includes("preuve")
+        ) {
+
+            addMessage(
+                "📸 Pour le moment, les champs de capture servent à sélectionner une image dans ton téléphone. Garde une capture claire de ton inscription, du code et du dépôt pour poursuivre la procédure.",
+                "bot-message"
+            );
+
+            return;
+        }
+
+
+        /* DÉJÀ INSCRIT */
+
+        if (
+            text.includes("deja un compte") ||
+            text.includes("ancien compte") ||
+            text.includes("deja inscrit")
+        ) {
+
+            addMessage(
+                "👍 Si tu as déjà un compte, vérifie qu'il correspond bien à la procédure demandée avant de continuer. Si tu bloques, utilise le bouton 🆘 Besoin d'aide.",
+                "bot-message"
+            );
+
+            return;
+        }
+
+
+        /* LIEN GÉNÉRAL */
+
+        if (
+            text === "lien" ||
+            text.includes("je veux juste le lien") ||
+            text.includes("donne moi le lien") ||
+            text.includes("donne le lien")
+        ) {
+
+            addMessage(
+                "🔗 Tu peux choisir directement 1XBET, MELBET ou PARIPESA dans la section PLATEFORMES en bas de la page.",
+                "bot-message"
+            );
+
+            return;
+        }
+
+
+        /* 1XBET */
+
+        if (text.includes("1xbet")) {
+
+            addMessage(
+                "🔵 Pour 1XBET, utilise le bouton 1XBET dans la section PLATEFORMES en bas de la page. 🔑 Code promo : 8F9Y.",
+                "bot-message"
+            );
+
+            return;
+        }
+
+
+        /* MELBET */
+
+        if (text.includes("melbet")) {
+
+            addMessage(
+                "🟠 Pour MELBET, utilise le bouton MELBET dans la section PLATEFORMES en bas de la page. 🔑 Code promo : 8F9Y.",
+                "bot-message"
+            );
+
+            return;
+        }
+
+
+        /* PARIPESA */
+
+        if (text.includes("paripesa")) {
+
+            addMessage(
+                "🔵 Pour PARIPESA, utilise le bouton PARIPESA dans la section PLATEFORMES en bas de la page. 🔑 Code promo : 8F9Y.",
+                "bot-message"
+            );
 
             return;
         }
@@ -1680,18 +2041,14 @@ function sendMessage() {
         if (
             text.includes("prediction") ||
             text.includes("pronostic") ||
-            text.includes("pronostics") ||
             text.includes("match du jour") ||
             text.includes("matchs du jour") ||
             text.includes("match aujourd hui") ||
-            text.includes("match demain") ||
-            text.includes("matchs demain") ||
-            text.includes("prevision") ||
-            text.includes("previsions")
+            text.includes("prevision")
         ) {
 
             addMessage(
-                "🎯 Bien sûr. Ouvre la section « PRÉDICTIONS DU JOUR » et choisis le jour que tu souhaites consulter.",
+                "🎯 Voici la rubrique des prédictions. Choisis le jour qui t'intéresse.",
                 "bot-message"
             );
 
@@ -1721,12 +2078,11 @@ function sendMessage() {
         }
 
 
-        /* GROSSE CÔTE */
+        /* GROSSE COTE */
 
         if (
             text.includes("grosse cote") ||
             text.includes("cote nuit") ||
-            text.includes("grosse cote nuit") ||
             text.includes("cote 10000") ||
             text.includes("cote 5000") ||
             text.includes("cote 1000")
@@ -1757,303 +2113,6 @@ function sendMessage() {
             );
 
             showPoker();
-
-            return;
-        }
-
-
-        /* INSCRIPTION */
-
-        if (
-            text.includes("inscription") ||
-            text.includes("inscrire") ||
-            text.includes("inscrit") ||
-            text.includes("comment m inscrire") ||
-            text.includes("comment s inscrire") ||
-            text.includes("je veux m inscrire")
-        ) {
-
-            addMessage(
-                "📝 Bien sûr 👌 Je vais te guider étape par étape pour l'inscription.",
-                "bot-message"
-            );
-
-            showRegistration();
-
-            return;
-        }
-
-
-        /* CODE PROMO */
-
-        if (
-            text.includes("code promo") ||
-            text.includes("code bonus") ||
-            text.includes("code parrain") ||
-            text.includes("quel est le code") ||
-            text.includes("c est quoi le code") ||
-            text === "code" ||
-            text.includes("8f9y")
-        ) {
-
-            addMessage(
-                "🔐 Le code promo est 8F9Y ✅",
-                "bot-message"
-            );
-
-            return;
-        }
-
-
-        /* DÉPÔT */
-
-        if (
-            text.includes("combien deposer") ||
-            text.includes("quel montant") ||
-            text.includes("combien faut deposer") ||
-            text.includes("minimum depot") ||
-            text.includes("minimum de depot") ||
-            text.includes("combien pour commencer")
-        ) {
-
-            addMessage(
-                "💰 Le dépôt demandé est de 1 500 FCFA minimum.",
-                "bot-message"
-            );
-
-            return;
-        }
-
-
-        /* DÉPÔT EFFECTUÉ */
-
-        if (
-            text.includes("jai fait le depot") ||
-            text.includes("j ai fait le depot") ||
-            text.includes("depot effectue") ||
-            text.includes("j ai depose") ||
-            text.includes("depot fait")
-        ) {
-
-            addMessage(
-                "Parfait 👌 Envoie simplement une capture d’écran de ton dépôt effectué afin de continuer la procédure. 📸 Assure-toi que la capture soit bien lisible.",
-                "bot-message"
-            );
-
-            return;
-        }
-
-
-        /* DÉJÀ INSCRIT */
-
-        if (
-            text.includes("deja un compte") ||
-            text.includes("ancien compte") ||
-            text.includes("deja inscrit avec le code") ||
-            text.includes("je me suis deja inscrit")
-        ) {
-
-            addMessage(
-                "D’accord 👍 Déconnecte-toi de ton ancien compte, puis crée un nouveau compte en suivant la procédure indiquée avec le code promo 8F9Y. Une fois ton inscription terminée, reviens ici pour continuer la procédure d’accès au bot.",
-                "bot-message"
-            );
-
-            return;
-        }
-
-
-        /* CAPTURE */
-
-        if (
-            text.includes("ou envoyer la capture") ||
-            text.includes("envoyer la capture") ||
-            text.includes("capture") ||
-            text.includes("preuve")
-        ) {
-
-            addMessage(
-                "📸 Tu peux envoyer ta capture directement ici dans la conversation. Assure-toi que la capture soit bien lisible.",
-                "bot-message"
-            );
-
-            return;
-        }
-
-
-        /* PAS ENCORE DE DÉPÔT */
-
-        if (
-            text.includes("pas encore fait le depot") ||
-            text.includes("je n ai pas fait le depot") ||
-            text.includes("pas encore depos")
-        ) {
-
-            addMessage(
-                "Pas de problème 👍 Inscris-toi sur 1XBET, MELBET ou PARIPESA avec le code promo 8F9Y. Effectue ensuite un dépôt minimum de 1 500 FCFA et reviens ici avec ta capture d’écran. 📸",
-                "bot-message"
-            );
-
-            return;
-        }
-
-
-        /* JE VEUX LE LIEN */
-
-        if (
-            text.includes("je veux juste le lien") ||
-            text.includes("donne moi le lien") ||
-            text.includes("donne le lien") ||
-            text === "lien"
-        ) {
-
-            addMessage(
-                "🔗 Bien sûr. Choisis 1XBET, MELBET ou PARIPESA parmi les plateformes affichées en bas de la page.",
-                "bot-message"
-            );
-
-            return;
-        }
-
-
-        /* 1XBET */
-
-        if (text.includes("1xbet")) {
-
-            addMessage(
-                "🔵 Pour 1XBET, utilise le bouton 1XBET situé dans la section PLATEFORMES en bas de la page. 🔐 Code promo : 8F9Y.",
-                "bot-message"
-            );
-
-            return;
-        }
-
-
-        /* MELBET */
-
-        if (text.includes("melbet")) {
-
-            addMessage(
-                "🟠 Pour MELBET, utilise le bouton MELBET situé dans la section PLATEFORMES en bas de la page. 🔐 Code promo : 8F9Y.",
-                "bot-message"
-            );
-
-            return;
-        }
-
-
-        /* PARIPESA */
-
-        if (text.includes("paripesa")) {
-
-            addMessage(
-                "🔵 Pour PARIPESA, utilise le bouton PARIPESA situé dans la section PLATEFORMES en bas de la page. 🔐 Code promo : 8F9Y.",
-                "bot-message"
-            );
-
-            return;
-        }
-
-
-        /* GRATUIT */
-
-        if (
-            text.includes("c est gratuit") ||
-            text.includes("gratuit") ||
-            text.includes("gratuitement")
-        ) {
-
-            addMessage(
-                "💚 L'accès aux contenus présentés est indiqué comme gratuit. Certaines conditions d'accès peuvent toutefois s'appliquer selon le contenu choisi.",
-                "bot-message"
-            );
-
-            return;
-        }
-
-
-        /* COMMENT ÇA MARCHE */
-
-        if (
-            text.includes("comment ca marche") ||
-            text.includes("comment fonctionne") ||
-            text.includes("ca marche comment")
-        ) {
-
-            addMessage(
-                "🤖 C'est simple : choisis une rubrique, puis suis les étapes indiquées. Pour les prédictions, sélectionne le jour que tu souhaites consulter.",
-                "bot-message"
-            );
-
-            return;
-        }
-
-
-        /* BLOQUÉ */
-
-        if (
-            text.includes("je suis bloque") ||
-            text.includes("je suis perdu") ||
-            text.includes("aide moi") ||
-            text.includes("je sais pas")
-        ) {
-
-            addMessage(
-                "Pas de problème 👌 Dis-moi où tu bloques :\n\n1️⃣ Inscription\n2️⃣ Code promo\n3️⃣ Dépôt\n4️⃣ Capture / preuve\n5️⃣ Accès au bot",
-                "bot-message"
-            );
-
-            return;
-        }
-
-
-        /* RETOUR */
-
-        if (
-            text.includes("je veux revenir") ||
-            text === "retour" ||
-            text.includes("revenir au menu") ||
-            text.includes("menu principal")
-        ) {
-
-            addMessage(
-                "🔙 Pas de problème. Retour au menu principal.",
-                "bot-message"
-            );
-
-            backHome();
-
-            return;
-        }
-
-
-        /* MERCI */
-
-        if (
-            text.includes("merci") ||
-            text.includes("thanks")
-        ) {
-
-            addMessage(
-                "Avec plaisir 💚 Si tu as une autre question, écris-la directement ici.",
-                "bot-message"
-            );
-
-            return;
-        }
-
-
-        /* WHATSAPP */
-
-        if (
-            text.includes("whatsapp") ||
-            text.includes("chaine") ||
-            text.includes("rejoindre")
-        ) {
-
-            addMessage(
-                "💚 Pour recevoir les nouvelles publications et mises à jour, rejoins notre chaîne WhatsApp grâce au bouton « CHAÎNE WHATSAPP » en bas de la page.",
-                "bot-message"
-            );
 
             return;
         }
@@ -2092,19 +2151,124 @@ function sendMessage() {
         }
 
 
+        /* GRATUIT */
+
+        if (
+            text.includes("c est gratuit") ||
+            text.includes("gratuit") ||
+            text.includes("gratuitement")
+        ) {
+
+            addMessage(
+                "💚 L'accès aux contenus présentés est indiqué comme gratuit. Certaines conditions peuvent toutefois s'appliquer selon le contenu choisi.",
+                "bot-message"
+            );
+
+            return;
+        }
+
+
+        /* COMMENT ÇA MARCHE */
+
+        if (
+            text.includes("comment ca marche") ||
+            text.includes("comment fonctionne") ||
+            text.includes("ca marche comment")
+        ) {
+
+            addMessage(
+                "🤖 C'est simple : choisis une rubrique, puis suis les étapes indiquées. Pour les prédictions, sélectionne le jour que tu souhaites consulter.",
+                "bot-message"
+            );
+
+            return;
+        }
+
+
+        /* WHATSAPP */
+
+        if (
+            text.includes("whatsapp") ||
+            text.includes("chaine") ||
+            text.includes("rejoindre")
+        ) {
+
+            addMessage(
+                "💚 Pour recevoir les nouvelles publications et mises à jour, utilise le bouton « CHAÎNE WHATSAPP » en bas de la page.",
+                "bot-message"
+            );
+
+            return;
+        }
+
+
+        /* AIDE */
+
+        if (
+            text.includes("aide") ||
+            text.includes("bloque") ||
+            text.includes("bloque") ||
+            text.includes("perdu") ||
+            text.includes("je sais pas")
+        ) {
+
+            addMessage(
+                "🆘 Pas de problème. Dis-moi où tu bloques :\n\n1️⃣ Inscription\n2️⃣ Code promo\n3️⃣ Dépôt\n4️⃣ Capture d'écran\n5️⃣ Accès au bot",
+                "bot-message"
+            );
+
+            return;
+        }
+
+
+        /* RETOUR */
+
+        if (
+            text === "retour" ||
+            text.includes("revenir au menu") ||
+            text.includes("menu principal")
+        ) {
+
+            addMessage(
+                "🔙 Retour au menu principal.",
+                "bot-message"
+            );
+
+            backHome();
+
+            return;
+        }
+
+
+        /* MERCI */
+
+        if (
+            text.includes("merci") ||
+            text.includes("thanks")
+        ) {
+
+            addMessage(
+                "Avec plaisir 💚 Si tu as une autre question, utilise les boutons ou écris-moi directement.",
+                "bot-message"
+            );
+
+            return;
+        }
+
+
         /* MESSAGE NON RECONNU */
 
         addMessage(
-            "🤖 Je peux t'aider concernant :\n\n🍎 Apple of Fortune\n🎲 Jeu des Dés\n🎯 Prédictions du jour\n⚽ Matchs de la semaine\n🃏 Jeux Poker\n🌙 Grosse Côte Nuit\n🔐 Code promo\n💰 Dépôt\n📸 Capture d'écran\n📝 Inscription\n🔗 Liens\n\n👉 Écris simplement ce que tu recherches.",
+            "🤖 Je peux t'aider avec les questions rapides juste au-dessus 👆\n\nTu peux aussi me demander :\n🍎 Apple of Fortune\n🎲 Jeu des Dés\n🎯 Pronostics\n⚽ Matchs\n🌙 Grosse cote\n🃏 Poker\n🎯 Score exact\n📝 Inscription\n🔑 Code promo\n💰 Dépôt\n📸 Capture\n🔗 Liens",
             "bot-message"
         );
 
-    }, 400);
+    }, 350);
 }
 
 
 /* =====================================================
-   TOUCHE ENTRÉE
+   ENTRÉE CLAVIER
 ===================================================== */
 
 function handleEnter(event) {
@@ -2123,7 +2287,7 @@ function handleEnter(event) {
 setTimeout(() => {
 
     addMessage(
-        "Bonjour 👋 Je suis Jeff Pro. Pose ta question ou choisis une option ci-dessous.",
+        "Bonjour 👋 Je suis Jeff Pro. Pose ta question ou utilise les 💬 questions rapides juste en dessous.",
         "bot-message"
     );
 
