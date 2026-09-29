@@ -1,1256 +1,1287 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-  <meta name="theme-color" content="#f5f7fb">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>JEFF PRO</title>
+<title>JEFF PRO</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<style>
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-      background: #f3f6fa;
-      color: #172033;
-      min-height: 100vh;
-    }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-    .page {
-      width: 100%;
-      max-width: 760px;
-      margin: auto;
-      padding: 18px 14px 30px;
-    }
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f7f6;
+    color: #111827;
+    padding: 15px;
+}
 
-    /* HEADER */
-    .header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 8px;
-    }
+.container {
+    width: 100%;
+    max-width: 650px;
+    margin: auto;
+    background: #ffffff;
+    border-radius: 22px;
+    padding: 22px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+}
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      font-size: 23px;
-      font-weight: 900;
-      letter-spacing: -0.5px;
-      color: #111827;
-    }
+/* =========================
+   HEADER
+========================= */
 
-    .brand-logo {
-      width: 34px;
-      height: 34px;
-      border-radius: 11px;
-      background: #111827;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 15px;
-      font-weight: 900;
-      box-shadow: 0 5px 14px rgba(0,0,0,.12);
-    }
+.header {
+    position: relative;
+    min-height: 75px;
+}
 
-    .online {
-      text-align: center;
-      margin: 16px 0 18px;
-      font-size: 17px;
-      font-weight: 800;
-      color: #16a34a;
-    }
+.logo {
+    font-size: 24px;
+    font-weight: 900;
+}
 
-    .online::before {
-      content: "";
-      display: inline-block;
-      width: 9px;
-      height: 9px;
-      background: #22c55e;
-      border-radius: 50%;
-      margin-right: 7px;
-      box-shadow: 0 0 0 4px rgba(34,197,94,.12);
-    }
+.online {
+    position: absolute;
+    left: 50%;
+    top: 5px;
+    transform: translateX(-50%);
+    font-size: 18px;
+    font-weight: 800;
+    white-space: nowrap;
+}
 
-    /* INTRO */
-    .intro {
-      background: white;
-      border-radius: 22px;
-      padding: 22px 18px;
-      text-align: center;
-      box-shadow: 0 8px 30px rgba(20,35,60,.07);
-      border: 1px solid #e8edf4;
-    }
+.online::before {
+    content: "";
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background: #16a34a;
+    border-radius: 50%;
+    margin-right: 7px;
+}
 
-    .intro h1 {
-      font-size: 21px;
-      margin-bottom: 8px;
-      color: #111827;
-    }
+/* =========================
+   INTRO
+========================= */
 
-    .intro p {
-      font-size: 15px;
-      line-height: 1.55;
-      color: #667085;
-    }
+.intro {
+    text-align: center;
+    margin-bottom: 20px;
+}
 
-    /* AUDIO */
-    .audio-box {
-      margin-top: 17px;
-      padding: 15px;
-      border-radius: 17px;
-      background: #f7f9fc;
-      border: 1px solid #e6ebf2;
-    }
+.intro h2 {
+    font-size: 20px;
+    margin-bottom: 8px;
+}
 
-    .audio-title {
-      font-size: 14px;
-      font-weight: 800;
-      margin-bottom: 9px;
-      color: #172033;
-    }
+.intro p {
+    color: #555;
+    line-height: 1.5;
+}
 
-    audio {
-      width: 100%;
-      height: 42px;
-    }
+/* =========================
+   AUDIO
+========================= */
 
-    .question-title {
-      text-align: center;
-      font-size: 15px;
-      font-weight: 800;
-      margin: 22px 0 13px;
-      color: #344054;
-    }
+.audio-box {
+    text-align: center;
+    margin: 20px 0 25px;
+}
 
-    /* QUESTION BUTTONS */
-    .questions {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
+.audio-title {
+    display: inline-block;
+    background: #111827;
+    color: white;
+    padding: 12px 18px;
+    border-radius: 12px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
 
-    .question-btn {
-      width: 100%;
-      border: 0;
-      border-radius: 15px;
-      padding: 15px 16px;
-      background: white;
-      color: #172033;
-      font-size: 15px;
-      font-weight: 750;
-      text-align: left;
-      cursor: pointer;
-      border: 1px solid #e4e9f0;
-      box-shadow: 0 4px 14px rgba(20,35,60,.045);
-      transition: .18s ease;
-    }
+audio {
+    width: 100%;
+    max-width: 500px;
+}
 
-    .question-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 7px 18px rgba(20,35,60,.09);
-    }
+/* =========================
+   QUESTION TITLE
+========================= */
 
-    .question-btn:active {
-      transform: scale(.985);
-    }
+.question-title {
+    text-align: center;
+    font-weight: 800;
+    font-size: 18px;
+    margin: 20px 0 15px;
+}
 
-    /* CHAT */
-    .chat {
-      margin-top: 18px;
-      display: none;
-    }
+/* =========================
+   OPTIONS VERTES
+========================= */
 
-    .chat.active {
-      display: block;
-    }
+.option {
+    width: 100%;
+    border: 2px solid #22c55e;
+    border-radius: 14px;
+    padding: 15px;
+    margin-bottom: 10px;
+    background: #ffffff;
+    color: #111827;
+    font-size: 16px;
+    font-weight: 700;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.2s;
+    box-shadow: 0 2px 7px rgba(34,197,94,0.10);
+}
 
-    .messages {
-      display: flex;
-      flex-direction: column;
-      gap: 11px;
-    }
+.option:hover {
+    background: #f0fdf4;
+    transform: translateY(-1px);
+}
 
-    .message {
-      max-width: 94%;
-      padding: 15px;
-      border-radius: 17px;
-      font-size: 14.5px;
-      line-height: 1.58;
-      white-space: pre-line;
-    }
+.option:active {
+    background: #dcfce7;
+    transform: scale(0.98);
+}
 
-    .bot-message {
-      align-self: flex-start;
-      background: white;
-      border: 1px solid #e5eaf1;
-      box-shadow: 0 5px 17px rgba(20,35,60,.05);
-    }
+/* =========================
+   CHAT
+========================= */
 
-    .user-message {
-      align-self: flex-end;
-      background: #172033;
-      color: white;
-    }
+.chat {
+    display: none;
+    margin-top: 20px;
+}
 
-    .message strong {
-      font-weight: 850;
-    }
+.chat.active {
+    display: block;
+}
 
-    /* CHAT ACTIONS */
-    .chat-actions {
-      display: flex;
-      flex-direction: column;
-      gap: 9px;
-      margin-top: 13px;
-    }
+.message {
+    background: #f1f5f9;
+    border-radius: 15px;
+    padding: 17px;
+    line-height: 1.65;
+    white-space: pre-line;
+    font-size: 15px;
+}
 
-    .action-btn {
-      width: 100%;
-      border: 0;
-      border-radius: 14px;
-      padding: 14px;
-      font-size: 14px;
-      font-weight: 800;
-      cursor: pointer;
-      background: #eef2f7;
-      color: #172033;
-      border: 1px solid #dfe5ec;
-    }
+.chat-input {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
 
-    .action-btn:hover {
-      filter: brightness(.98);
-    }
+.chat-input input {
+    flex: 1;
+    min-width: 0;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    padding: 13px;
+    font-size: 15px;
+    outline: none;
+}
 
-    .whatsapp-btn {
-      background: #16a34a;
-      color: white;
-      border-color: #16a34a;
-    }
+.chat-input input:focus {
+    border-color: #22c55e;
+}
 
-    .onexbet-btn {
-      background: #1264e8;
-      color: white;
-      border-color: #1264e8;
-    }
+.send {
+    border: none;
+    background: #22c55e;
+    color: white;
+    border-radius: 12px;
+    padding: 0 18px;
+    font-size: 20px;
+    cursor: pointer;
+}
 
-    .melbet-btn {
-      background: #f97316;
-      color: white;
-      border-color: #f97316;
-    }
+/* =========================
+   CAPTURE D'ÉCRAN
+========================= */
 
-    .paripesa-btn {
-      background: #075eea;
-      color: white;
-      border-color: #075eea;
-    }
+.capture-box {
+    margin-top: 15px;
+    padding: 15px;
+    border: 2px dashed #22c55e;
+    border-radius: 14px;
+    background: #f0fdf4;
+}
 
-    /* INPUT */
-    .input-area {
-      margin-top: 18px;
-      background: white;
-      padding: 8px;
-      border-radius: 17px;
-      border: 1px solid #e1e7ef;
-      display: flex;
-      gap: 7px;
-      box-shadow: 0 5px 18px rgba(20,35,60,.05);
-    }
+.capture-box label {
+    display: block;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
 
-    .input-area input {
-      flex: 1;
-      border: 0;
-      outline: 0;
-      background: transparent;
-      padding: 10px 9px;
-      font-size: 15px;
-      min-width: 0;
-    }
+.capture-box input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    background: white;
+    border-radius: 10px;
+}
 
-    .send-btn {
-      width: 44px;
-      height: 44px;
-      border: 0;
-      border-radius: 13px;
-      background: #172033;
-      color: white;
-      font-size: 20px;
-      cursor: pointer;
-    }
+.next-button {
+    width: 100%;
+    border: none;
+    background: #22c55e;
+    color: white;
+    padding: 14px;
+    border-radius: 12px;
+    margin-top: 12px;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+}
 
-    /* PLATFORMS */
-    .platform-title {
-      text-align: center;
-      margin: 27px 0 13px;
-      font-size: 13px;
-      font-weight: 900;
-      letter-spacing: 1.5px;
-      color: #667085;
+.next-button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+/* =========================
+   PLATEFORMES
+========================= */
+
+.platform-title {
+    text-align: center;
+    font-weight: 900;
+    margin: 30px 0 15px;
+}
+
+.platforms {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.platform {
+    text-decoration: none;
+    color: white;
+    text-align: center;
+    padding: 16px 5px;
+    border-radius: 14px;
+    font-weight: 900;
+}
+
+.onexbet {
+    background: #1877f2;
+}
+
+.melbet {
+    background: #f97316;
+}
+
+.paripesa {
+    background: #0057ff;
+}
+
+/* =========================
+   BAS DE PAGE
+========================= */
+
+.bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.whatsapp {
+    flex: 1;
+    background: #25d366;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    padding: 15px 8px;
+    border-radius: 13px;
+    font-weight: 900;
+}
+
+.promo {
+    flex: 1;
+    text-align: center;
+}
+
+.promo small {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.code {
+    display: block;
+    background: #facc15;
+    color: #111;
+    border-radius: 12px;
+    padding: 10px 5px;
+    font-size: 29px;
+    font-weight: 1000;
+    letter-spacing: 2px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:500px) {
+
+    .container {
+        padding: 17px;
     }
 
     .platforms {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 9px;
+        grid-template-columns: 1fr;
     }
 
-    .platform {
-      text-decoration: none;
-      border-radius: 16px;
-      min-height: 75px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 5px;
-      color: white;
-      font-weight: 900;
-      font-size: 13px;
-      box-shadow: 0 7px 18px rgba(20,35,60,.12);
-      transition: .18s ease;
-    }
-
-    .platform:hover {
-      transform: translateY(-2px);
-    }
-
-    .platform span {
-      font-size: 19px;
-    }
-
-    .onexbet {
-      background: #1264e8;
-    }
-
-    .melbet {
-      background: #f97316;
-    }
-
-    .paripesa {
-      background: #075eea;
-    }
-
-    /* BOTTOM */
     .bottom {
-      margin-top: 17px;
-      display: grid;
-      grid-template-columns: 1.5fr .9fr;
-      gap: 9px;
-      align-items: stretch;
+        flex-direction: column;
     }
 
-    .whatsapp-link {
-      text-decoration: none;
-      background: #16a34a;
-      color: white;
-      border-radius: 17px;
-      padding: 17px 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      font-weight: 900;
-      font-size: 13px;
-      box-shadow: 0 7px 18px rgba(22,163,74,.18);
-    }
-
+    .whatsapp,
     .promo {
-      background: linear-gradient(135deg, #f5c542, #f59e0b);
-      color: #3a2800;
-      border-radius: 17px;
-      padding: 10px;
-      text-align: center;
-      box-shadow: 0 7px 18px rgba(245,158,11,.17);
+        width: 100%;
     }
 
-    .promo-label {
-      display: block;
-      font-size: 10px;
-      font-weight: 900;
-      letter-spacing: 1px;
-      margin-bottom: 3px;
+    .online {
+        font-size: 16px;
     }
+}
 
-    .promo-code {
-      font-size: 27px;
-      font-weight: 1000;
-      letter-spacing: 2px;
-      line-height: 1;
-    }
-
-    /* FILE AREA */
-    .capture-box {
-      margin-top: 13px;
-      background: #f7f9fc;
-      border: 1px dashed #cbd5e1;
-      border-radius: 15px;
-      padding: 13px;
-    }
-
-    .capture-label {
-      display: block;
-      text-align: center;
-      font-size: 13px;
-      font-weight: 800;
-      color: #475467;
-      margin-bottom: 9px;
-    }
-
-    .capture-input {
-      width: 100%;
-      font-size: 12px;
-    }
-
-    .file-status {
-      margin-top: 7px;
-      text-align: center;
-      font-size: 12px;
-      color: #16a34a;
-      font-weight: 700;
-    }
-
-    .note {
-      margin-top: 9px;
-      font-size: 11px;
-      color: #98a2b3;
-      text-align: center;
-      line-height: 1.45;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    /* RESPONSIVE */
-    @media (max-width: 450px) {
-      .page {
-        padding: 13px 11px 25px;
-      }
-
-      .brand {
-        font-size: 21px;
-      }
-
-      .intro {
-        padding: 19px 14px;
-      }
-
-      .intro h1 {
-        font-size: 19px;
-      }
-
-      .platform {
-        min-height: 70px;
-        font-size: 11.5px;
-      }
-
-      .promo-code {
-        font-size: 24px;
-      }
-
-      .whatsapp-link {
-        font-size: 11.5px;
-      }
-    }
-  </style>
+</style>
 </head>
 
 <body>
 
-<div class="page">
+<div class="container">
 
-  <!-- HEADER -->
-  <header class="header">
-    <div class="brand">
-      <div class="brand-logo">JP</div>
-      <span>JEFF PRO</span>
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <div class="logo">
+            ◉ JEFF PRO
+        </div>
+
+        <div class="online">
+            EN LIGNE
+        </div>
+
     </div>
-  </header>
 
-  <div class="online">EN LIGNE</div>
 
-  <!-- INTRO -->
-  <section class="intro">
+    <!-- INTRO -->
 
-    <h1>Bonjour 👋 Je suis Jeff pro.</h1>
+    <div class="intro">
 
-    <p>
-      Écoute le message vocal ci-dessous,
-      puis pose ta question.
-    </p>
+        <h2>
+            Bonjour 👋 Je suis Jeff pro.
+        </h2>
 
-    <!-- VRAI VOCAL -->
+        <p>
+            Écoute le message vocal ci-dessous,
+            puis pose ta question.
+        </p>
+
+    </div>
+
+
+    <!-- VOCAL -->
+
     <div class="audio-box">
-      <div class="audio-title">🎧 ÉCOUTER LE VOCAL</div>
 
-      <audio controls preload="metadata">
-        <source src="vocal-Jeff.m4a.m4a" type="audio/mp4">
-        Ton navigateur ne peut pas lire ce vocal.
-      </audio>
+        <div class="audio-title">
+            🎧 ÉCOUTER LE VOCAL
+        </div>
+
+        <audio controls preload="metadata">
+
+            <source
+                src="vocal-Jeff.m4a.m4a"
+                type="audio/mp4">
+
+            Ton navigateur ne peut pas lire ce vocal.
+
+        </audio>
+
     </div>
+
+
+    <!-- QUESTION -->
 
     <div class="question-title">
-      Alors, par quoi es-tu intéressé,<br>
-      mon futur millionnaire ? 💚
+
+        Alors, par quoi es-tu intéressé,
+        mon futur millionnaire ? 💚
+
     </div>
 
-    <!-- QUESTIONS -->
-    <div class="questions">
 
-      <button class="question-btn" onclick="openTopic('apple')">
+    <button class="option" onclick="showApple()">
         🍎 Apple of Fortune
-      </button>
-
-      <button class="question-btn" onclick="openTopic('dice')">
-        🎲 Jeu des Dés
-      </button>
-
-      <button class="question-btn" onclick="openTopic('score')">
-        🎯 SCORE EXACT DU JOUR
-      </button>
-
-      <button class="question-btn" onclick="openTopic('fifa')">
-        ⚽ FIFA
-      </button>
-
-      <button class="question-btn" onclick="openTopic('poker')">
-        🃏 JEUX POKER
-      </button>
-
-      <button class="question-btn" onclick="openRegistration()">
-        📝 COMMENT S’INSCRIRE ?
-      </button>
-
-    </div>
-
-  </section>
-
-  <!-- CHAT -->
-  <section class="chat" id="chat">
-
-    <div class="messages" id="messages"></div>
-
-    <div class="chat-actions" id="chatActions"></div>
-
-  </section>
-
-  <!-- FREE QUESTION -->
-  <div class="input-area">
-    <input
-      type="text"
-      id="userInput"
-      placeholder="Écrit ici…"
-      autocomplete="off"
-      onkeydown="if(event.key === 'Enter') sendQuestion()"
-    >
-
-    <button class="send-btn" onclick="sendQuestion()">
-      ➤
     </button>
-  </div>
 
-  <!-- PLATFORMS -->
-  <div class="platform-title">
-    PLATEFORMES
-  </div>
+    <button class="option" onclick="showDice()">
+        🎲 Jeu des Dés
+    </button>
 
-  <div class="platforms">
+    <button class="option" onclick="showScore()">
+        🎯 SCORE EXACT DU JOUR
+    </button>
 
-    <a
-      class="platform onexbet"
-      href="https://reffpa.com/L?tag=d_4215855m_97c_&site=4215855&ad=97&r=registration"
-      target="_blank"
-      rel="noopener"
-    >
-      <span>🔵</span>
-      1XBET
-    </a>
+    <button class="option" onclick="showFifa()">
+        ⚽ FIFA
+    </button>
 
-    <a
-      class="platform melbet"
-      href="https://refpa3665.com/L?tag=d_4139550m_45415c_&site=4139550&ad=45415&r=registration"
-      target="_blank"
-      rel="noopener"
-    >
-      <span>🟠</span>
-      MELBET
-    </a>
+    <button class="option" onclick="showPoker()">
+        🃏 JEUX POKER
+    </button>
 
-    <a
-      class="platform paripesa"
-      href="https://paripesa.bet/christtpronoso"
-      target="_blank"
-      rel="noopener"
-    >
-      <span>🔵</span>
-      PARIPESA
-    </a>
+    <button class="option" onclick="showRegistration()">
+        📝 COMMENT S’INSCRIRE ?
+    </button>
 
-  </div>
 
-  <!-- BOTTOM -->
-  <div class="bottom">
+    <!-- CHAT -->
 
-    <a
-      class="whatsapp-link"
-      href="https://whatsapp.com/channel/0029VbBw8FBDp2Q03qhB4t2b"
-      target="_blank"
-      rel="noopener"
-    >
-      📲 REJOINDRE MA CHAÎNE WHATSAPP
-    </a>
+    <div id="chat" class="chat">
 
-    <div class="promo">
-      <span class="promo-label">CODE PROMO</span>
-      <span class="promo-code">8F9Y</span>
+        <div id="message" class="message"></div>
+
+        <div class="chat-input">
+
+            <input
+                id="userInput"
+                type="text"
+                placeholder="Écrit ici…"
+                onkeydown="handleEnter(event)">
+
+            <button
+                class="send"
+                onclick="sendMessage()">
+                ➤
+            </button>
+
+        </div>
+
     </div>
 
-  </div>
+
+    <!-- PLATEFORMES -->
+
+    <div class="platform-title">
+        PLATEFORMES
+    </div>
+
+    <div class="platforms">
+
+        <a
+            class="platform onexbet"
+            href="https://reffpa.com/L?tag=d_4215855m_97c_&site=4215855&ad=97&r=registration"
+            target="_blank">
+            1XBET
+        </a>
+
+        <a
+            class="platform melbet"
+            href="https://refpa3665.com/L?tag=d_4139550m_45415c_&site=4139550&ad=45415&r=registration"
+            target="_blank">
+            MELBET
+        </a>
+
+        <a
+            class="platform paripesa"
+            href="https://paripesa.bet/christtpronoso"
+            target="_blank">
+            PARIPESA
+        </a>
+
+    </div>
+
+
+    <!-- WHATSAPP + CODE -->
+
+    <div class="bottom">
+
+        <a
+            class="whatsapp"
+            href="https://whatsapp.com/channel/0029VbBw8FBDp2Q03qhB4t2b"
+            target="_blank">
+            📲 CHAÎNE WHATSAPP
+        </a>
+
+        <div class="promo">
+
+            <small>
+                CODE PROMO
+            </small>
+
+            <span class="code">
+                8F9Y
+            </span>
+
+        </div>
+
+    </div>
 
 </div>
 
 
 <script>
 
-  const WHATSAPP_CHANNEL =
-    "https://whatsapp.com/channel/0029VbBw8FBDp2Q03qhB4t2b";
+/* ==================================================
+   OUTILS
+================================================== */
 
-  const LINKS = {
-    "1xbet":
-      "https://reffpa.com/L?tag=d_4215855m_97c_&site=4215855&ad=97&r=registration",
+function openChat() {
 
-    "melbet":
-      "https://refpa3665.com/L?tag=d_4139550m_45415c_&site=4139550&ad=45415&r=registration",
+    const chat = document.getElementById("chat");
 
-    "paripesa":
-      "https://paripesa.bet/christtpronoso"
-  };
-
-  const messages = document.getElementById("messages");
-  const chat = document.getElementById("chat");
-  const actions = document.getElementById("chatActions");
-
-  function showChat() {
     chat.classList.add("active");
-    chat.scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
-  }
-
-  function clearChat() {
-    messages.innerHTML = "";
-    actions.innerHTML = "";
-  }
-
-  function addBot(text) {
-    const div = document.createElement("div");
-    div.className = "message bot-message";
-    div.textContent = text;
-    messages.appendChild(div);
-  }
-
-  function addUser(text) {
-    const div = document.createElement("div");
-    div.className = "message user-message";
-    div.textContent = text;
-    messages.appendChild(div);
-  }
-
-  function addButton(text, className, callback) {
-    const button = document.createElement("button");
-
-    button.className = "action-btn " + (className || "");
-    button.textContent = text;
-
-    button.onclick = callback;
-
-    actions.appendChild(button);
-  }
-
-  function whatsappButton() {
-    addButton(
-      "📲 REJOINDRE MA CHAÎNE WHATSAPP",
-      "whatsapp-btn",
-      function() {
-        window.open(WHATSAPP_CHANNEL, "_blank");
-      }
-    );
-  }
-
-  function platformButton(name, className) {
-
-    addButton(
-      name.toUpperCase(),
-      className,
-      function() {
-
-        addUser(name.toUpperCase());
-
-        addBot(
-          "🤖 JEFF PRO\n\n" +
-          "Parfait 👌 Tu as choisi " +
-          name.toUpperCase() +
-          ".\n\n" +
-          "Utilise le bouton ci-dessous pour ouvrir " +
-          "la page d'inscription."
-        );
-
-        actions.innerHTML = "";
-
-        addButton(
-          "🚀 OUVRIR " + name.toUpperCase(),
-          className,
-          function() {
-            window.open(LINKS[name.toLowerCase()], "_blank");
-          }
-        );
-      }
-    );
-  }
-
-  /* APPLE */
-  function openApple() {
-
-    clearChat();
-    showChat();
-
-    addBot(
-      "🤖 JEFF PRO\n\n" +
-      "Pour accéder aux méthodes et informations " +
-      "réservées de JEFF PRO concernant Apple of Fortune, " +
-      "tu dois d'abord remplir 2 conditions :\n\n" +
-
-      "1️⃣ T'inscrire chez 1XBET, MELBET ou PARIPESA " +
-      "avec le code promo 8F9Y.\n\n" +
-
-      "2️⃣ Effectuer un premier dépôt d'au moins 1 500 FCFA.\n\n" +
-
-      "🔥 Une fois ces étapes validées, tu pourras " +
-      "bénéficier du contenu exclusif de JEFF PRO 🍎."
-    );
-
-    addButton(
-      "👉 ME GUIDER ÉTAPE PAR ÉTAPE",
-      "",
-      function() {
-        registrationGuide();
-      }
-    );
-  }
-
-  /* DICE */
-  function openDice() {
-
-    clearChat();
-    showChat();
-
-    addBot(
-      "🤖 JEFF PRO\n\n" +
-      "Pour accéder aux méthodes et informations " +
-      "réservées concernant le Jeu des Dés, tu dois " +
-      "remplir 2 conditions :\n\n" +
-
-      "1️⃣ Inscription chez 1XBET, MELBET ou PARIPESA " +
-      "avec le code promo 8F9Y.\n\n" +
-
-      "2️⃣ Premier dépôt d'au moins 1 500 FCFA.\n\n" +
-
-      "🔥 Une fois les étapes validées, tu pourras " +
-      "accéder au contenu réservé de JEFF PRO 🎲."
-    );
-
-    addButton(
-      "👉 ME GUIDER ÉTAPE PAR ÉTAPE",
-      "",
-      function() {
-        registrationGuide();
-      }
-    );
-  }
-
-  /* SCORE */
-  function openScore() {
-
-    clearChat();
-    showChat();
-
-    addBot(
-      "🤖 JEFF PRO\n\n" +
-      "🎯 Les scores exacts du jour sont partagés " +
-      "dans ma chaîne WhatsApp.\n\n" +
-      "👉 Clique sur « Rejoindre ma chaîne WhatsApp » " +
-      "ci-dessous pour accéder aux publications."
-    );
-
-    whatsappButton();
-  }
-
-  /* FIFA */
-  function openFifa() {
-
-    clearChat();
-    showChat();
-
-    addBot(
-      "🤖 JEFF PRO\n\n" +
-      "⚽ Les informations et contenus FIFA sont " +
-      "partagés dans ma chaîne WhatsApp.\n\n" +
-      "👉 Clique sur « Rejoindre ma chaîne WhatsApp » " +
-      "ci-dessous pour accéder aux publications."
-    );
-
-    whatsappButton();
-  }
-
-  /* POKER */
-  function openPoker() {
-
-    clearChat();
-    showChat();
-
-    addBot(
-      "🤖 JEFF PRO\n\n" +
-      "🃏 Les informations et contenus concernant " +
-      "les jeux Poker sont partagés dans ma chaîne WhatsApp.\n\n" +
-      "👉 Clique sur « Rejoindre ma chaîne WhatsApp » " +
-      "ci-dessous pour accéder aux publications."
-    );
-
-    whatsappButton();
-  }
-
-  /* GUIDE */
-  function registrationGuide() {
-
-    clearChat();
-    showChat();
-
-    addBot(
-      "🤖 JEFF PRO\n\n" +
-      "Parfait 👌\n\n" +
-
-      "ÉTAPE 1️⃣\n" +
-      "Tu t'es déjà inscrit ?\n\n" +
-
-      "📸 Envoie une capture d'écran de ton inscription " +
-      "pour continuer."
-    );
-
-    createCapture("inscription");
-  }
-
-  /* REGISTRATION */
-  function openRegistration() {
-
-    clearChat();
-    showChat();
-
-    addBot(
-      "🤖 JEFF PRO\n\n" +
-      "ÉTAPE 1️⃣\n\n" +
-      "Tu t'es déjà inscrit ?\n\n" +
-
-      "📸 Envoie une capture d'écran de ton inscription " +
-      "pour continuer."
-    );
-
-    createCapture("inscription");
-  }
-
-  function createCapture(step) {
-
-    const box = document.createElement("div");
-    box.className = "capture-box";
-
-    const label = document.createElement("label");
-    label.className = "capture-label";
-
-    label.textContent =
-      "📸 Sélectionner une capture d'écran";
-
-    const input = document.createElement("input");
-    input.type = "file";
-    input.accept = "image/*";
-    input.className = "capture-input";
-
-    const status = document.createElement("div");
-    status.className = "file-status";
-
-    input.addEventListener("change", function() {
-
-      if (!input.files || !input.files[0]) {
-        return;
-      }
-
-      status.textContent =
-        "✅ Capture sélectionnée : " +
-        input.files[0].name;
-
-      setTimeout(function() {
-        nextStep(step);
-      }, 600);
-
-    });
-
-    box.appendChild(label);
-    box.appendChild(input);
-    box.appendChild(status);
-
-    const note = document.createElement("div");
-    note.className = "note";
-    note.textContent =
-      "La capture est sélectionnée sur ton appareil. " +
-      "Elle n'est pas envoyée automatiquement à Jeff Pro.";
-
-    box.appendChild(note);
-
-    actions.appendChild(box);
-  }
-
-  function nextStep(step) {
-
-    actions.innerHTML = "";
-
-    if (step === "inscription") {
-
-      addBot(
-        "🤖 JEFF PRO\n\n" +
-        "ÉTAPE 2️⃣\n\n" +
-
-        "Tu as bien utilisé le code promo 8F9Y ?\n\n" +
-
-        "📸 Envoie une capture d'écran où l'on voit " +
-        "que le code 8F9Y a bien été utilisé."
-      );
-
-      createCapture("code");
-
-      return;
-    }
-
-    if (step === "code") {
-
-      addBot(
-        "🤖 JEFF PRO\n\n" +
-        "ÉTAPE 3️⃣\n\n" +
-
-        "Tu t'es inscrit sur quelle plateforme ?"
-      );
-
-      platformSelection();
-
-      return;
-    }
-
-    if (step === "deposit") {
-
-      addBot(
-        "🤖 JEFF PRO\n\n" +
-        "ÉTAPE 4️⃣\n\n" +
-
-        "Tu as effectué ton dépôt de 1 500 FCFA ?\n\n" +
-
-        "📸 Envoie une capture d'écran de ton dépôt " +
-        "pour continuer."
-      );
-
-      createCapture("deposit");
-
-      return;
-    }
-  }
-
-  function platformSelection() {
-
-    addButton(
-      "🔵 1XBET",
-      "onexbet-btn",
-      function() {
-        choosePlatform("1XBET");
-      }
-    );
-
-    addButton(
-      "🟠 MELBET",
-      "melbet-btn",
-      function() {
-        choosePlatform("MELBET");
-      }
-    );
-
-    addButton(
-      "🔵 PARIPESA",
-      "paripesa-btn",
-      function() {
-        choosePlatform("PARIPESA");
-      }
-    );
-  }
-
-  function choosePlatform(platform) {
-
-    addUser(platform);
-
-    actions.innerHTML = "";
-
-    addBot(
-      "🤖 JEFF PRO\n\n" +
-      "Tu as choisi " + platform + ".\n\n" +
-      "ÉTAPE 4️⃣\n\n" +
-      "Tu as effectué ton dépôt de 1 500 FCFA ?\n\n" +
-      "📸 Envoie une capture d'écran de ton dépôt " +
-      "pour continuer."
-    );
-
-    createCapture("deposit");
-  }
-
-  /* FIN DU PARCOURS */
-  function finishRegistration() {
-
-    actions.innerHTML = "";
-
-    addBot(
-      "🤖 JEFF PRO\n\n" +
-      "Parfait 👌\n\n" +
-      "Toutes les étapes sont terminées.\n\n" +
-      "📲 Maintenant, rejoins ma chaîne WhatsApp " +
-      "pour accéder aux publications de JEFF PRO."
-    );
-
-    whatsappButton();
-  }
-
-  /*
-    On modifie createCapture pour terminer
-    le parcours après la capture du dépôt.
-  */
-
-  const originalCreateCapture = createCapture;
-
-  createCapture = function(step) {
-
-    const box = document.createElement("div");
-    box.className = "capture-box";
-
-    const label = document.createElement("label");
-    label.className = "capture-label";
-    label.textContent =
-      "📸 Sélectionner une capture d'écran";
-
-    const input = document.createElement("input");
-    input.type = "file";
-    input.accept = "image/*";
-    input.className = "capture-input";
-
-    const status = document.createElement("div");
-    status.className = "file-status";
-
-    input.addEventListener("change", function() {
-
-      if (!input.files || !input.files[0]) {
-        return;
-      }
-
-      status.textContent =
-        "✅ Capture sélectionnée : " +
-        input.files[0].name;
-
-      setTimeout(function() {
-
-        if (step === "deposit") {
-          finishRegistration();
-        } else {
-          nextStep(step);
-        }
-
-      }, 600);
-
-    });
-
-    box.appendChild(label);
-    box.appendChild(input);
-    box.appendChild(status);
-
-    const note = document.createElement("div");
-    note.className = "note";
-    note.textContent =
-      "La capture est sélectionnée sur ton appareil. " +
-      "Elle n'est pas envoyée automatiquement à Jeff Pro.";
-
-    box.appendChild(note);
-
-    actions.appendChild(box);
-  };
-
-  /* FREE CHAT */
-  function sendQuestion() {
-
-    const input = document.getElementById("userInput");
-    const text = input.value.trim();
-
-    if (!text) return;
-
-    clearChat();
-    showChat();
-
-    addUser(text);
-
-    const q = text.toLowerCase();
 
     setTimeout(function() {
 
-      if (
-        q.includes("inscri") ||
-        q.includes("inscription") ||
-        q.includes("comment") && q.includes("inscri")
-      ) {
-        registrationGuide();
+        chat.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+    }, 100);
+}
+
+
+function showMessage(text) {
+
+    openChat();
+
+    document.getElementById("message").innerText = text;
+
+}
+
+
+/* ==================================================
+   SALUT / BONJOUR
+================================================== */
+
+function showGreeting() {
+
+    showMessage(
+`🤖 JEFF PRO
+
+Salut 👋
+
+Bienvenue chez JEFF PRO.
+
+As-tu déjà créé ton compte chez 1XBET, MELBET ou PARIPESA avec le code promo 8F9Y ?
+
+Tu peux choisir une option ci-dessus ou simplement écrire ta question dans la zone de discussion.`
+    );
+
+}
+
+
+/* ==================================================
+   APPLE OF FORTUNE
+================================================== */
+
+function showApple() {
+
+    showMessage(
+`🤖 JEFF PRO
+
+Comment gagner à Apple of Fortune ?
+
+Pour accéder aux méthodes et informations réservées de JEFF PRO concernant Apple of Fortune, tu dois d'abord remplir les deux conditions obligatoires.
+
+1️⃣ T'inscrire chez un bookmaker partenaire 1XBET, MELBET ou PARIPESA avec le code promo 8F9Y.
+
+2️⃣ Effectuer un premier dépôt d'au moins 1 500 FCFA sur ton compte.
+
+🔥 Une fois ces étapes validées, tu pourras bénéficier du contenu exclusif de JEFF PRO 🍎.
+
+👉 Veux-tu que je te guide étape par étape pour t'inscrire ? 😊`
+    );
+
+}
+
+
+/* ==================================================
+   JEU DES DÉS
+================================================== */
+
+function showDice() {
+
+    showMessage(
+`🤖 JEFF PRO
+
+Comment gagner au Jeu des Dés ?
+
+Pour accéder aux méthodes et informations réservées de JEFF PRO concernant le jeu des Dés, tu dois d'abord remplir les deux conditions obligatoires.
+
+1️⃣ T'inscrire chez un bookmaker partenaire 1XBET, MELBET ou PARIPESA avec le code promo 8F9Y.
+
+2️⃣ Effectuer un premier dépôt d'au moins 1 500 FCFA sur ton compte.
+
+🔥 Une fois ces étapes validées, tu pourras bénéficier du contenu exclusif de JEFF PRO 🎲.
+
+👉 Veux-tu que je te guide étape par étape pour t'inscrire ? 😊`
+    );
+
+}
+
+
+/* ==================================================
+   SCORE EXACT
+================================================== */
+
+function showScore() {
+
+    showMessage(
+`🤖 JEFF PRO
+
+🎯 Les scores exacts du jour sont partagés dans ma chaîne WhatsApp.
+
+👉 Clique sur « CHAÎNE WHATSAPP » en bas de la page pour accéder aux publications.`
+    );
+
+}
+
+
+/* ==================================================
+   FIFA
+================================================== */
+
+function showFifa() {
+
+    showMessage(
+`🤖 JEFF PRO
+
+⚽ Les informations et contenus FIFA sont partagés dans ma chaîne WhatsApp.
+
+👉 Clique sur « CHAÎNE WHATSAPP » en bas de la page pour accéder aux publications.`
+    );
+
+}
+
+
+/* ==================================================
+   POKER
+================================================== */
+
+function showPoker() {
+
+    showMessage(
+`🤖 JEFF PRO
+
+🃏 Les informations et contenus concernant les jeux Poker sont partagés dans ma chaîne WhatsApp.
+
+👉 Clique sur « CHAÎNE WHATSAPP » en bas de la page pour accéder aux publications de JEFF PRO.`
+    );
+
+}
+
+
+/* ==================================================
+   INSCRIPTION — ÉTAPE 1
+================================================== */
+
+function showRegistration() {
+
+    showRegistrationStep1();
+
+}
+
+
+function showRegistrationStep1() {
+
+    openChat();
+
+    document.getElementById("message").innerText =
+`🤖 JEFF PRO
+
+Comment s’inscrire ?
+
+⚠️ Les 2 conditions obligatoires :
+
+• Inscription avec le code promo 8F9Y
+• Premier dépôt minimum de 1 500 FCFA
+
+1️⃣ ÉTAPE 1
+
+Tu t’es déjà inscrit ?
+
+📸 Envoie une capture d’écran de ton inscription pour continuer.`;
+
+    document.getElementById("chat").innerHTML += `
+
+        <div id="captureStep1" class="capture-box">
+
+            <label>
+                📸 Capture de ton inscription
+            </label>
+
+            <input
+                type="file"
+                accept="image/*"
+                id="file1"
+                onchange="enableStep1()">
+
+            <button
+                id="next1"
+                class="next-button"
+                disabled
+                onclick="showRegistrationStep2()">
+
+                Continuer ➜
+
+            </button>
+
+        </div>
+    `;
+
+}
+
+
+function enableStep1() {
+
+    document.getElementById("next1").disabled = false;
+
+}
+
+
+/* ==================================================
+   INSCRIPTION — ÉTAPE 2
+================================================== */
+
+function showRegistrationStep2() {
+
+    document.getElementById("chat").innerHTML = `
+
+        <div id="message" class="message">
+
+🤖 JEFF PRO
+
+2️⃣ ÉTAPE 2
+
+Tu as bien utilisé le code promo 8F9Y ?
+
+📸 Envoie une capture d’écran où l’on voit que le code 8F9Y a bien été utilisé.
+
+        </div>
+
+        <div class="capture-box">
+
+            <label>
+                📸 Capture montrant le code 8F9Y
+            </label>
+
+            <input
+                type="file"
+                accept="image/*"
+                id="file2"
+                onchange="enableStep2()">
+
+            <button
+                id="next2"
+                class="next-button"
+                disabled
+                onclick="showRegistrationStep3()">
+
+                Continuer ➜
+
+            </button>
+
+        </div>
+
+    `;
+
+    document.getElementById("userInput").focus();
+
+}
+
+
+function enableStep2() {
+
+    document.getElementById("next2").disabled = false;
+
+}
+
+
+/* ==================================================
+   INSCRIPTION — ÉTAPE 3
+================================================== */
+
+function showRegistrationStep3() {
+
+    document.getElementById("chat").innerHTML = `
+
+        <div id="message" class="message">
+
+🤖 JEFF PRO
+
+3️⃣ ÉTAPE 3
+
+Tu t’es inscrit sur quelle plateforme ?
+
+Choisis la plateforme que tu as utilisée.
+
+        </div>
+
+        <div class="choice">
+
+            <button
+                class="choice-1xbet"
+                onclick="selectPlatform('1XBET')">
+
+                1XBET
+
+            </button>
+
+            <button
+                class="choice-melbet"
+                onclick="selectPlatform('MELBET')">
+
+                MELBET
+
+            </button>
+
+            <button
+                class="choice-paripesa"
+                onclick="selectPlatform('PARIPESA')">
+
+                PARIPESA
+
+            </button>
+
+        </div>
+
+    `;
+
+}
+
+
+function selectPlatform(platform) {
+
+    document.getElementById("chat").innerHTML = `
+
+        <div id="message" class="message">
+
+🤖 JEFF PRO
+
+✅ Plateforme sélectionnée : ${platform}
+
+4️⃣ ÉTAPE 4
+
+Tu as effectué ton dépôt de 1 500 FCFA ?
+
+📸 Envoie une capture d’écran de ton dépôt pour continuer.
+
+        </div>
+
+        <div class="capture-box">
+
+            <label>
+                📸 Capture de ton dépôt
+            </label>
+
+            <input
+                type="file"
+                accept="image/*"
+                id="file4"
+                onchange="enableStep4()">
+
+            <button
+                id="next4"
+                class="next-button"
+                disabled
+                onclick="showRegistrationStep5()">
+
+                Continuer ➜
+
+            </button>
+
+        </div>
+
+    `;
+
+}
+
+
+function enableStep4() {
+
+    document.getElementById("next4").disabled = false;
+
+}
+
+
+/* ==================================================
+   INSCRIPTION — ÉTAPE 5
+================================================== */
+
+function showRegistrationStep5() {
+
+    document.getElementById("chat").innerHTML = `
+
+        <div id="message" class="message">
+
+🤖 JEFF PRO
+
+Parfait 👌
+
+Toutes les étapes sont terminées.
+
+📲 Maintenant, rejoins ma chaîne WhatsApp pour accéder aux publications de JEFF PRO.
+
+        </div>
+
+        <a
+            href="https://whatsapp.com/channel/0029VbBw8FBDp2Q03qhB4t2b"
+            target="_blank"
+            style="
+                display:block;
+                margin-top:15px;
+                background:#25d366;
+                color:white;
+                text-decoration:none;
+                text-align:center;
+                padding:15px;
+                border-radius:12px;
+                font-weight:900;
+            ">
+
+            📲 REJOINDRE MA CHAÎNE WHATSAPP
+
+        </a>
+
+    `;
+
+}
+
+
+/* ==================================================
+   CHAT AUTOMATIQUE
+================================================== */
+
+function sendMessage() {
+
+    const input =
+        document.getElementById("userInput");
+
+    const text =
+        input.value.trim();
+
+    if (!text) return;
+
+    const lower =
+        text.toLowerCase();
+
+
+    /* SALUT */
+
+    if (
+        lower === "salut" ||
+        lower === "bonjour" ||
+        lower === "bonsoir" ||
+        lower.includes("salut") ||
+        lower.includes("bonjour") ||
+        lower.includes("bonsoir") ||
+        lower.includes("coucou")
+    ) {
+
+        showGreeting();
+
+        input.value = "";
+
         return;
-      }
+    }
 
-      if (
-        q.includes("code promo") ||
-        q === "code" ||
-        q.includes("code 8f9y")
-      ) {
 
-        addBot(
-          "🤖 JEFF PRO\n\n" +
-          "Le code promo est :\n\n" +
-          "🟡 8F9Y"
+    /* COMMENT ÇA VA */
+
+    if (
+        lower.includes("ça va") ||
+        lower.includes("ca va") ||
+        lower.includes("comment vas")
+    ) {
+
+        showMessage(
+`🤖 JEFF PRO
+
+Ça va très bien 👌🔥
+
+Bienvenue chez JEFF PRO.
+
+Dis-moi simplement ce qui t'intéresse :
+
+🍎 Apple of Fortune
+🎲 Jeu des Dés
+🎯 Score exact
+⚽ FIFA
+🃏 Poker
+📝 Inscription`
         );
 
+        input.value = "";
+
         return;
-      }
+    }
 
-      if (q.includes("apple") || q.includes("fortune")) {
-        openApple();
+
+    /* APPLE */
+
+    if (
+        lower.includes("apple") ||
+        lower.includes("fortune")
+    ) {
+
+        showApple();
+
+        input.value = "";
+
         return;
-      }
+    }
 
-      if (
-        q.includes("dés") ||
-        q.includes("des") ||
-        q.includes("dice")
-      ) {
-        openDice();
+
+    /* DÉS */
+
+    if (
+        lower.includes("dés") ||
+        lower.includes("des")
+    ) {
+
+        showDice();
+
+        input.value = "";
+
         return;
-      }
+    }
 
-      if (q.includes("score exact") || q.includes("score")) {
-        openScore();
-        return;
-      }
 
-      if (q.includes("fifa")) {
-        openFifa();
-        return;
-      }
+    /* CODE PROMO */
 
-      if (q.includes("poker")) {
-        openPoker();
-        return;
-      }
+    if (
+        lower.includes("code promo") ||
+        lower === "code" ||
+        lower.includes("code")
+    ) {
 
-      if (q.includes("1xbet")) {
+        showMessage(
+`🟡 CODE PROMO JEFF PRO
 
-        addBot(
-          "🤖 JEFF PRO\n\n" +
-          "Voici le lien d'inscription 1XBET."
+Le code promo est :
+
+8F9Y
+
+⚠️ Vérifie bien que le code 8F9Y est appliqué lors de ton inscription.`
         );
 
-        addButton(
-          "🔵 OUVRIR 1XBET",
-          "onexbet-btn",
-          function() {
-            window.open(LINKS["1xbet"], "_blank");
-          }
-        );
+        input.value = "";
 
         return;
-      }
+    }
 
-      if (q.includes("melbet")) {
 
-        addBot(
-          "🤖 JEFF PRO\n\n" +
-          "Voici le lien d'inscription MELBET."
+    /* 1XBET */
+
+    if (
+        lower.includes("1xbet")
+    ) {
+
+        showMessage(
+`🔵 1XBET
+
+Voici le lien d'inscription :
+
+https://reffpa.com/L?tag=d_4215855m_97c_&site=4215855&ad=97&r=registration
+
+Code promo : 8F9Y`
         );
 
-        addButton(
-          "🟠 OUVRIR MELBET",
-          "melbet-btn",
-          function() {
-            window.open(LINKS["melbet"], "_blank");
-          }
-        );
+        input.value = "";
 
         return;
-      }
+    }
 
-      if (q.includes("paripesa")) {
 
-        addBot(
-          "🤖 JEFF PRO\n\n" +
-          "Voici le lien d'inscription PARIPESA."
+    /* MELBET */
+
+    if (
+        lower.includes("melbet")
+    ) {
+
+        showMessage(
+`🟠 MELBET
+
+Voici le lien d'inscription :
+
+https://refpa3665.com/L?tag=d_4139550m_45415c_&site=4139550&ad=45415&r=registration
+
+Code promo : 8F9Y`
         );
 
-        addButton(
-          "🔵 OUVRIR PARIPESA",
-          "paripesa-btn",
-          function() {
-            window.open(LINKS["paripesa"], "_blank");
-          }
-        );
+        input.value = "";
 
         return;
-      }
+    }
 
-      if (
-        q.includes("whatsapp") ||
-        q.includes("chaîne")
-      ) {
 
-        addBot(
-          "🤖 JEFF PRO\n\n" +
-          "📲 Rejoins ma chaîne WhatsApp pour " +
-          "retrouver les publications de JEFF PRO."
+    /* PARIPESA */
+
+    if (
+        lower.includes("paripesa")
+    ) {
+
+        showMessage(
+`🔵 PARIPESA
+
+Voici le lien d'inscription :
+
+https://paripesa.bet/christtpronoso
+
+Code promo : 8F9Y`
         );
 
-        whatsappButton();
+        input.value = "";
 
         return;
-      }
+    }
 
-      addBot(
-        "🤖 JEFF PRO\n\n" +
-        "Je peux t'aider concernant :\n\n" +
-        "🍎 Apple of Fortune\n" +
-        "🎲 Jeu des Dés\n" +
-        "🎯 Score exact du jour\n" +
-        "⚽ FIFA\n" +
-        "🃏 Jeux Poker\n" +
-        "📝 Inscription\n" +
-        "🔵 1XBET\n" +
-        "🟠 MELBET\n" +
-        "🔵 PARIPESA\n" +
-        "🟡 Code promo 8F9Y"
-      );
 
-    }, 250);
+    /* SCORE EXACT */
+
+    if (
+        lower.includes("score exact") ||
+        lower.includes("score")
+    ) {
+
+        showScore();
+
+        input.value = "";
+
+        return;
+    }
+
+
+    /* FIFA */
+
+    if (
+        lower.includes("fifa")
+    ) {
+
+        showFifa();
+
+        input.value = "";
+
+        return;
+    }
+
+
+    /* POKER */
+
+    if (
+        lower.includes("poker")
+    ) {
+
+        showPoker();
+
+        input.value = "";
+
+        return;
+    }
+
+
+    /* INSCRIPTION */
+
+    if (
+        lower.includes("inscription") ||
+        lower.includes("inscrire") ||
+        lower.includes("inscrit") ||
+        lower.includes("comment s'inscrire") ||
+        lower.includes("comment je m'inscris")
+    ) {
+
+        showRegistration();
+
+        input.value = "";
+
+        return;
+    }
+
+
+    /* BOT / LIEN */
+
+    if (
+        lower.includes("bot") ||
+        lower.includes("lien")
+    ) {
+
+        showMessage(
+`🤖 JEFF PRO
+
+Pour accéder aux contenus et informations réservés, tu dois d'abord remplir les conditions demandées :
+
+1️⃣ Inscription chez 1XBET, MELBET ou PARIPESA avec le code promo 8F9Y.
+
+2️⃣ Premier dépôt d'au moins 1 500 FCFA.
+
+Une fois les étapes terminées, reviens ici pour la suite.`
+        );
+
+        input.value = "";
+
+        return;
+    }
+
+
+    /* RÉPONSE PAR DÉFAUT */
+
+    showMessage(
+`🤖 JEFF PRO
+
+Salut 👋
+
+Je suis là pour t'aider.
+
+Tu peux me poser une question concernant :
+
+🍎 Apple of Fortune
+🎲 Jeu des Dés
+🎯 Score exact du jour
+⚽ FIFA
+🃏 Jeux Poker
+📝 Comment s'inscrire ?
+💳 Code promo
+🔵 1XBET
+🟠 MELBET
+🔵 PARIPESA
+
+Écris simplement ta question ci-dessous.`
+    );
 
     input.value = "";
-  }
+
+}
+
+
+/* ==================================================
+   TOUCHE ENTRÉE
+================================================== */
+
+function handleEnter(event) {
+
+    if (event.key === "Enter") {
+
+        sendMessage();
+
+    }
+
+}
 
 </script>
 
