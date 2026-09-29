@@ -27,8 +27,6 @@ body {
     padding: 18px 15px 30px;
 }
 
-/* HEADER */
-
 .header {
     display: flex;
     align-items: center;
@@ -69,8 +67,6 @@ body {
     margin-top: 2px;
 }
 
-/* INTRO */
-
 .intro {
     background: white;
     border-radius: 20px;
@@ -90,16 +86,12 @@ body {
     color: #59645e;
 }
 
-/* QUESTION */
-
 .question {
     text-align: center;
     font-size: 18px;
     font-weight: 800;
     margin: 22px 0 16px;
 }
-
-/* OPTIONS */
 
 .options {
     display: flex;
@@ -126,8 +118,6 @@ body {
     background: #f0fff5;
     transform: translateY(-1px);
 }
-
-/* CONTENT */
 
 .content {
     display: none;
@@ -169,8 +159,6 @@ body {
     margin-bottom: 8px;
 }
 
-/* GREEN BUTTON */
-
 .green-btn {
     display: block;
     width: 100%;
@@ -189,8 +177,6 @@ body {
     background: #12813b;
 }
 
-/* BACK */
-
 .back-btn {
     width: 100%;
     background: #eef3ef;
@@ -202,8 +188,6 @@ body {
     cursor: pointer;
     margin-top: 10px;
 }
-
-/* PLATFORM BUTTONS */
 
 .platform-title {
     text-align: center;
@@ -241,8 +225,6 @@ body {
 .paripesa {
     background: #005cff;
 }
-
-/* BOTTOM */
 
 .bottom-row {
     display: grid;
@@ -283,8 +265,6 @@ body {
     font-weight: 1000;
     letter-spacing: 2px;
 }
-
-/* CHAT */
 
 .chat-box {
     margin-top: 20px;
@@ -347,8 +327,6 @@ body {
     cursor: pointer;
 }
 
-/* REGISTRATION */
-
 .step {
     display: none;
 }
@@ -370,8 +348,6 @@ body {
     width: 100%;
     margin-top: 12px;
 }
-
-/* PLATFORM CHOICE */
 
 .choice-buttons {
     display: flex;
@@ -396,8 +372,6 @@ body {
     padding: 15px;
     margin-top: 15px;
 }
-
-/* RESPONSIVE */
 
 @media (max-width: 400px) {
 
@@ -428,8 +402,6 @@ body {
 
 <div class="container">
 
-    <!-- HEADER -->
-
     <div class="header">
 
         <div class="logo">
@@ -450,9 +422,6 @@ body {
 
     </div>
 
-
-    <!-- INTRO -->
-
     <div class="intro">
 
         <h2>Bienvenue 👋</h2>
@@ -466,9 +435,6 @@ body {
         </p>
 
     </div>
-
-
-    <!-- HOME -->
 
     <div id="home">
 
@@ -507,13 +473,7 @@ body {
 
     </div>
 
-
-    <!-- DYNAMIC CONTENT -->
-
     <div id="content" class="content"></div>
-
-
-    <!-- CHAT -->
 
     <div class="chat-box">
 
@@ -539,9 +499,6 @@ body {
         </div>
 
     </div>
-
-
-    <!-- PLATFORM LINKS -->
 
     <div class="platform-title">
         PLATEFORMES
@@ -574,9 +531,6 @@ body {
         </a>
 
     </div>
-
-
-    <!-- WHATSAPP + CODE -->
 
     <div class="bottom-row">
 
@@ -1289,10 +1243,11 @@ function sendMessage() {
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "");
 
-
     setTimeout(() => {
 
-        /* SALUT / ÇA VA */
+        /* =========================
+           SALUT / BONJOUR
+        ========================= */
 
         if (
             lower.includes("salut") ||
@@ -1306,7 +1261,7 @@ function sendMessage() {
         ) {
 
             addMessage(
-                "Je vais bien, bienvenue jeune millionnaire 😎💚",
+                "Bonjour 👋 Bienvenue sur la page officielle de Jeff Pro. Comment puis-je t'aider ?",
                 "bot-message"
             );
 
@@ -1314,13 +1269,95 @@ function sendMessage() {
         }
 
 
-        /* INSCRIPTION */
+        /* =========================
+           JE VEUX LE BOT
+        ========================= */
+
+        if (
+            lower.includes("je veux le bot") ||
+            lower.includes("veux le bot") ||
+            lower.includes("bot boss") ||
+            lower.includes("je veux bot") ||
+            lower.includes("donne moi le bot") ||
+            lower.includes("donne-moi le bot") ||
+            lower.includes("je veux le bote") ||
+            lower.includes("je veux le bot boss")
+        ) {
+
+            addMessage(
+                "Ok pas de soucis 👌 Tu veux quel bot ? 🍎 Apple of Fortune ou 🎲 Jeu des Dés ?",
+                "bot-message"
+            );
+
+            return;
+        }
+
+
+        /* =========================
+           BOT APPLE
+        ========================= */
+
+        if (
+            lower.includes("bot apple") ||
+            lower.includes("apple of fortune") ||
+            lower.includes("apple fortune") ||
+            lower.includes("je veux apple") ||
+            lower.includes("bot fortune") ||
+            lower === "apple"
+        ) {
+
+            addMessage(
+                "Ok pas de soucis 👌 Je vais te guider pour la procédure du bot 🍎 Apple of Fortune. Commence par l'inscription et suis les étapes indiquées.",
+                "bot-message"
+            );
+
+            showApple();
+
+            return;
+        }
+
+
+        /* =========================
+           BOT DÉS
+        ========================= */
+
+        if (
+            lower.includes("bot des") ||
+            lower.includes("bot dé") ||
+            lower.includes("bot dice") ||
+            lower.includes("jeu des des") ||
+            lower.includes("jeu des dés") ||
+            lower.includes("je veux les des") ||
+            lower.includes("je veux les dés") ||
+            lower.includes("je veux le jeu des des") ||
+            lower.includes("je veux le jeu des dés")
+        ) {
+
+            addMessage(
+                "Ok pas de soucis 👌 Je vais te guider pour la procédure du bot 🎲 Jeu des Dés. Commence par l'inscription et suis les étapes indiquées.",
+                "bot-message"
+            );
+
+            showDice();
+
+            return;
+        }
+
+
+        /* =========================
+           COMMENT S'INSCRIRE
+        ========================= */
 
         if (
             lower.includes("inscription") ||
             lower.includes("inscrire") ||
-            lower.includes("comment je m'inscris") ||
-            lower.includes("comment je m inscrit")
+            lower.includes("comment m inscrire") ||
+            lower.includes("comment je m inscris") ||
+            lower.includes("comment s inscrire") ||
+            lower.includes("comment s inscris") ||
+            lower.includes("je veux m inscrire") ||
+            lower.includes("je veux m'inscrire") ||
+            lower.includes("je veux une inscription")
         ) {
 
             addMessage(
@@ -1334,13 +1371,42 @@ function sendMessage() {
         }
 
 
-        /* CODE PROMO */
+        /* =========================
+           J'AI DÉJÀ UN COMPTE
+        ========================= */
+
+        if (
+            lower.includes("j ai deja un compte") ||
+            lower.includes("jai deja un compte") ||
+            lower.includes("j'ai deja un compte") ||
+            lower.includes("deja un compte") ||
+            lower.includes("déjà un compte") ||
+            lower.includes("mon compte existe deja") ||
+            lower.includes("mon ancien compte")
+        ) {
+
+            addMessage(
+                "D’accord 👍 Déconnecte-toi de ton ancien compte, puis crée un nouveau compte en suivant la procédure indiquée avec le code promo 8F9Y. Une fois ton inscription terminée, reviens ici pour continuer la procédure d’accès au bot.",
+                "bot-message"
+            );
+
+            return;
+        }
+
+
+        /* =========================
+           CODE PROMO
+        ========================= */
 
         if (
             lower.includes("code promo") ||
             lower.includes("code bonus") ||
             lower.includes("code parrain") ||
-            lower === "code"
+            lower.includes("quel code") ||
+            lower.includes("c est quoi le code") ||
+            lower.includes("c'est quoi le code") ||
+            lower === "code" ||
+            lower.includes("code 8f9y")
         ) {
 
             addMessage(
@@ -1352,44 +1418,257 @@ function sendMessage() {
         }
 
 
-        /* APPLE */
+        /* =========================
+           OÙ METTRE LE CODE
+        ========================= */
 
         if (
-            lower.includes("apple") ||
-            lower.includes("fortune")
+            lower.includes("ou mettre le code") ||
+            lower.includes("où mettre le code") ||
+            lower.includes("ou je mets le code") ||
+            lower.includes("où je mets le code") ||
+            lower.includes("comment mettre le code") ||
+            lower.includes("ou entrer le code") ||
+            lower.includes("où entrer le code")
         ) {
 
             addMessage(
-                "🍎 Apple of Fortune : je peux te guider étape par étape pour accéder au contenu réservé de JEFF PRO.",
+                "🔑 Pendant l'inscription, renseigne 8F9Y dans le champ prévu pour le code promotionnel lorsqu'il est proposé.",
                 "bot-message"
             );
-
-            showApple();
 
             return;
         }
 
 
-        /* DÉS */
+        /* =========================
+           J'AI OUBLIÉ LE CODE
+        ========================= */
 
         if (
-            lower.includes("des") ||
-            lower.includes("dé") ||
-            lower.includes("dice")
+            lower.includes("oublie le code") ||
+            lower.includes("oublié le code") ||
+            lower.includes("j ai oublie le code") ||
+            lower.includes("j'ai oublié le code")
         ) {
 
             addMessage(
-                "🎲 Pour le Jeu des Dés, je peux te guider étape par étape.",
+                "Pas de problème 👌 Le code promo est : 8F9Y.",
                 "bot-message"
             );
-
-            showDice();
 
             return;
         }
 
 
-        /* SCORE */
+        /* =========================
+           COMBIEN DÉPOSER
+        ========================= */
+
+        if (
+            lower.includes("combien deposer") ||
+            lower.includes("combien déposer") ||
+            lower.includes("quel montant") ||
+            lower.includes("combien faut deposer") ||
+            lower.includes("combien faut déposer") ||
+            lower.includes("minimum depot") ||
+            lower.includes("minimum dépôt") ||
+            lower.includes("minimum de depot") ||
+            lower.includes("minimum de dépôt") ||
+            lower.includes("combien pour commencer")
+        ) {
+
+            addMessage(
+                "💰 Pour cette procédure, le premier dépôt demandé est de 1 500 FCFA minimum.",
+                "bot-message"
+            );
+
+            return;
+        }
+
+
+        /* =========================
+           J'AI FAIT LE DÉPÔT
+        ========================= */
+
+        if (
+            lower.includes("j ai fait le depot") ||
+            lower.includes("j'ai fait le depot") ||
+            lower.includes("j ai fait le dépôt") ||
+            lower.includes("j'ai fait le dépôt") ||
+            lower.includes("depot effectue") ||
+            lower.includes("dépôt effectué") ||
+            lower.includes("j ai depose") ||
+            lower.includes("j'ai déposé") ||
+            lower.includes("depot fait")
+        ) {
+
+            addMessage(
+                "Parfait 👌 Conserve bien ta preuve de dépôt et continue avec l'étape suivante de la procédure.",
+                "bot-message"
+            );
+
+            return;
+        }
+
+
+        /* =========================
+           J'AI TERMINÉ L'INSCRIPTION
+        ========================= */
+
+        if (
+            lower.includes("inscription terminee") ||
+            lower.includes("inscription terminée") ||
+            lower.includes("j ai termine") ||
+            lower.includes("j'ai terminé") ||
+            lower.includes("j ai fini") ||
+            lower.includes("j'ai fini") ||
+            lower.includes("inscription faite")
+        ) {
+
+            addMessage(
+                "Parfait 👌 Ton inscription est terminée. Vérifie maintenant que le code promo 8F9Y a bien été utilisé, puis passe à l'étape du dépôt.",
+                "bot-message"
+            );
+
+            return;
+        }
+
+
+        /* =========================
+           J'AI ENVOYÉ LA CAPTURE
+        ========================= */
+
+        if (
+            lower.includes("j ai envoye la capture") ||
+            lower.includes("j'ai envoyé la capture") ||
+            lower.includes("capture envoyee") ||
+            lower.includes("capture envoyée") ||
+            lower.includes("j ai envoye la preuve") ||
+            lower.includes("j'ai envoyé la preuve") ||
+            lower.includes("preuve envoyee") ||
+            lower.includes("preuve envoyée")
+        ) {
+
+            addMessage(
+                "Parfait 👍 Continue avec l'étape suivante de la procédure.",
+                "bot-message"
+            );
+
+            return;
+        }
+
+
+        /* =========================
+           JE SUIS BLOQUÉ
+        ========================= */
+
+        if (
+            lower.includes("je suis bloque") ||
+            lower.includes("je suis bloqué") ||
+            lower.includes("je suis perdu") ||
+            lower.includes("je comprends rien") ||
+            lower.includes("je comprend rien") ||
+            lower.includes("aide moi") ||
+            lower.includes("aide-moi") ||
+            lower.includes("je sais pas")
+        ) {
+
+            addMessage(
+                "Pas de problème 👌 Dis-moi simplement où tu bloques :\n\n1️⃣ Inscription\n2️⃣ Code promo\n3️⃣ Dépôt\n4️⃣ Capture / preuve\n5️⃣ Accès au bot",
+                "bot-message"
+            );
+
+            return;
+        }
+
+
+        /* =========================
+           LIEN
+        ========================= */
+
+        if (
+            lower.includes("le lien") ||
+            lower.includes("donne le lien") ||
+            lower.includes("donne moi le lien") ||
+            lower.includes("donne-moi le lien") ||
+            lower.includes("je veux le lien")
+        ) {
+
+            addMessage(
+                "Pas de problème 👍 Dis-moi d'abord quelle plateforme tu souhaites utiliser : 1XBET, MELBET ou PARIPESA.",
+                "bot-message"
+            );
+
+            return;
+        }
+
+
+        /* =========================
+           GRATUIT
+        ========================= */
+
+        if (
+            lower.includes("c est gratuit") ||
+            lower.includes("c'est gratuit") ||
+            lower.includes("gratuit") ||
+            lower.includes("gratuitement")
+        ) {
+
+            addMessage(
+                "Le guidage est disponible ici. Certaines conditions d'inscription et de dépôt sont nécessaires pour suivre la procédure.",
+                "bot-message"
+            );
+
+            return;
+        }
+
+
+        /* =========================
+           COMMENT ÇA MARCHE
+        ========================= */
+
+        if (
+            lower.includes("comment ca marche") ||
+            lower.includes("comment ça marche") ||
+            lower.includes("comment fonctionne") ||
+            lower.includes("ca marche comment") ||
+            lower.includes("ça marche comment")
+        ) {
+
+            addMessage(
+                "Je vais te guider étape par étape : choix de la plateforme, inscription, code promo, dépôt, preuve puis procédure d'accès.",
+                "bot-message"
+            );
+
+            return;
+        }
+
+
+        /* =========================
+           APRÈS L'INSCRIPTION
+        ========================= */
+
+        if (
+            lower.includes("et maintenant") ||
+            lower.includes("et apres") ||
+            lower.includes("et après") ||
+            lower.includes("que faire maintenant") ||
+            lower.includes("je fais quoi maintenant")
+        ) {
+
+            addMessage(
+                "Dis-moi où tu en es :\n\n1️⃣ Inscription\n2️⃣ Code 8F9Y\n3️⃣ Dépôt\n4️⃣ Preuve\n5️⃣ Accès au bot",
+                "bot-message"
+            );
+
+            return;
+        }
+
+
+        /* =========================
+           SCORE
+        ========================= */
 
         if (
             lower.includes("score exact") ||
@@ -1407,7 +1686,9 @@ function sendMessage() {
         }
 
 
-        /* FIFA */
+        /* =========================
+           FIFA
+        ========================= */
 
         if (
             lower.includes("fifa")
@@ -1424,7 +1705,9 @@ function sendMessage() {
         }
 
 
-        /* POKER */
+        /* =========================
+           POKER
+        ========================= */
 
         if (
             lower.includes("poker")
@@ -1441,14 +1724,16 @@ function sendMessage() {
         }
 
 
-        /* 1XBET */
+        /* =========================
+           1XBET
+        ========================= */
 
         if (
             lower.includes("1xbet")
         ) {
 
             addMessage(
-                "🔵 Voici le lien d'inscription 1XBET.",
+                "🔵 Tu as choisi 1XBET. Utilise le lien d'inscription disponible dans la section PLATEFORMES en bas de la page.",
                 "bot-message"
             );
 
@@ -1456,14 +1741,16 @@ function sendMessage() {
         }
 
 
-        /* MELBET */
+        /* =========================
+           MELBET
+        ========================= */
 
         if (
             lower.includes("melbet")
         ) {
 
             addMessage(
-                "🟠 Voici le lien d'inscription MELBET.",
+                "🟠 Tu as choisi MELBET. Utilise le lien d'inscription disponible dans la section PLATEFORMES en bas de la page.",
                 "bot-message"
             );
 
@@ -1471,14 +1758,16 @@ function sendMessage() {
         }
 
 
-        /* PARIPESA */
+        /* =========================
+           PARIPESA
+        ========================= */
 
         if (
             lower.includes("paripesa")
         ) {
 
             addMessage(
-                "🔵 Voici le lien d'inscription PARIPESA.",
+                "🔵 Tu as choisi PARIPESA. Utilise le lien d'inscription disponible dans la section PLATEFORMES en bas de la page.",
                 "bot-message"
             );
 
@@ -1486,10 +1775,32 @@ function sendMessage() {
         }
 
 
-        /* MESSAGE INCONNU */
+        /* =========================
+           JE VEUX RECOMMENCER
+        ========================= */
+
+        if (
+            lower.includes("recommencer") ||
+            lower.includes("recommence") ||
+            lower.includes("reprendre depuis le debut") ||
+            lower.includes("reprendre depuis le début")
+        ) {
+
+            addMessage(
+                "Aucun problème 👍 On recommence depuis le début. Choisis ton bot : 🍎 Apple of Fortune ou 🎲 Jeu des Dés.",
+                "bot-message"
+            );
+
+            return;
+        }
+
+
+        /* =========================
+           MESSAGE INCONNU
+        ========================= */
 
         addMessage(
-            "🤖 Je peux t'aider concernant Apple of Fortune, le Jeu des Dés, les scores exacts, FIFA, Poker ou l'inscription. 💚",
+            "🤖 Je peux t'aider concernant 🍎 Apple of Fortune, 🎲 le Jeu des Dés, 🎯 les scores exacts, ⚽ FIFA, 🃏 Poker ou l'inscription. Dis-moi simplement ce que tu veux faire. 💚",
             "bot-message"
         );
 
@@ -1506,7 +1817,9 @@ function handleEnter(event) {
 }
 
 
-/* MESSAGE D'ACCUEIL DU CHAT */
+/* =========================
+   MESSAGE D'ACCUEIL DU CHAT
+========================= */
 
 setTimeout(() => {
 
