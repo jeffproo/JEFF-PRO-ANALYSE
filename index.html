@@ -3,119 +3,1518 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>JEFF PRO</title>
+
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: Arial, sans-serif; background: #f4f8f6; color: #17201c; min-height: 100vh; }
-.container { width: 100%; max-width: 650px; margin: auto; padding: 18px 15px 30px; }
-.header { display: flex; align-items: center; gap: 10px; margin-bottom: 22px; }
-.logo { width: 48px; height: 48px; border-radius: 14px; background: #16a34a; color: white; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 17px; }
-.brand-name { font-size: 21px; font-weight: 900; }
-.online { font-size: 8px; color: #16a34a; font-weight: 700; margin-top: 2px; }
-.intro, .content, .chat-box { background: white; border-radius: 20px; padding: 20px; margin-bottom: 18px; box-shadow: 0 6px 20px rgba(0,0,0,0.05); }
-.question { text-align: center; font-size: 18px; font-weight: 800; margin: 22px 0 16px; }
-.options { display: flex; flex-direction: column; gap: 11px; }
-.option-btn { width: 100%; padding: 16px 15px; background: white; border: 2px solid #16a34a; border-radius: 15px; font-size: 15px; font-weight: 800; cursor: pointer; text-align: left; }
-.content { display: none; margin-top: 18px; } .content.show { display: block; }
-.green-btn { display: block; width: 100%; border: none; background: #16a34a; color: white; padding: 14px; border-radius: 13px; font-weight: 800; cursor: pointer; margin-top: 15px; }
-.back-btn { width: 100%; background: #eef3ef; border: none; padding: 13px; border-radius: 13px; font-weight: 700; cursor: pointer; margin-top: 10px; }
-.platform-title { text-align: center; margin: 25px 0 12px; font-size: 12px; font-weight: 800; color: #68736d; letter-spacing: 1px; }
-.platforms { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; }
-.platform { text-decoration: none; color: white; padding: 14px 5px; text-align: center; border-radius: 12px; font-weight: 900; font-size: 13px; }
-.xbet { background: #087cff; } .melbet { background: #ff7417; } .paripesa { background: #005cff; }
-.bottom-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 13px; }
-.whatsapp { text-decoration: none; background: #16a34a; color: white; border-radius: 13px; padding: 15px 8px; text-align: center; font-weight: 900; font-size: 13px; }
-.promo { background: #ffd84d; color: #161616; border-radius: 13px; padding: 9px; text-align: center; }
-.promo-code { display: block; font-size: 25px; font-weight: 1000; letter-spacing: 2px; }
-.chat-messages { max-height: 330px; overflow-y: auto; margin-bottom: 10px; }
-.message { max-width: 88%; padding: 11px 13px; border-radius: 15px; margin-bottom: 8px; font-size: 14px; white-space: pre-line; }
-.bot-message { background: #eef8f1; border-bottom-left-radius: 4px; }
-.user-message { background: #16a34a; color: white; margin-left: auto; border-bottom-right-radius: 4px; }
-.chat-input-row { display: flex; gap: 8px; }
-.chat-input { flex: 1; border: 1px solid #d5ddd8; border-radius: 13px; padding: 13px; outline: none; }
-.send-btn { width: 50px; border: none; border-radius: 13px; background: #16a34a; color: white; font-size: 20px; cursor: pointer; }
-.upload-box { margin-top: 12px; border: 2px dashed #16a34a; border-radius: 15px; padding: 20px 10px; text-align: center; background: #f7fff9; }
-.audio-box { background: #f0fff5; border: 1px solid #16a34a; border-radius: 15px; padding: 12px; margin: 15px 0; }
-.audio-box audio { width: 100%; }
-.capture-img { width: 100%; border-radius: 15px; margin: 15px 0; border: 1px solid #ddd; }
-.choice-buttons { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
-.choice-btn { padding: 14px; border-radius: 12px; border: 2px solid #16a34a; background: white; font-weight: 800; cursor: pointer; }
-.success { background: #effcf3; border: 1px solid #a7e5b9; border-radius: 15px; padding: 15px; margin-top: 15px; }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f8f6;
+    color: #17201c;
+    min-height: 100vh;
+}
+
+.container {
+    width: 100%;
+    max-width: 650px;
+    margin: auto;
+    padding: 18px 15px 30px;
+}
+
+/* HEADER */
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 22px;
+}
+
+.logo {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: #16a34a;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 17px;
+    box-shadow: 0 5px 15px rgba(22,163,74,0.20);
+}
+
+.brand {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.brand-name {
+    font-size: 21px;
+    font-weight: 900;
+    letter-spacing: .5px;
+}
+
+.online {
+    font-size: 8px;
+    color: #16a34a;
+    font-weight: 700;
+    margin-top: 2px;
+}
+
+/* INTRO */
+
+.intro {
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 18px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+}
+
+.intro h2 {
+    font-size: 19px;
+    margin-bottom: 9px;
+}
+
+.intro p {
+    font-size: 14px;
+    line-height: 1.55;
+    color: #59645e;
+}
+
+/* QUESTION */
+
+.question {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 800;
+    margin: 22px 0 16px;
+}
+
+/* OPTIONS */
+
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+}
+
+.option-btn {
+    width: 100%;
+    padding: 16px 15px;
+    background: white;
+    border: 2px solid #16a34a;
+    border-radius: 15px;
+    color: #17201c;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    text-align: left;
+    transition: .2s;
+    box-shadow: 0 4px 10px rgba(22,163,74,0.08);
+}
+
+.option-btn:hover {
+    background: #f0fff5;
+    transform: translateY(-1px);
+}
+
+/* CONTENT */
+
+.content {
+    display: none;
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    margin-top: 18px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+}
+
+.content.show {
+    display: block;
+}
+
+.content h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.content h3 {
+    margin-top: 17px;
+    margin-bottom: 7px;
+    font-size: 16px;
+}
+
+.content p {
+    font-size: 14px;
+    line-height: 1.65;
+    margin-bottom: 9px;
+}
+
+.content ol {
+    padding-left: 20px;
+}
+
+.content li {
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 8px;
+}
+
+/* GREEN BUTTON */
+
+.green-btn {
+    display: block;
+    width: 100%;
+    border: none;
+    background: #16a34a;
+    color: white;
+    padding: 14px;
+    border-radius: 13px;
+    font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.green-btn:hover {
+    background: #12813b;
+}
+
+/* BACK */
+
+.back-btn {
+    width: 100%;
+    background: #eef3ef;
+    color: #17201c;
+    border: none;
+    padding: 13px;
+    border-radius: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* PLATFORM BUTTONS */
+
+.platform-title {
+    text-align: center;
+    margin: 25px 0 12px;
+    font-size: 12px;
+    font-weight: 800;
+    color: #68736d;
+    letter-spacing: 1px;
+}
+
+.platforms {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 9px;
+}
+
+.platform {
+    text-decoration: none;
+    color: white;
+    padding: 14px 5px;
+    text-align: center;
+    border-radius: 12px;
+    font-weight: 900;
+    font-size: 13px;
+}
+
+.xbet {
+    background: #087cff;
+}
+
+.melbet {
+    background: #ff7417;
+}
+
+.paripesa {
+    background: #005cff;
+}
+
+/* BOTTOM */
+
+.bottom-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 13px;
+}
+
+.whatsapp {
+    text-decoration: none;
+    background: #16a34a;
+    color: white;
+    border-radius: 13px;
+    padding: 15px 8px;
+    text-align: center;
+    font-weight: 900;
+    font-size: 13px;
+}
+
+.promo {
+    background: #ffd84d;
+    color: #161616;
+    border-radius: 13px;
+    padding: 9px;
+    text-align: center;
+}
+
+.promo-small {
+    display: block;
+    font-size: 9px;
+    font-weight: 800;
+    margin-bottom: 2px;
+}
+
+.promo-code {
+    display: block;
+    font-size: 25px;
+    font-weight: 1000;
+    letter-spacing: 2px;
+}
+
+/* CHAT */
+
+.chat-box {
+    margin-top: 20px;
+    background: white;
+    border-radius: 20px;
+    padding: 15px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+}
+
+.chat-messages {
+    max-height: 330px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+}
+
+.message {
+    max-width: 88%;
+    padding: 11px 13px;
+    border-radius: 15px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    line-height: 1.5;
+    white-space: pre-line;
+}
+
+.bot-message {
+    background: #eef8f1;
+    color: #17201c;
+    border-bottom-left-radius: 4px;
+}
+
+.user-message {
+    background: #16a34a;
+    color: white;
+    margin-left: auto;
+    border-bottom-right-radius: 4px;
+}
+
+.chat-input-row {
+    display: flex;
+    gap: 8px;
+}
+
+.chat-input {
+    flex: 1;
+    border: 1px solid #d5ddd8;
+    border-radius: 13px;
+    padding: 13px;
+    outline: none;
+    font-size: 14px;
+}
+
+.send-btn {
+    width: 50px;
+    border: none;
+    border-radius: 13px;
+    background: #16a34a;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* REGISTRATION */
+
+.step {
+    display: none;
+}
+
+.step.active {
+    display: block;
+}
+
+.upload-box {
+    margin-top: 12px;
+    border: 2px dashed #16a34a;
+    border-radius: 15px;
+    padding: 20px 10px;
+    text-align: center;
+    background: #f7fff9;
+}
+
+.upload-box input {
+    width: 100%;
+    margin-top: 12px;
+}
+
+/* PLATFORM CHOICE */
+
+.choice-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.choice-btn {
+    padding: 14px;
+    border-radius: 12px;
+    border: 2px solid #16a34a;
+    background: white;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.success {
+    background: #effcf3;
+    border: 1px solid #a7e5b9;
+    border-radius: 15px;
+    padding: 15px;
+    margin-top: 15px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 400px) {
+
+    .container {
+        padding: 15px 12px 25px;
+    }
+
+    .brand-name {
+        font-size: 19px;
+    }
+
+    .question {
+        font-size: 16px;
+    }
+
+    .option-btn {
+        font-size: 14px;
+    }
+
+    .promo-code {
+        font-size: 22px;
+    }
+}
 </style>
 </head>
+
 <body>
+
 <div class="container">
-    <div class="header"><div class="logo">JP</div><div class="brand"><div class="brand-name">JEFF PRO</div><div class="online">En ligne</div></div></div>
-    <div class="intro"><h2>Bonjour 👋</h2><p>Je suis Jeff pro. Pose ta question ou choisis une option ci-dessous.</p></div>
-    <div id="home">
-        <div class="question">Alors, par quoi tu es intéressé, jeune futur millionnaire ? 💚</div>
-        <div class="options">
-            <button class="option-btn" onclick="showApple()">🍎 APPLE OF FORTUNE</button>
-            <button class="option-btn" onclick="showDice()">🎲 JEU DES DÉS</button>
-            <button class="option-btn" onclick="showScore()">🎯 SCORE EXACT DU JOUR</button>
-            <button class="option-btn" onclick="showFifa()">⚽ FIFA</button>
-            <button class="option-btn" onclick="showPoker()">🃏 JEUX POKER</button>
-            <button class="option-btn" onclick="showRegistration()">📝 COMMENT S’INSCRIRE ?</button>
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <div class="logo">
+            JP
         </div>
+
+        <div class="brand">
+
+            <div class="brand-name">
+                JEFF PRO
+            </div>
+
+            <div class="online">
+                En ligne
+            </div>
+
+        </div>
+
     </div>
+
+
+    <!-- INTRO -->
+
+    <div class="intro">
+
+        <h2>Bonjour 👋</h2>
+
+        <p>
+            Je suis Jeff pro. Pose ta question ou choisis
+            une option ci-dessous.
+        </p>
+
+    </div>
+
+
+    <!-- HOME -->
+
+    <div id="home">
+
+        <div class="question">
+            Alors, par quoi tu es intéressé,
+            jeune futur millionnaire ? 💚
+        </div>
+
+        <div class="options">
+
+            <button class="option-btn" onclick="showApple()">
+                🍎 APPLE OF FORTUNE
+            </button>
+
+            <button class="option-btn" onclick="showDice()">
+                🎲 JEU DES DÉS
+            </button>
+
+            <button class="option-btn" onclick="showScore()">
+                🎯 SCORE EXACT DU JOUR
+            </button>
+
+            <button class="option-btn" onclick="showFifa()">
+                ⚽ FIFA
+            </button>
+
+            <button class="option-btn" onclick="showPoker()">
+                🃏 JEUX POKER
+            </button>
+
+            <button class="option-btn" onclick="showRegistration()">
+                📝 COMMENT S’INSCRIRE ?
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- DYNAMIC CONTENT -->
+
     <div id="content" class="content"></div>
-    <div class="chat-box"><div id="chatMessages" class="chat-messages"></div><div class="chat-input-row"><input id="chatInput" class="chat-input" type="text" placeholder="Écrit ici…" onkeydown="handleEnter(event)"><button class="send-btn" onclick="sendMessage()">➤</button></div></div>
-    <div class="platform-title">PLATEFORMES</div>
+
+
+    <!-- CHAT -->
+
+    <div class="chat-box">
+
+        <div id="chatMessages" class="chat-messages"></div>
+
+        <div class="chat-input-row">
+
+            <input
+                id="chatInput"
+                class="chat-input"
+                type="text"
+                placeholder="Écrit ici…"
+                onkeydown="handleEnter(event)"
+            >
+
+            <button
+                class="send-btn"
+                onclick="sendMessage()"
+            >
+                ➤
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- PLATFORM LINKS -->
+
+    <div class="platform-title">
+        PLATEFORMES
+    </div>
+
     <div class="platforms">
-        <a class="platform xbet" href="https://reffpa.com/L?tag=d_4215855m_97c_&site=4215855&ad=97&r=registration" target="_blank">1XBET</a>
-        <a class="platform melbet" href="https://refpa3665.com/L?tag=d_4139550m_45415c_&site=4139550&ad=45415&r=registration" target="_blank">MELBET</a>
-        <a class="platform paripesa" href="https://paripesa.bet/christtpronoso" target="_blank">PARIPESA</a>
+
+        <a
+            class="platform xbet"
+            href="https://reffpa.com/L?tag=d_4215855m_97c_&site=4215855&ad=97&r=registration"
+            target="_blank"
+        >
+            1XBET
+        </a>
+
+        <a
+            class="platform melbet"
+            href="https://refpa3665.com/L?tag=d_4139550m_45415c_&site=4139550&ad=45415&r=registration"
+            target="_blank"
+        >
+            MELBET
+        </a>
+
+        <a
+            class="platform paripesa"
+            href="https://paripesa.bet/christtpronoso"
+            target="_blank"
+        >
+            PARIPESA
+        </a>
+
     </div>
+
+
+    <!-- WHATSAPP + CODE -->
+
     <div class="bottom-row">
-        <a class="whatsapp" href="https://whatsapp.com/channel/0029VbBw8FBDp2Q03qhB4t2b" target="_blank">📲 CHAÎNE WHATSAPP</a>
-        <div class="promo"><span style="font-size:9px;font-weight:800">CODE PROMO</span><span class="promo-code">8F9Y</span></div>
+
+        <a
+            class="whatsapp"
+            href="https://whatsapp.com/channel/0029VbBw8FBDp2Q03qhB4t2b"
+            target="_blank"
+        >
+            📲 CHAÎNE WHATSAPP
+        </a>
+
+        <div class="promo">
+
+            <span class="promo-small">
+                CODE PROMO
+            </span>
+
+            <span class="promo-code">
+                8F9Y
+            </span>
+
+        </div>
+
     </div>
+
 </div>
 
+
 <script>
+
+/* =========================
+   GENERAL
+========================= */
+
 const content = document.getElementById("content");
-function showContent(html){ content.innerHTML = html; content.classList.add("show"); content.scrollIntoView({behavior:"smooth"}); }
-function backHome(){ content.classList.remove("show"); window.scrollTo({top:0,behavior:"smooth"}); }
 
-function showApple(){
- showContent(`<h2>🍎 APPLE OF FORTUNE</h2><p>Pour accéder aux méthodes réservées, tu dois t'inscrire avec le code <strong>8F9Y</strong> et déposer <strong>1500 FCFA</strong>.</p><button class="green-btn" onclick="showRegistration()">OUI, GUIDE-MOI</button><button class="back-btn" onclick="backHome()">← Retour</button>`);
-}
-function showDice(){
- showContent(`<h2>🎲 JEU DES DÉS</h2><p>Pour accéder aux méthodes réservées, tu dois t'inscrire avec le code <strong>8F9Y</strong> et déposer <strong>1500 FCFA</strong>.</p><button class="green-btn" onclick="showRegistration()">OUI, GUIDE-MOI</button><button class="back-btn" onclick="backHome()">← Retour</button>`);
-}
-function showScore(){ showContent(`<h2>🎯 SCORE EXACT</h2><p>Les scores sont dans ma chaîne WhatsApp.</p><button class="back-btn" onclick="backHome()">← Retour</button>`); }
-function showFifa(){ showContent(`<h2>⚽ FIFA</h2><p>Infos FIFA dans ma chaîne WhatsApp.</p><button class="back-btn" onclick="backHome()">← Retour</button>`); }
-function showPoker(){ showContent(`<h2>🃏 POKER</h2><p>Infos Poker dans ma chaîne WhatsApp.</p><button class="back-btn" onclick="backHome()">← Retour</button>`); }
+function showContent(html) {
 
-function showRegistration(){
- showContent(`
-    <h2>📝 COMMENT S’INSCRIRE ?</h2>
-    <p>Écoute mon vocal et regarde les captures ci-dessous 👇</p>
+    content.innerHTML = html;
 
-    <div class="audio-box">
-        <p style="font-weight:800;margin-bottom:8px;">🎤 Vocal JEFF PRO :</p>
-        <audio controls>
-            <source src="vocal.mp3.m4a" type="audio/mp4">
-            <source src="vocal.mp3.m4a" type="audio/mpeg">
-            Ton navigateur ne supporte pas l'audio.
-        </audio>
-    </div>
+    content.classList.add("show");
 
-    <img src="inscription.jpg.jpg" class="capture-img" alt="Procédure d'inscription">
-
-    <h3>⚠️ Les 2 conditions obligatoires :</h3>
-    <p>🔑 Code promo : <strong>8F9Y</strong><br>💰 Dépôt minimum : <strong>1500 FCFA</strong></p>
-
-    <p style="text-align:center;font-size:30px;font-weight:900;color:#16a34a;margin:15px 0;">8F9Y</p>
-
-    <button class="green-btn" onclick="startStep1()">CONTINUER</button>
-    <button class="back-btn" onclick="backHome()">← Retour</button>
- `);
+    content.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
 }
 
-function startStep1(){ showContent(`<h2>ÉTAPE 1️⃣</h2><p>Envoie capture d'inscription</p><div class="upload-box">📷 <input type="file" accept="image/*"></div><button class="green-btn" onclick="startStep2()">CONTINUER</button><button class="back-btn" onclick="showRegistration()">← Retour</button>`); }
-function startStep2(){ showContent(`<h2>ÉTAPE 2️⃣</h2><p>Capture avec code 8F9Y</p><div class="upload-box">📷 <input type="file" accept="image/*"></div><button class="green-btn" onclick="startStep3()">CONTINUER</button><button class="back-btn" onclick="startStep1()">← Retour</button>`); }
-function startStep3(){ showContent(`<h2>ÉTAPE 3️⃣</h2><p>Quelle plateforme ?</p><div class="choice-buttons"><button class="choice-btn" onclick="selectedPlatform('1XBET')">1XBET</button><button class="choice-btn" onclick="selectedPlatform('MELBET')">MELBET</button><button class="choice-btn" onclick="selectedPlatform('PARIPESA')">PARIPESA</button></div><button class="back-btn" onclick="startStep2()">← Retour</button>`); }
-function selectedPlatform(p){ showContent(`<h2>ÉTAPE 3️⃣</h2><div class="success">✅ Plateforme : <strong>${p}</strong></div><button class="green-btn" onclick="startStep4()">CONTINUER</button>`); }
-function startStep4(){ showContent(`<h2>ÉTAPE 4️⃣</h2><p>Capture dépôt 1500F</p><div class="upload-box">📷 <input type="file" accept="image/*"></div><button class="green-btn" onclick="startStep5()">CONTINUER</button><button class="back-btn" onclick="startStep3()">← Retour</button>`); }
-function startStep5(){ showContent(`<h2>✅ TERMINÉ</h2><div class="success">Parfait 👌 Rejoins ma chaîne WhatsApp.</div><a class="green-btn" href="https://whatsapp.com/channel/0029VbBw8FBDp2Q03qhB4t2b" target="_blank" style="text-decoration:none;text-align:center;">📲 RE
+function backHome() {
+
+    content.classList.remove("show");
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+/* =========================
+   APPLE OF FORTUNE
+========================= */
+
+function showApple() {
+
+    showContent(`
+
+        <h2>🍎 APPLE OF FORTUNE</h2>
+
+        <p>
+            🤖 JEFF PRO
+        </p>
+
+        <p>
+            <strong>
+            Comment gagner à Apple of Fortune ?
+            </strong>
+        </p>
+
+        <p>
+            Pour accéder aux méthodes et informations
+            réservées de JEFF PRO concernant Apple of Fortune,
+            tu dois d'abord remplir les deux conditions
+            obligatoires.
+        </p>
+
+        <p>
+            1️⃣ T'inscrire chez un bookmaker partenaire
+            1XBET, MELBET ou PARIPESA avec le code promo
+            <strong>8F9Y</strong>.
+        </p>
+
+        <p>
+            2️⃣ Effectuer un premier dépôt d'au moins
+            <strong>1 500 FCFA</strong> sur ton compte.
+        </p>
+
+        <p>
+            🔥 Une fois ces étapes validées, tu pourras
+            bénéficier du contenu exclusif de JEFF PRO 🍎.
+        </p>
+
+        <p>
+            👉 Veux-tu que je te guide étape par étape
+            pour t'inscrire ? 😊
+        </p>
+
+        <button class="green-btn" onclick="showRegistration()">
+            OUI, GUIDE-MOI
+        </button>
+
+        <button class="back-btn" onclick="backHome()">
+            ← Retour
+        </button>
+
+    `);
+}
+
+
+/* =========================
+   JEU DES DÉS
+========================= */
+
+function showDice() {
+
+    showContent(`
+
+        <h2>🎲 JEU DES DÉS</h2>
+
+        <p>
+            🤖 JEFF PRO
+        </p>
+
+        <p>
+            <strong>
+            Comment gagner au Jeu des Dés ?
+            </strong>
+        </p>
+
+        <p>
+            Pour accéder aux méthodes et informations
+            réservées de JEFF PRO concernant le jeu des Dés,
+            tu dois d'abord remplir les deux conditions
+            obligatoires.
+        </p>
+
+        <p>
+            1️⃣ T'inscrire chez un bookmaker partenaire
+            1XBET, MELBET ou PARIPESA avec le code promo
+            <strong>8F9Y</strong>.
+        </p>
+
+        <p>
+            2️⃣ Effectuer un premier dépôt d'au moins
+            <strong>1 500 FCFA</strong> sur ton compte.
+        </p>
+
+        <p>
+            🔥 Une fois ces étapes validées, tu pourras
+            bénéficier du contenu exclusif de JEFF PRO 🎲.
+        </p>
+
+        <p>
+            👉 Veux-tu que je te guide étape par étape
+            pour t'inscrire ? 😊
+        </p>
+
+        <button class="green-btn" onclick="showRegistration()">
+            OUI, GUIDE-MOI
+        </button>
+
+        <button class="back-btn" onclick="backHome()">
+            ← Retour
+        </button>
+
+    `);
+}
+
+
+/* =========================
+   SCORE EXACT
+========================= */
+
+function showScore() {
+
+    showContent(`
+
+        <h2>🎯 SCORE EXACT DU JOUR</h2>
+
+        <p>
+            🤖 JEFF PRO
+        </p>
+
+        <p>
+            🎯 Les scores exacts du jour sont partagés
+            dans ma chaîne WhatsApp.
+        </p>
+
+        <p>
+            👉 Clique sur « CHAÎNE WHATSAPP » en bas
+            de la page pour accéder aux publications.
+        </p>
+
+        <button class="back-btn" onclick="backHome()">
+            ← Retour
+        </button>
+
+    `);
+}
+
+
+/* =========================
+   FIFA
+========================= */
+
+function showFifa() {
+
+    showContent(`
+
+        <h2>⚽ FIFA</h2>
+
+        <p>
+            🤖 JEFF PRO
+        </p>
+
+        <p>
+            ⚽ Les informations et contenus FIFA sont
+            partagés dans ma chaîne WhatsApp.
+        </p>
+
+        <p>
+            👉 Clique sur « CHAÎNE WHATSAPP » en bas
+            de la page pour accéder aux publications.
+        </p>
+
+        <button class="back-btn" onclick="backHome()">
+            ← Retour
+        </button>
+
+    `);
+}
+
+
+/* =========================
+   POKER
+========================= */
+
+function showPoker() {
+
+    showContent(`
+
+        <h2>🃏 JEUX POKER</h2>
+
+        <p>
+            🤖 JEFF PRO
+        </p>
+
+        <p>
+            🃏 Les informations et contenus concernant
+            les jeux Poker sont partagés dans ma chaîne
+            WhatsApp.
+        </p>
+
+        <p>
+            👉 Clique sur « CHAÎNE WHATSAPP » en bas
+            de la page pour accéder aux publications
+            de JEFF PRO.
+        </p>
+
+        <button class="back-btn" onclick="backHome()">
+            ← Retour
+        </button>
+
+    `);
+}
+
+
+/* =========================
+   REGISTRATION
+========================= */
+
+function showRegistration() {
+
+    showContent(`
+
+        <h2>📝 COMMENT S’INSCRIRE ?</h2>
+
+        <p>
+            Bien sûr 👌 Voici les étapes pour t'inscrire
+            et accéder au contenu réservé de JEFF PRO.
+        </p>
+
+        <h3>⚠️ Les 2 conditions obligatoires :</h3>
+
+        <p>
+            🔑 Inscription avec le code promo
+            <strong>8F9Y</strong>
+        </p>
+
+        <p>
+            💰 Premier dépôt minimum
+            <strong>1 500 FCFA</strong>
+        </p>
+
+        <h3>1️⃣ Choisis un bookmaker partenaire</h3>
+
+        <p>
+            Tu peux choisir l'une des plateformes
+            affichées en bas de la page :
+        </p>
+
+        <p>
+            1XBET<br>
+            MELBET<br>
+            PARIPESA
+        </p>
+
+        <h3>2️⃣ Ouvre le lien d'inscription</h3>
+
+        <p>
+            Choisis la plateforme qui t'intéresse et
+            ouvre son lien d'inscription.
+        </p>
+
+        <h3>3️⃣ Remplis le formulaire</h3>
+
+        <p>
+            Renseigne les informations demandées :
+            nom, prénom, numéro de téléphone, email,
+            mot de passe ou autres informations selon
+            la plateforme.
+        </p>
+
+        <h3>4️⃣ Entre le code promo</h3>
+
+        <p>
+            Dans le champ « Code promo »,
+            « Code bonus » ou « Code parrain », saisis :
+        </p>
+
+        <p style="
+            text-align:center;
+            font-size:30px;
+            font-weight:900;
+            color:#16a34a;
+        ">
+            8F9Y
+        </p>
+
+        <p>
+            ⚠️ Vérifie bien que 8F9Y est appliqué avant
+            de terminer ton inscription.
+        </p>
+
+        <h3>5️⃣ Effectue ton premier dépôt</h3>
+
+        <p>
+            Après ton inscription, effectue un premier
+            dépôt d'au moins 1 500 FCFA.
+        </p>
+
+        <p>
+            Les moyens de paiement disponibles dépendent
+            de la plateforme choisie.
+        </p>
+
+        <h3>6️⃣ Garde ta preuve de dépôt</h3>
+
+        <p>
+            Fais une capture d'écran claire de ton dépôt
+            et conserve-la pour la vérification.
+        </p>
+
+        <h3>7️⃣ Reviens vers JEFF PRO</h3>
+
+        <p>
+            Une fois les deux conditions remplies,
+            reviens ici pour obtenir l'accès aux contenus
+            et analyses exclusives de JEFF PRO.
+        </p>
+
+        <p>
+            🍎 Apple of Fortune<br>
+            🎲 Jeu des Dés<br>
+            🎯 Et les autres contenus disponibles.
+        </p>
+
+        <button class="green-btn" onclick="startStep1()">
+            CONTINUER
+        </button>
+
+        <button class="back-btn" onclick="backHome()">
+            ← Retour
+        </button>
+
+    `);
+}
+
+
+/* =========================
+   STEP 1
+========================= */
+
+function startStep1() {
+
+    showContent(`
+
+        <div class="step active">
+
+            <h2>ÉTAPE 1️⃣</h2>
+
+            <p>
+                <strong>
+                Tu t'es déjà inscrit ?
+                </strong>
+            </p>
+
+            <p>
+                📸 Envoie une capture d'écran de ton
+                inscription pour continuer.
+            </p>
+
+            <div class="upload-box">
+
+                📷 Sélectionne ta capture d'écran
+
+                <input
+                    type="file"
+                    accept="image/*"
+                >
+
+            </div>
+
+            <button class="green-btn" onclick="startStep2()">
+                CONTINUER
+            </button>
+
+            <button class="back-btn" onclick="showRegistration()">
+                ← Retour
+            </button>
+
+        </div>
+
+    `);
+}
+
+
+/* =========================
+   STEP 2
+========================= */
+
+function startStep2() {
+
+    showContent(`
+
+        <div class="step active">
+
+            <h2>ÉTAPE 2️⃣</h2>
+
+            <p>
+                <strong>
+                Tu as bien utilisé le code promo 8F9Y ?
+                </strong>
+            </p>
+
+            <p>
+                📸 Envoie une capture d'écran où l'on voit
+                que le code 8F9Y a bien été utilisé.
+            </p>
+
+            <div class="upload-box">
+
+                📷 Sélectionne ta capture d'écran
+
+                <input
+                    type="file"
+                    accept="image/*"
+                >
+
+            </div>
+
+            <button class="green-btn" onclick="startStep3()">
+                CONTINUER
+            </button>
+
+            <button class="back-btn" onclick="startStep1()">
+                ← Retour
+            </button>
+
+        </div>
+
+    `);
+}
+
+
+/* =========================
+   STEP 3
+========================= */
+
+function startStep3() {
+
+    showContent(`
+
+        <div class="step active">
+
+            <h2>ÉTAPE 3️⃣</h2>
+
+            <p>
+                <strong>
+                Tu t'es inscrit sur quelle plateforme ?
+                </strong>
+            </p>
+
+            <div class="choice-buttons">
+
+                <button
+                    class="choice-btn"
+                    onclick="selectedPlatform('1XBET')"
+                >
+                    1XBET
+                </button>
+
+                <button
+                    class="choice-btn"
+                    onclick="selectedPlatform('MELBET')"
+                >
+                    MELBET
+                </button>
+
+                <button
+                    class="choice-btn"
+                    onclick="selectedPlatform('PARIPESA')"
+                >
+                    PARIPESA
+                </button>
+
+            </div>
+
+            <button class="back-btn" onclick="startStep2()">
+                ← Retour
+            </button>
+
+        </div>
+
+    `);
+}
+
+
+/* =========================
+   STEP 3 RESULT
+========================= */
+
+function selectedPlatform(platform) {
+
+    showContent(`
+
+        <div class="step active">
+
+            <h2>ÉTAPE 3️⃣</h2>
+
+            <div class="success">
+
+                ✅ Plateforme sélectionnée :
+
+                <strong>
+                    ${platform}
+                </strong>
+
+            </div>
+
+            <p style="margin-top:15px;">
+                Continue pour passer à la vérification
+                de ton dépôt.
+            </p>
+
+            <button class="green-btn" onclick="startStep4()">
+                CONTINUER
+            </button>
+
+        </div>
+
+    `);
+}
+
+
+/* =========================
+   STEP 4
+========================= */
+
+function startStep4() {
+
+    showContent(`
+
+        <div class="step active">
+
+            <h2>ÉTAPE 4️⃣</h2>
+
+            <p>
+                <strong>
+                Tu as effectué ton dépôt de 1 500 FCFA ?
+                </strong>
+            </p>
+
+            <p>
+                📸 Envoie une capture d'écran de ton dépôt
+                pour continuer.
+            </p>
+
+            <div class="upload-box">
+
+                📷 Sélectionne ta capture d'écran
+
+                <input
+                    type="file"
+                    accept="image/*"
+                >
+
+            </div>
+
+            <button class="green-btn" onclick="startStep5()">
+                CONTINUER
+            </button>
+
+            <button class="back-btn" onclick="startStep3()">
+                ← Retour
+            </button>
+
+        </div>
+
+    `);
+}
+
+
+/* =========================
+   STEP 5
+========================= */
+
+function startStep5() {
+
+    showContent(`
+
+        <div class="step active">
+
+            <h2>✅ ÉTAPES TERMINÉES</h2>
+
+            <div class="success">
+
+                <p>
+                    Parfait 👌 Toutes les étapes sont
+                    terminées.
+                </p>
+
+                <p>
+                    📲 Maintenant, rejoins ma chaîne
+                    WhatsApp pour accéder aux publications
+                    de JEFF PRO.
+                </p>
+
+            </div>
+
+            <a
+                class="green-btn"
+                href="https://whatsapp.com/channel/0029VbBw8FBDp2Q03qhB4t2b"
+                target="_blank"
+                style="text-decoration:none;text-align:center;"
+            >
+                📲 REJOINDRE LA CHAÎNE WHATSAPP
+            </a>
+
+        </div>
+
+    `);
+}
+
+
+/* =========================
+   CHAT
+========================= */
+
+function addMessage(text, type) {
+
+    const messages = document.getElementById("chatMessages");
+
+    const div = document.createElement("div");
+
+    div.className = "message " + type;
+
+    div.textContent = text;
+
+    messages.appendChild(div);
+
+    messages.scrollTop = messages.scrollHeight;
+}
+
+
+function sendMessage() {
+
+    const input = document.getElementById("chatInput");
+
+    const text = input.value.trim();
+
+    if (!text) return;
+
+    addMessage(text, "user-message");
+
+    input.value = "";
+
+    const lower = text
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+
+
+    setTimeout(() => {
+
+        /* SALUT / ÇA VA */
+
+        if (
+            lower.includes("salut") ||
+            lower.includes("bonjour") ||
+            lower.includes("bonsoir") ||
+            lower.includes("coucou") ||
+            lower.includes("ca va") ||
+            lower.includes("cv") ||
+            lower.includes("comment vas") ||
+            lower.includes("comment va")
+        ) {
+
+            addMessage(
+                "Je vais bien, bienvenue jeune millionnaire 😎💚",
+                "bot-message"
+            );
+
+            return;
+        }
+
+
+        /* INSCRIPTION */
+
+        if (
+            lower.includes("inscription") ||
+            lower.includes("inscrire") ||
+            lower.includes("comment je m'inscris") ||
+            lower.includes("comment je m inscrit")
+        ) {
+
+            addMessage(
+                "Bien sûr 👌 Je vais te guider étape par étape pour ton inscription.",
+                "bot-message"
+            );
+
+            showRegistration();
+
+            return;
+        }
+
+
+        /* CODE PROMO */
+
+        if (
+            lower.includes("code promo") ||
+            lower.includes("code bonus") ||
+            lower.includes("code parrain") ||
+            lower === "code"
+        ) {
+
+            addMessage(
+                "🔑 Le code promo JEFF PRO est : 8F9Y 💚",
+                "bot-message"
+            );
+
+            return;
+        }
+
+
+        /* APPLE */
+
+        if (
+            lower.includes("apple") ||
+            lower.includes("fortune")
+        ) {
+
+            addMessage(
+                "🍎 Apple of Fortune : je peux te guider étape par étape pour accéder au contenu réservé de JEFF PRO.",
+                "bot-message"
+            );
+
+            showApple();
+
+            return;
+        }
+
+
+        /* DÉS */
+
+        if (
+            lower.includes("des") ||
+            lower.includes("dé") ||
+            lower.includes("dice")
+        ) {
+
+            addMessage(
+                "🎲 Pour le Jeu des Dés, je peux te guider étape par étape.",
+                "bot-message"
+            );
+
+            showDice();
+
+            return;
+        }
+
+
+        /* SCORE */
+
+        if (
+            lower.includes("score exact") ||
+            lower.includes("score")
+        ) {
+
+            addMessage(
+                "🎯 Les scores exacts du jour sont partagés dans ma chaîne WhatsApp.",
+                "bot-message"
+            );
+
+            showScore();
+
+            return;
+        }
+
+
+        /* FIFA */
+
+        if (
+            lower.includes("fifa")
+        ) {
+
+            addMessage(
+                "⚽ Les informations et contenus FIFA sont partagés dans ma chaîne WhatsApp.",
+                "bot-message"
+            );
+
+            showFifa();
+
+            return;
+        }
+
+
+        /* POKER */
+
+        if (
+            lower.includes("poker")
+        ) {
+
+            addMessage(
+                "🃏 Les informations concernant les jeux Poker sont partagées dans ma chaîne WhatsApp.",
+                "bot-message"
+            );
+
+            showPoker();
+
+            return;
+        }
+
+
+        /* 1XBET */
+
+        if (
+            lower.includes("1xbet")
+        ) {
+
+            addMessage(
+                "🔵 Voici le lien d'inscription 1XBET.",
+                "bot-message"
+            );
+
+            return;
+        }
+
+
+        /* MELBET */
+
+        if (
+            lower.includes("melbet")
+        ) {
+
+            addMessage(
+                "🟠 Voici le lien d'inscription MELBET.",
+                "bot-message"
+            );
+
+            return;
+        }
+
+
+        /* PARIPESA */
+
+        if (
+            lower.includes("paripesa")
+        ) {
+
+            addMessage(
+                "🔵 Voici le lien d'inscription PARIPESA.",
+                "bot-message"
+            );
+
+            return;
+        }
+
+
+        /* MESSAGE INCONNU */
+
+        addMessage(
+            "🤖 Je peux t'aider concernant Apple of Fortune, le Jeu des Dés, les scores exacts, FIFA, Poker ou l'inscription. 💚",
+            "bot-message"
+        );
+
+    }, 400);
+}
+
+
+function handleEnter(event) {
+
+    if (event.key === "Enter") {
+        sendMessage();
+    }
+
+}
+
+
+/* MESSAGE D'ACCUEIL DU CHAT */
+
+setTimeout(() => {
+
+    addMessage(
+        "Bonjour 👋 Je suis Jeff pro. Pose ta question ou choisis une option ci-dessous.",
+        "bot-message"
+    );
+
+}, 500);
+
+</script>
+
+</body>
+</html>
