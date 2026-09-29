@@ -5,89 +5,117 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JEFF PRO</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-body{background:#f0fdf4}
-.top{background:#0a7a42;color:white;padding:14px 16px}
-.card{max-width:480px;margin:12px auto;background:white;border-radius:16px;padding:16px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin:0 12px}
-.bubble{background:#f8faf8;border-radius:12px;padding:12px;font-size:14px;line-height:1.5}
-.vocal{background:#e8f5e9;border-radius:12px;padding:10px;display:flex;align-items:center;gap:10px;margin-top:10px}
-.play{width:42px;height:42px;background:#0a7a42;border-radius:50%;color:white;border:none;font-size:18px;cursor:pointer}
-.btn{width:100%;background:white;border:1px solid #d1fae5;border-radius:12px;padding:14px;text-align:left;font-weight:bold;font-size:14px;margin-top:8px;cursor:pointer}
-.plats{display:flex;gap:8px;max-width:480px;margin:14px auto;padding:0 12px}
-.plat{flex:1;background:white;border-radius:10px;padding:12px;text-align:center;font-weight:bold;font-size:13px;box-shadow:0 1px 3px rgba(0,0,0,.1)}
-.foot{display:flex;gap:8px;max-width:480px;margin:10px auto;padding:0 12px 20px}
-.foot a{flex:1;padding:12px;border-radius:10px;text-align:center;font-weight:bold;text-decoration:none;font-size:13px}
-.wa{background:#25D366;color:white}
-.code{background:#fef08a;color:black}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:12px;z-index:50}
-.modal.on{display:flex}
-.box{background:white;width:100%;max-width:480px;border-radius:20px;padding:20px;max-height:90vh;overflow:auto}
-.big{width:100%;background:#0a7a42;color:white;border:none;padding:14px;border-radius:12px;font-weight:bold;margin-top:12px;cursor:pointer}
-.back{width:100%;background:#f3f4f6;border:none;padding:12px;border-radius:12px;margin-top:8px;cursor:pointer}
-.up{border:2px dashed #0a7a42;border-radius:12px;padding:20px;text-align:center;margin-top:12px;background:#f0fdf4}
-.proc-img{width:100%;border-radius:12px;margin-top:12px;border:2px solid #0a7a42}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: Arial, sans-serif; background: #f4f8f6; color: #17201c; min-height: 100vh; }
+.container { width: 100%; max-width: 650px; margin: auto; padding: 18px 15px 30px; }
+.header { display: flex; align-items: center; gap: 10px; margin-bottom: 22px; }
+.logo { width: 48px; height: 48px; border-radius: 14px; background: #16a34a; color: white; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 17px; }
+.brand-name { font-size: 21px; font-weight: 900; }
+.online { font-size: 8px; color: #16a34a; font-weight: 700; margin-top: 2px; }
+.intro, .content, .chat-box { background: white; border-radius: 20px; padding: 20px; margin-bottom: 18px; box-shadow: 0 6px 20px rgba(0,0,0,0.05); }
+.question { text-align: center; font-size: 18px; font-weight: 800; margin: 22px 0 16px; }
+.options { display: flex; flex-direction: column; gap: 11px; }
+.option-btn { width: 100%; padding: 16px 15px; background: white; border: 2px solid #16a34a; border-radius: 15px; font-size: 15px; font-weight: 800; cursor: pointer; text-align: left; }
+.content { display: none; margin-top: 18px; } .content.show { display: block; }
+.green-btn { display: block; width: 100%; border: none; background: #16a34a; color: white; padding: 14px; border-radius: 13px; font-weight: 800; cursor: pointer; margin-top: 15px; }
+.back-btn { width: 100%; background: #eef3ef; border: none; padding: 13px; border-radius: 13px; font-weight: 700; cursor: pointer; margin-top: 10px; }
+.platform-title { text-align: center; margin: 25px 0 12px; font-size: 12px; font-weight: 800; color: #68736d; letter-spacing: 1px; }
+.platforms { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; }
+.platform { text-decoration: none; color: white; padding: 14px 5px; text-align: center; border-radius: 12px; font-weight: 900; font-size: 13px; }
+.xbet { background: #087cff; } .melbet { background: #ff7417; } .paripesa { background: #005cff; }
+.bottom-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 13px; }
+.whatsapp { text-decoration: none; background: #16a34a; color: white; border-radius: 13px; padding: 15px 8px; text-align: center; font-weight: 900; font-size: 13px; }
+.promo { background: #ffd84d; color: #161616; border-radius: 13px; padding: 9px; text-align: center; }
+.promo-code { display: block; font-size: 25px; font-weight: 1000; letter-spacing: 2px; }
+.chat-messages { max-height: 330px; overflow-y: auto; margin-bottom: 10px; }
+.message { max-width: 88%; padding: 11px 13px; border-radius: 15px; margin-bottom: 8px; font-size: 14px; white-space: pre-line; }
+.bot-message { background: #eef8f1; border-bottom-left-radius: 4px; }
+.user-message { background: #16a34a; color: white; margin-left: auto; border-bottom-right-radius: 4px; }
+.chat-input-row { display: flex; gap: 8px; }
+.chat-input { flex: 1; border: 1px solid #d5ddd8; border-radius: 13px; padding: 13px; outline: none; }
+.send-btn { width: 50px; border: none; border-radius: 13px; background: #16a34a; color: white; font-size: 20px; cursor: pointer; }
+.upload-box { margin-top: 12px; border: 2px dashed #16a34a; border-radius: 15px; padding: 20px 10px; text-align: center; background: #f7fff9; }
+.audio-box { background: #f0fff5; border: 1px solid #16a34a; border-radius: 15px; padding: 12px; margin: 15px 0; }
+.audio-box audio { width: 100%; }
+.capture-img { width: 100%; border-radius: 15px; margin: 15px 0; border: 1px solid #ddd; }
+.choice-buttons { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
+.choice-btn { padding: 14px; border-radius: 12px; border: 2px solid #16a34a; background: white; font-weight: 800; cursor: pointer; }
+.success { background: #effcf3; border: 1px solid #a7e5b9; border-radius: 15px; padding: 15px; margin-top: 15px; }
 </style>
 </head>
 <body>
-<div class="top">🟢 <b>JEFF PRO - En ligne</b></div>
-
-<div class="card">
-<div class="bubble">Bonjour 👋 Je suis Jeff pro. Choisis une option ci-dessous.<br><br><b>Alors, par quoi tu es intéressé, jeune futur millionnaire ? 💚</b></div>
-
-<!-- AUDIO AJOUTÉ -->
-<div class="vocal">
-<button class="play" id="playBtn" onclick="toggleAudio()">▶</button>
-<div style="flex:1"><b style="font-size:13px">Vocal de Jeff Pro - 10:13</b><br><span style="font-size:11px;color:#555">Clique pour écouter</span></div>
+<div class="container">
+    <div class="header"><div class="logo">JP</div><div class="brand"><div class="brand-name">JEFF PRO</div><div class="online">En ligne</div></div></div>
+    <div class="intro"><h2>Bonjour 👋</h2><p>Je suis Jeff pro. Pose ta question ou choisis une option ci-dessous.</p></div>
+    <div id="home">
+        <div class="question">Alors, par quoi tu es intéressé, jeune futur millionnaire ? 💚</div>
+        <div class="options">
+            <button class="option-btn" onclick="showApple()">🍎 APPLE OF FORTUNE</button>
+            <button class="option-btn" onclick="showDice()">🎲 JEU DES DÉS</button>
+            <button class="option-btn" onclick="showScore()">🎯 SCORE EXACT DU JOUR</button>
+            <button class="option-btn" onclick="showFifa()">⚽ FIFA</button>
+            <button class="option-btn" onclick="showPoker()">🃏 JEUX POKER</button>
+            <button class="option-btn" onclick="showRegistration()">📝 COMMENT S’INSCRIRE ?</button>
+        </div>
+    </div>
+    <div id="content" class="content"></div>
+    <div class="chat-box"><div id="chatMessages" class="chat-messages"></div><div class="chat-input-row"><input id="chatInput" class="chat-input" type="text" placeholder="Écrit ici…" onkeydown="handleEnter(event)"><button class="send-btn" onclick="sendMessage()">➤</button></div></div>
+    <div class="platform-title">PLATEFORMES</div>
+    <div class="platforms">
+        <a class="platform xbet" href="https://reffpa.com/L?tag=d_4215855m_97c_&site=4215855&ad=97&r=registration" target="_blank">1XBET</a>
+        <a class="platform melbet" href="https://refpa3665.com/L?tag=d_4139550m_45415c_&site=4139550&ad=45415&r=registration" target="_blank">MELBET</a>
+        <a class="platform paripesa" href="https://paripesa.bet/christtpronoso" target="_blank">PARIPESA</a>
+    </div>
+    <div class="bottom-row">
+        <a class="whatsapp" href="https://whatsapp.com/channel/0029VbBw8FBDp2Q03qhB4t2b" target="_blank">📲 CHAÎNE WHATSAPP</a>
+        <div class="promo"><span style="font-size:9px;font-weight:800">CODE PROMO</span><span class="promo-code">8F9Y</span></div>
+    </div>
 </div>
-<audio id="vocalAudio"><source src="vocal.mp3.m4a" type="audio/mp4"><source src="vocal.mp3" type="audio/mpeg"></audio>
-
-<button class="btn" onclick="openM('apple')">🍎 APPLE OF FORTUNE</button>
-<button class="btn" onclick="openM('des')">🎲 JEU DES DÉS</button>
-<button class="btn" onclick="openM('score')">🎯 SCORE EXACT DU JOUR</button>
-<button class="btn" onclick="openM('fifa')">⚽ FIFA</button>
-<button class="btn" onclick="openM('poker')">🃏 JEUX POKER</button>
-<button class="btn" onclick="openM('inscrire')">📝 COMMENT S'INSCRIRE ?</button>
-</div>
-
-<div class="plats"><div>1XBET</div><div>MELBET</div><div>PARIPESA</div></div>
-<div class="foot"><a class="wa" href="https://wa.me/22900000000">📲 CHAÎNE WHATSAPP</a><a class="code">8F9Y 🟡</a></div>
-
-<!-- INSCRIPTION AVEC TON IMAGE DIRECTE -->
-<div class="modal" id="m-inscrire"><div class="box">
-<b>📝 COMMENT S'INSCRIRE ?</b><br><br>
-<div class="bubble">⚠️ 2 CONDITIONS OBLIGATOIRES<br>🔑 Code promo : <b>8F9Y</b><br>💰 Dépôt minimum : 1 500 FCFA</div>
-
-<img src="inscription.jpg" class="proc-img" alt="Procedure 1xBet 8F9Y">
-
-<div style="margin-top:12px;font-size:13px;line-height:1.6">
-<b>1️⃣</b> Clique sur <b>Inscription</b><br>
-<b>2️⃣</b> Choisis <b>Par téléphone</b><br>
-<b>3️⃣</b> Entre le code promo <b>8F9Y</b><br>
-<b>4️⃣</b> Clique sur <b>Recharger le compte</b> et dépose 1500F
-</div>
-
-<button class="big" onclick="openM('s1')">[ CONTINUER ]</button>
-<button class="back" onclick="closeM()">[ ← RETOUR ]</button>
-</div></div>
-
-<div class="modal" id="m-apple"><div class="box"><b>🍎 APPLE OF FORTUNE</b><br><br><div class="bubble">Pour débloquer : Code <b>8F9Y</b> + Dépôt 1500F</div><button class="big" onclick="openM('inscrire')">[ OUI, GUIDE-MOI ]</button><button class="back" onclick="closeM()">[ ← RETOUR ]</button></div></div>
-<div class="modal" id="m-des"><div class="box"><b>🎲 JEU DES DÉS</b><br><br><div class="bubble">Pour débloquer : Code <b>8F9Y</b> + Dépôt 1500F</div><button class="big" onclick="openM('inscrire')">[ OUI, GUIDE-MOI ]</button><button class="back" onclick="closeM()">[ ← RETOUR ]</button></div></div>
-<div class="modal" id="m-score"><div class="box"><b>🎯 SCORE EXACT</b><br><br>Dans ma chaîne WhatsApp<button class="back" onclick="closeM()">[ ← RETOUR ]</button></div></div>
-<div class="modal" id="m-fifa"><div class="box"><b>⚽ FIFA</b><br><br>Dans ma chaîne WhatsApp<button class="back" onclick="closeM()">[ ← RETOUR ]</button></div></div>
-<div class="modal" id="m-poker"><div class="box"><b>🃏 POKER</b><br><br>Dans ma chaîne WhatsApp<button class="back" onclick="closeM()">[ ← RETOUR ]</button></div></div>
-
-<div class="modal" id="m-s1"><div class="box"><b>ÉTAPE 1️⃣</b><br><br>📸 Envoie capture d'inscription<label class="up"><input type="file" hidden>[ CHOISIR UNE IMAGE ]</label><button class="big" onclick="openM('s2')">[ CONTINUER ]</button></div></div>
-<div class="modal" id="m-s2"><div class="box"><b>ÉTAPE 2️⃣</b><br><br>📸 Capture avec code 8F9Y<label class="up"><input type="file" hidden>[ CHOISIR UNE IMAGE ]</label><button class="big" onclick="openM('s3')">[ CONTINUER ]</button></div></div>
-<div class="modal" id="m-s3"><div class="box"><b>ÉTAPE 3️⃣</b><br><br>Quelle plateforme ?<br><button class="btn" onclick="openM('s4')">[ 1XBET ]</button><button class="btn" onclick="openM('s4')">[ MELBET ]</button><button class="btn" onclick="openM('s4')">[ PARIPESA ]</button></div></div>
-<div class="modal" id="m-s4"><div class="box"><b>ÉTAPE 4️⃣</b><br><br>📸 Capture dépôt 1500F<label class="up"><input type="file" hidden>[ CHOISIR UNE IMAGE ]</label><button class="big" onclick="openM('done')">[ CONTINUER ]</button></div></div>
-<div class="modal" id="m-done"><div class="box" style="text-align:center"><b>✅ ÉTAPES TERMINÉES</b><br><br><a href="https://wa.me/22900000000" class="big" style="display:block;text-decoration:none;text-align:center">📲 REJOINDRE LA CHAÎNE WHATSAPP</a></div></div>
 
 <script>
-let audio=document.getElementById('vocalAudio');
-let btn=document.getElementById('playBtn');
-function toggleAudio(){ if(audio.paused){audio.play();btn.innerText='⏸';} else {audio.pause();btn.innerText='▶';} }
-function openM(id){document.querySelectorAll('.modal').forEach(m=>m.classList.remove('on'));document.getElementById('m-'+id).classList.add('on');}
-function closeM(){document.querySelectorAll('.modal').forEach(m=>m.classList.remove('on'));}
-</script>
-</body>
-</html>
+const content = document.getElementById("content");
+function showContent(html){ content.innerHTML = html; content.classList.add("show"); content.scrollIntoView({behavior:"smooth"}); }
+function backHome(){ content.classList.remove("show"); window.scrollTo({top:0,behavior:"smooth"}); }
+
+function showApple(){
+ showContent(`<h2>🍎 APPLE OF FORTUNE</h2><p>Pour accéder aux méthodes réservées, tu dois t'inscrire avec le code <strong>8F9Y</strong> et déposer <strong>1500 FCFA</strong>.</p><button class="green-btn" onclick="showRegistration()">OUI, GUIDE-MOI</button><button class="back-btn" onclick="backHome()">← Retour</button>`);
+}
+function showDice(){
+ showContent(`<h2>🎲 JEU DES DÉS</h2><p>Pour accéder aux méthodes réservées, tu dois t'inscrire avec le code <strong>8F9Y</strong> et déposer <strong>1500 FCFA</strong>.</p><button class="green-btn" onclick="showRegistration()">OUI, GUIDE-MOI</button><button class="back-btn" onclick="backHome()">← Retour</button>`);
+}
+function showScore(){ showContent(`<h2>🎯 SCORE EXACT</h2><p>Les scores sont dans ma chaîne WhatsApp.</p><button class="back-btn" onclick="backHome()">← Retour</button>`); }
+function showFifa(){ showContent(`<h2>⚽ FIFA</h2><p>Infos FIFA dans ma chaîne WhatsApp.</p><button class="back-btn" onclick="backHome()">← Retour</button>`); }
+function showPoker(){ showContent(`<h2>🃏 POKER</h2><p>Infos Poker dans ma chaîne WhatsApp.</p><button class="back-btn" onclick="backHome()">← Retour</button>`); }
+
+function showRegistration(){
+ showContent(`
+    <h2>📝 COMMENT S’INSCRIRE ?</h2>
+    <p>Écoute mon vocal et regarde les captures ci-dessous 👇</p>
+
+    <div class="audio-box">
+        <p style="font-weight:800;margin-bottom:8px;">🎤 Vocal JEFF PRO :</p>
+        <audio controls>
+            <source src="vocal.mp3.m4a" type="audio/mp4">
+            <source src="vocal.mp3.m4a" type="audio/mpeg">
+            Ton navigateur ne supporte pas l'audio.
+        </audio>
+    </div>
+
+    <img src="inscription.jpg.jpg" class="capture-img" alt="Procédure d'inscription">
+
+    <h3>⚠️ Les 2 conditions obligatoires :</h3>
+    <p>🔑 Code promo : <strong>8F9Y</strong><br>💰 Dépôt minimum : <strong>1500 FCFA</strong></p>
+
+    <p style="text-align:center;font-size:30px;font-weight:900;color:#16a34a;margin:15px 0;">8F9Y</p>
+
+    <button class="green-btn" onclick="startStep1()">CONTINUER</button>
+    <button class="back-btn" onclick="backHome()">← Retour</button>
+ `);
+}
+
+function startStep1(){ showContent(`<h2>ÉTAPE 1️⃣</h2><p>Envoie capture d'inscription</p><div class="upload-box">📷 <input type="file" accept="image/*"></div><button class="green-btn" onclick="startStep2()">CONTINUER</button><button class="back-btn" onclick="showRegistration()">← Retour</button>`); }
+function startStep2(){ showContent(`<h2>ÉTAPE 2️⃣</h2><p>Capture avec code 8F9Y</p><div class="upload-box">📷 <input type="file" accept="image/*"></div><button class="green-btn" onclick="startStep3()">CONTINUER</button><button class="back-btn" onclick="startStep1()">← Retour</button>`); }
+function startStep3(){ showContent(`<h2>ÉTAPE 3️⃣</h2><p>Quelle plateforme ?</p><div class="choice-buttons"><button class="choice-btn" onclick="selectedPlatform('1XBET')">1XBET</button><button class="choice-btn" onclick="selectedPlatform('MELBET')">MELBET</button><button class="choice-btn" onclick="selectedPlatform('PARIPESA')">PARIPESA</button></div><button class="back-btn" onclick="startStep2()">← Retour</button>`); }
+function selectedPlatform(p){ showContent(`<h2>ÉTAPE 3️⃣</h2><div class="success">✅ Plateforme : <strong>${p}</strong></div><button class="green-btn" onclick="startStep4()">CONTINUER</button>`); }
+function startStep4(){ showContent(`<h2>ÉTAPE 4️⃣</h2><p>Capture dépôt 1500F</p><div class="upload-box">📷 <input type="file" accept="image/*"></div><button class="green-btn" onclick="startStep5()">CONTINUER</button><button class="back-btn" onclick="startStep3()">← Retour</button>`); }
+function startStep5(){ showContent(`<h2>✅ TERMINÉ</h2><div class="success">Parfait 👌 Rejoins ma chaîne WhatsApp.</div><a class="green-btn" href="https://whatsapp.com/channel/0029VbBw8FBDp2Q03qhB4t2b" target="_blank" style="text-decoration:none;text-align:center;">📲 RE
