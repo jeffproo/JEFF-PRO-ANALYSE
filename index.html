@@ -22,7 +22,6 @@ margin:auto;
 padding-bottom:25px
 }
 
-/* HEADER */
 .header{
 background:linear-gradient(135deg,#6426d8,#40118b);
 color:white;
@@ -62,7 +61,6 @@ font-size:15px;
 font-weight:700
 }
 
-/* DESCRIPTION */
 .intro{
 background:white;
 border-radius:0 0 22px 22px;
@@ -82,7 +80,6 @@ line-height:1.65;
 color:#30255a
 }
 
-/* VOCAL */
 .voice-box{
 background:white;
 margin:12px 18px 18px;
@@ -103,8 +100,7 @@ background:linear-gradient(135deg,#7c2cff,#4e17ba);
 color:white;
 font-size:22px;
 cursor:pointer;
-flex-shrink:0;
-box-shadow:0 4px 10px rgba(92,34,184,.22)
+flex-shrink:0
 }
 
 .voice-content{
@@ -117,8 +113,7 @@ height:34px;
 display:flex;
 align-items:center;
 gap:3px;
-cursor:pointer;
-padding:0 2px
+cursor:pointer
 }
 
 .wave span{
@@ -176,12 +171,10 @@ padding:8px 13px;
 font-weight:900
 }
 
-/* QUESTIONS */
 .questions{
 padding:0 22px;
 display:flex;
 flex-direction:column;
-align-items:stretch;
 gap:12px
 }
 
@@ -196,88 +189,175 @@ font-size:18px;
 font-weight:800;
 text-align:left;
 padding:15px 22px;
-cursor:pointer;
-box-shadow:none;
-transition:.2s
+cursor:pointer
 }
 
-.question-btn:hover{
-transform:translateY(-1px);
-background:#faf7ff
-}
+/* CHAT */
 
-/* CONTENT */
-.content{
-display:none;
+.chat-box{
+margin-top:18px;
 background:white;
-border-radius:0 28px 28px 8px;
-padding:28px 26px;
-margin:16px 22px 18px;
-box-shadow:0 7px 24px rgba(90,40,160,.10)
+padding:10px 22px 12px;
+border-top:1px solid #eadfff
 }
 
-.content.show{
-display:block
+.chat-messages{
+height:320px;
+max-height:320px;
+overflow-y:auto;
+margin-bottom:7px;
+padding:2px 0;
+scroll-behavior:smooth;
+display:flex;
+flex-direction:column;
+justify-content:flex-start
 }
 
-.content h2{
-font-size:23px;
-margin-bottom:16px;
-color:#5420ad
+.message{
+max-width:90%;
+padding:9px 13px;
+border-radius:16px;
+margin-bottom:5px;
+font-size:15px;
+line-height:1.38;
+white-space:pre-line
 }
 
-.content h3{
-margin-top:20px;
-margin-bottom:9px;
-font-size:17px;
-color:#3e286c
+.bot-message{
+background:white;
+color:#24194b;
+border-radius:0 20px 20px 6px;
+box-shadow:0 4px 14px rgba(90,40,160,.06)
 }
 
-.content p{
-font-size:16px;
-line-height:1.7;
-margin-bottom:11px
-}
-
-/* BOUTONS */
-.green-btn{
-display:block;
-width:100%;
-border:none;
-background:#16c95b;
+.user-message{
+background:linear-gradient(135deg,#913bea,#5c1eb4);
 color:white;
-padding:14px;
-border-radius:14px;
-font-size:14px;
-font-weight:900;
+margin-left:auto;
+border-radius:20px 20px 5px 20px
+}
+
+.chat-input-row{
+position:sticky;
+bottom:0;
+z-index:5;
+display:flex;
+gap:10px;
+align-items:center;
+background:white;
+padding-top:7px
+}
+
+.chat-input{
+flex:1;
+border:2px solid #e5d8fa;
+background:#eee2ff;
+border-radius:28px;
+padding:14px 18px;
+outline:none;
+font-size:16px;
+min-width:0
+}
+
+.send-btn{
+width:58px;
+height:58px;
+border:none;
+border-radius:50%;
+background:linear-gradient(135deg,#7228df,#4e17b8);
+color:white;
+font-size:25px;
 cursor:pointer;
-margin-top:15px;
-text-decoration:none;
+flex-shrink:0
+}
+
+.chat-quick{
+display:flex;
+flex-direction:column;
+gap:5px;
+margin-top:5px;
+margin-bottom:5px
+}
+
+.chat-quick button{
+border:2px solid #8c3cff;
+background:#fff;
+color:#5720ae;
+border-radius:12px;
+padding:8px 12px;
+text-align:left;
+font-size:14px;
+font-weight:800;
+cursor:pointer
+}
+
+.typing-message{
+display:flex;
+align-items:center;
+gap:4px;
+min-height:28px;
+padding:8px 13px
+}
+
+.typing-dot{
+width:4px;
+height:4px;
+background:#8c3cff;
+border-radius:50%;
+display:inline-block;
+animation:typingPulse 1.2s infinite ease-in-out
+}
+
+.typing-dot:nth-child(2){animation-delay:.15s}
+.typing-dot:nth-child(3){animation-delay:.3s}
+
+@keyframes typingPulse{
+0%,60%,100%{
+opacity:.3;
+transform:translateY(0)
+}
+30%{
+opacity:1;
+transform:translateY(-3px)
+}
+}
+
+.proof-btn{
+display:block;
+background:#32d06a;
+color:#fff!important;
+text-decoration:none!important;
+border-radius:14px;
+padding:14px 18px;
+font-weight:900;
+margin-top:10px;
 text-align:center
 }
 
-.green-btn:hover{
-background:#0eaa48
+.channel-after-proof{
+display:none;
+margin-top:10px;
+background:linear-gradient(135deg,#7d35ec,#5520b6);
+color:#fff!important;
+text-decoration:none!important;
+border-radius:14px;
+padding:14px 18px;
+font-weight:900;
+text-align:center
 }
 
-.back-btn{
-width:100%;
-background:#f0e9ff;
-color:#4e2295;
-border:none;
-padding:13px;
-border-radius:13px;
-font-weight:800;
-cursor:pointer;
-margin-top:10px
+.chat-note{
+font-size:12px;
+color:#756a89;
+margin-top:9px
 }
 
 /* PLATEFORMES */
+
 .platform-section{
 background:white;
 margin-top:18px;
 padding:22px 22px 14px;
-border-radius:0;
 box-shadow:0 -4px 20px rgba(80,30,150,.06)
 }
 
@@ -314,14 +394,7 @@ border-radius:18px;
 font-weight:900;
 font-size:14px;
 display:flex;
-align-items:center;
-justify-content:flex-start;
-transition:.2s
-}
-
-.platform:hover{
-transform:translateY(-1px);
-background:#e8d9ff
+align-items:center
 }
 
 .platform-icon{
@@ -340,6 +413,7 @@ flex-shrink:0
 }
 
 /* CONTACT */
+
 .contact-section{
 background:white;
 padding:0 22px 18px
@@ -352,8 +426,33 @@ gap:10px;
 align-items:stretch
 }
 
-.whatsapp,
-.channel{
+.promo{
+margin-top:12px;
+background:#f3eaff;
+border:2px dashed #7b32e8;
+border-radius:18px;
+padding:11px 15px;
+text-align:center;
+max-width:175px;
+cursor:pointer
+}
+
+.promo-small{
+display:block;
+font-size:10px;
+font-weight:900;
+color:#5721aa
+}
+
+.promo-code{
+display:block;
+font-size:25px;
+font-weight:1000;
+letter-spacing:2px;
+color:#5520b2
+}
+
+.whatsapp,.channel{
 text-decoration:none;
 color:white;
 border-radius:16px;
@@ -377,194 +476,9 @@ margin-top:4px;
 font-size:11px
 }
 
-/* CHAT */
-.chat-box{
-margin-top:0;
-background:white;
-padding:14px 22px 18px;
-border-top:1px solid #eadfff
-}
-
-.chat-messages{
-max-height:420px;
-overflow-y:auto;
-margin-bottom:10px
-}
-
-.message{
-max-width:90%;
-padding:13px 16px;
-border-radius:18px;
-margin-bottom:10px;
-font-size:16px;
-line-height:1.6;
-white-space:pre-line
-}
-
-.bot-message{
-background:white;
-color:#24194b;
-border-radius:0 26px 26px 8px;
-box-shadow:0 6px 20px rgba(90,40,160,.07)
-}
-
-.user-message{
-background:linear-gradient(135deg,#913bea,#5c1eb4);
-color:white;
-margin-left:auto;
-border-radius:24px 24px 6px 24px
-}
-
-.chat-input-row{
-display:flex;
-gap:10px;
-align-items:center
-}
-
-.chat-input{
-flex:1;
-border:2px solid #e5d8fa;
-background:#eee2ff;
-border-radius:28px;
-padding:16px 20px;
-outline:none;
-font-size:16px;
-min-width:0
-}
-
-.send-btn{
-width:58px;
-height:58px;
-border:none;
-border-radius:50%;
-background:linear-gradient(135deg,#7228df,#4e17b8);
-color:white;
-font-size:25px;
-cursor:pointer;
-flex-shrink:0
-}
-
-/* CHOIX DU CHAT */
-.choice-buttons{
-display:flex;
-flex-direction:column;
-gap:10px;
-margin-top:15px
-}
-
-.choice-btn{
-padding:14px;
-border-radius:12px;
-border:2px solid #8c3cff;
-background:white;
-color:#5120a9;
-font-weight:800;
-cursor:pointer;
-width:100%
-}
-
-.chat-quick{
-display:flex;
-flex-direction:column;
-gap:10px;
-margin-top:12px
-}
-
-.chat-quick button{
-border:2px solid #8c3cff;
-background:#fff;
-color:#5720ae;
-border-radius:14px;
-padding:13px 14px;
-text-align:left;
-font-size:15px;
-font-weight:800;
-cursor:pointer
-}
-
-/* TYPING */
-.typing-message{
-display:flex;
-align-items:center;
-gap:4px;
-min-height:42px
-}
-
-.typing-dot{
-width:4px;
-height:4px;
-background:#8c3cff;
-border-radius:50%;
-display:inline-block;
-animation:typingPulse 1.2s infinite ease-in-out
-}
-
-.typing-dot:nth-child(2){
-animation-delay:.15s
-}
-
-.typing-dot:nth-child(3){
-animation-delay:.3s
-}
-
-@keyframes typingPulse{
-0%,60%,100%{
-opacity:.3;
-transform:translateY(0)
-}
-30%{
-opacity:1;
-transform:translateY(-3px)
-}
-}
-
-/* PREUVE */
-.proof-btn{
-display:block;
-background:#32d06a;
-color:#fff!important;
-text-decoration:none!important;
-border-radius:14px;
-padding:14px 18px;
-font-weight:900;
-margin-top:12px;
-text-align:center
-}
-
-.channel-after-proof{
-display:none;
-margin-top:10px;
-background:linear-gradient(135deg,#7d35ec,#5520b6);
-color:#fff!important;
-text-decoration:none!important;
-border-radius:14px;
-padding:14px 18px;
-font-weight:900;
-text-align:center
-}
-
-.chat-note{
-font-size:12px;
-color:#756a89;
-margin-top:9px
-}
-
-/* PLATEFORME CHOISIE */
-.platform-selected{
-background:#f0e8ff;
-border-radius:12px;
-padding:12px;
-text-align:center;
-font-weight:900;
-margin-top:12px
-}
-
-/* RESPONSIVE */
 @media(max-width:500px){
 
-.brand-name{
-font-size:24px
-}
+.brand-name{font-size:24px}
 
 .robot{
 width:60px;
@@ -592,12 +506,6 @@ margin-right:6px
 
 .question-btn{
 font-size:16px
-}
-
-.content{
-margin-left:22px;
-margin-right:22px;
-padding:25px
 }
 
 }
@@ -649,12 +557,9 @@ grid-template-columns:1fr 1.9fr
 
 <div class="container">
 
-<!-- HEADER -->
 <div class="header">
 
-<div class="robot">
-🤖
-</div>
+<div class="robot">🤖</div>
 
 <div class="brand">
 
@@ -670,13 +575,9 @@ JEFF PRO
 
 </div>
 
-
-<!-- DESCRIPTION ORIGINALE -->
 <div class="intro">
 
-<h2>
-Bienvenue 👋
-</h2>
+<h2>Bienvenue 👋</h2>
 
 <p>
 Bienvenue sur la page officielle de <strong>Jeff Pro</strong> ! Si tu es ici, c’est que tu souhaites récupérer le bot qui me permet de gagner des millions chaque jour 💰🔥 Choisis l’option qui te convient et mon assistant te guidera étape par étape pour avoir accès gratuitement à ce bot ✅
@@ -684,8 +585,6 @@ Bienvenue sur la page officielle de <strong>Jeff Pro</strong> ! Si tu es ici, c�
 
 </div>
 
-
-<!-- VOCAL -->
 <div class="voice-box">
 
 <button
@@ -707,25 +606,12 @@ type="audio/mp4">
 
 <div
 class="wave"
-id="voiceWave"
 onclick="seekVoice(event)">
 
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
+<span></span><span></span><span></span><span></span>
+<span></span><span></span><span></span><span></span>
+<span></span><span></span><span></span><span></span>
+<span></span><span></span><span></span><span></span>
 
 </div>
 
@@ -742,13 +628,9 @@ id="voiceProgress">
 
 <div class="voice-time">
 
-<span id="voiceCurrent">
-0:00
-</span>
+<span id="voiceCurrent">0:00</span>
 
-<span id="voiceTotal">
-2:41
-</span>
+<span id="voiceTotal">2:41</span>
 
 </div>
 
@@ -760,138 +642,124 @@ id="voiceProgress">
 
 </div>
 
-
 <!-- QUESTIONS -->
+
 <div class="questions">
 
 <button
 class="question-btn"
 onclick="askQuestion('🍎 Comment gagner à Apple of Fortune ?',startAppleChat)">
-
-🍎 <span class="question-icon">
-Comment gagner à Apple of Fortune ?
-</span>
-
+🍎 Comment gagner à Apple of Fortune ?
 </button>
-
 
 <button
 class="question-btn"
 onclick="askQuestion('🎲 Comment gagner au Jeu des Dés ?',startDiceChat)">
-
-🎲 <span class="question-icon">
-Comment gagner au Jeu des Dés ?
-</span>
-
+🎲 Comment gagner au Jeu des Dés ?
 </button>
-
 
 <button
 class="question-btn"
 onclick="askQuestion('📝 Comment s’inscrire ?',startRegistrationChat)">
-
-📝 <span class="question-icon">
-Comment s’inscrire ?
-</span>
-
+📝 Comment s’inscrire ?
 </button>
 
 </div>
 
+<!-- CHAT -->
 
-<!-- CONTENU -->
-<div id="content" class="content">
+<div class="chat-box">
+
+<div
+id="chatMessages"
+class="chat-messages">
 </div>
 
+<div class="chat-input-row">
+
+<input
+id="chatInput"
+class="chat-input"
+type="text"
+placeholder="Écris ta question ici..."
+onkeydown="handleEnter(event)"
+>
+
+<button
+class="send-btn"
+onclick="sendMessage()">
+➤
+</button>
+
+</div>
+
+</div>
 
 <!-- PLATEFORMES -->
+
 <div class="platform-section">
 
 <div class="platform-heading">
 
-<span>
-🔗 PLATEFORMES & CODE PROMO
-</span>
+<span>🔗 PLATEFORMES & CODE PROMO</span>
 
-<span>
-Réduire
-</span>
+<span>Réduire</span>
 
 </div>
-
 
 <div class="platforms">
 
 <a
-class="platform xbet"
+class="platform"
 href="https://reffpa.com/L?tag=d_4215855m_97c_&site=4215855&ad=97&r=registration"
 target="_blank"
 rel="noopener noreferrer">
 
-<span class="platform-icon">
-1X
-</span>
-
+<span class="platform-icon">1X</span>
 1XBET
 
 </a>
 
-
 <a
-class="platform melbet"
+class="platform"
 href="https://refpa3665.com/L?tag=d_4139550m_45415c_&site=4139550&ad=45415&r=registration"
 target="_blank"
 rel="noopener noreferrer">
 
-<span class="platform-icon">
-M
-</span>
-
+<span class="platform-icon">M</span>
 MELBET
 
 </a>
 
-
 <a
-class="platform paripesa"
+class="platform"
 href="https://paripesa.bet/christtpronoso"
 target="_blank"
 rel="noopener noreferrer">
 
-<span class="platform-icon">
-P
-</span>
-
+<span class="platform-icon">P</span>
 PARIPESA
 
 </a>
 
-
 <a
-class="platform betwinner"
+class="platform"
 href="https://bwredir.com/3cSE?p=%2Fregistration%2F"
 target="_blank"
 rel="noopener noreferrer">
 
-<span class="platform-icon">
-BW
-</span>
-
+<span class="platform-icon">BW</span>
 BETWINNER
 
 </a>
 
-
 <a
-class="platform winwin"
+class="platform"
 href="https://slim.link/qxyZnTd"
 target="_blank"
 rel="noopener noreferrer">
 
-<span class="platform-icon">
-W
-</span>
-
+<span class="platform-icon">W</span>
 WINWIN
 
 </a>
@@ -900,16 +768,15 @@ WINWIN
 
 </div>
 
-
 <!-- CONTACT -->
+
 <div class="contact-section">
 
 <div class="bottom-row">
 
 <button
 class="promo"
-onclick="copyPromo()"
-title="Copier le code promo">
+onclick="copyPromo()">
 
 <span class="promo-small">
 🎁 CODE PROMO
@@ -922,7 +789,6 @@ id="promoCodeDisplay">
 </span>
 
 </button>
-
 
 <a
 class="whatsapp"
@@ -940,7 +806,6 @@ rel="noopener noreferrer">
 
 </div>
 
-
 <a
 class="channel"
 style="display:block;margin-top:10px"
@@ -954,109 +819,54 @@ rel="noopener noreferrer">
 
 </div>
 
-
-<!-- CHAT -->
-<div class="chat-box">
-
-<div
-id="chatMessages"
-class="chat-messages">
 </div>
-
-
-<div class="chat-input-row">
-
-<input
-id="chatInput"
-class="chat-input"
-type="text"
-placeholder="Écris ta question ici..."
-onkeydown="handleEnter(event)"
->
-
-<button
-class="send-btn"
-onclick="sendMessage()">
-
-➤
-
-</button>
-
-</div>
-
-</div>
-
-</div>
-
 
 <script>
 
-/* =========================
-   VARIABLES
-========================= */
+const PROMO_CODE="8F9Y";
+let selectedUserPlatform="";
+let awaitingDepositAnswer=false;
 
-const PROMO_CODE = "8F9Y";
-
-let selectedUserPlatform = "";
-
-
-/* =========================
-   CODE PROMO
-========================= */
+/* CODE PROMO */
 
 function copyPromo(){
 
 if(navigator.clipboard){
-
 navigator.clipboard.writeText(PROMO_CODE);
-
 }
 
-const display =
-document.getElementById("promoCodeDisplay");
+const display=document.getElementById("promoCodeDisplay");
 
-display.textContent = "COPIÉ ✓";
+display.textContent="COPIÉ ✓";
 
 setTimeout(()=>{
-
-display.textContent = PROMO_CODE;
-
+display.textContent=PROMO_CODE;
 },1400);
 
 }
 
+/* VOCAL */
 
-/* =========================
-   VOCAL
-========================= */
-
-const voiceAudio =
-document.getElementById("jeffVoice");
+const voiceAudio=document.getElementById("jeffVoice");
 
 function toggleVoice(){
 
-const button =
-document.getElementById("voiceButton");
+const button=document.getElementById("voiceButton");
 
 if(voiceAudio.paused){
 
 voiceAudio.play()
 .then(()=>{
-
-button.textContent = "Ⅱ";
-
+button.textContent="Ⅱ";
 })
 .catch(()=>{
-
-button.textContent = "▶";
-
+button.textContent="▶";
 });
 
 }else{
 
 voiceAudio.pause();
-
-button.textContent = "▶";
+button.textContent="▶";
 
 }
 
@@ -1064,166 +874,135 @@ button.textContent = "▶";
 
 function formatTime(seconds){
 
-if(!isFinite(seconds)){
-return "0:00";
-}
+if(!isFinite(seconds)) return "0:00";
 
-const minutes =
-Math.floor(seconds/60);
+const minutes=Math.floor(seconds/60);
+const secondsPart=Math.floor(seconds%60);
 
-const secondsPart =
-Math.floor(seconds%60);
-
-return minutes + ":" +
-String(secondsPart).padStart(2,"0");
+return minutes+":"+String(secondsPart).padStart(2,"0");
 
 }
 
+voiceAudio.addEventListener("loadedmetadata",()=>{
 
-voiceAudio.addEventListener(
-"loadedmetadata",
-()=>{
-
-document.getElementById(
-"voiceTotal"
-).textContent =
+document.getElementById("voiceTotal").textContent=
 formatTime(voiceAudio.duration);
 
-}
-);
+});
 
+voiceAudio.addEventListener("timeupdate",()=>{
 
-voiceAudio.addEventListener(
-"timeupdate",
-()=>{
-
-document.getElementById(
-"voiceCurrent"
-).textContent =
+document.getElementById("voiceCurrent").textContent=
 formatTime(voiceAudio.currentTime);
 
-const progress =
-voiceAudio.duration
+const progress=voiceAudio.duration
 ?
-(voiceAudio.currentTime /
-voiceAudio.duration)*100
+(voiceAudio.currentTime/voiceAudio.duration)*100
 :
 0;
 
-document.getElementById(
-"voiceProgress"
-).style.width =
-progress + "%";
+document.getElementById("voiceProgress").style.width=
+progress+"%";
 
-}
-);
+});
 
+voiceAudio.addEventListener("ended",()=>{
 
-voiceAudio.addEventListener(
-"ended",
-()=>{
+document.getElementById("voiceButton").textContent="▶";
+document.getElementById("voiceProgress").style.width="0%";
+document.getElementById("voiceCurrent").textContent="0:00";
 
-document.getElementById(
-"voiceButton"
-).textContent = "▶";
-
-document.getElementById(
-"voiceProgress"
-).style.width = "0%";
-
-document.getElementById(
-"voiceCurrent"
-).textContent = "0:00";
-
-}
-);
-
+});
 
 function seekVoice(event){
 
-const audio =
-document.getElementById("jeffVoice");
+const rect=event.currentTarget.getBoundingClientRect();
 
-const rect =
-event.currentTarget.getBoundingClientRect();
+if(voiceAudio.duration){
 
-if(audio.duration){
+const position=
+(event.clientX-rect.left)/rect.width;
 
-const position =
-(event.clientX - rect.left) /
-rect.width;
-
-audio.currentTime =
-position * audio.duration;
+voiceAudio.currentTime=
+position*voiceAudio.duration;
 
 }
 
 }
 
-
-/* =========================
-   CHAT
-========================= */
+/* CHAT */
 
 function addMessage(text,type){
 
-const messages =
-document.getElementById(
-"chatMessages"
-);
+const messages=document.getElementById("chatMessages");
 
-const div =
-document.createElement("div");
+const div=document.createElement("div");
 
-div.className =
-"message " + type;
+div.className="message "+type;
 
-if(type === "bot-message"){
-
-const safe =
+div.innerHTML=
+type==="bot-message"
+?
 text
-.replace(/&/g,"&amp;")
-.replace(/</g,"&lt;")
-.replace(/>/g,"&gt;");
-
-div.innerHTML =
-safe.replace(/\n/g,"<br>");
-
-}else{
-
-div.textContent = text;
-
-}
+:
+escapeHTML(text);
 
 messages.appendChild(div);
 
-messages.scrollTop =
-messages.scrollHeight;
+scrollChat();
 
 return div;
 
 }
 
+function escapeHTML(text){
 
-/* =========================
-   TYPING ...
-========================= */
+return text
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
+
+function scrollChat(){
+
+const messages=document.getElementById("chatMessages");
+
+setTimeout(()=>{
+
+messages.scrollTop=messages.scrollHeight;
+
+},20);
+
+}
+
+function focusChat(){
+
+const chatBox=document.querySelector(".chat-box");
+
+if(chatBox){
+
+chatBox.scrollIntoView({
+behavior:"smooth",
+block:"start"
+});
+
+}
+
+}
 
 function showTyping(){
 
-const messages =
-document.getElementById(
-"chatMessages"
-);
+const messages=document.getElementById("chatMessages");
 
-const div =
-document.createElement("div");
+const div=document.createElement("div");
 
-div.className =
+div.className=
 "message bot-message typing-message";
 
-div.innerHTML =
-`
+div.innerHTML=`
 <span class="typing-dot"></span>
 <span class="typing-dot"></span>
 <span class="typing-dot"></span>
@@ -1231,74 +1010,51 @@ div.innerHTML =
 
 messages.appendChild(div);
 
-messages.scrollTop =
-messages.scrollHeight;
+scrollChat();
 
 return div;
 
 }
 
+function botReply(text,action,delay=700){
 
-function botReply(text,action,delay=900){
-
-const typing =
-showTyping();
+const typing=showTyping();
 
 setTimeout(()=>{
 
 if(typing.parentNode){
-
 typing.remove();
-
 }
 
-const message =
-addMessage(text,"bot-message");
+const message=addMessage(text,"bot-message");
 
 if(action){
-
 action(message);
-
 }
 
 },delay);
 
 }
 
-
-/* =========================
-   BOUTONS DU CHAT
-========================= */
-
 function addQuickChoices(items){
 
-const messages =
-document.getElementById(
-"chatMessages"
-);
+const messages=document.getElementById("chatMessages");
 
-const wrap =
-document.createElement("div");
+const wrap=document.createElement("div");
 
-wrap.className =
-"chat-quick";
+wrap.className="chat-quick";
 
 items.forEach(item=>{
 
-const button =
-document.createElement("button");
+const button=document.createElement("button");
 
-button.textContent =
-item.label;
+button.textContent=item.label;
 
-button.onclick = ()=>{
+button.onclick=()=>{
 
 wrap.remove();
 
-addMessage(
-item.label,
-"user-message"
-);
+addMessage(item.label,"user-message");
 
 item.action();
 
@@ -1310,48 +1066,30 @@ wrap.appendChild(button);
 
 messages.appendChild(wrap);
 
-messages.scrollTop =
-messages.scrollHeight;
-
-return wrap;
+scrollChat();
 
 }
 
-
-/* =========================
-   QUESTIONS PRINCIPALES
-========================= */
+/* QUESTIONS */
 
 function askQuestion(question,action){
 
-addMessage(
-question,
-"user-message"
-);
+focusChat();
+
+addMessage(question,"user-message");
 
 setTimeout(()=>{
-
 action();
-
-},650);
+},600);
 
 }
 
-
-/* =========================
-   APPLE OF FORTUNE
-========================= */
+/* APPLE */
 
 function appleConditions(){
 
-const message =
 addMessage(
-"",
-"bot-message"
-);
-
-message.innerHTML = `
-Pour accéder aux <strong>méthodes et informations réservées</strong> de JEFF PRO concernant <strong>Apple of Fortune</strong>, tu dois d’abord remplir les <strong>deux conditions obligatoires</strong>.
+`Pour accéder aux <strong>méthodes et informations réservées</strong> de JEFF PRO concernant <strong>Apple of Fortune</strong>, tu dois d’abord remplir les <strong>deux conditions obligatoires</strong>.
 
 <br><br>
 
@@ -1367,8 +1105,9 @@ Pour accéder aux <strong>méthodes et informations réservées</strong> de JEFF
 
 <br><br>
 
-👉 Veux-tu que je te guide étape par étape pour t’inscrire ? 😊
-`;
+👉 Veux-tu que je te guide étape par étape pour t’inscrire ? 😊`,
+"bot-message"
+);
 
 addQuickChoices([
 
@@ -1381,37 +1120,25 @@ action:startRegistrationChat
 
 }
 
-
 function startAppleChat(){
 
-const typing =
-showTyping();
+const typing=showTyping();
 
 setTimeout(()=>{
 
 typing.remove();
-
 appleConditions();
 
-},850);
+},650);
 
 }
 
-
-/* =========================
-   JEU DES DÉS
-========================= */
+/* DÉS */
 
 function diceConditions(){
 
-const message =
 addMessage(
-"",
-"bot-message"
-);
-
-message.innerHTML = `
-Pour accéder aux <strong>méthodes et informations réservées</strong> de JEFF PRO concernant le <strong>Jeu des Dés</strong>, tu dois d’abord remplir les <strong>deux conditions obligatoires</strong>.
+`Pour accéder aux <strong>méthodes et informations réservées</strong> de JEFF PRO concernant le <strong>Jeu des Dés</strong>, tu dois d’abord remplir les <strong>deux conditions obligatoires</strong>.
 
 <br><br>
 
@@ -1427,8 +1154,9 @@ Pour accéder aux <strong>méthodes et informations réservées</strong> de JEFF
 
 <br><br>
 
-👉 Veux-tu que je te guide étape par étape pour t’inscrire ? 😊
-`;
+👉 Veux-tu que je te guide étape par étape pour t’inscrire ? 😊`,
+"bot-message"
+);
 
 addQuickChoices([
 
@@ -1441,26 +1169,20 @@ action:startRegistrationChat
 
 }
 
-
 function startDiceChat(){
 
-const typing =
-showTyping();
+const typing=showTyping();
 
 setTimeout(()=>{
 
 typing.remove();
-
 diceConditions();
 
-},850);
+},650);
 
 }
 
-
-/* =========================
-   INSCRIPTION
-========================= */
+/* INSCRIPTION */
 
 function startRegistrationChat(){
 
@@ -1469,15 +1191,14 @@ addMessage(
 "bot-message"
 );
 
-
 botReply(
-`⚠️ Les 2 conditions obligatoires :
+`⚠️ <strong>Les 2 conditions obligatoires :</strong>
 
-Inscription avec le code promo 8F9Y
+Inscription avec le code promo <strong>8F9Y</strong>
 
-Premier dépôt minimum de 1 500 FCFA
+Premier dépôt minimum de <strong>1 500 FCFA</strong>
 
-1️⃣ Choisis un bookmaker partenaire
+1️⃣ <strong>Choisis un bookmaker partenaire</strong>
 
 Tu peux choisir l’une des plateformes affichées en bas de la page :
 
@@ -1533,81 +1254,51 @@ action:()=>choosePlatformChat(
 ]);
 
 },
-1000
+650
 );
 
 }
 
-
-/* =========================
-   CHOIX PLATEFORME
-========================= */
+/* PLATEFORME */
 
 function choosePlatformChat(platform,link){
 
-selectedUserPlatform =
-platform;
+selectedUserPlatform=platform;
 
-const message =
 addMessage(
-"",
-"bot-message"
-);
-
-message.innerHTML = `
-
-Parfait ! Tu as choisi <strong>${platform}</strong>.
+`Parfait ! Tu as choisi <strong>${platform}</strong>.
 
 <br><br>
 
 👉 Utilise le lien d’inscription <strong>${platform}</strong> pour créer ton compte.
 
-<a
-class="proof-btn"
+<a class="proof-btn"
 href="${link}"
 target="_blank"
 rel="noopener noreferrer">
-
 🔗 Ouvrir ${platform}
-
-</a>
-
-<br>
-
-⚠️ Lors de l’inscription, vérifie bien que le code promo <strong>8F9Y</strong> est appliqué.
-
-`;
+</a>`,
+"bot-message"
+);
 
 setTimeout(()=>{
 
 addMessage(
-`2️⃣ Ouvre le lien d’inscription
+`<strong>Lors de ton inscription :</strong>
 
-3️⃣ Remplis le formulaire
+1️⃣ Ouvre le lien ${platform}.
 
-Renseigne les informations demandées : nom, prénom, numéro de téléphone, email, mot de passe ou autres informations selon la plateforme.
+2️⃣ Remplis le formulaire avec tes informations.
 
-4️⃣ Entre le code promo
+3️⃣ Entre le code promo <strong>${PROMO_CODE}</strong> lorsque le champ est proposé.
 
-Dans le champ « Code promo », « Code bonus » ou « Code parrain », saisis :
+4️⃣ Vérifie que <strong>${PROMO_CODE}</strong> est bien appliqué.
 
-8F9Y
+5️⃣ Valide ton inscription.
 
-⚠️ Vérifie bien que 8F9Y est appliqué avant de terminer ton inscription.
+6️⃣ Effectue ensuite ton premier dépôt d’au moins <strong>1 500 FCFA</strong>.
 
-5️⃣ Effectue ton premier dépôt
-
-Après ton inscription, effectue un premier dépôt d’au moins 1 500 FCFA.
-
-Les moyens de paiement disponibles dépendent de la plateforme choisie.
-
-6️⃣ Garde ta preuve de dépôt
-
-Fais une capture d’écran claire de ton dépôt et conserve-la pour la vérification.
-
-7️⃣ Reviens vers JEFF PRO
-
-Une fois les deux conditions remplies, reviens ici pour continuer.`,
+📸 Après ton dépôt, conserve une capture de la preuve.`,
 "bot-message"
 );
 
@@ -1620,16 +1311,15 @@ action:registrationDoneChat
 
 ]);
 
-},900);
+},700);
 
 }
 
-
-/* =========================
-   APRÈS INSCRIPTION
-========================= */
+/* APRÈS INSCRIPTION */
 
 function registrationDoneChat(){
+
+awaitingDepositAnswer=true;
 
 addMessage(
 "C’est fait",
@@ -1639,22 +1329,10 @@ addMessage(
 botReply(
 `Parfait 👍 Ton inscription est donc faite.
 
-As-tu maintenant effectué ton premier dépôt d’au moins 1 500 FCFA ?
-
-👉 Réponds simplement oui ou non.`,
-(message)=>{
-
-message.innerHTML = `
-Parfait 👍 Ton inscription est donc faite.
-
-<br><br>
-
 As-tu maintenant effectué ton <strong>premier dépôt d’au moins 1 500 FCFA</strong> ?
 
-<br><br>
-
-👉 Réponds simplement <strong>oui</strong> ou <strong>non</strong>.
-`;
+👉 Réponds simplement <strong>oui</strong> ou <strong>non</strong>.`,
+()=>{
 
 addQuickChoices([
 
@@ -1675,12 +1353,11 @@ action:depositNoChat
 
 }
 
-
-/* =========================
-   PAS ENCORE DE DÉPÔT
-========================= */
+/* NON */
 
 function depositNoChat(){
+
+awaitingDepositAnswer=false;
 
 addMessage(
 "Non",
@@ -1688,17 +1365,16 @@ addMessage(
 );
 
 botReply(
-"D’accord 👍 Effectue d’abord ton dépôt minimum de 1 500 FCFA. Ensuite reviens ici et appuie sur « C’est fait » pour continuer."
+"D’accord 👍 Effectue d’abord ton dépôt minimum de <strong>1 500 FCFA</strong>. Ensuite reviens ici pour continuer."
 );
 
 }
 
-
-/* =========================
-   DÉPÔT EFFECTUÉ
-========================= */
+/* OUI */
 
 function depositYesChat(){
+
+awaitingDepositAnswer=false;
 
 addMessage(
 "Oui",
@@ -1713,23 +1389,19 @@ botReply(
 👉 Ajoute également ton pseudo ou numéro de compte.`,
 (message)=>{
 
-const channelLink =
+const channelLink=
 "https://whatsapp.com/channel/0029VbBw8FBDp2Q03qhB4t2b";
 
-const whatsappMessage =
+const whatsappMessage=
 `Bonjour JEFF PRO 👋
 
 Je viens de terminer mon inscription sur ${selectedUserPlatform}.
 
 J’ai effectué mon premier dépôt.
 
-Je vous envoie ma capture d’écran ainsi que mon pseudo ou numéro de compte pour vérification.
+Je vous envoie ma capture d’écran ainsi que mon pseudo ou numéro de compte pour vérification.`;
 
-📢 Chaîne WhatsApp :
-${channelLink}`;
-
-
-message.innerHTML = `
+message.innerHTML=`
 
 Parfait 👍 Ton premier dépôt est donc effectué.
 
@@ -1765,6 +1437,10 @@ rel="noopener noreferrer">
 
 </a>
 
+<div class="chat-note">
+La preuve est envoyée sur WhatsApp pour vérification manuelle.
+</div>
+
 `;
 
 }
@@ -1772,24 +1448,16 @@ rel="noopener noreferrer">
 
 }
 
-
-/* =========================
-   AFFICHER CHAÎNE APRÈS CLIC
-========================= */
-
 function showChannelAfterProof(){
 
 setTimeout(()=>{
 
-const channel =
-document.getElementById(
-"channelAfterProof"
-);
+const channel=
+document.getElementById("channelAfterProof");
 
 if(channel){
 
-channel.style.display =
-"block";
+channel.style.display="block";
 
 channel.scrollIntoView({
 behavior:"smooth",
@@ -1798,36 +1466,32 @@ block:"center"
 
 }
 
-},500);
+},300);
 
 }
 
-
-/* =========================
-   MESSAGE MANUEL
-========================= */
+/* QUESTIONS MANUELLES */
 
 function sendMessage(){
 
-const input =
+const input=
 document.getElementById("chatInput");
 
-const originalText =
+const originalText=
 input.value.trim();
 
-if(!originalText){
-return;
-}
+if(!originalText)return;
+
+focusChat();
 
 addMessage(
 originalText,
 "user-message"
 );
 
-input.value = "";
+input.value="";
 
-
-const text =
+const text=
 originalText
 .toLowerCase()
 .normalize("NFD")
@@ -1837,6 +1501,142 @@ originalText
 .replace(/\s+/g," ")
 .trim();
 
+/* OUI / NON */
+
+if(awaitingDepositAnswer){
+
+if(
+text==="oui" ||
+text==="oui c est fait" ||
+text==="oui cest fait"
+){
+
+depositYesChat();
+return;
+
+}
+
+if(
+text==="non" ||
+text==="non merci"
+){
+
+depositNoChat();
+return;
+
+}
+
+}
+
+/* CODE PROMO */
+
+if(
+text.includes("code promo") ||
+text.includes("code bonus") ||
+text.includes("code parrain") ||
+text.includes("quel est le code") ||
+text==="code"
+){
+
+botReply(
+"🔑 Le code promo est : <strong>8F9Y</strong>"
+);
+
+return;
+
+}
+
+/* DÉJÀ UN COMPTE */
+
+if(
+text.includes("deja un compte") ||
+text.includes("j ai deja un compte") ||
+text.includes("jai deja un compte") ||
+text.includes("j ai un compte") ||
+text==="j ai deja un compte"
+){
+
+botReply(
+"Tu as déjà un compte ? 👍<br><br>Déconnecte-toi de ton ancien compte et crée un nouveau compte en choisissant le bookmaker partenaire qui te convient.<br><br>⚠️ Lors de la nouvelle inscription, vérifie bien que le <strong>code promo 8F9Y</strong> est appliqué."
+);
+
+return;
+
+}
+
+/* DÉPÔT */
+
+if(
+(text.includes("depot") || text.includes("depos"))
+&&
+(
+text.includes("1500") ||
+text.includes("1500f") ||
+text.includes("1500 fcfa")
+)
+){
+
+botReply(
+"Oui 👍 Le premier dépôt demandé est d’au moins <strong>1 500 FCFA</strong>."
+);
+
+return;
+
+}
+
+/* PAS ENCORE DE DÉPÔT */
+
+if(
+text==="non" ||
+text.includes("pas encore") ||
+text.includes("je n ai pas fait") ||
+text.includes("je n ai pas fais")
+){
+
+botReply(
+"D’accord 👍 Effectue d’abord ton premier dépôt minimum de <strong>1 500 FCFA</strong>. Ensuite reviens ici pour continuer."
+);
+
+return;
+
+}
+
+/* RÉPONSE */
+
+if(
+text.includes("tu n as pas donne de reponse") ||
+text.includes("pas donne de reponse") ||
+text.includes("tu nas pas donne de reponse")
+){
+
+botReply(
+"Bien sûr 👌 Je peux te guider étape par étape. Choisis une plateforme partenaire ou clique sur « 📝 Comment s’inscrire ? » pour commencer."
+);
+
+return;
+
+}
+
+/* INSCRIPTION */
+
+if(
+text.includes("inscription") ||
+text.includes("inscrire") ||
+text.includes("comment s inscrire")
+){
+
+const typing=showTyping();
+
+setTimeout(()=>{
+
+typing.remove();
+startRegistrationChat();
+
+},650);
+
+return;
+
+}
 
 /* APPLE */
 
@@ -1845,21 +1645,18 @@ text.includes("apple") ||
 text.includes("fortune")
 ){
 
-const typing =
-showTyping();
+const typing=showTyping();
 
 setTimeout(()=>{
 
 typing.remove();
-
 appleConditions();
 
-},850);
+},650);
 
 return;
 
 }
-
 
 /* DÉS */
 
@@ -1869,46 +1666,18 @@ text.includes("dice") ||
 text.includes("jeu des")
 ){
 
-const typing =
-showTyping();
+const typing=showTyping();
 
 setTimeout(()=>{
 
 typing.remove();
-
 diceConditions();
 
-},850);
+},650);
 
 return;
 
 }
-
-
-/* INSCRIPTION */
-
-if(
-text.includes("inscription") ||
-text.includes("inscrire") ||
-text.includes("inscrit") ||
-text.includes("comment s inscrire")
-){
-
-const typing =
-showTyping();
-
-setTimeout(()=>{
-
-typing.remove();
-
-startRegistrationChat();
-
-},850);
-
-return;
-
-}
-
 
 /* SALUTATIONS */
 
@@ -1921,54 +1690,35 @@ text.includes("coucou")
 ){
 
 botReply(
-"Bonjour 👋 Je suis Jeff Pro. Pose ta question ou choisis une option ci-dessous. 💚"
+"Bonjour 👋 Je suis Jeff Pro. Je peux te guider pour l’inscription, le code promo, le dépôt de 1 500 FCFA, Apple of Fortune 🍎 et le Jeu des Dés 🎲."
 );
 
 return;
 
 }
 
-
-/* AUTRES QUESTIONS */
+/* RÉPONSE PAR DÉFAUT */
 
 botReply(
-`🤖 Je peux uniquement te guider pour :
-
-🍎 Apple of Fortune
-
-🎲 Jeu des Dés
-
-📝 L’inscription et les étapes d’accès
-
-👉 Choisis une option ci-dessus.`
+"🤖 Je peux te guider pour l’inscription, le code promo <strong>8F9Y</strong>, le dépôt de <strong>1 500 FCFA</strong>, Apple of Fortune 🍎 et le Jeu des Dés 🎲."
 );
 
 }
 
-
-/* =========================
-   ENTRÉE CLAVIER
-========================= */
-
 function handleEnter(event){
 
-if(event.key === "Enter"){
-
+if(event.key==="Enter"){
 sendMessage();
-
 }
 
 }
 
-
-/* =========================
-   MESSAGE INITIAL
-========================= */
+/* MESSAGE INITIAL */
 
 setTimeout(()=>{
 
 addMessage(
-"Bonjour 👋 Je suis Jeff Pro. Pose ta question ou choisis une option ci-dessous. 💚",
+"Bonjour 👋 Je suis Jeff Pro. Je peux te guider pour l’inscription, le code promo, le dépôt de 1 500 FCFA, Apple of Fortune 🍎 et le Jeu des Dés 🎲.",
 "bot-message"
 );
 
