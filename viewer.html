@@ -2,649 +2,587 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Jeu des Dés</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>Interface</title>
 
 <style>
 *{
- box-sizing:border-box;
- -webkit-tap-highlight-color:transparent;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
 }
 
 html,body{
- margin:0;
- background:#2d2d40;
- font-family:Arial,sans-serif;
- color:#fff;
+    margin:0;
+    padding:0;
+    width:100%;
+    height:100%;
+    background:#000;
+    overflow:hidden;
+    font-family:Arial,Helvetica,sans-serif;
 }
 
-body{
- min-height:100vh;
+#app{
+    position:relative;
+    width:100vw;
+    height:100vh;
+    overflow:hidden;
+    background:#000;
 }
 
-.game{
- max-width:430px;
- min-height:100vh;
- margin:auto;
- background:
- radial-gradient(circle at 50% 38%,#414154,#29293b 70%);
- overflow:hidden;
+/* IMAGE EXACTE */
+#screen{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    object-position:center;
 }
 
-/* HAUT */
-
-.top{
- height:153px;
- background:#fff;
- display:flex;
- align-items:center;
- padding:0 15px;
- gap:9px;
- color:#416b88;
+/* ZONE DES BOUTONS */
+.zone{
+    position:absolute;
+    z-index:10;
+    cursor:pointer;
+    background:transparent;
 }
 
-.back{
- font-size:43px;
- width:38px;
+/* Petit effet au clic */
+.zone:active{
+    background:rgba(255,255,255,.10);
+    border-radius:12px;
 }
 
-.balanceWrap{
- display:flex;
- align-items:center;
- gap:5px;
- flex:1;
- justify-content:center;
+/* Choix des paris */
+#plus7{
+    left:7%;
+    top:45%;
+    width:86%;
+    height:9%;
 }
 
-.balance{
- min-width:215px;
- height:48px;
- padding:8px 12px;
- border-radius:16px;
- border:5px solid #b9b9bd;
- background:#74747b;
- color:white;
- font-size:18px;
- font-weight:800;
- text-align:center;
+#egal7{
+    left:7%;
+    top:54%;
+    width:86%;
+    height:9%;
 }
 
-.plus{
- width:50px;
- height:50px;
- border:0;
- border-radius:14px;
- background:#22bd58;
- color:#fff;
- font-size:33px;
+#moins7{
+    left:7%;
+    top:63%;
+    width:86%;
+    height:9%;
 }
 
-.topIcon{
- width:43px;
- height:43px;
- border:0;
- border-radius:8px;
- background:#47769e;
- color:white;
- font-size:10px;
- font-weight:900;
+/* Contrôles mise */
+#min{
+    left:4%;
+    top:73%;
+    width:17%;
+    height:6%;
 }
 
-/* CONTENU */
-
-.content{
- position:relative;
- padding:128px 22px 55px;
+#x2{
+    left:22%;
+    top:73%;
+    width:17%;
+    height:6%;
 }
 
-.choose{
- height:55px;
- margin-left:68px;
- border:2px solid #5c5871;
- border-radius:8px;
- background:#393847;
- display:flex;
- align-items:center;
- justify-content:center;
- font-size:17px;
- font-weight:700;
+#half{
+    left:40%;
+    top:73%;
+    width:17%;
+    height:6%;
 }
 
-.help{
- position:absolute;
- top:128px;
- left:22px;
- width:73px;
- height:73px;
- border-radius:11px;
- border:4px solid #17151e;
- background:linear-gradient(#ffcf5a,#9b6b14);
- box-shadow:
- inset 0 0 0 3px #e5b94c,
- 0 4px 8px #0008;
- color:#fff;
- font-size:32px;
- font-weight:900;
+#max{
+    left:79%;
+    top:73%;
+    width:17%;
+    height:6%;
 }
 
-/* DÉS */
+/* Champ de mise */
+#stake{
+    position:absolute;
+    z-index:20;
 
-.dices{
- display:flex;
- justify-content:center;
- gap:24px;
- margin-top:55px;
+    left:57%;
+    top:73%;
+    width:21%;
+    height:6%;
+
+    border:0;
+    outline:none;
+    background:transparent;
+
+    color:#fff;
+    font-size:17px;
+    font-weight:bold;
+    text-align:center;
+
+    padding:0;
 }
 
-.die{
- width:164px;
- height:164px;
- border-radius:50%;
- border:9px solid #dfbd6b;
- background:
- radial-gradient(circle at 34% 24%,#fff,#e8e8e8 48%,#c6c6c6);
- box-shadow:
- 0 0 0 6px #11111a,
- inset 0 -12px 18px #8888,
- 0 7px 13px #0008;
- display:flex;
- align-items:center;
- justify-content:center;
- position:relative;
+/* Boutons du bas */
+#money{
+    left:7%;
+    bottom:5%;
+    width:24%;
+    height:10%;
 }
 
-.die:before{
- content:"";
- position:absolute;
- inset:9px;
- border-radius:50%;
- border:3px solid #fff8;
+#play{
+    left:34%;
+    bottom:4%;
+    width:32%;
+    height:12%;
 }
 
-.face{
- position:relative;
- width:82px;
- height:82px;
+#reset{
+    right:7%;
+    bottom:5%;
+    width:24%;
+    height:10%;
 }
 
-.pip{
- position:absolute;
- width:13px;
- height:13px;
- border-radius:50%;
- background:#17171d;
+/* Sélection visuelle */
+.selected{
+    outline:3px solid rgba(255,255,255,.85);
+    border-radius:14px;
 }
 
-.p1{left:34px;top:34px}
+/* Message */
+#message{
+    position:absolute;
+    z-index:50;
+    left:50%;
+    bottom:18%;
+    transform:translateX(-50%);
 
-.p2a{left:8px;top:8px}
-.p2b{right:8px;bottom:8px}
+    width:85%;
+    padding:12px 15px;
 
-.p3a{left:8px;top:8px}
-.p3b{left:34px;top:34px}
-.p3c{right:8px;bottom:8px}
+    background:rgba(0,0,0,.85);
+    color:white;
 
-.p4a{left:8px;top:8px}
-.p4b{right:8px;top:8px}
-.p4c{left:8px;bottom:8px}
-.p4d{right:8px;bottom:8px}
+    border-radius:12px;
+    text-align:center;
 
-.p5a{left:8px;top:8px}
-.p5b{right:8px;top:8px}
-.p5c{left:34px;top:34px}
-.p5d{left:8px;bottom:8px}
-.p5e{right:8px;bottom:8px}
+    font-size:15px;
+    font-weight:bold;
 
-.p6a{left:8px;top:8px}
-.p6b{right:8px;top:8px}
-.p6c{left:8px;top:34px}
-.p6d{right:8px;top:34px}
-.p6e{left:8px;bottom:8px}
-.p6f{right:8px;bottom:8px}
-
-/* CHOIX */
-
-.options{
- display:flex;
- gap:9px;
- margin-top:22px;
+    opacity:0;
+    pointer-events:none;
+    transition:.25s;
 }
 
-.option{
- flex:1;
- height:96px;
- border:3px solid #5e6b82;
- border-radius:8px;
- background:#363643;
- color:#e4cf9a;
- font-size:16px;
- font-weight:800;
+#message.show{
+    opacity:1;
 }
 
-.option span{
- display:block;
- color:#fff;
- font-size:20px;
- margin-top:8px;
+/* Écran de mise */
+#amountPanel{
+    position:absolute;
+    z-index:100;
+
+    display:none;
+
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+
+    width:85%;
+    max-width:360px;
+
+    background:#181b22;
+    border:1px solid #444;
+    border-radius:18px;
+
+    padding:20px;
+
+    box-shadow:0 15px 50px rgba(0,0,0,.6);
 }
 
-.option.active{
- border-color:#ffd34e;
- box-shadow:0 0 12px #ffd34e66;
- background:#4b4635;
+#amountPanel h3{
+    color:white;
+    margin:0 0 15px;
+    text-align:center;
 }
 
-/* CONTROLES */
+#amountInput{
+    width:100%;
+    height:50px;
 
-.controls{
- display:flex;
- gap:16px;
- margin-top:21px;
+    border:1px solid #555;
+    border-radius:10px;
+
+    background:#0d0f14;
+    color:white;
+
+    font-size:18px;
+    font-weight:bold;
+    text-align:center;
+
+    outline:none;
 }
 
-.control{
- flex:1;
- height:56px;
- border:3px solid #6c6654;
- border-radius:8px;
- background:
- linear-gradient(#fff1b5,#d4b45f 55%,#9b7b35);
- color:#332d22;
- font-size:20px;
+.panelButtons{
+    display:flex;
+    gap:10px;
+    margin-top:15px;
 }
 
-/* MISE */
-
-.amount{
- width:195px;
- height:60px;
- margin-top:23px;
- border:4px solid #a1874c;
- border-radius:8px;
- background:#171725;
- color:#fff;
- font-size:20px;
- font-weight:800;
- text-align:center;
- outline:none;
+.panelButtons button{
+    flex:1;
+    height:45px;
+    border:0;
+    border-radius:10px;
+    font-size:16px;
+    font-weight:bold;
 }
 
-.amount:focus{
- border-color:#e3c36d;
+.cancel{
+    background:#333944;
+    color:white;
 }
 
-/* BAS */
-
-.bottom{
- display:flex;
- justify-content:center;
- gap:24px;
- margin-top:9px;
+.confirm{
+    background:#4caf50;
+    color:white;
 }
 
-.bottom button{
- width:112px;
- height:112px;
- border-radius:25px;
- border:5px solid #15151d;
- box-shadow:
- 0 4px 7px #0008,
- inset 0 0 0 4px #8f7543;
- font-size:51px;
+/* Overlay sombre */
+#overlay{
+    position:absolute;
+    inset:0;
+    z-index:90;
+
+    display:none;
+
+    background:rgba(0,0,0,.55);
 }
 
-.coins{
- background:linear-gradient(#5378ff,#294fd4);
- color:#fff;
-}
-
-.play{
- background:linear-gradient(#9bea48,#56bd18);
- color:#fff;
-}
-
-.reset{
- background:linear-gradient(#557cff,#3155d8);
- color:#fff;
-}
-
-/* ANIMATION */
-
-@keyframes roll{
- 0%,100%{transform:rotate(0) scale(1)}
- 25%{transform:rotate(-10deg) scale(1.06)}
- 50%{transform:rotate(10deg) scale(1.1)}
- 75%{transform:rotate(-7deg) scale(1.05)}
-}
-
-.rolling{
- animation:roll .8s ease;
-}
-
-@media(max-width:390px){
-
- .balance{
-  min-width:175px;
-  font-size:15px;
- }
-
- .die{
-  width:140px;
-  height:140px;
- }
-
- .content{
-  padding-left:15px;
-  padding-right:15px;
- }
-
- .help{
-  left:15px;
- }
-
- .choose{
-  margin-left:58px;
- }
-
- .bottom button{
-  width:90px;
-  height:90px;
- }
-}
 </style>
 </head>
 
 <body>
 
-<div class="game">
+<div id="app">
 
-<header class="top">
+    <!-- IMAGE DE TON GITHUB -->
+    <img
+        id="screen"
+        src="interface-sans-démo.jpg..jpg"
+        alt="Interface"
+    >
 
-<div class="back">‹</div>
+    <!-- CHOIX -->
+    <div class="zone" id="plus7" onclick="selectChoice('PLUS DE 7')"></div>
 
-<div class="balanceWrap">
+    <div class="zone" id="egal7" onclick="selectChoice('ÉGAL 7')"></div>
 
-<div class="balance">
-17 396 655.03 F
-</div>
+    <div class="zone" id="moins7" onclick="selectChoice('MOINS DE 7')"></div>
 
-<button class="plus">+</button>
+    <!-- MISE -->
+    <div class="zone" id="min" onclick="setMin()"></div>
 
-</div>
+    <div class="zone" id="x2" onclick="multiply(2)"></div>
 
-<button class="topIcon">◈</button>
+    <div class="zone" id="half" onclick="divide(2)"></div>
 
-</header>
+    <div class="zone" id="max" onclick="setMax()"></div>
 
+    <!-- CHAMP MISE -->
+    <input
+        id="stake"
+        type="number"
+        inputmode="numeric"
+        value="400"
+        onclick="openAmount()"
+        onchange="updateAmount()"
+    >
 
-<main class="content">
+    <!-- BOUTONS BAS -->
+    <div class="zone" id="money" onclick="openAmount()"></div>
 
-<div class="choose">
-Choisissez votre cote
-</div>
+    <div class="zone" id="play" onclick="playGame()"></div>
 
-<button class="help">?</button>
+    <div class="zone" id="reset" onclick="resetGame()"></div>
 
+    <!-- MESSAGE -->
+    <div id="message"></div>
 
-<div class="dices">
+    <!-- POPUP MISE -->
+    <div id="overlay" onclick="closeAmount()"></div>
 
-<div id="die1" class="die"></div>
-<div id="die2" class="die"></div>
+    <div id="amountPanel">
 
-</div>
+        <h3>Modifier la mise</h3>
 
+        <input
+            id="amountInput"
+            type="number"
+            inputmode="numeric"
+            value="400"
+        >
 
-<div class="options">
+        <div class="panelButtons">
 
-<button id="plus7" class="option">
-Plus de 7
-<span>◉ × 2.3</span>
-</button>
+            <button
+                class="cancel"
+                onclick="closeAmount()"
+            >
+                Annuler
+            </button>
 
-<button id="equal7" class="option">
-Égal 7
-<span>◉ × 5.8</span>
-</button>
+            <button
+                class="confirm"
+                onclick="confirmAmount()"
+            >
+                Valider
+            </button>
 
-<button id="less7" class="option">
-Moins de 7
-<span>◉ × 2.3</span>
-</button>
+        </div>
 
-</div>
-
-
-<div class="controls">
-
-<button id="min" class="control">MIN</button>
-<button id="x2" class="control">X2</button>
-<button id="half" class="control">X/2</button>
-<button id="max" class="control">MAX</button>
-
-</div>
-
-
-<input
- id="amount"
- class="amount"
- value="400 XOF"
- inputmode="numeric"
->
-
-
-<div class="bottom">
-
-<button id="coins" class="coins">
-🪙
-</button>
-
-<button id="play" class="play">
-▶
-</button>
-
-<button id="reset" class="reset">
-↻
-</button>
+    </div>
 
 </div>
-
-</main>
-
-</div>
-
-
-<script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
 
 <script>
 
-/* SYNCHRONISATION AVEC LE TÉLÉPHONE 1 */
+/* =========================
+   VARIABLES
+========================= */
 
-const peer=new Peer();
-
-peer.on("connection",connection=>{
-
- connection.on("data",message=>{
-
-  if(message.type==="prediction"){
-
-   if(message.value==="PLUS DE 7"){
-    select(plus7);
-   }
-
-   if(message.value==="ÉGAL 7"){
-    select(equal7);
-   }
-
-   if(message.value==="MOINS DE 7"){
-    select(less7);
-   }
-
-  }
-
- });
-
-});
+let selectedChoice = null;
+let amount = 400;
 
 
-/* CHOIX */
+/* =========================
+   MESSAGE
+========================= */
 
-const options=[plus7,equal7,less7];
+function showMessage(text){
 
-function select(button){
+    const message = document.getElementById("message");
 
- options.forEach(x=>{
-  x.classList.remove("active");
- });
+    message.textContent = text;
+    message.classList.add("show");
 
- button.classList.add("active");
-}
+    clearTimeout(window.messageTimer);
 
-plus7.onclick=()=>select(plus7);
-equal7.onclick=()=>select(equal7);
-less7.onclick=()=>select(less7);
+    window.messageTimer = setTimeout(function(){
 
+        message.classList.remove("show");
 
-/* MISE */
-
-function getAmount(){
-
- return parseInt(
-  amount.value.replace(/[^0-9]/g,"")
- ) || 0;
-
-}
-
-function setAmount(value){
-
- amount.value=
- Math.max(0,Math.round(value))+" XOF";
-
-}
-
-amount.onfocus=()=>{
-
- amount.value=getAmount();
-
-};
-
-amount.onblur=()=>{
-
- setAmount(getAmount());
-
-};
-
-
-/* MIN / X2 / X/2 / MAX */
-
-min.onclick=()=>{
- setAmount(100);
-};
-
-x2.onclick=()=>{
- setAmount(getAmount()*2);
-};
-
-half.onclick=()=>{
- setAmount(getAmount()/2);
-};
-
-max.onclick=()=>{
- setAmount(100000);
-};
-
-
-/* VISUEL DES DÉS */
-
-function createFace(number){
-
- const face=document.createElement("div");
-
- face.className="face";
-
- const positions={
-  1:["p1"],
-  2:["p2a","p2b"],
-  3:["p3a","p3b","p3c"],
-  4:["p4a","p4b","p4c","p4d"],
-  5:["p5a","p5b","p5c","p5d","p5e"],
-  6:["p6a","p6b","p6c","p6d","p6e","p6f"]
- };
-
- positions[number].forEach(position=>{
-
-  const pip=document.createElement("i");
-
-  pip.className="pip "+position;
-
-  face.appendChild(pip);
-
- });
-
- return face;
-
+    },2500);
 }
 
 
-function showDice(a,b){
+/* =========================
+   CHOIX
+========================= */
 
- die1.innerHTML="";
- die2.innerHTML="";
+function selectChoice(choice){
 
- die1.appendChild(createFace(a));
- die2.appendChild(createFace(b));
+    selectedChoice = choice;
 
+    document
+        .querySelectorAll(".zone")
+        .forEach(el => el.classList.remove("selected"));
+
+    if(choice === "PLUS DE 7"){
+        document.getElementById("plus7").classList.add("selected");
+    }
+
+    if(choice === "ÉGAL 7"){
+        document.getElementById("egal7").classList.add("selected");
+    }
+
+    if(choice === "MOINS DE 7"){
+        document.getElementById("moins7").classList.add("selected");
+    }
+
+    showMessage("Sélection : " + choice);
 }
 
-showDice(6,1);
+
+/* =========================
+   MISE
+========================= */
+
+function updateAmount(){
+
+    let value = parseInt(
+        document.getElementById("stake").value
+    );
+
+    if(isNaN(value) || value < 1){
+        value = 1;
+    }
+
+    amount = value;
+
+    document.getElementById("stake").value = amount;
+}
 
 
-/* BOUTON VERT */
+function setMin(){
 
-play.onclick=()=>{
+    amount = 1;
 
- die1.classList.add("rolling");
- die2.classList.add("rolling");
+    document.getElementById("stake").value = amount;
 
- setTimeout(()=>{
-
-  const a=
-  1+Math.floor(Math.random()*6);
-
-  const b=
-  1+Math.floor(Math.random()*6);
-
-  showDice(a,b);
-
-  die1.classList.remove("rolling");
-  die2.classList.remove("rolling");
-
- },800);
-
-};
+    showMessage("Mise minimale : " + amount);
+}
 
 
-/* RESET */
+function setMax(){
 
-reset.onclick=()=>{
+    amount = 1000000;
 
- options.forEach(x=>{
-  x.classList.remove("active");
- });
+    document.getElementById("stake").value = amount;
 
- setAmount(400);
-
- showDice(6,1);
-
-};
+    showMessage("Mise maximale : " + amount);
+}
 
 
-/* BOUTON MISE */
+function multiply(number){
 
-coins.onclick=()=>{
+    updateAmount();
 
- amount.focus();
+    amount = amount * number;
 
-};
+    document.getElementById("stake").value = amount;
+
+    showMessage("Mise : " + amount);
+}
+
+
+function divide(number){
+
+    updateAmount();
+
+    amount = Math.floor(amount / number);
+
+    if(amount < 1){
+        amount = 1;
+    }
+
+    document.getElementById("stake").value = amount;
+
+    showMessage("Mise : " + amount);
+}
+
+
+/* =========================
+   POPUP
+========================= */
+
+function openAmount(){
+
+    document.getElementById("amountInput").value = amount;
+
+    document.getElementById("overlay").style.display = "block";
+
+    document.getElementById("amountPanel").style.display = "block";
+
+    setTimeout(function(){
+
+        document.getElementById("amountInput").focus();
+
+    },100);
+}
+
+
+function closeAmount(){
+
+    document.getElementById("overlay").style.display = "none";
+
+    document.getElementById("amountPanel").style.display = "none";
+}
+
+
+function confirmAmount(){
+
+    let value = parseInt(
+        document.getElementById("amountInput").value
+    );
+
+    if(isNaN(value) || value < 1){
+
+        value = 1;
+
+    }
+
+    amount = value;
+
+    document.getElementById("stake").value = amount;
+
+    closeAmount();
+
+    showMessage("Mise enregistrée : " + amount);
+}
+
+
+/* =========================
+   JOUER
+========================= */
+
+function playGame(){
+
+    updateAmount();
+
+    if(!selectedChoice){
+
+        showMessage("Choisis d'abord une option.");
+
+        return;
+    }
+
+    showMessage(
+        "Choix : " +
+        selectedChoice +
+        " — Mise : " +
+        amount
+    );
+}
+
+
+/* =========================
+   RESET
+========================= */
+
+function resetGame(){
+
+    selectedChoice = null;
+
+    amount = 400;
+
+    document.getElementById("stake").value = amount;
+
+    document
+        .querySelectorAll(".zone")
+        .forEach(el => el.classList.remove("selected"));
+
+    showMessage("Réinitialisé.");
+}
+
+
+/* =========================
+   EMPÊCHER LE ZOOM
+========================= */
+
+document.addEventListener(
+    "gesturestart",
+    function(e){
+        e.preventDefault();
+    }
+);
 
 </script>
 
