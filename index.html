@@ -7,236 +7,706 @@
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
+
 body{
 font-family:Arial,Helvetica,sans-serif;
-background:linear-gradient(180deg,#eee3ff,#f7f1ff);
-color:#24194b;min-height:100vh
+background:linear-gradient(180deg,#eee3ff 0%,#f7f1ff 100%);
+color:#24194b;
+min-height:100vh
 }
-.container{width:100%;max-width:650px;margin:auto;padding-bottom:25px}
+
+.container{
+width:100%;
+max-width:650px;
+margin:auto;
+padding-bottom:25px
+}
 
 .header{
 background:linear-gradient(135deg,#6426d8,#40118b);
-color:white;padding:18px 20px;display:flex;align-items:center;
-gap:14px;box-shadow:0 5px 20px rgba(70,20,150,.2)
+color:white;
+padding:18px 20px;
+display:flex;
+align-items:center;
+gap:14px;
+box-shadow:0 5px 20px rgba(70,20,150,.2)
 }
+
 .robot{
-width:68px;height:68px;border-radius:50%;
-background:linear-gradient(135deg,#9d65ff,#5220bd);
-display:flex;align-items:center;justify-content:center;
-font-size:40px;box-shadow:0 5px 18px rgba(0,0,0,.18)
+width:68px;
+height:68px;
+border-radius:20px;
+background:rgba(255,255,255,.16);
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:34px;
+flex-shrink:0
 }
-.brand-name{font-size:27px;font-weight:900}
-.online{margin-top:3px;font-size:15px;font-weight:700}
+
+.brand{
+display:flex;
+flex-direction:column
+}
+
+.brand-name{
+font-size:27px;
+font-weight:900;
+letter-spacing:.4px
+}
+
+.online{
+margin-top:3px;
+font-size:15px;
+font-weight:700
+}
 
 .intro{
-background:white;border-radius:0 0 22px 22px;margin:0 18px 15px;
-padding:20px;box-shadow:0 7px 25px rgba(90,40,160,.08)
+background:white;
+border-radius:0 0 22px 22px;
+margin:0 18px 15px;
+padding:24px 26px;
+box-shadow:0 7px 25px rgba(90,40,160,.08)
 }
-.intro h2{font-size:20px;margin-bottom:9px}
-.intro p{font-size:15px;line-height:1.55;color:#30255a}
 
-/* VOCAL */
+.intro h2{
+font-size:22px;
+margin-bottom:12px
+}
+
+.intro p{
+font-size:16px;
+line-height:1.65;
+color:#30255a
+}
+
+/* =========================
+   VOCAL
+========================= */
+
 .voice-box{
-background:white;margin:12px 18px 18px;padding:15px 18px;
-border-radius:22px;display:flex;align-items:center;gap:14px;
+background:white;
+margin:12px 18px 18px;
+padding:14px 16px;
+border-radius:22px;
+display:flex;
+align-items:center;
+gap:13px;
 box-shadow:0 6px 20px rgba(90,40,160,.08)
 }
+
 .voice-play{
-width:58px;height:58px;border-radius:50%;border:0;
+width:54px;
+height:54px;
+border-radius:50%;
+border:none;
 background:linear-gradient(135deg,#7c2cff,#4e17ba);
-color:white;font-size:23px;cursor:pointer;flex-shrink:0
+color:white;
+font-size:22px;
+cursor:pointer;
+flex-shrink:0
 }
-.voice-content{flex:1;min-width:0}
-.voice-top,.voice-bottom{
-display:flex;justify-content:space-between;align-items:center
+
+.voice-content{
+flex:1;
+min-width:0
 }
-.voice-top{color:#5d27b9;font-size:12px;font-weight:900;margin-bottom:5px}
-.voice-bottom{margin-top:5px;color:#70658f;font-size:12px}
-.voice-wave{
-height:32px;display:flex;align-items:center;gap:3px;overflow:hidden
+
+.wave{
+height:34px;
+display:flex;
+align-items:center;
+gap:3px;
+cursor:pointer;
+padding:0 2px
 }
-.voice-wave span{
-width:4px;min-width:4px;border-radius:5px;background:#9c63ef
+
+.wave span{
+width:4px;
+border-radius:5px;
+background:#9c63ef
 }
-.voice-wave span:nth-child(1){height:10px}
-.voice-wave span:nth-child(2){height:18px}
-.voice-wave span:nth-child(3){height:12px}
-.voice-wave span:nth-child(4){height:27px}
-.voice-wave span:nth-child(5){height:17px}
-.voice-wave span:nth-child(6){height:31px}
-.voice-wave span:nth-child(7){height:13px}
-.voice-wave span:nth-child(8){height:24px}
-.voice-wave span:nth-child(9){height:17px}
-.voice-wave span:nth-child(10){height:29px}
-.voice-wave span:nth-child(11){height:12px}
-.voice-wave span:nth-child(12){height:22px}
-.voice-wave span:nth-child(13){height:9px}
-.voice-wave span:nth-child(14){height:18px}
-.voice-wave span:nth-child(15){height:11px}
-.voice-wave span:nth-child(16){height:7px}
-.voice-wave span:nth-child(17){height:20px}
-.voice-wave span:nth-child(18){height:13px}
-.voice-wave span:nth-child(19){height:25px}
-.voice-wave span:nth-child(20){height:15px}
+
+.wave span:nth-child(1){height:10px}
+.wave span:nth-child(2){height:18px}
+.wave span:nth-child(3){height:12px}
+.wave span:nth-child(4){height:27px}
+.wave span:nth-child(5){height:17px}
+.wave span:nth-child(6){height:31px}
+.wave span:nth-child(7){height:13px}
+.wave span:nth-child(8){height:24px}
+.wave span:nth-child(9){height:17px}
+.wave span:nth-child(10){height:29px}
+.wave span:nth-child(11){height:12px}
+.wave span:nth-child(12){height:22px}
+.wave span:nth-child(13){height:9px}
+.wave span:nth-child(14){height:18px}
+.wave span:nth-child(15){height:11px}
+.wave span:nth-child(16){height:7px}
+
+.voice-time{
+color:#70658f;
+font-size:12px;
+margin-top:5px;
+display:flex;
+justify-content:space-between
+}
+
 .voice-progress{
-width:100%;height:4px;margin-top:3px;appearance:none;
-background:#e6dafa;border-radius:10px;cursor:pointer
-}
-.voice-progress::-webkit-slider-thumb{
-appearance:none;width:12px;height:12px;border-radius:50%;
-background:#7228df;cursor:pointer
-}
-.voice-progress::-moz-range-thumb{
-width:12px;height:12px;border:0;border-radius:50%;
-background:#7228df;cursor:pointer
-}
-#voiceSpeed{
-background:#eee3ff;color:#5b20bc;border-radius:18px;
-padding:5px 9px;font-weight:900
+height:4px;
+background:#eadfff;
+border-radius:10px;
+margin-top:7px;
+overflow:hidden;
+cursor:pointer
 }
 
-/* QUESTIONS */
-.questions{padding:0 18px}
+.voice-progress-bar{
+height:100%;
+width:0;
+background:linear-gradient(90deg,#7c2cff,#4e17ba);
+border-radius:10px
+}
+
+.voice-speed{
+background:#eee3ff;
+color:#5b20bc;
+border-radius:18px;
+padding:8px 13px;
+font-weight:900
+}
+
+/* =========================
+   QUESTIONS
+========================= */
+
+.questions{
+padding:0 22px;
+display:flex;
+flex-direction:column;
+align-items:flex-end;
+gap:12px
+}
+
 .question-btn{
-width:100%;min-height:70px;background:white;border:2px solid #8c3cff;
-border-radius:20px;color:#5c22b8;font-size:17px;font-weight:900;
-text-align:left;padding:14px 18px;margin-bottom:12px;cursor:pointer
+width:auto;
+max-width:92%;
+min-height:58px;
+background:linear-gradient(135deg,#913bea,#5c1eb4);
+border:0;
+border-radius:24px 24px 6px 24px;
+color:white;
+font-size:17px;
+font-weight:500;
+text-align:left;
+padding:15px 20px;
+cursor:pointer;
+box-shadow:0 6px 16px rgba(95,30,190,.16)
 }
-.question-icon{margin-right:10px}
 
-/* CONTENU */
+/* =========================
+   CONTENU
+========================= */
+
 .content{
-display:none;background:white;border-radius:22px;padding:20px;margin:18px;
-box-shadow:0 6px 20px rgba(90,40,160,.08)
+display:none;
+background:white;
+border-radius:0 28px 28px 8px;
+padding:28px 26px;
+margin:16px 22px 18px;
+box-shadow:0 7px 24px rgba(90,40,160,.10)
 }
-.content.show{display:block}
-.content h2{font-size:21px;margin-bottom:15px;color:#5420ad}
-.content h3{margin-top:17px;margin-bottom:7px;font-size:16px}
-.content p{font-size:14px;line-height:1.65;margin-bottom:9px}
-.content ol{padding-left:20px}
-.content li{font-size:14px;line-height:1.7;margin-bottom:8px}
+
+.content.show{
+display:block
+}
+
+.content h2{
+font-size:23px;
+margin-bottom:16px;
+color:#5420ad
+}
+
+.content h3{
+margin-top:20px;
+margin-bottom:9px;
+font-size:17px;
+color:#3e286c
+}
+
+.content p{
+font-size:16px;
+line-height:1.7;
+margin-bottom:11px
+}
 
 .green-btn{
-display:block;width:100%;border:0;background:#16c95b;color:white;
-padding:14px;border-radius:14px;font-size:14px;font-weight:900;
-cursor:pointer;margin-top:15px;text-decoration:none;text-align:center
+display:block;
+width:100%;
+border:none;
+background:#16c95b;
+color:white;
+padding:14px;
+border-radius:14px;
+font-size:14px;
+font-weight:900;
+cursor:pointer;
+margin-top:15px;
+text-decoration:none;
+text-align:center
 }
+
 .back-btn{
-width:100%;background:#f0e9ff;color:#4e2295;border:0;padding:13px;
-border-radius:13px;font-weight:800;cursor:pointer;margin-top:10px
+width:100%;
+background:#f0e9ff;
+color:#4e2295;
+border:none;
+padding:13px;
+border-radius:13px;
+font-weight:800;
+cursor:pointer;
+margin-top:10px
 }
 
-/* PLATEFORMES */
+/* =========================
+   PLATEFORMES
+========================= */
+
 .platform-section{
-background:white;margin-top:18px;padding:18px;border-radius:24px 24px 0 0
+background:white;
+margin-top:18px;
+padding:22px;
+border-radius:0
 }
+
 .platform-heading{
-display:flex;justify-content:space-between;color:#5d27b9;
-font-size:17px;font-weight:900;margin-bottom:14px
+display:flex;
+justify-content:space-between;
+align-items:center;
+color:#62547e;
+font-size:17px;
+font-weight:900;
+margin-bottom:14px
 }
-.platforms{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+
+.platforms{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:10px
+}
+
 .platform{
-min-height:70px;text-decoration:none;color:white;padding:12px 8px;
-text-align:center;border-radius:16px;font-weight:900;font-size:13px;
-display:flex;align-items:center;justify-content:center
+min-height:68px;
+text-decoration:none;
+color:#24194b;
+background:#eee2ff;
+border:2px solid #e2d1ff;
+padding:10px 8px;
+text-align:left;
+border-radius:18px;
+font-weight:900;
+font-size:14px;
+display:flex;
+align-items:center;
+justify-content:flex-start
 }
-.xbet{background:#087cff}
-.melbet{background:#ff7417}
-.paripesa{background:#5541ed}
-.betwinner{background:#08ad57}
-.winwin{background:#00bd4f}
+
 .platform-icon{
-width:38px;height:38px;border-radius:50%;
-background:rgba(255,255,255,.2);display:flex;align-items:center;
-justify-content:center;margin-right:7px
+width:40px;
+height:40px;
+border-radius:50%;
+background:#7141b9;
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+margin-right:9px;
+font-size:13px;
+font-weight:1000;
+flex-shrink:0
 }
+
 .promo{
-margin-top:10px;background:linear-gradient(135deg,#fff4c7,#fff9e5);
-border:1px solid #f0d25e;border-radius:16px;padding:11px;text-align:center
+margin-top:12px;
+background:#f3eaff;
+border:2px dashed #7b32e8;
+border-radius:18px;
+padding:11px 15px;
+text-align:center;
+max-width:175px
 }
-.promo-small{display:block;font-size:10px;font-weight:900;color:#5721aa}
+
+.promo-small{
+display:block;
+font-size:10px;
+font-weight:900;
+color:#5721aa
+}
+
 .promo-code{
-display:block;font-size:27px;font-weight:1000;letter-spacing:3px;color:#5520b2
+display:block;
+font-size:25px;
+font-weight:1000;
+letter-spacing:2px;
+color:#5520b2
 }
 
-/* CONTACT */
-.contact-section{background:white;padding:5px 18px 18px}
-.contact-title{color:#5d27b9;font-size:17px;font-weight:900;margin:5px 0 12px}
-.bottom-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+/* =========================
+   CONTACT
+========================= */
+
+.contact-section{
+background:white;
+padding:0 22px 18px
+}
+
+.bottom-row{
+display:grid;
+grid-template-columns:1fr 1.9fr;
+gap:10px
+}
+
 .whatsapp,.channel{
-text-decoration:none;color:white;border-radius:15px;padding:14px 8px;
-text-align:center;font-weight:900;font-size:13px
+text-decoration:none;
+color:white;
+border-radius:16px;
+padding:14px 8px;
+text-align:center;
+font-weight:900;
+font-size:15px
 }
-.whatsapp{background:#16c95b}
-.channel{background:linear-gradient(135deg,#7d35ec,#5520b6)}
-.contact-number{display:block;margin-top:5px;font-size:12px}
 
-/* CHAT */
-.chat-box{background:white;padding:12px 15px 15px;border-top:1px solid #eadfff}
-.chat-messages{max-height:330px;overflow-y:auto;margin-bottom:10px}
+.whatsapp{
+background:#32d06a
+}
+
+.channel{
+background:linear-gradient(135deg,#7d35ec,#5520b6)
+}
+
+.contact-number{
+display:block;
+margin-top:4px;
+font-size:11px
+}
+
+/* =========================
+   CHAT
+========================= */
+
+.chat-box{
+background:white;
+padding:14px 22px 18px;
+border-top:1px solid #eadfff
+}
+
+.chat-messages{
+max-height:420px;
+overflow-y:auto;
+margin-bottom:10px
+}
+
 .message{
-max-width:88%;padding:11px 13px;border-radius:15px;margin-bottom:8px;
-font-size:14px;line-height:1.5;white-space:pre-line
-}
-.bot-message{background:#f0e8ff;border-bottom-left-radius:4px}
-.user-message{
-background:#6426d8;color:white;margin-left:auto;border-bottom-right-radius:4px
-}
-.chat-input-row{display:flex;gap:8px}
-.chat-input{
-flex:1;border:2px solid #e5d8fa;background:#faf8ff;border-radius:25px;
-padding:14px 17px;outline:0;font-size:14px
-}
-.send-btn{
-width:54px;height:54px;border:0;border-radius:50%;
-background:linear-gradient(135deg,#7228df,#4e17b8);
-color:white;font-size:23px;cursor:pointer
+max-width:90%;
+padding:13px 16px;
+border-radius:18px;
+margin-bottom:10px;
+font-size:16px;
+line-height:1.6;
+white-space:pre-line
 }
 
-/* CHOIX */
-.choice-buttons{display:flex;flex-direction:column;gap:10px;margin-top:15px}
+.bot-message{
+background:white;
+color:#24194b;
+border-radius:0 26px 26px 8px;
+box-shadow:0 6px 20px rgba(90,40,160,.07)
+}
+
+.user-message{
+background:linear-gradient(135deg,#913bea,#5c1eb4);
+color:white;
+margin-left:auto;
+border-radius:24px 24px 6px 24px
+}
+
+.chat-input-row{
+display:flex;
+gap:10px;
+align-items:center
+}
+
+.chat-input{
+flex:1;
+border:2px solid #e5d8fa;
+background:#eee2ff;
+border-radius:28px;
+padding:16px 20px;
+outline:none;
+font-size:16px;
+min-width:0
+}
+
+.send-btn{
+width:58px;
+height:58px;
+border:none;
+border-radius:50%;
+background:linear-gradient(135deg,#7228df,#4e17b8);
+color:white;
+font-size:25px;
+cursor:pointer;
+flex-shrink:0
+}
+
+/* =========================
+   CHOIX
+========================= */
+
+.choice-buttons{
+display:flex;
+flex-direction:column;
+gap:10px;
+margin-top:15px
+}
+
 .choice-btn{
-padding:14px;border-radius:12px;border:2px solid #8c3cff;
-background:white;color:#5120a9;font-weight:800;cursor:pointer;width:100%
+padding:14px;
+border-radius:12px;
+border:2px solid #8c3cff;
+background:white;
+color:#5120a9;
+font-weight:800;
+cursor:pointer;
+width:100%
 }
+
 .success{
-background:#effcf3;border:1px solid #9ee4b4;border-radius:15px;
-padding:15px;margin-top:15px
+background:#effcf3;
+border:1px solid #9ee4b4;
+border-radius:15px;
+padding:15px;
+margin-top:15px
 }
+
 .warning{
-background:#fff8e1;border:1px solid #f1d36b;border-radius:15px;
-padding:15px;margin-top:15px
+background:#fff8e1;
+border:1px solid #f1d36b;
+border-radius:15px;
+padding:15px;
+margin-top:15px
 }
-.code-box{background:#2b1551;border-radius:14px;padding:10px;margin-top:10px}
+
+.code-box{
+background:#2b1551;
+border-radius:14px;
+padding:10px;
+margin-top:10px
+}
+
 .code-item{
-display:flex;align-items:center;justify-content:space-between;gap:8px;
-background:white;border-radius:12px;padding:12px;margin-top:9px
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:8px;
+background:white;
+border-radius:12px;
+padding:12px;
+margin-top:9px
 }
-.code-name{font-weight:900;font-size:13px}
-.code-value{font-weight:900;color:#5c22b8;letter-spacing:1px;margin-top:4px}
+
+.code-name{
+font-weight:900;
+font-size:13px
+}
+
+.code-value{
+font-weight:900;
+color:#5c22b8;
+letter-spacing:1px;
+margin-top:4px
+}
+
 .download-btn{
-border:0;background:#16c95b;color:white;border-radius:9px;
-padding:9px 11px;font-size:12px;font-weight:900;cursor:pointer
+border:none;
+background:#16c95b;
+color:white;
+border-radius:9px;
+padding:9px 11px;
+font-size:12px;
+font-weight:900;
+cursor:pointer
 }
+
 .platform-selected{
-background:#f0e8ff;border-radius:12px;padding:12px;text-align:center;
-font-weight:900;margin-top:12px
+background:#f0e8ff;
+border-radius:12px;
+padding:12px;
+text-align:center;
+font-weight:900;
+margin-top:12px
 }
+
+/* =========================
+   TROIS PETITS POINTS
+========================= */
+
+.typing-message{
+display:flex;
+align-items:center;
+gap:4px;
+min-height:42px
+}
+
+.typing-dot{
+width:4px;
+height:4px;
+background:#8c3cff;
+border-radius:50%;
+display:inline-block;
+animation:typingPulse 1.2s infinite ease-in-out
+}
+
+.typing-dot:nth-child(2){
+animation-delay:.15s
+}
+
+.typing-dot:nth-child(3){
+animation-delay:.3s
+}
+
+@keyframes typingPulse{
+0%,60%,100%{
+opacity:.3;
+transform:translateY(0)
+}
+30%{
+opacity:1;
+transform:translateY(-3px)
+}
+}
+
+.chat-link{
+color:#5c22b8;
+font-weight:900;
+text-decoration:underline;
+word-break:break-all
+}
+
+.contact-mini{
+display:flex;
+flex-wrap:wrap;
+gap:8px;
+margin-top:12px
+}
+
+.contact-mini a{
+color:white;
+text-decoration:none;
+font-weight:900;
+padding:9px 12px;
+border-radius:10px;
+background:#16c95b;
+font-size:13px
+}
+
+.contact-mini a.channel-mini{
+background:linear-gradient(135deg,#7d35ec,#5520b6)
+}
+
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:500px){
-.brand-name{font-size:24px}
-.robot{width:60px;height:60px;font-size:34px}
-.platforms{grid-template-columns:repeat(2,1fr)}
-.question-btn{font-size:15px}
+
+.brand-name{
+font-size:24px
 }
+
+.robot{
+width:60px;
+height:60px;
+font-size:31px
+}
+
+.platforms{
+grid-template-columns:repeat(3,1fr);
+gap:9px
+}
+
+.platform{
+font-size:12px;
+min-height:64px;
+padding:8px 6px
+}
+
+.platform-icon{
+width:34px;
+height:34px;
+font-size:11px;
+margin-right:6px
+}
+
+.question-btn{
+font-size:16px
+}
+
+.content{
+margin-left:22px;
+margin-right:22px;
+padding:25px
+}
+
+}
+
 @media(max-width:400px){
-.intro,.voice-box{margin-left:12px;margin-right:12px}
-.questions{padding:0 12px}
-.platform-section,.contact-section{padding-left:12px;padding-right:12px}
-.brand-name{font-size:21px}
-.bottom-row{grid-template-columns:1fr}
-.code-item{flex-wrap:wrap}
-.download-btn{width:100%}
+
+.intro{
+margin-left:12px;
+margin-right:12px
+}
+
+.voice-box{
+margin-left:12px;
+margin-right:12px
+}
+
+.questions{
+padding:0 12px
+}
+
+.platform-section{
+padding-left:12px;
+padding-right:12px
+}
+
+.contact-section{
+padding-left:12px;
+padding-right:12px
+}
+
+.brand-name{
+font-size:21px
+}
+
+.question-btn{
+min-height:58px;
+font-size:14px
+}
+
+.bottom-row{
+grid-template-columns:1fr 1.9fr
+}
+
+.code-item{
+flex-wrap:wrap
+}
+
+.download-btn{
+width:100%
+}
+
 }
 </style>
 </head>
@@ -245,16 +715,32 @@ font-weight:900;margin-top:12px
 
 <div class="container">
 
+<!-- HEADER -->
+
 <div class="header">
+
 <div class="robot">🤖</div>
+
 <div class="brand">
-<div class="brand-name">JEFF PRO</div>
-<div class="online">🟢 En ligne</div>
-</div>
+
+<div class="brand-name">
+JEFF PRO
 </div>
 
+<div class="online">
+🟢 En ligne
+</div>
+
+</div>
+
+</div>
+
+<!-- INTRO -->
+
 <div class="intro">
+
 <h2>Bienvenue 👋</h2>
+
 <p>
 Bienvenue sur la page officielle de <strong>Jeff Pro</strong> !
 Si tu es ici, c’est que tu souhaites récupérer le bot qui me permet
@@ -262,148 +748,257 @@ de gagner des millions chaque jour 💰🔥
 Choisis l’option qui te convient et mon assistant te guidera
 étape par étape pour avoir accès gratuitement à ce bot ✅
 </p>
+
 </div>
 
 <!-- VOCAL -->
+
 <div class="voice-box">
 
-<button class="voice-play" id="voiceButton" onclick="toggleVoice()">▶</button>
+<button
+class="voice-play"
+id="voiceButton"
+onclick="toggleVoice()">
+▶
+</button>
 
 <div class="voice-content">
 
-<div class="voice-top">
+<div style="display:flex;justify-content:space-between;align-items:center;color:#5d27b9;font-size:12px;font-weight:900;margin-bottom:5px">
+
 <span>🎙️ Message vocal</span>
-<span id="voiceSpeed">1x</span>
+
+<span class="voice-speed">
+1x
+</span>
+
 </div>
 
-<div class="voice-wave">
-<span></span><span></span><span></span><span></span><span></span>
-<span></span><span></span><span></span><span></span><span></span>
-<span></span><span></span><span></span><span></span><span></span>
-<span></span><span></span><span></span><span></span><span></span>
+<div class="wave">
+
+<span></span><span></span><span></span><span></span>
+<span></span><span></span><span></span><span></span>
+<span></span><span></span><span></span><span></span>
+<span></span><span></span><span></span><span></span>
+
 </div>
 
-<input
-type="range"
+<div
 id="voiceProgress"
-class="voice-progress"
-value="0"
-min="0"
-max="100"
-step="0.1"
->
+class="voice-progress">
 
-<div class="voice-bottom">
-<span id="currentTime">0:00</span>
-<span id="totalTime">2:41</span>
+<div
+id="voiceProgressBar"
+class="voice-progress-bar">
 </div>
 
 </div>
 
-<audio id="jeffVoice" preload="metadata">
+<div class="voice-time">
+
+<span id="currentTime">
+0:00
+</span>
+
+<span id="totalTime">
+2:41
+</span>
+
+</div>
+
+</div>
+
+<audio
+id="jeffVoice"
+preload="metadata">
+
 <source
-src="https://raw.githubusercontent.com/jeffproo/JEFF-PRO-ANALYSE/main/vocal.mp3.m4a"
+src="https://raw.githubusercontent.com/jeffproo/JEFF-PRO-ANALYSE/main/Jeff.pro.mp3.m4a"
 type="audio/mp4">
+
 </audio>
 
 </div>
 
 <!-- QUESTIONS -->
+
 <div class="questions">
 
-<button class="question-btn" onclick="showApple()">
-🍎 <span class="question-icon">Comment gagner à Apple of Fortune ?</span>
+<button
+class="question-btn"
+onclick="askQuestion('🍎 Comment gagner à Apple of Fortune ?',showApple)">
+🍎 Comment gagner à Apple of Fortune ?
 </button>
 
-<button class="question-btn" onclick="showDice()">
-🎲 <span class="question-icon">Comment gagner au Jeu des Dés ?</span>
+<button
+class="question-btn"
+onclick="askQuestion('🎲 Comment gagner au Jeu des Dés ?',showDice)">
+🎲 Comment gagner au Jeu des Dés ?
 </button>
 
-<button class="question-btn" onclick="showRegistration()">
-📝 <span class="question-icon">Comment s’inscrire avec le code 8F9Y ?</span>
+<button
+class="question-btn"
+onclick="askQuestion('📝 Comment s’inscrire ?',showRegistration)">
+📝 Comment s’inscrire ?
 </button>
 
 </div>
 
-<div id="content" class="content"></div>
+<div
+id="content"
+class="content">
+</div>
 
 <!-- PLATEFORMES -->
+
 <div class="platform-section">
 
 <div class="platform-heading">
-<span>🔗 PLATEFORMES & CODE PROMO</span>
-<span>Réduire</span>
+
+<span>
+🔗 PLATEFORMES & CODE PROMO
+</span>
+
+<span>
+Réduire
+</span>
+
 </div>
 
 <div class="platforms">
 
-<a class="platform xbet"
+<a
+class="platform"
 href="https://reffpa.com/L?tag=d_4215855m_97c_&site=4215855&ad=97&r=registration"
-target="_blank">
-<span class="platform-icon">1X</span>1XBET
+target="_blank"
+rel="noopener noreferrer">
+
+<span class="platform-icon">
+1X
+</span>
+
+1XBET
+
 </a>
 
-<a class="platform melbet"
+<a
+class="platform"
 href="https://refpa3665.com/L?tag=d_4139550m_45415c_&site=4139550&ad=45415&r=registration"
-target="_blank">
-<span class="platform-icon">M</span>MELBET
+target="_blank"
+rel="noopener noreferrer">
+
+<span class="platform-icon">
+M
+</span>
+
+MELBET
+
 </a>
 
-<a class="platform paripesa"
+<a
+class="platform"
 href="https://paripesa.bet/christtpronoso"
-target="_blank">
-<span class="platform-icon">P</span>PARIPESA
+target="_blank"
+rel="noopener noreferrer">
+
+<span class="platform-icon">
+P
+</span>
+
+PARIPESA
+
 </a>
 
-<a class="platform betwinner"
+<a
+class="platform"
 href="https://bwredir.com/3cSE?p=%2Fregistration%2F"
-target="_blank">
-<span class="platform-icon">BW</span>BETWINNER
+target="_blank"
+rel="noopener noreferrer">
+
+<span class="platform-icon">
+BW
+</span>
+
+BETWINNER
+
 </a>
 
-<a class="platform winwin"
+<a
+class="platform"
 href="https://slim.link/qxyZnTd"
-target="_blank">
-<span class="platform-icon">W</span>WINWIN
+target="_blank"
+rel="noopener noreferrer">
+
+<span class="platform-icon">
+W
+</span>
+
+WINWIN
+
 </a>
 
 </div>
 
 <div class="promo">
-<span class="promo-small">🎁 CODE PROMO</span>
-<span class="promo-code">8F9Y</span>
+
+<span class="promo-small">
+🎁 CODE PROMO
+</span>
+
+<span class="promo-code">
+8F9Y
+</span>
+
 </div>
 
 </div>
 
 <!-- CONTACT -->
-<div class="contact-section">
 
-<div class="contact-title">🎧 CONTACT & COMMUNAUTÉ</div>
+<div class="contact-section">
 
 <div class="bottom-row">
 
-<a class="whatsapp"
+<a
+class="whatsapp"
 href="https://wa.me/22965061408"
-target="_blank">
+target="_blank"
+rel="noopener noreferrer">
+
 📲 Mon WhatsApp
-<span class="contact-number">+229 65 06 14 08</span>
+
+<span class="contact-number">
++229 65 06 14 08
+</span>
+
 </a>
 
-<a class="channel"
+<a
+class="channel"
 href="https://whatsapp.com/channel/0029VbBw8FBDp2Q03qhB4t2b"
-target="_blank">
+target="_blank"
+rel="noopener noreferrer">
+
 📢 Chaîne WhatsApp
-<span class="contact-number">Rejoindre ma chaîne</span>
+
+<span class="contact-number">
+Rejoindre ma chaîne
+</span>
+
 </a>
 
 </div>
+
 </div>
 
 <!-- CHAT -->
+
 <div class="chat-box">
 
-<div id="chatMessages" class="chat-messages"></div>
+<div
+id="chatMessages"
+class="chat-messages">
+</div>
 
 <div class="chat-input-row">
 
@@ -415,9 +1010,14 @@ placeholder="Écris ta question ici..."
 onkeydown="handleEnter(event)"
 >
 
-<button class="send-btn" onclick="sendMessage()">➤</button>
+<button
+class="send-btn"
+onclick="sendMessage()">
+➤
+</button>
 
 </div>
+
 </div>
 
 </div>
@@ -429,9 +1029,13 @@ onkeydown="handleEnter(event)"
 ========================= */
 
 const content=document.getElementById("content");
+
 const PROMO_CODE="8F9Y";
+
 let selectedUserPlatform="";
+
 let accessGranted=false;
+
 let requestedAccess="";
 
 /* =========================
@@ -439,59 +1043,95 @@ let requestedAccess="";
 ========================= */
 
 const audio=document.getElementById("jeffVoice");
+
 const voiceButton=document.getElementById("voiceButton");
+
+const progressBar=document.getElementById("voiceProgressBar");
+
 const progress=document.getElementById("voiceProgress");
+
 const currentTime=document.getElementById("currentTime");
+
 const totalTime=document.getElementById("totalTime");
 
 function formatTime(seconds){
-if(!isFinite(seconds))return"0:00";
+
+if(!isFinite(seconds))
+return "0:00";
+
 const min=Math.floor(seconds/60);
+
 const sec=Math.floor(seconds%60);
+
 return min+":"+String(sec).padStart(2,"0");
+
 }
 
 function toggleVoice(){
 
 if(audio.paused){
+
 audio.play().then(()=>{
+
 voiceButton.textContent="Ⅱ";
+
 }).catch(()=>{
+
 voiceButton.textContent="▶";
+
 });
+
 }else{
+
 audio.pause();
+
 voiceButton.textContent="▶";
+
 }
 
 }
 
 audio.addEventListener("loadedmetadata",()=>{
+
 totalTime.textContent=formatTime(audio.duration);
+
 });
 
 audio.addEventListener("timeupdate",()=>{
 
 if(audio.duration){
-progress.value=(audio.currentTime/audio.duration)*100;
+
+const percent=(audio.currentTime/audio.duration)*100;
+
+progressBar.style.width=percent+"%";
+
 }
 
 currentTime.textContent=formatTime(audio.currentTime);
 
 });
 
-progress.addEventListener("input",()=>{
+progress.addEventListener("click",(event)=>{
 
-if(audio.duration){
-audio.currentTime=(progress.value/100)*audio.duration;
-}
+if(!audio.duration)
+return;
+
+const rect=progress.getBoundingClientRect();
+
+const percent=(event.clientX-rect.left)/rect.width;
+
+audio.currentTime=percent*audio.duration;
 
 });
 
 audio.addEventListener("ended",()=>{
+
 voiceButton.textContent="▶";
-progress.value=0;
+
+progressBar.style.width="0%";
+
 currentTime.textContent="0:00";
+
 });
 
 /* =========================
@@ -499,14 +1139,51 @@ currentTime.textContent="0:00";
 ========================= */
 
 function showContent(html){
+
 content.innerHTML=html;
+
 content.classList.add("show");
-content.scrollIntoView({behavior:"smooth",block:"start"});
+
+content.scrollIntoView({
+behavior:"smooth",
+block:"start"
+});
+
 }
 
 function backHome(){
+
 content.classList.remove("show");
-window.scrollTo({top:0,behavior:"smooth"});
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+/* =========================
+   ANIMATION QUESTION
+========================= */
+
+function askQuestion(question,action){
+
+addMessage(question,"user-message");
+
+const typing=showTyping();
+
+setTimeout(()=>{
+
+if(typing && typing.parentNode){
+
+typing.remove();
+
+}
+
+action();
+
+},900);
+
 }
 
 /* =========================
@@ -516,29 +1193,50 @@ window.scrollTo({top:0,behavior:"smooth"});
 function showApple(){
 
 showContent(`
-<h2>🍎 APPLE OF FORTUNE</h2>
 
-<p>🤖 <strong>JEFF PRO</strong></p>
+<h2>
+🍎 Comment gagner à Apple of Fortune ?
+</h2>
 
 <p>
-Pour accéder aux contenus concernant Apple of Fortune,
-utilise un compte partenaire créé avec le code promo
-<strong>${PROMO_CODE}</strong>.
+Pour accéder aux méthodes et informations réservées de
+<strong>JEFF PRO</strong> concernant Apple of Fortune,
+tu dois d’abord remplir les deux conditions obligatoires.
 </p>
 
-<div class="warning">
-<strong>🔐 CONDITION D'ACCÈS</strong>
-<p style="margin-top:8px">
-Compte 1XBET, MELBET, PARIPESA, BETWINNER ou WINWIN
-créé avec le code promo <strong>${PROMO_CODE}</strong>.
+<p>
+<strong>
+1️⃣ T’inscrire chez un bookmaker partenaire avec le code promo 8F9Y.
+</strong>
 </p>
-</div>
 
-<button class="green-btn" onclick="showRegistration()">
-🔐 VÉRIFIER MON ACCÈS
+<p>
+<strong>
+2️⃣ Effectuer un premier dépôt d’au moins 1 500 FCFA sur ton compte.
+</strong>
+</p>
+
+<p>
+🔥 Une fois ces étapes validées, tu pourras bénéficier du contenu
+exclusif de <strong>JEFF PRO</strong> 🍎.
+</p>
+
+<p>
+👉 Veux-tu que je te guide étape par étape pour t’inscrire ? 😊
+</p>
+
+<button
+class="green-btn"
+onclick="askQuestion('📝 Oui, guide-moi pour m’inscrire',showRegistration)">
+📝 Oui, guide-moi pour m’inscrire
 </button>
 
-<button class="back-btn" onclick="backHome()">← Retour</button>
+<button
+class="back-btn"
+onclick="backHome()">
+← Retour
+</button>
+
 `);
 
 }
@@ -550,29 +1248,50 @@ créé avec le code promo <strong>${PROMO_CODE}</strong>.
 function showDice(){
 
 showContent(`
-<h2>🎲 JEU DES DÉS</h2>
 
-<p>🤖 <strong>JEFF PRO</strong></p>
+<h2>
+🎲 Comment gagner au Jeu des Dés ?
+</h2>
 
 <p>
-Pour accéder aux contenus concernant le Jeu des Dés,
-utilise un compte partenaire créé avec le code promo
-<strong>${PROMO_CODE}</strong>.
+Pour accéder aux méthodes et informations réservées de
+<strong>JEFF PRO</strong> concernant le Jeu des Dés,
+tu dois d’abord remplir les deux conditions obligatoires.
 </p>
 
-<div class="warning">
-<strong>🔐 CONDITION D'ACCÈS</strong>
-<p style="margin-top:8px">
-Compte 1XBET, MELBET, PARIPESA, BETWINNER ou WINWIN
-créé avec le code promo <strong>${PROMO_CODE}</strong>.
+<p>
+<strong>
+1️⃣ T’inscrire chez un bookmaker partenaire avec le code promo 8F9Y.
+</strong>
 </p>
-</div>
 
-<button class="green-btn" onclick="showRegistration()">
-🔐 VÉRIFIER MON ACCÈS
+<p>
+<strong>
+2️⃣ Effectuer un premier dépôt d’au moins 1 500 FCFA sur ton compte.
+</strong>
+</p>
+
+<p>
+🔥 Une fois ces étapes validées, tu pourras bénéficier du contenu
+exclusif de <strong>JEFF PRO</strong> 🍎.
+</p>
+
+<p>
+👉 Veux-tu que je te guide étape par étape pour t’inscrire ? 😊
+</p>
+
+<button
+class="green-btn"
+onclick="askQuestion('📝 Oui, guide-moi pour m’inscrire',showRegistration)">
+📝 Oui, guide-moi pour m’inscrire
 </button>
 
-<button class="back-btn" onclick="backHome()">← Retour</button>
+<button
+class="back-btn"
+onclick="backHome()">
+← Retour
+</button>
+
 `);
 
 }
@@ -584,39 +1303,190 @@ créé avec le code promo <strong>${PROMO_CODE}</strong>.
 function showRegistration(){
 
 showContent(`
-<h2>🔐 ACCÈS JEFF PRO</h2>
+
+<h2>
+📝 Comment s'inscrire ?
+</h2>
 
 <p>
-Pour accéder aux coupons, sélectionne la plateforme sur laquelle
-tu as créé ton compte avec le code promo
-<strong>${PROMO_CODE}</strong>.
+Bien sûr 👌 Voici les étapes pour t'inscrire et accéder au contenu
+réservé de <strong>JEFF PRO</strong>.
 </p>
 
 <div class="warning">
-<strong>⚠️ CONDITIONS D'ACCÈS</strong>
 
-<p style="margin-top:8px">
-1️⃣ Compte créé sur 1XBET, MELBET, PARIPESA, BETWINNER ou WINWIN.
+<strong>
+⚠️ Les 2 conditions obligatoires :
+</strong>
+
+<p style="margin-top:10px">
+Inscription avec le code promo <strong>8F9Y</strong>
 </p>
 
-<p>2️⃣ Code promo utilisé : <strong>${PROMO_CODE}</strong></p>
+<p>
+Premier dépôt minimum de <strong>1 500 FCFA</strong>
+</p>
 
-<p>3️⃣ Dépôt minimum demandé : <strong>1 500 FCFA</strong></p>
 </div>
 
-<h3>1️⃣ Choisis ta plateforme</h3>
+<h3>
+1️⃣ Choisis un bookmaker partenaire
+</h3>
+
+<p>
+Tu peux choisir l’une des plateformes affichées en bas de la page :
+</p>
+
+<p>
+<strong>1XBET</strong><br>
+<strong>MELBET</strong><br>
+<strong>WINWIN</strong><br>
+<strong>LUCKYPARI</strong><br>
+<strong>AFROPARI</strong><br>
+<strong>BETWINNER</strong><br>
+<strong>MEGAPARI</strong><br>
+<strong>PARIPESA</strong>
+</p>
+
+<h3>
+2️⃣ Ouvre le lien d'inscription
+</h3>
+
+<p>
+Choisis la plateforme qui t'intéresse et ouvre son lien d'inscription.
+</p>
+
+<h3>
+3️⃣ Remplis le formulaire
+</h3>
+
+<p>
+Renseigne les informations demandées : nom, prénom, numéro de téléphone,
+email, mot de passe ou autres informations selon la plateforme.
+</p>
+
+<h3>
+4️⃣ Entre le code promo
+</h3>
+
+<p>
+Dans le champ « Code promo », « Code bonus » ou « Code parrain »,
+saisis :
+</p>
+
+<p style="
+text-align:center;
+font-size:28px;
+font-weight:900;
+color:#5520b2;
+letter-spacing:3px">
+8F9Y
+</p>
+
+<p>
+⚠️ Vérifie bien que <strong>8F9Y</strong> est appliqué avant de terminer
+ton inscription.
+</p>
+
+<h3>
+5️⃣ Effectue ton premier dépôt
+</h3>
+
+<p>
+Après ton inscription, effectue un premier dépôt d'au moins
+<strong>1 500 FCFA</strong>.
+</p>
+
+<p>
+Les moyens de paiement disponibles dépendent de la plateforme choisie.
+</p>
+
+<h3>
+6️⃣ Garde ta preuve de dépôt
+</h3>
+
+<p>
+Fais une capture d'écran claire de ton dépôt et conserve-la pour la
+vérification.
+</p>
+
+<h3>
+7️⃣ Reviens vers JEFF PRO
+</h3>
+
+<p>
+Une fois les deux conditions remplies, reviens ici pour obtenir
+l’accès aux exploits et aux analyses exclusives d’Apple of Fortune 🎯,
+Jeu de dés et tout les autres ….
+</p>
+
+<p>
+👉 Si tu veux, écris simplement le nom de la plateforme que tu veux
+utiliser, par exemple <strong>1XBET</strong>, et je te donne les étapes
+correspondantes.
+</p>
+
+<div class="contact-mini">
+
+<a
+href="https://wa.me/22965061408"
+target="_blank">
+📲 WhatsApp +229 65 06 14 08
+</a>
+
+<a
+class="channel-mini"
+href="https://whatsapp.com/channel/0029VbBw8FBDp2Q03qhB4t2b"
+target="_blank">
+📢 Ma chaîne WhatsApp
+</a>
+
+</div>
+
+<h3>
+Choisis maintenant ta plateforme
+</h3>
 
 <div class="choice-buttons">
 
-<button class="choice-btn" onclick="selectPlatform('1XBET')">🔵 1XBET</button>
-<button class="choice-btn" onclick="selectPlatform('MELBET')">🟠 MELBET</button>
-<button class="choice-btn" onclick="selectPlatform('PARIPESA')">🔵 PARIPESA</button>
-<button class="choice-btn" onclick="selectPlatform('BETWINNER')">🟢 BETWINNER</button>
-<button class="choice-btn" onclick="selectPlatform('WINWIN')">🟢 WINWIN</button>
+<button
+class="choice-btn"
+onclick="selectPlatform('1XBET')">
+🔵 1XBET
+</button>
+
+<button
+class="choice-btn"
+onclick="selectPlatform('MELBET')">
+🟠 MELBET
+</button>
+
+<button
+class="choice-btn"
+onclick="selectPlatform('PARIPESA')">
+🔵 PARIPESA
+</button>
+
+<button
+class="choice-btn"
+onclick="selectPlatform('BETWINNER')">
+🟢 BETWINNER
+</button>
+
+<button
+class="choice-btn"
+onclick="selectPlatform('WINWIN')">
+🟢 WINWIN
+</button>
 
 </div>
 
-<button class="back-btn" onclick="backHome()">← Retour</button>
+<button
+class="back-btn"
+onclick="backHome()">
+← Retour
+</button>
+
 `);
 
 }
@@ -630,33 +1500,51 @@ function selectPlatform(platform){
 selectedUserPlatform=platform;
 
 showContent(`
-<h2>🔐 VÉRIFICATION D'ACCÈS</h2>
+
+<h2>
+🔐 VÉRIFICATION D'ACCÈS
+</h2>
 
 <div class="platform-selected">
-✅ Plateforme : <strong>${platform}</strong>
+
+✅ Plateforme :
+<strong>${platform}</strong>
+
 </div>
 
-<h3>2️⃣ Vérification du code promo</h3>
+<h3>
+2️⃣ Vérification du code promo
+</h3>
 
-<p>Le compte doit avoir été créé avec :</p>
+<p>
+Le compte doit avoir été créé avec :
+</p>
 
 <p style="
-text-align:center;font-size:32px;font-weight:900;
-color:#6426d8;letter-spacing:3px">
+text-align:center;
+font-size:32px;
+font-weight:900;
+color:#6426d8;
+letter-spacing:3px">
 ${PROMO_CODE}
 </p>
 
 <div class="choice-buttons">
 
-<button class="choice-btn" onclick="confirmPromo()">
+<button
+class="choice-btn"
+onclick="confirmPromo()">
 ✅ OUI, J'AI UTILISÉ ${PROMO_CODE}
 </button>
 
-<button class="choice-btn" onclick="showRegistration()">
+<button
+class="choice-btn"
+onclick="showRegistration()">
 ❌ NON / REVENIR
 </button>
 
 </div>
+
 `);
 
 }
@@ -668,17 +1556,30 @@ ${PROMO_CODE}
 function confirmPromo(){
 
 showContent(`
-<h2>💰 DERNIÈRE ÉTAPE</h2>
+
+<h2>
+💰 DERNIÈRE ÉTAPE
+</h2>
 
 <div class="platform-selected">
-✅ Plateforme : <strong>${selectedUserPlatform}</strong>
+
+✅ Plateforme :
+<strong>${selectedUserPlatform}</strong>
+
 </div>
 
 <div class="success">
-<p>🔐 Code promo : <strong>${PROMO_CODE}</strong></p>
+
+<p>
+🔐 Code promo :
+<strong>${PROMO_CODE}</strong>
+</p>
+
 </div>
 
-<h3>3️⃣ Confirmation du dépôt</h3>
+<h3>
+3️⃣ Confirmation du dépôt
+</h3>
 
 <p>
 Confirme que tu as effectué le dépôt minimum de
@@ -687,19 +1588,27 @@ Confirme que tu as effectué le dépôt minimum de
 
 <div class="choice-buttons">
 
-<button class="choice-btn" onclick="grantAccess()">
+<button
+class="choice-btn"
+onclick="grantAccess()">
 ✅ OUI, J'AI EFFECTUÉ LE DÉPÔT
 </button>
 
-<button class="choice-btn" onclick="selectPlatform('${selectedUserPlatform}')">
+<button
+class="choice-btn"
+onclick="selectPlatform('${selectedUserPlatform}')">
 ← RETOUR
 </button>
 
 </div>
 
-<p style="margin-top:15px;font-size:12px;color:#68736d">
+<p style="
+margin-top:15px;
+font-size:12px;
+color:#68736d">
 Cette confirmation est déclarative.
 </p>
+
 `);
 
 }
@@ -713,44 +1622,69 @@ function grantAccess(){
 accessGranted=true;
 
 showContent(`
-<h2>✅ ACCÈS ACTIVÉ</h2>
+
+<h2>
+✅ ACCÈS ACTIVÉ
+</h2>
 
 <div class="success">
 
-<p>Bienvenue 👋</p>
+<p>
+Bienvenue 👋
+</p>
 
-<p>Plateforme : <strong>${selectedUserPlatform}</strong></p>
+<p>
+Plateforme :
+<strong>${selectedUserPlatform}</strong>
+</p>
 
-<p>Code promo : <strong>${PROMO_CODE}</strong></p>
+<p>
+Code promo :
+<strong>${PROMO_CODE}</strong>
+</p>
 
-<p>Ton accès aux coupons est maintenant activé.</p>
+<p>
+Ton accès aux coupons est maintenant activé.
+</p>
 
 </div>
 
-<button class="green-btn" onclick="showNightCodes()">
+<button
+class="green-btn"
+onclick="requestedAccess='night';showNightCodes()">
 🌙 COUPONS DE NUIT
 </button>
 
-<button class="green-btn" onclick="showPokerCodes()">
+<button
+class="green-btn"
+onclick="requestedAccess='poker';showPokerCodes()">
 🃏 COUPONS POKER
 </button>
 
-<button class="back-btn" onclick="backHome()">
+<button
+class="back-btn"
+onclick="backHome()">
 ← Retour au menu
 </button>
+
 `);
 
 }
 
 /* =========================
-   CODES
+   COUPONS NUIT
 ========================= */
 
 function showNightCodes(){
 
 const codes=[
-"NUIT01","NUIT02","NUIT03","NUIT04",
-"NUIT05","NUIT06","NUIT07"
+"NUIT01",
+"NUIT02",
+"NUIT03",
+"NUIT04",
+"NUIT05",
+"NUIT06",
+"NUIT07"
 ];
 
 let html="";
@@ -758,43 +1692,89 @@ let html="";
 codes.forEach((code,i)=>{
 
 html+=`
+
 <div class="code-item">
+
 <div>
-<div class="code-name">🌙 CODE NUIT ${String(i+1).padStart(2,"0")}</div>
-<div class="code-value">${code}</div>
+
+<div class="code-name">
+🌙 CODE NUIT ${String(i+1).padStart(2,"0")}
 </div>
 
-<button class="download-btn"
+<div class="code-value">
+${code}
+</div>
+
+</div>
+
+<button
+class="download-btn"
 onclick="downloadCode('${code}','Coupon_Nuit_${i+1}')">
 ⬇️ TÉLÉCHARGER
 </button>
+
 </div>
+
 `;
 
 });
 
 showContent(`
-<h2>🌙 GROSSE CÔTE NUIT</h2>
+
+<h2>
+🌙 GROSSE CÔTE NUIT
+</h2>
 
 <div class="success">
-<p>🔓 <strong>ACCÈS AUTORISÉ</strong></p>
-<p>Plateforme : <strong>${selectedUserPlatform}</strong></p>
-<p>Code promo : <strong>${PROMO_CODE}</strong></p>
-<p>🎟️ Voici tes 7 codes coupons.</p>
+
+<p>
+🔓 <strong>ACCÈS AUTORISÉ</strong>
+</p>
+
+<p>
+Plateforme :
+<strong>${selectedUserPlatform}</strong>
+</p>
+
+<p>
+Code promo :
+<strong>${PROMO_CODE}</strong>
+</p>
+
+<p>
+🎟️ Voici tes 7 codes coupons.
+</p>
+
 </div>
 
-<div class="code-box">${html}</div>
+<div class="code-box">
+${html}
+</div>
 
-<button class="back-btn" onclick="backHome()">← Retour</button>
+<button
+class="back-btn"
+onclick="backHome()">
+← Retour
+</button>
+
 `);
 
 }
 
+/* =========================
+   COUPONS POKER
+========================= */
+
 function showPokerCodes(){
 
 const codes=[
-"POKER01","POKER02","POKER03","POKER04",
-"POKER05","POKER06","POKER07"
+"POKER01",
+"POKER02",
+"POKER03",
+"POKER04",
+"POKER05",
+"POKER06",
+"POKER07"
 ];
 
 let html="";
@@ -802,34 +1782,71 @@ let html="";
 codes.forEach((code,i)=>{
 
 html+=`
+
 <div class="code-item">
+
 <div>
-<div class="code-name">🃏 CODE POKER ${String(i+1).padStart(2,"0")}</div>
-<div class="code-value">${code}</div>
+
+<div class="code-name">
+🃏 CODE POKER ${String(i+1).padStart(2,"0")}
 </div>
 
-<button class="download-btn"
+<div class="code-value">
+${code}
+</div>
+
+</div>
+
+<button
+class="download-btn"
 onclick="downloadCode('${code}','Coupon_Poker_${i+1}')">
 ⬇️ TÉLÉCHARGER
 </button>
+
 </div>
+
 `;
 
 });
 
 showContent(`
-<h2>🃏 JEUX POKER</h2>
+
+<h2>
+🃏 JEUX POKER
+</h2>
 
 <div class="success">
-<p>🔓 <strong>ACCÈS AUTORISÉ</strong></p>
-<p>Plateforme : <strong>${selectedUserPlatform}</strong></p>
-<p>Code promo : <strong>${PROMO_CODE}</strong></p>
-<p>🎟️ Voici tes 7 codes coupons.</p>
+
+<p>
+🔓 <strong>ACCÈS AUTORISÉ</strong>
+</p>
+
+<p>
+Plateforme :
+<strong>${selectedUserPlatform}</strong>
+</p>
+
+<p>
+Code promo :
+<strong>${PROMO_CODE}</strong>
+</p>
+
+<p>
+🎟️ Voici tes 7 codes coupons.
+</p>
+
 </div>
 
-<div class="code-box">${html}</div>
+<div class="code-box">
+${html}
+</div>
 
-<button class="back-btn" onclick="backHome()">← Retour</button>
+<button
+class="back-btn"
+onclick="backHome()">
+← Retour
+</button>
+
 `);
 
 }
@@ -840,7 +1857,8 @@ showContent(`
 
 function downloadCode(code,filename){
 
-const text=`JEFF PRO
+const text=
+`JEFF PRO
 
 Coupon : ${code}
 
@@ -850,17 +1868,27 @@ Plateforme : ${selectedUserPlatform}
 
 JEFF PRO`;
 
-const blob=new Blob([text],{type:"text/plain;charset=utf-8"});
+const blob=new Blob(
+[text],
+{type:"text/plain;charset=utf-8"}
+);
+
 const url=URL.createObjectURL(blob);
+
 const a=document.createElement("a");
 
 a.href=url;
 a.download=filename+".txt";
+
 document.body.appendChild(a);
+
 a.click();
+
 document.body.removeChild(a);
 
-setTimeout(()=>URL.revokeObjectURL(url),1000);
+setTimeout(()=>{
+URL.revokeObjectURL(url);
+},1000);
 
 }
 
@@ -871,31 +1899,66 @@ setTimeout(()=>URL.revokeObjectURL(url),1000);
 function showPredictions(){
 
 showContent(`
-<h2>🎯 PRÉDICTIONS DU JOUR</h2>
 
-<p>Retrouve ici les sélections du jour.</p>
+<h2>
+🎯 PRÉDICTIONS DU JOUR
+</h2>
 
-<a class="green-btn"
+<p>
+Retrouve ici les sélections du jour.
+</p>
+
+<a
+class="green-btn"
 href="https://whatsapp.com/channel/0029VbBw8FBDp2Q03qhB4t2b"
 target="_blank">
+
 🟢 REJOINDRE LA CHAÎNE WHATSAPP
+
 </a>
 
-<h3>📅 CHOISIS UN JOUR</h3>
+<h3>
+📅 CHOISIS UN JOUR
+</h3>
 
 <div class="choice-buttons">
 
-<button class="choice-btn" onclick="showDay('mardi')">🔵 MARDI</button>
-<button class="choice-btn" onclick="showDay('mercredi')">🔵 MERCREDI</button>
-<button class="choice-btn" onclick="showDay('jeudi')">🔵 JEUDI</button>
-<button class="choice-btn" onclick="showDay('vendredi')">🔵 VENDREDI</button>
-<button class="choice-btn" onclick="showDay('samedi')">🔵 SAMEDI</button>
-<button class="choice-btn" onclick="showDay('dimanche')">🔵 DIMANCHE</button>
-<button class="choice-btn" onclick="showDay('lundi')">🔵 LUNDI</button>
+<button class="choice-btn" onclick="showDay('mardi')">
+🔵 MARDI
+</button>
+
+<button class="choice-btn" onclick="showDay('mercredi')">
+🔵 MERCREDI
+</button>
+
+<button class="choice-btn" onclick="showDay('jeudi')">
+🔵 JEUDI
+</button>
+
+<button class="choice-btn" onclick="showDay('vendredi')">
+🔵 VENDREDI
+</button>
+
+<button class="choice-btn" onclick="showDay('samedi')">
+🔵 SAMEDI
+</button>
+
+<button class="choice-btn" onclick="showDay('dimanche')">
+🔵 DIMANCHE
+</button>
+
+<button class="choice-btn" onclick="showDay('lundi')">
+🔵 LUNDI
+</button>
 
 </div>
 
-<button class="back-btn" onclick="backHome()">← Retour</button>
+<button
+class="back-btn"
+onclick="backHome()">
+← Retour
+</button>
+
 `);
 
 }
@@ -948,81 +2011,119 @@ lundi:[
 
 };
 
-let html=`<h2>📅 ${day.toUpperCase()}</h2>`;
+let html=
+`<h2>📅 ${day.toUpperCase()}</h2>`;
 
 (matches[day]||[]).forEach(match=>{
 
 const parts=match.split(" → ");
 
 html+=`
+
 <p>
-⚽ <strong>${parts[0]}</strong><br>
+
+⚽ <strong>
+${parts[0]}
+</strong>
+
+<br>
+
 🎯 ${parts[1]||""}
+
 </p>
+
 `;
 
 });
 
 showContent(`
+
 ${html}
 
-<button class="green-btn" onclick="showPredictions()">
+<button
+class="green-btn"
+onclick="showPredictions()">
 🔙 RETOUR AUX JOURS
 </button>
 
-<button class="back-btn" onclick="backHome()">
+<button
+class="back-btn"
+onclick="backHome()">
 ← Retour au menu
 </button>
+
 `);
 
 }
 
 /* =========================
-   SCORE / FIFA
+   SCORE
 ========================= */
 
 function showScore(){
 
 showContent(`
-<h2>🎯 SCORE EXACT DU JOUR</h2>
 
-<p>🤖 <strong>JEFF PRO</strong></p>
+<h2>
+🎯 SCORE EXACT DU JOUR
+</h2>
 
 <p>
 Les sélections et informations du jour sont partagées
 dans la chaîne WhatsApp.
 </p>
 
-<a class="green-btn"
+<a
+class="green-btn"
 href="https://whatsapp.com/channel/0029VbBw8FBDp2Q03qhB4t2b"
 target="_blank">
+
 📲 CHAÎNE WHATSAPP
+
 </a>
 
-<button class="back-btn" onclick="backHome()">← Retour</button>
+<button
+class="back-btn"
+onclick="backHome()">
+← Retour
+</button>
+
 `);
 
 }
 
+/* =========================
+   FIFA
+========================= */
+
 function showFifa(){
 
 showContent(`
-<h2>⚽ FIFA</h2>
 
-<p>🤖 <strong>JEFF PRO</strong></p>
+<h2>
+⚽ FIFA
+</h2>
 
 <p>
 Les informations et contenus FIFA sont partagés
 dans la chaîne WhatsApp.
 </p>
 
-<a class="green-btn"
+<a
+class="green-btn"
 href="https://whatsapp.com/channel/0029VbBw8FBDp2Q03qhB4t2b"
 target="_blank">
+
 📲 CHAÎNE WHATSAPP
+
 </a>
 
-<button class="back-btn" onclick="backHome()">← Retour</button>
+<button
+class="back-btn"
+onclick="backHome()">
+← Retour
+</button>
+
 `);
 
 }
@@ -1033,28 +2134,126 @@ target="_blank">
 
 function addMessage(text,type){
 
-const messages=document.getElementById("chatMessages");
-const div=document.createElement("div");
+const messages=
+document.getElementById("chatMessages");
+
+const div=
+document.createElement("div");
 
 div.className="message "+type;
-div.textContent=text;
 
-messages.appendChild(div);
-messages.scrollTop=messages.scrollHeight;
+if(type==="bot-message"){
+
+const safe=text
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(
+/(https?:\/\/[^\s<]+)/g,
+'<a href="$1" target="_blank" rel="noopener noreferrer" style="color:#5c22b8;text-decoration:underline;font-weight:900;word-break:break-all">$1</a>'
+);
+
+div.innerHTML=
+safe.replace(/\n/g,"<br>");
+
+}else{
+
+div.textContent=text;
 
 }
 
+messages.appendChild(div);
+
+messages.scrollTop=
+messages.scrollHeight;
+
+return div;
+
+}
+
+/* =========================
+   TROIS POINTS
+========================= */
+
+function showTyping(){
+
+const messages=
+document.getElementById("chatMessages");
+
+const div=
+document.createElement("div");
+
+div.className=
+"message bot-message typing-message";
+
+div.innerHTML=
+'<span class="typing-dot"></span>'+
+'<span class="typing-dot"></span>'+
+'<span class="typing-dot"></span>';
+
+messages.appendChild(div);
+
+messages.scrollTop=
+messages.scrollHeight;
+
+return div;
+
+}
+
+/* =========================
+   RÉPONSE AVEC ...
+========================= */
+
+function botReply(text,action,delay=900){
+
+const typing=
+showTyping();
+
+setTimeout(()=>{
+
+if(typing && typing.parentNode){
+
+typing.remove();
+
+}
+
+addMessage(text,"bot-message");
+
+if(typeof action==="function"){
+
+action();
+
+}
+
+},delay);
+
+}
+
+/* =========================
+   CHAT UTILISATEUR
+========================= */
+
 function sendMessage(){
 
-const input=document.getElementById("chatInput");
-const original=input.value.trim();
+const input=
+document.getElementById("chatInput");
 
-if(!original)return;
+const originalText=
+input.value.trim();
 
-addMessage(original,"user-message");
+if(!originalText)
+return;
+
+addMessage(
+originalText,
+"user-message"
+);
+
 input.value="";
 
-const text=original.toLowerCase()
+const text=
+originalText
+.toLowerCase()
 .normalize("NFD")
 .replace(/[\u0300-\u036f]/g,"")
 .replace(/[’']/g," ")
@@ -1062,106 +2261,385 @@ const text=original.toLowerCase()
 .replace(/\s+/g," ")
 .trim();
 
-setTimeout(()=>{
+/* BONJOUR */
 
-if(/bonjour|salut|bonsoir|hello|coucou/.test(text)){
-addMessage(
-"Bonjour 👋 Je suis Jeff Pro. Bienvenue sur la page officielle 💚 Choisis une option dans le menu ou écris-moi directement ce que tu recherches.",
-"bot-message");
+if(
+text.includes("bonjour")||
+text.includes("salut")||
+text.includes("bonsoir")||
+text.includes("hello")||
+text.includes("coucou")
+){
+
+botReply(
+"Bonjour 👋 Je suis Jeff Pro. Bienvenue sur la page officielle 💚 Choisis une option dans le menu ou écris-moi directement ce que tu recherches."
+);
+
 return;
+
 }
 
-if(text.includes("apple")){
-addMessage(
-"🍎 Voici la rubrique Apple of Fortune. L'accès aux contenus concernés nécessite un compte partenaire créé avec le code 8F9Y.",
-"bot-message");
-showApple();return;
-}
+/* APPLE */
 
-if(text.includes("jeu des des")||text.includes("bot des")||text.includes("bot dice")){
-addMessage("🎲 Voici la rubrique Jeu des Dés.","bot-message");
-showDice();return;
-}
+if(
+text.includes("apple")||
+text.includes("apple of fortune")
+){
 
-if(text.includes("prediction")||text.includes("pronostic")||
-text.includes("match du jour")||text.includes("matchs du jour")){
-addMessage("🎯 Voici les prédictions et sélections disponibles.","bot-message");
-showPredictions();return;
-}
+botReply(
+"🍎 Comment gagner à Apple of Fortune ?",
+showApple
+);
 
-if(text.includes("inscription")||text.includes("inscrire")||text.includes("inscrit")){
-addMessage("📝 Je vais te guider étape par étape pour l'accès.","bot-message");
-showRegistration();return;
-}
-
-if(text.includes("code promo")||text.includes("code bonus")||
-text.includes("quel est le code")||text==="code"||text.includes("8f9y")){
-addMessage("🔐 Le code promo indiqué sur cette page est 8F9Y.","bot-message");
 return;
+
 }
+
+/* DÉS */
+
+if(
+text.includes("jeu des des")||
+text.includes("bot des")||
+text.includes("bot dice")
+){
+
+botReply(
+"🎲 Comment gagner au Jeu des Dés ?",
+showDice
+);
+
+return;
+
+}
+
+/* PRÉDICTIONS */
+
+if(
+text.includes("prediction")||
+text.includes("pronostic")||
+text.includes("pronostics")||
+text.includes("match du jour")||
+text.includes("matchs du jour")
+){
+
+botReply(
+"🎯 Voici les prédictions et sélections disponibles.",
+showPredictions
+);
+
+return;
+
+}
+
+/* INSCRIPTION */
+
+if(
+text.includes("inscription")||
+text.includes("inscrire")||
+text.includes("inscrit")||
+text.includes("comment creer")
+){
+
+botReply(
+"📝 Comment s’inscrire ?",
+showRegistration
+);
+
+return;
+
+}
+
+/* CODE */
+
+if(
+text.includes("code promo")||
+text.includes("code bonus")||
+text.includes("quel est le code")||
+text==="code"||
+text.includes("8f9y")
+){
+
+botReply(
+"🔐 Le code promo indiqué sur cette page est 8F9Y.\n\n📲 WhatsApp : https://wa.me/22965061408\n📢 Chaîne : https://whatsapp.com/channel/0029VbBw8FBDp2Q03qhB4t2b"
+);
+
+return;
+
+}
+
+/* 1XBET */
 
 if(text.includes("1xbet")){
-addMessage("🔵 Pour 1XBET, utilise le bouton 1XBET situé en bas de la page. Le code indiqué est 8F9Y.","bot-message");
+
+botReply(`
+
+🔵 1XBET
+
+👉 Lien d'inscription :
+https://reffpa.com/L?tag=d_4215855m_97c_&site=4215855&ad=97&r=registration
+
+🔑 Code promo : 8F9Y
+
+📲 WhatsApp :
+https://wa.me/22965061408
+
+📢 Chaîne :
+https://whatsapp.com/channel/0029VbBw8FBDp2Q03qhB4t2b
+
+`);
+
 return;
+
 }
+
+/* MELBET */
 
 if(text.includes("melbet")){
-addMessage("🟠 Pour MELBET, utilise le bouton MELBET situé en bas de la page. Le code indiqué est 8F9Y.","bot-message");
+
+botReply(`
+
+🟠 MELBET
+
+👉 Lien d'inscription :
+https://refpa3665.com/L?tag=d_4139550m_45415c_&site=4139550&ad=45415&r=registration
+
+🔑 Code promo : 8F9Y
+
+📲 WhatsApp :
+https://wa.me/22965061408
+
+📢 Chaîne :
+https://whatsapp.com/channel/0029VbBw8FBDp2Q03qhB4t2b
+
+`);
+
 return;
+
 }
+
+/* PARIPESA */
 
 if(text.includes("paripesa")){
-addMessage("🔵 Pour PARIPESA, utilise le bouton PARIPESA situé en bas de la page. Le code indiqué est 8F9Y.","bot-message");
+
+botReply(`
+
+🔵 PARIPESA
+
+👉 Lien d'inscription :
+https://paripesa.bet/christtpronoso
+
+🔑 Code promo : 8F9Y
+
+📲 WhatsApp :
+https://wa.me/22965061408
+
+📢 Chaîne :
+https://whatsapp.com/channel/0029VbBw8FBDp2Q03qhB4t2b
+
+`);
+
 return;
+
 }
+
+/* BETWINNER */
 
 if(text.includes("betwinner")){
-addMessage("🟢 Pour BETWINNER, utilise le bouton BETWINNER situé en bas de la page. Le code indiqué est 8F9Y.","bot-message");
+
+botReply(`
+
+🟢 BETWINNER
+
+👉 Lien d'inscription :
+https://bwredir.com/3cSE?p=%2Fregistration%2F
+
+🔑 Code promo : 8F9Y
+
+📲 WhatsApp :
+https://wa.me/22965061408
+
+📢 Chaîne :
+https://whatsapp.com/channel/0029VbBw8FBDp2Q03qhB4t2b
+
+`);
+
 return;
+
 }
+
+/* WINWIN */
 
 if(text.includes("winwin")){
-addMessage("🟢 Pour WINWIN, utilise le bouton WINWIN situé en bas de la page. Le code indiqué est 8F9Y.","bot-message");
+
+botReply(`
+
+🟢 WINWIN
+
+👉 Lien d'inscription :
+https://slim.link/qxyZnTd
+
+🔑 Code promo : 8F9Y
+
+📲 WhatsApp :
+https://wa.me/22965061408
+
+📢 Chaîne :
+https://whatsapp.com/channel/0029VbBw8FBDp2Q03qhB4t2b
+
+`);
+
 return;
+
 }
 
-if(text.includes("score")){
-addMessage("🎯 Voici la rubrique SCORE EXACT DU JOUR.","bot-message");
-showScore();return;
+/* DÉPÔT */
+
+if(
+text.includes("combien deposer")||
+text.includes("minimum depot")||
+text.includes("minimum de depot")||
+text.includes("depot minimum")
+){
+
+botReply(
+"💰 Le dépôt minimum indiqué pour l'accès est de 1 500 FCFA."
+);
+
+return;
+
 }
+
+/* WHATSAPP */
+
+if(
+text.includes("whatsapp")||
+text.includes("chaine")||
+text.includes("rejoindre")
+){
+
+botReply(`
+
+💚 Mes liens :
+
+📲 WhatsApp :
+https://wa.me/22965061408
+
+📢 Chaîne WhatsApp :
+https://whatsapp.com/channel/0029VbBw8FBDp2Q03qhB4t2b
+
+`);
+
+return;
+
+}
+
+/* SCORE */
+
+if(
+text.includes("score exact")||
+text==="score"
+){
+
+botReply(
+"🎯 Voici la rubrique SCORE EXACT DU JOUR.",
+showScore
+);
+
+return;
+
+}
+
+/* FIFA */
 
 if(text.includes("fifa")){
-addMessage("⚽ Voici la rubrique FIFA.","bot-message");
-showFifa();return;
+
+botReply(
+"⚽ Voici la rubrique FIFA.",
+showFifa
+);
+
+return;
+
 }
 
-if(text.includes("whatsapp")||text.includes("chaine")||text.includes("rejoindre")){
-addMessage("💚 Tu peux rejoindre la chaîne WhatsApp grâce au bouton situé en bas de la page.","bot-message");
+/* RETOUR */
+
+if(
+text==="retour"||
+text.includes("revenir au menu")||
+text.includes("menu principal")
+){
+
+botReply(
+"🔙 Retour au menu principal.",
+backHome
+);
+
 return;
+
 }
+
+/* MERCI */
 
 if(text.includes("merci")){
-addMessage("Avec plaisir 💚","bot-message");
+
+botReply(
+"Avec plaisir 💚"
+);
+
 return;
-}
-
-addMessage(
-"🤖 Je peux t'aider concernant :\n\n🍎 Apple of Fortune\n🎲 Jeu des Dés\n🎯 Prédictions\n🎯 Score exact\n⚽ FIFA\n🔐 Accès aux coupons\n📝 Inscription\n🔑 Code promo 8F9Y\n\n👉 Écris simplement ce que tu recherches.",
-"bot-message");
-
-},400);
 
 }
+
+/* RÉPONSE PAR DÉFAUT */
+
+botReply(`
+
+🤖 Je peux t'aider concernant :
+
+🍎 Apple of Fortune
+🎲 Jeu des Dés
+🎯 Prédictions
+⚽ Matchs de la semaine
+🌙 Grosse Côte Nuit
+🃏 Jeux Poker
+🎯 Score exact
+⚽ FIFA
+🔐 Accès aux coupons
+📝 Inscription
+🔑 Code promo 8F9Y
+
+👉 Écris simplement ce que tu recherches.
+
+`);
+
+}
+
+/* =========================
+   ENTER
+========================= */
 
 function handleEnter(event){
-if(event.key==="Enter")sendMessage();
+
+if(event.key==="Enter"){
+
+sendMessage();
+
 }
 
-/* MESSAGE D'ACCUEIL */
+}
+
+/* =========================
+   MESSAGE D'ACCUEIL
+========================= */
+
 setTimeout(()=>{
+
 addMessage(
 "Bonjour 👋 Je suis Jeff Pro. Pose ta question ou choisis une option ci-dessous. 💚",
-"bot-message");
+"bot-message"
+);
+
 },500);
 
 </script>
