@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 
-<title>JEFF PRO</title>
+<title>Interface</title>
 
 <style>
 *{
@@ -12,186 +12,194 @@
     -webkit-tap-highlight-color:transparent;
 }
 
-html,
-body{
+html,body{
     margin:0;
-    padding:0;
     width:100%;
     height:100%;
-    overflow:hidden;
     background:#000;
-    font-family:Arial,Helvetica,sans-serif;
+    overflow:hidden;
+    font-family:Arial,sans-serif;
 }
 
-#app{
-    position:relative;
+#viewport{
     width:100vw;
     height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
     overflow:hidden;
     background:#000;
 }
 
-/* IMAGE EXACTE DU DEPOT */
-#screen{
+#stage{
+    position:relative;
+    width:100vw;
+    max-width:571px;
+    aspect-ratio:571/1280;
+    flex:none;
+    background:#2e2d42;
+    overflow:hidden;
+}
+
+#bg{
     position:absolute;
     inset:0;
     width:100%;
     height:100%;
-    object-fit:contain;
-    object-position:center;
     display:block;
+    pointer-events:none;
 }
 
-/* ZONES CLIQUABLES */
 .zone{
     position:absolute;
-    z-index:10;
+    z-index:5;
+    border:0;
     background:transparent;
+    padding:0;
     cursor:pointer;
-    border-radius:12px;
 }
 
 .zone:active{
-    background:rgba(255,255,255,.12);
+    filter:brightness(1.25);
 }
 
-/* =========================
-   CHOIX
-========================= */
+/* CHOIX */
 
-#plus7{
-    left:7%;
-    top:45%;
-    width:86%;
-    height:8%;
+.choice{
+    top:49.2%;
+    height:7.45%;
 }
 
-#egal7{
-    left:7%;
-    top:54%;
-    width:86%;
-    height:8%;
+#c1{
+    left:9.6%;
+    width:24.9%;
 }
 
-#moins7{
-    left:7%;
-    top:63%;
-    width:86%;
-    height:8%;
+#c2{
+    left:37.4%;
+    width:24.9%;
 }
 
-/* =========================
-   CONTROLES DE MISE
-========================= */
+#c3{
+    left:65.3%;
+    width:25.1%;
+}
+
+/* POINT DE SELECTION */
+
+#marker{
+    position:absolute;
+    z-index:9;
+
+    width:4.4%;
+    aspect-ratio:1;
+
+    border-radius:50%;
+
+    border:2px solid #e9d18b;
+
+    background:#171522;
+
+    box-shadow:
+        0 0 0 2px rgba(0,0,0,.75),
+        0 0 7px rgba(255,226,143,.35);
+
+    pointer-events:none;
+
+    transition:
+        left .18s ease,
+        top .18s ease;
+}
+
+/* CONTROLES */
 
 #min{
-    left:4%;
-    top:73%;
-    width:17%;
-    height:6%;
+    left:4.3%;
+    top:58.45%;
+    width:20.6%;
+    height:4.7%;
 }
 
 #x2{
-    left:22%;
-    top:73%;
-    width:17%;
-    height:6%;
+    left:26%;
+    top:58.45%;
+    width:20.6%;
+    height:4.7%;
 }
 
 #half{
-    left:40%;
-    top:73%;
-    width:17%;
-    height:6%;
+    left:48%;
+    top:58.45%;
+    width:20.6%;
+    height:4.7%;
 }
 
 #max{
-    left:79%;
-    top:73%;
-    width:17%;
-    height:6%;
+    left:70.3%;
+    top:58.45%;
+    width:25%;
+    height:4.7%;
 }
 
-/* =========================
-   CHAMP MISE
-========================= */
+/* MISE */
 
 #stake{
     position:absolute;
-    z-index:20;
+    z-index:12;
 
-    left:57%;
-    top:73%;
+    left:4.4%;
+    top:64.35%;
 
-    width:21%;
-    height:6%;
+    width:34.5%;
+    height:5%;
 
-    padding:0;
-
-    border:none;
-    outline:none;
-
+    border:0;
     background:transparent;
 
     color:#fff;
 
-    font-size:17px;
-    font-weight:bold;
+    font-weight:700;
+    font-size:clamp(15px,4.2vw,25px);
 
     text-align:center;
+
+    outline:none;
+    padding:0;
 }
 
-/* =========================
-   BOUTONS DU BAS
-========================= */
+/* BOUTONS BAS */
 
-#money{
-    left:7%;
-    bottom:5%;
-    width:24%;
-    height:10%;
+#coins{
+    left:10.8%;
+    top:70%;
+    width:21%;
+    height:10.2%;
 }
 
 #play{
-    left:34%;
-    bottom:4%;
-    width:32%;
-    height:12%;
+    left:35.5%;
+    top:69.7%;
+    width:29%;
+    height:10.8%;
 }
 
 #reset{
-    right:7%;
-    bottom:5%;
-    width:24%;
-    height:10%;
+    left:71%;
+    top:70%;
+    width:20.5%;
+    height:10.2%;
 }
 
-/* =========================
-   SELECTION
-========================= */
+/* MESSAGE */
 
-.selected{
-    outline:3px solid rgba(255,255,255,.9);
-    background:rgba(255,255,255,.08);
-}
-
-/* =========================
-   MESSAGE
-========================= */
-
-#message{
+#toast{
     position:absolute;
-
-    z-index:50;
+    z-index:30;
 
     left:50%;
-    bottom:18%;
+    bottom:3%;
 
     transform:translateX(-50%);
-
-    width:85%;
-
-    padding:12px 15px;
 
     background:rgba(0,0,0,.88);
 
@@ -199,645 +207,415 @@ body{
 
     border-radius:12px;
 
-    text-align:center;
+    padding:8px 12px;
 
-    font-size:15px;
-    font-weight:bold;
+    font-size:13px;
+    font-weight:700;
 
     opacity:0;
 
+    transition:opacity .2s;
+
     pointer-events:none;
 
-    transition:.25s;
+    white-space:nowrap;
 }
 
-#message.show{
+#toast.show{
     opacity:1;
-}
-
-/* =========================
-   POPUP MISE
-========================= */
-
-#overlay{
-    position:absolute;
-
-    inset:0;
-
-    z-index:90;
-
-    display:none;
-
-    background:rgba(0,0,0,.65);
-}
-
-#amountPanel{
-    position:absolute;
-
-    z-index:100;
-
-    display:none;
-
-    left:50%;
-    top:50%;
-
-    transform:translate(-50%,-50%);
-
-    width:85%;
-    max-width:360px;
-
-    padding:20px;
-
-    background:#181b22;
-
-    border:1px solid #444;
-
-    border-radius:18px;
-
-    box-shadow:0 15px 50px rgba(0,0,0,.7);
-}
-
-#amountPanel h3{
-    margin:0 0 15px;
-
-    color:#fff;
-
-    text-align:center;
-}
-
-#amountInput{
-    width:100%;
-    height:50px;
-
-    padding:0 10px;
-
-    border:1px solid #555;
-
-    border-radius:10px;
-
-    outline:none;
-
-    background:#0d0f14;
-
-    color:#fff;
-
-    font-size:18px;
-    font-weight:bold;
-
-    text-align:center;
-}
-
-.panelButtons{
-    display:flex;
-
-    gap:10px;
-
-    margin-top:15px;
-}
-
-.panelButtons button{
-    flex:1;
-
-    height:45px;
-
-    border:none;
-
-    border-radius:10px;
-
-    font-size:16px;
-    font-weight:bold;
-
-    cursor:pointer;
-}
-
-.cancel{
-    background:#333944;
-    color:#fff;
-}
-
-.confirm{
-    background:#4caf50;
-    color:#fff;
-}
-
-/* =========================
-   PETITS ECRANS
-========================= */
-
-@media(max-width:380px){
-
-    #stake{
-        font-size:15px;
-    }
-
-    #message{
-        font-size:14px;
-    }
 }
 </style>
 </head>
 
 <body>
 
-<div id="app">
+<div id="viewport">
 
-    <!--
-        IMPORTANT :
-        LE NOM DOIT CORRESPONDRE EXACTEMENT
-        AU FICHIER PRESENT SUR GITHUB
-    -->
+<div id="stage">
 
-    <img
-        id="screen"
-        src="interface-sans-demo.jpg..jpg"
-        alt="Interface JEFF PRO"
-    >
+<!-- IMAGE INTÉGRÉE DIRECTEMENT -->
+<img
+id="bg"
+src="interface-sans-demo.jpg..jpg"
+alt="Interface"
+>
 
-    <!-- =========================
-         CHOIX
-    ========================== -->
+<!-- POINT -->
+<div id="marker"></div>
 
-    <div
-        class="zone"
-        id="plus7"
-        onclick="selectChoice('PLUS DE 7')">
-    </div>
+<!-- CHOIX -->
 
-    <div
-        class="zone"
-        id="egal7"
-        onclick="selectChoice('ÉGAL 7')">
-    </div>
+<button
+class="zone choice"
+id="c1">
+</button>
 
-    <div
-        class="zone"
-        id="moins7"
-        onclick="selectChoice('MOINS DE 7')">
-    </div>
+<button
+class="zone choice"
+id="c2">
+</button>
 
+<button
+class="zone choice"
+id="c3">
+</button>
 
-    <!-- =========================
-         CONTROLES
-    ========================== -->
+<!-- CONTROLES -->
 
-    <div
-        class="zone"
-        id="min"
-        onclick="setMin()">
-    </div>
+<button
+class="zone"
+id="min">
+</button>
 
-    <div
-        class="zone"
-        id="x2"
-        onclick="multiply(2)">
-    </div>
+<button
+class="zone"
+id="x2">
+</button>
 
-    <div
-        class="zone"
-        id="half"
-        onclick="divide(2)">
-    </div>
+<button
+class="zone"
+id="half">
+</button>
 
-    <div
-        class="zone"
-        id="max"
-        onclick="setMax()">
-    </div>
+<button
+class="zone"
+id="max">
+</button>
 
+<!-- MISE -->
 
-    <!-- =========================
-         CHAMP DE MISE
-    ========================== -->
+<input
+id="stake"
+value="400 XOF"
+inputmode="numeric"
+>
 
-    <input
-        id="stake"
-        type="number"
-        inputmode="numeric"
-        value="400"
-        onclick="openAmount()"
-        onchange="updateAmount()"
-    >
+<!-- BOUTONS -->
 
+<button
+class="zone"
+id="coins">
+</button>
 
-    <!-- =========================
-         BOUTONS DU BAS
-    ========================== -->
+<button
+class="zone"
+id="play">
+</button>
 
-    <div
-        class="zone"
-        id="money"
-        onclick="openAmount()">
-    </div>
+<button
+class="zone"
+id="reset">
+</button>
 
-    <div
-        class="zone"
-        id="play"
-        onclick="playGame()">
-    </div>
-
-    <div
-        class="zone"
-        id="reset"
-        onclick="resetGame()">
-    </div>
-
-
-    <!-- =========================
-         MESSAGE
-    ========================== -->
-
-    <div id="message"></div>
-
-
-    <!-- =========================
-         POPUP
-    ========================== -->
-
-    <div
-        id="overlay"
-        onclick="closeAmount()">
-    </div>
-
-    <div id="amountPanel">
-
-        <h3>Modifier la mise</h3>
-
-        <input
-            id="amountInput"
-            type="number"
-            inputmode="numeric"
-            value="400"
-        >
-
-        <div class="panelButtons">
-
-            <button
-                class="cancel"
-                onclick="closeAmount()">
-                Annuler
-            </button>
-
-            <button
-                class="confirm"
-                onclick="confirmAmount()">
-                Valider
-            </button>
-
-        </div>
-
-    </div>
+<div id="toast"></div>
 
 </div>
-
+</div>
 
 <script>
 
-/* =========================
-   VARIABLES
-========================= */
+const marker =
+document.getElementById('marker');
 
-let selectedChoice = null;
+const stake =
+document.getElementById('stake');
+
+const toast =
+document.getElementById('toast');
+
 let amount = 400;
 
+let selected = 0;
 
-/* =========================
-   MESSAGE
-========================= */
 
-function showMessage(text){
+/* POSITIONS DU POINT */
 
-    const message =
-        document.getElementById("message");
+const cards = [
 
-    message.textContent = text;
+{
+    x:11.6,
+    y:54.0
+},
 
-    message.classList.add("show");
+{
+    x:39.5,
+    y:54.0
+},
 
-    clearTimeout(window.messageTimer);
-
-    window.messageTimer =
-        setTimeout(function(){
-
-            message.classList.remove("show");
-
-        },2500);
+{
+    x:67.4,
+    y:54.0
 }
 
-
-/* =========================
-   CHOIX
-========================= */
-
-function selectChoice(choice){
-
-    selectedChoice = choice;
-
-    document
-        .querySelectorAll(".zone")
-        .forEach(function(element){
-
-            element.classList.remove("selected");
-
-        });
+];
 
 
-    if(choice === "PLUS DE 7"){
+/* MESSAGE */
 
-        document
-            .getElementById("plus7")
-            .classList.add("selected");
+function show(text){
 
-    }
+    toast.textContent = text;
 
+    toast.classList.add('show');
 
-    if(choice === "ÉGAL 7"){
+    clearTimeout(window.tt);
 
-        document
-            .getElementById("egal7")
-            .classList.add("selected");
+    window.tt = setTimeout(
 
-    }
+        () => toast.classList.remove('show'),
 
+        1300
 
-    if(choice === "MOINS DE 7"){
-
-        document
-            .getElementById("moins7")
-            .classList.add("selected");
-
-    }
-
-
-    showMessage(
-        "Sélection : " + choice
     );
 }
 
 
-/* =========================
-   MISE
-========================= */
+/* DEPLACEMENT DU POINT */
 
-function updateAmount(){
+function moveMarker(index){
+
+    selected = index;
+
+    marker.style.left =
+        cards[index].x + '%';
+
+    marker.style.top =
+        cards[index].y + '%';
+
+    show(
+        [
+            'Plus de 7',
+            'Égal 7',
+            'Moins de 7'
+        ][index]
+    );
+}
+
+
+/* LIRE LA MISE */
+
+function readAmount(){
 
     let value = parseInt(
-        document.getElementById("stake").value
+
+        String(stake.value)
+        .replace(/[^0-9]/g,''),
+
+        10
+
     );
 
-
-    if(isNaN(value) || value < 1){
+    if(
+        !Number.isFinite(value)
+        ||
+        value < 1
+    ){
 
         value = 1;
 
     }
 
-
     amount = value;
 
-    document.getElementById("stake").value =
-        amount;
+    stake.value =
+        value + ' XOF';
+
+    return value;
 }
 
 
-/* =========================
-   MIN
-========================= */
+/* MODIFIER LA MISE */
 
-function setMin(){
-
-    amount = 1;
-
-    document.getElementById("stake").value =
-        amount;
-
-    showMessage(
-        "Mise minimale : " + amount
-    );
-}
-
-
-/* =========================
-   MAX
-========================= */
-
-function setMax(){
-
-    amount = 1000000;
-
-    document.getElementById("stake").value =
-        amount;
-
-    showMessage(
-        "Mise maximale : " + amount
-    );
-}
-
-
-/* =========================
-   X2
-========================= */
-
-function multiply(number){
-
-    updateAmount();
-
-    amount = amount * number;
-
-    document.getElementById("stake").value =
-        amount;
-
-    showMessage(
-        "Mise : " + amount
-    );
-}
-
-
-/* =========================
-   X/2
-========================= */
-
-function divide(number){
-
-    updateAmount();
+function setAmount(value){
 
     amount =
-        Math.floor(amount / number);
-
-
-    if(amount < 1){
-
-        amount = 1;
-
-    }
-
-
-    document.getElementById("stake").value =
-        amount;
-
-    showMessage(
-        "Mise : " + amount
-    );
-}
-
-
-/* =========================
-   OUVRIR MODIFICATION MISE
-========================= */
-
-function openAmount(){
-
-    document.getElementById(
-        "amountInput"
-    ).value = amount;
-
-
-    document.getElementById(
-        "overlay"
-    ).style.display = "block";
-
-
-    document.getElementById(
-        "amountPanel"
-    ).style.display = "block";
-
-
-    setTimeout(function(){
-
-        document
-            .getElementById("amountInput")
-            .focus();
-
-    },100);
-}
-
-
-/* =========================
-   FERMER
-========================= */
-
-function closeAmount(){
-
-    document.getElementById(
-        "overlay"
-    ).style.display = "none";
-
-
-    document.getElementById(
-        "amountPanel"
-    ).style.display = "none";
-}
-
-
-/* =========================
-   VALIDER MISE
-========================= */
-
-function confirmAmount(){
-
-    let value = parseInt(
-        document.getElementById(
-            "amountInput"
-        ).value
-    );
-
-
-    if(isNaN(value) || value < 1){
-
-        value = 1;
-
-    }
-
-
-    amount = value;
-
-
-    document.getElementById(
-        "stake"
-    ).value = amount;
-
-
-    closeAmount();
-
-
-    showMessage(
-        "Mise enregistrée : " + amount
-    );
-}
-
-
-/* =========================
-   JOUER
-========================= */
-
-function playGame(){
-
-    updateAmount();
-
-
-    if(!selectedChoice){
-
-        showMessage(
-            "Choisis d'abord une option."
+        Math.max(
+            1,
+            Math.floor(value)
         );
 
-        return;
-    }
-
-
-    showMessage(
-        "Choix : " +
-        selectedChoice +
-        " — Mise : " +
-        amount
-    );
+    stake.value =
+        amount + ' XOF';
 }
 
 
-/* =========================
-   RESET
-========================= */
+/* CHOIX */
 
-function resetGame(){
+document.getElementById('c1')
+.onclick = function(){
 
-    selectedChoice = null;
+    moveMarker(0);
 
-    amount = 400;
-
-
-    document.getElementById(
-        "stake"
-    ).value = amount;
+};
 
 
-    document
-        .querySelectorAll(".zone")
-        .forEach(function(element){
+document.getElementById('c2')
+.onclick = function(){
 
-            element.classList.remove(
-                "selected"
-            );
+    moveMarker(1);
 
-        });
+};
 
 
-    showMessage(
-        "Réinitialisé."
+document.getElementById('c3')
+.onclick = function(){
+
+    moveMarker(2);
+
+};
+
+
+/* MIN */
+
+document.getElementById('min')
+.onclick = function(){
+
+    setAmount(1);
+
+    show('Mise minimale');
+
+};
+
+
+/* X2 */
+
+document.getElementById('x2')
+.onclick = function(){
+
+    setAmount(
+        readAmount() * 2
     );
-}
+
+    show('Mise ×2');
+
+};
 
 
-/* =========================
-   EMPÊCHER ZOOM GESTURE
-========================= */
+/* X/2 */
 
-document.addEventListener(
-    "gesturestart",
-    function(event){
+document.getElementById('half')
+.onclick = function(){
 
-        event.preventDefault();
+    setAmount(
+
+        Math.max(
+            1,
+            Math.floor(
+                readAmount() / 2
+            )
+        )
+
+    );
+
+    show('Mise ÷2');
+
+};
+
+
+/* MAX */
+
+document.getElementById('max')
+.onclick = function(){
+
+    setAmount(1000000);
+
+    show('Mise maximale');
+
+};
+
+
+/* CHAMP DE MISE */
+
+stake.onclick = function(){
+
+    stake.select();
+
+};
+
+
+stake.onfocus = function(){
+
+    stake.value =
+        String(amount);
+
+};
+
+
+stake.onblur = function(){
+
+    readAmount();
+
+};
+
+
+stake.onkeydown = function(event){
+
+    if(event.key === 'Enter'){
+
+        readAmount();
+
+        stake.blur();
 
     }
-);
+
+};
+
+
+/* BOUTON PIÈCES */
+
+document.getElementById('coins')
+.onclick = function(){
+
+    show('Bouton pièces');
+
+};
+
+
+/* JOUER */
+
+document.getElementById('play')
+.onclick = function(){
+
+    show(
+
+        'Sélection : ' +
+
+        [
+            'Plus de 7',
+            'Égal 7',
+            'Moins de 7'
+        ][selected]
+
+        +
+
+        ' • ' +
+
+        amount +
+
+        ' XOF'
+
+    );
+
+};
+
+
+/* RESET */
+
+document.getElementById('reset')
+.onclick = function(){
+
+    setAmount(400);
+
+    moveMarker(0);
+
+    show('Réinitialisé');
+
+};
+
+
+/* POSITION INITIALE */
+
+moveMarker(0);
 
 </script>
 
