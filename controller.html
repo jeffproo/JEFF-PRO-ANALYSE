@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JEFF PRO — Contrôleur</title>
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  background:#070812;
+  color:white;
+  font-family:Arial,sans-serif;
+}
+
+.container{
+  max-width:430px;
+  margin:auto;
+  padding:18px;
+}
+
+.card{
+  background:linear-gradient(160deg,#17102b,#0d1020);
+  border:1px solid #342052;
+  border-radius:24px;
+  padding:22px;
+  box-shadow:0 15px 50px #0008;
+}
+
+h1{
+  margin:0 0 6px;
+  font-size:27px;
+}
+
+.subtitle{
+  color:#aaa;
+  margin-bottom:20px;
+}
+
+.status{
+  padding:12px;
+  border-radius:14px;
+  background:#121528;
+  margin-bottom:18px;
+  font-size:14px;
+}
+
+input{
+  width:100%;
+  padding:15px;
+  border-radius:14px;
+  border:1px solid #34364a;
+  background:#090b16;
+  color:white;
+  margin-bottom:10px;
+  font-size:15px;
+}
+
+button{
+  width:100%;
+  border:0;
+  border-radius:14px;
+  padding:15px;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+  margin-top:10px;
+}
+
+.connect{
+  background:#8c3cff;
+  color:white;
+}
+
+.copy{
+  background:#252a3d;
+  color:white;
+}
+
+.prediction{
+  margin-top:20px;
+  background:#0b0e1c;
+  border-radius:18px;
+  padding:20px;
+  text-align:center;
+}
+
+.prediction small{
+  color:#aaa;
+}
+
+.value{
+  font-size:30px;
+  font-weight:800;
+  margin:12px 0;
+  color:#5dffcf;
+}
+
+.predict{
+  background:#8c3cff;
+  color:white;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="card">
+
+<h1>🎛️ JEFF PRO</h1>
+
+<div class="subtitle">
+Contrôleur — démonstration
+</div>
+
+<div id="status" class="status">
+Connexion en préparation…
+</div>
+
+<input
+id="peerId"
+placeholder="ID du téléphone 2"
+>
+
+<button class="connect" id="connect">
+🔗 Connecter au téléphone 2
+</button>
+
+<button class="copy" id="copy">
+📋 Copier mon ID
+</button>
+
+<div class="prediction">
+
+<small>PRÉDICTION DE DÉMO</small>
+
+<div id="value" class="value">
+—
+</div>
+
+<button class="predict" id="predict">
+🎯 PRÉDIRE
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+
+<script>
+
+const statusEl =
+document.getElementById("status");
+
+const valueEl =
+document.getElementById("value");
+
+const peer = new Peer();
+
+let connection = null;
+
+
+/* Création de l'identifiant */
+
+peer.on("open", function(id){
+
+  statusEl.textContent =
+  "✅ Mon ID : " + id;
+
+});
+
+
+/* Gestion des erreurs */
+
+peer.on("error", function(error){
+
+  statusEl.textContent =
+  "⚠️ " + error.type;
+
+});
+
+
+/* Connexion au téléphone 2 */
+
+document.getElementById("connect").onclick =
+function(){
+
+  const id =
+  document.getElementById("peerId")
+  .value
+  .trim();
+
+  if(!id){
+
+    alert("Entre l'ID du téléphone 2.");
+
+    return;
+  }
+
+  connection = peer.connect(id);
+
+  connection.on("open", function(){
+
+    statusEl.textContent =
+    "🟢 Téléphone 2 connecté";
+
+  });
+
+  connection.on("close", function(){
+
+    statusEl.textContent =
+    "🔴 Connexion fermée";
+
+  });
+
+};
+
+
+/* Copier son ID */
+
+document.getElementById("copy").onclick =
+async function(){
+
+  try{
+
+    await navigator.clipboard.writeText(peer.id);
+
+    statusEl.textContent =
+    "📋 ID copié : " + peer.id;
+
+  }catch(error){
+
+    alert("Ton ID est : " + peer.id);
+
+  }
+
+};
+
+
+/* Envoyer une prédiction */
+
+document.getElementById("predict").onclick =
+function(){
+
+  const predictions = [
+
+    "PLUS DE 7",
+    "MOINS DE 7",
+    "ÉGAL 7"
+
+  ];
+
+  const prediction =
+  predictions[
+    Math.floor(
+      Math.random() *
+      predictions.length
+    )
+  ];
+
+  valueEl.textContent =
+  prediction;
+
+
+  if(connection && connection.open){
+
+    connection.send({
+
+      type:"prediction",
+
+      value:prediction,
+
+      time:Date.now()
+
+    });
+
+  }else{
+
+    statusEl.textContent =
+    "⚠️ Connecte d'abord le téléphone 2";
+
+  }
+
+};
+
+</script>
+
+</body>
+</html>
