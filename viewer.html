@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>JEFF PRO — Jeu</title>
+
+<style>
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  background:#4b236c;
+  color:white;
+  font-family:Arial,sans-serif;
+}
+
+.phone{
+  max-width:430px;
+  min-height:100vh;
+  margin:auto;
+  padding:18px;
+  background:
+  linear-gradient(
+    180deg,
+    #6b3b91,
+    #4a2369
+  );
+}
+
+.top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.back{
+  font-size:28px;
+}
+
+.balance{
+  background:#ffffff22;
+  border-radius:20px;
+  padding:9px 13px;
+}
+
+h2{
+  text-align:center;
+  margin:25px 0 20px;
+}
+
+.dicebox{
+  background:#ffffff16;
+  border-radius:28px;
+  padding:24px;
+  text-align:center;
+}
+
+.dices{
+  display:flex;
+  justify-content:center;
+  gap:24px;
+}
+
+.die{
+  width:105px;
+  height:105px;
+  border-radius:50%;
+  background:#f7e7ef;
+  border:8px solid #ffb52e;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  color:#6a315f;
+  font-size:42px;
+  font-weight:800;
+
+  box-shadow:
+  0 7px 20px #0004;
+}
+
+.prediction{
+  margin:22px 0;
+  padding:15px;
+  border-radius:16px;
+  background:#ffffff18;
+  text-align:center;
+}
+
+.prediction small{
+  display:block;
+  color:#ddd;
+  margin-bottom:6px;
+}
+
+.prediction strong{
+  display:block;
+  font-size:25px;
+  color:#fff200;
+}
+
+.buttons{
+  display:flex;
+  gap:8px;
+  margin:10px 0;
+}
+
+.buttons button{
+  flex:1;
+  border:0;
+  border-radius:10px;
+  padding:13px 5px;
+  background:#f3a72a;
+  color:#633d00;
+  font-weight:800;
+}
+
+.play{
+  width:100%;
+  border:0;
+  border-radius:14px;
+  padding:16px;
+  background:#72e51d;
+  color:#164500;
+  font-weight:900;
+  font-size:18px;
+}
+
+.status{
+  text-align:center;
+  color:#ddd;
+  margin-top:18px;
+  font-size:13px;
+}
+
+@keyframes roll{
+
+  0%,100%{
+    transform:rotate(0) scale(1);
+  }
+
+  50%{
+    transform:
+    rotate(12deg)
+    scale(1.08);
+  }
+
+}
+
+.rolling{
+  animation:
+  roll .55s ease-in-out 2;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="phone">
+
+<div class="top">
+
+<div class="back">
+‹
+</div>
+
+<div class="balance">
+💰 2 000 XOF
+</div>
+
+</div>
+
+
+<h2>
+Placez un pari
+</h2>
+
+
+<div class="dicebox">
+
+
+<div class="dices">
+
+<div id="die1" class="die">
+?
+</div>
+
+<div id="die2" class="die">
+?
+</div>
+
+</div>
+
+
+<div class="prediction">
+
+<small>
+PRÉDICTION REÇUE
+</small>
+
+<strong id="prediction">
+—
+</strong>
+
+</div>
+
+
+<div class="buttons">
+
+<button>
+MIN
+</button>
+
+<button>
+X2
+</button>
+
+<button>
+÷2
+</button>
+
+<button>
+MAX
+</button>
+
+</div>
+
+
+<button
+class="play"
+id="play"
+>
+▶ JOUER LA DÉMO
+</button>
+
+
+</div>
+
+
+<div
+id="status"
+class="status"
+>
+En attente du téléphone 1…
+</div>
+
+
+</div>
+
+
+<script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+
+<script>
+
+const statusEl =
+document.getElementById("status");
+
+const predictionEl =
+document.getElementById("prediction");
+
+const die1 =
+document.getElementById("die1");
+
+const die2 =
+document.getElementById("die2");
+
+
+/* Création du téléphone 2 */
+
+const peer = new Peer();
+
+
+peer.on("open", function(id){
+
+  statusEl.textContent =
+  "🟢 Mon ID : " + id +
+  " — donne-le au téléphone 1";
+
+});
+
+
+/* Réception de la connexion */
+
+peer.on("connection", function(connection){
+
+  connection.on("open", function(){
+
+    statusEl.textContent =
+    "🟢 Téléphone 1 connecté";
+
+  });
+
+
+  /* Réception de la prédiction */
+
+  connection.on("data", function(message){
+
+    if(message.type === "prediction"){
+
+      predictionEl.textContent =
+      message.value;
+
+      statusEl.textContent =
+      "⚡ Nouvelle prédiction reçue";
+
+    }
+
+  });
+
+
+  connection.on("close", function(){
+
+    statusEl.textContent =
+    "🔴 Téléphone 1 déconnecté";
+
+  });
+
+});
+
+
+/* Lancer les dés de démonstration */
+
+document.getElementById("play").onclick =
+function(){
+
+  die1.classList.add("rolling");
+  die2.classList.add("rolling");
+
+
+  setTimeout(function(){
+
+    die1.textContent =
+    1 + Math.floor(Math.random() * 6);
+
+    die2.textContent =
+    1 + Math.floor(Math.random() * 6);
+
+
+    die1.classList.remove("rolling");
+    die2.classList.remove("rolling");
+
+  },1000);
+
+};
+
+</script>
+
+</body>
+</html>
