@@ -2,155 +2,98 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JEFF PRO — Contrôleur</title>
-
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JEFF PRO — PRÉDICTION</title>
 <style>
-*{
-  box-sizing:border-box;
-}
-
+*{box-sizing:border-box}
 body{
-  margin:0;
-  min-height:100vh;
-  background:#070812;
-  color:white;
-  font-family:Arial,sans-serif;
+ margin:0;background:#06101d;color:#fff;
+ font-family:Arial,sans-serif;min-height:100vh;
 }
-
-.container{
-  max-width:430px;
-  margin:auto;
-  padding:18px;
+.screen{
+ max-width:430px;margin:auto;min-height:100vh;
+ display:flex;flex-direction:column;
+ justify-content:center;align-items:center;
+ padding:30px 25px;
+ background:linear-gradient(180deg,#071321,#020812);
 }
-
-.card{
-  background:linear-gradient(160deg,#17102b,#0d1020);
-  border:1px solid #342052;
-  border-radius:24px;
-  padding:22px;
-  box-shadow:0 15px 50px #0008;
+.logo{
+ font-size:14px;font-weight:bold;letter-spacing:3px;
+ margin-bottom:55px;color:#fff;
 }
-
-h1{
-  margin:0 0 6px;
-  font-size:27px;
+.title{
+ font-size:15px;letter-spacing:2px;
+ text-align:center;font-weight:bold;
 }
-
-.subtitle{
-  color:#aaa;
-  margin-bottom:20px;
-}
-
-.status{
-  padding:12px;
-  border-radius:14px;
-  background:#121528;
-  margin-bottom:18px;
-  font-size:14px;
-}
-
-input{
-  width:100%;
-  padding:15px;
-  border-radius:14px;
-  border:1px solid #34364a;
-  background:#090b16;
-  color:white;
-  margin-bottom:10px;
-  font-size:15px;
-}
-
-button{
-  width:100%;
-  border:0;
-  border-radius:14px;
-  padding:15px;
-  font-size:16px;
-  font-weight:bold;
-  cursor:pointer;
-  margin-top:10px;
-}
-
-.connect{
-  background:#8c3cff;
-  color:white;
-}
-
-.copy{
-  background:#252a3d;
-  color:white;
-}
-
 .prediction{
-  margin-top:20px;
-  background:#0b0e1c;
-  border-radius:18px;
-  padding:20px;
-  text-align:center;
+ margin-top:25px;
+ font-size:30px;font-weight:900;
+ color:#20f5c1;
+ text-align:center;
+ min-height:42px;
 }
-
-.prediction small{
-  color:#aaa;
+.launch{
+ margin-top:50px;
+ width:100%;height:62px;
+ border:0;border-radius:14px;
+ background:linear-gradient(180deg,#edf5ff,#c9d9eb);
+ color:#526071;
+ font-weight:900;letter-spacing:2px;
+ font-size:15px;
+ box-shadow:0 5px 20px #0006;
 }
-
-.value{
-  font-size:30px;
-  font-weight:800;
-  margin:12px 0;
-  color:#5dffcf;
+.launch:active{transform:scale(.97)}
+.connection{
+ margin-top:25px;
+ width:100%;
 }
-
-.predict{
-  background:#8c3cff;
-  color:white;
+input{
+ width:100%;padding:15px;
+ border-radius:12px;border:1px solid #354252;
+ background:#111c2a;color:#fff;
+ outline:none;
+}
+.connect{
+ width:100%;margin-top:8px;padding:13px;
+ border:0;border-radius:12px;
+ background:#24364b;color:#fff;font-weight:bold;
+}
+.status{
+ margin-top:18px;
+ font-size:12px;color:#8d9aaa;
+ text-align:center;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="screen">
 
-<div class="card">
+<div class="logo">JEFF PRO</div>
 
-<h1>🎛️ JEFF PRO</h1>
-
-<div class="subtitle">
-Contrôleur — démonstration
+<div class="title">
+⚪ UNDER / OVER 7 ⚪<br>
+PRÉDICTION
 </div>
 
-<div id="status" class="status">
-Connexion en préparation…
-</div>
-
-<input
-id="peerId"
-placeholder="ID du téléphone 2"
->
-
-<button class="connect" id="connect">
-🔗 Connecter au téléphone 2
-</button>
-
-<button class="copy" id="copy">
-📋 Copier mon ID
-</button>
-
-<div class="prediction">
-
-<small>PRÉDICTION DE DÉMO</small>
-
-<div id="value" class="value">
+<div id="prediction" class="prediction">
 —
 </div>
 
-<button class="predict" id="predict">
-🎯 PRÉDIRE
+<button id="launch" class="launch">
+PRÉDIRE
 </button>
 
+<div class="connection">
+<input id="phone2" placeholder="ID du téléphone 2">
+<button id="connect" class="connect">
+🔗 CONNECTER
+</button>
 </div>
 
+<div id="status" class="status">
+Connexion…
 </div>
 
 </div>
@@ -158,141 +101,66 @@ placeholder="ID du téléphone 2"
 <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
 
 <script>
-
-const statusEl =
-document.getElementById("status");
-
-const valueEl =
-document.getElementById("value");
-
 const peer = new Peer();
+
+const status = document.getElementById("status");
+const prediction = document.getElementById("prediction");
 
 let connection = null;
 
-
-/* Création de l'identifiant */
-
-peer.on("open", function(id){
-
-  statusEl.textContent =
-  "✅ Mon ID : " + id;
-
+peer.on("open", id => {
+ status.textContent = "🟢 Ton ID : " + id;
 });
 
-
-/* Gestion des erreurs */
-
-peer.on("error", function(error){
-
-  statusEl.textContent =
-  "⚠️ " + error.type;
-
+peer.on("error", error => {
+ status.textContent = "⚠️ " + error.type;
 });
 
+document.getElementById("connect").onclick = () => {
 
-/* Connexion au téléphone 2 */
+ const id = document.getElementById("phone2").value.trim();
 
-document.getElementById("connect").onclick =
-function(){
+ if(!id){
+   alert("Entre l'ID du téléphone 2.");
+   return;
+ }
 
-  const id =
-  document.getElementById("peerId")
-  .value
-  .trim();
+ connection = peer.connect(id);
 
-  if(!id){
-
-    alert("Entre l'ID du téléphone 2.");
-
-    return;
-  }
-
-  connection = peer.connect(id);
-
-  connection.on("open", function(){
-
-    statusEl.textContent =
-    "🟢 Téléphone 2 connecté";
-
-  });
-
-  connection.on("close", function(){
-
-    statusEl.textContent =
-    "🔴 Connexion fermée";
-
-  });
-
+ connection.on("open", () => {
+   status.textContent = "🟢 Téléphone 2 connecté";
+ });
 };
 
+document.getElementById("launch").onclick = () => {
 
-/* Copier son ID */
+ const values = [
+   "PLUS DE 7",
+   "MOINS DE 7",
+   "ÉGAL 7"
+ ];
 
-document.getElementById("copy").onclick =
-async function(){
+ const value =
+ values[Math.floor(Math.random()*values.length)];
 
-  try{
+ prediction.textContent = value;
 
-    await navigator.clipboard.writeText(peer.id);
+ if(connection && connection.open){
 
-    statusEl.textContent =
-    "📋 ID copié : " + peer.id;
+   connection.send({
+     type:"demo",
+     value:value
+   });
 
-  }catch(error){
+   status.textContent = "⚡ Démo envoyée";
 
-    alert("Ton ID est : " + peer.id);
+ }else{
 
-  }
+   status.textContent =
+   "⚠️ Connecte d'abord le téléphone 2";
 
+ }
 };
-
-
-/* Envoyer une prédiction */
-
-document.getElementById("predict").onclick =
-function(){
-
-  const predictions = [
-
-    "PLUS DE 7",
-    "MOINS DE 7",
-    "ÉGAL 7"
-
-  ];
-
-  const prediction =
-  predictions[
-    Math.floor(
-      Math.random() *
-      predictions.length
-    )
-  ];
-
-  valueEl.textContent =
-  prediction;
-
-
-  if(connection && connection.open){
-
-    connection.send({
-
-      type:"prediction",
-
-      value:prediction,
-
-      time:Date.now()
-
-    });
-
-  }else{
-
-    statusEl.textContent =
-    "⚠️ Connecte d'abord le téléphone 2";
-
-  }
-
-};
-
 </script>
 
 </body>
