@@ -3,619 +3,661 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-
-<title>Interface</title>
+<title>Jeu des dés — simulation</title>
 
 <style>
 *{
-    box-sizing:border-box;
-    -webkit-tap-highlight-color:transparent;
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent
 }
 
 html,body{
-    margin:0;
-    width:100%;
-    height:100%;
-    background:#000;
-    overflow:hidden;
-    font-family:Arial,sans-serif;
+  margin:0;
+  width:100%;
+  height:100%;
+  background:#000;
+  overflow:hidden
 }
 
-#viewport{
-    width:100vw;
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:flex-start;
-    overflow:hidden;
-    background:#000;
+body{
+  touch-action:manipulation;
+  font-family:Arial,sans-serif
 }
 
-#stage{
-    position:relative;
-    width:100vw;
-    max-width:571px;
-    aspect-ratio:571/1280;
-    flex:none;
-    background:#2e2d42;
-    overflow:hidden;
+#app{
+  position:relative;
+  width:100vw;
+  height:100vh;
+  max-width:709px;
+  margin:auto;
+  overflow:hidden;
+  background:#29283e
 }
 
 #bg{
-    position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
-    display:block;
-    pointer-events:none;
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:fill;
+  pointer-events:none;
+  user-select:none
 }
 
-.zone{
-    position:absolute;
-    z-index:5;
-    border:0;
-    background:transparent;
-    padding:0;
-    cursor:pointer;
+.hit{
+  position:absolute;
+  z-index:10;
+  border:0;
+  background:transparent;
+  padding:0;
+  cursor:pointer
 }
 
-.zone:active{
-    filter:brightness(1.25);
+.hit:active{
+  background:rgba(255,255,255,.06);
+  border-radius:7px
 }
 
 /* CHOIX */
-
 .choice{
-    top:49.2%;
-    height:7.45%;
+  top:49%;
+  height:7.7%;
+  width:25%
 }
 
-#c1{
-    left:9.6%;
-    width:24.9%;
+#plus{left:9.7%}
+#equal{left:37.3%}
+#minus{left:65.2%}
+
+/* CONTOUR DU CHOIX */
+.sel{
+  position:absolute;
+  z-index:12;
+  top:49%;
+  height:7.7%;
+  width:25%;
+  border:3px solid transparent;
+  border-radius:7px;
+  pointer-events:none
 }
 
-#c2{
-    left:37.4%;
-    width:24.9%;
+#sp{left:9.7%}
+#se{left:37.3%}
+#sm{left:65.2%}
+
+.sel.on{
+  border-color:#a7e51b;
+  box-shadow:0 0 5px rgba(167,229,27,.45)
 }
 
-#c3{
-    left:65.3%;
-    width:25.1%;
+/* POINT VERT */
+.dot{
+  position:absolute;
+  z-index:13;
+  width:19px;
+  height:19px;
+  border-radius:50%;
+  background:#9df02b;
+  box-shadow:0 0 5px #d7ff91;
+  display:none;
+  pointer-events:none
 }
 
-/* POINT DE SELECTION */
-
-#marker{
-    position:absolute;
-    z-index:9;
-
-    width:4.4%;
-    aspect-ratio:1;
-
-    border-radius:50%;
-
-    border:2px solid #e9d18b;
-
-    background:#171522;
-
-    box-shadow:
-        0 0 0 2px rgba(0,0,0,.75),
-        0 0 7px rgba(255,226,143,.35);
-
-    pointer-events:none;
-
-    transition:
-        left .18s ease,
-        top .18s ease;
+#dp{
+  left:14.2%;
+  top:53%
 }
 
-/* CONTROLES */
-
-#min{
-    left:4.3%;
-    top:58.45%;
-    width:20.6%;
-    height:4.7%;
+#de{
+  left:41.8%;
+  top:53%
 }
 
-#x2{
-    left:26%;
-    top:58.45%;
-    width:20.6%;
-    height:4.7%;
+#dm{
+  left:69.6%;
+  top:53%
 }
 
-#half{
-    left:48%;
-    top:58.45%;
-    width:20.6%;
-    height:4.7%;
-}
-
-#max{
-    left:70.3%;
-    top:58.45%;
-    width:25%;
-    height:4.7%;
+.dot.on{
+  display:block
 }
 
 /* MISE */
-
-#stake{
-    position:absolute;
-    z-index:12;
-
-    left:4.4%;
-    top:64.35%;
-
-    width:34.5%;
-    height:5%;
-
-    border:0;
-    background:transparent;
-
-    color:#fff;
-
-    font-weight:700;
-    font-size:clamp(15px,4.2vw,25px);
-
-    text-align:center;
-
-    outline:none;
-    padding:0;
+#min{
+  left:4%;
+  top:57.1%;
+  width:20.8%;
+  height:4.9%
 }
 
-/* BOUTONS BAS */
+#x2{
+  left:26%;
+  top:57.1%;
+  width:20.8%;
+  height:4.9%
+}
 
+#half{
+  left:48.2%;
+  top:57.1%;
+  width:20.8%;
+  height:4.9%
+}
+
+#max{
+  left:70.5%;
+  top:57.1%;
+  width:25%;
+  height:4.9%
+}
+
+/* CHAMP MISE */
+#stake{
+  position:absolute;
+  z-index:20;
+  left:4%;
+  top:63.9%;
+  width:34.5%;
+  height:4.7%;
+  border:0;
+  background:transparent;
+  color:#fff;
+  text-align:center;
+  font-size:clamp(18px,4vw,28px);
+  font-weight:800;
+  outline:none
+}
+
+/* BOUTONS DU BAS */
 #coins{
-    left:10.8%;
-    top:70%;
-    width:21%;
-    height:10.2%;
+  left:10%;
+  top:69.8%;
+  width:21%;
+  height:10.5%
 }
 
 #play{
-    left:35.5%;
-    top:69.7%;
-    width:29%;
-    height:10.8%;
+  left:35.5%;
+  top:69.5%;
+  width:29.5%;
+  height:11.5%
 }
 
 #reset{
-    left:71%;
-    top:70%;
-    width:20.5%;
-    height:10.2%;
+  left:70.2%;
+  top:69.8%;
+  width:21%;
+  height:10.5%
 }
 
 /* MESSAGE */
-
 #toast{
-    position:absolute;
-    z-index:30;
-
-    left:50%;
-    bottom:3%;
-
-    transform:translateX(-50%);
-
-    background:rgba(0,0,0,.88);
-
-    color:#fff;
-
-    border-radius:12px;
-
-    padding:8px 12px;
-
-    font-size:13px;
-    font-weight:700;
-
-    opacity:0;
-
-    transition:opacity .2s;
-
-    pointer-events:none;
-
-    white-space:nowrap;
+  position:absolute;
+  z-index:30;
+  left:50%;
+  bottom:1.2%;
+  transform:translateX(-50%);
+  background:rgba(0,0,0,.88);
+  color:#fff;
+  padding:8px 14px;
+  border-radius:9px;
+  font-size:13px;
+  font-weight:700;
+  opacity:0;
+  transition:.2s;
+  pointer-events:none;
+  white-space:nowrap
 }
 
-#toast.show{
-    opacity:1;
+#toast.on{
+  opacity:1
 }
 </style>
 </head>
 
 <body>
 
-<div id="viewport">
+<div id="app">
 
-<div id="stage">
+<img id="bg" alt="Interface">
 
-<!-- IMAGE INTÉGRÉE DIRECTEMENT -->
-<img
-id="bg"
-src="interface-sans-demo.jpg..jpg"
-alt="Interface"
->
+<!-- Sélection -->
+<div id="sp" class="sel"></div>
+<div id="se" class="sel"></div>
+<div id="sm" class="sel"></div>
 
-<!-- POINT -->
-<div id="marker"></div>
+<!-- Points verts -->
+<div id="dp" class="dot"></div>
+<div id="de" class="dot"></div>
+<div id="dm" class="dot"></div>
 
-<!-- CHOIX -->
+<!-- Choix -->
+<button id="plus" class="hit choice"></button>
+<button id="equal" class="hit choice"></button>
+<button id="minus" class="hit choice"></button>
 
-<button
-class="zone choice"
-id="c1">
-</button>
+<!-- Mise -->
+<button id="min" class="hit"></button>
+<button id="x2" class="hit"></button>
+<button id="half" class="hit"></button>
+<button id="max" class="hit"></button>
 
-<button
-class="zone choice"
-id="c2">
-</button>
-
-<button
-class="zone choice"
-id="c3">
-</button>
-
-<!-- CONTROLES -->
-
-<button
-class="zone"
-id="min">
-</button>
-
-<button
-class="zone"
-id="x2">
-</button>
-
-<button
-class="zone"
-id="half">
-</button>
-
-<button
-class="zone"
-id="max">
-</button>
-
-<!-- MISE -->
-
+<!-- Montant -->
 <input
-id="stake"
-value="400 XOF"
-inputmode="numeric"
+  id="stake"
+  value=""
+  placeholder="Montant"
+  inputmode="numeric"
 >
 
-<!-- BOUTONS -->
-
-<button
-class="zone"
-id="coins">
-</button>
-
-<button
-class="zone"
-id="play">
-</button>
-
-<button
-class="zone"
-id="reset">
-</button>
+<!-- Boutons -->
+<button id="coins" class="hit"></button>
+<button id="play" class="hit"></button>
+<button id="reset" class="hit"></button>
 
 <div id="toast"></div>
 
 </div>
-</div>
 
 <script>
 
-const marker =
-document.getElementById('marker');
+/* ================================
+   IMAGES
+================================ */
 
-const stake =
-document.getElementById('stake');
+const idle =
+"data:image/jpeg;base64,TON_IMAGE_IDLE_ICI";
 
-const toast =
-document.getElementById('toast');
+const move =
+"data:image/jpeg;base64,TON_IMAGE_MOVE_ICI";
 
-let amount = 400;
+const bg=document.getElementById("bg");
+const stake=document.getElementById("stake");
+const toast=document.getElementById("toast");
 
-let selected = 0;
-
-
-/* POSITIONS DU POINT */
-
-const cards = [
-
-{
-    x:11.6,
-    y:54.0
-},
-
-{
-    x:39.5,
-    y:54.0
-},
-
-{
-    x:67.4,
-    y:54.0
-}
-
-];
+let selected=null;
+let busy=false;
+let amount=0;
 
 
-/* MESSAGE */
+/* ================================
+   MESSAGE
+================================ */
 
-function show(text){
+function msg(text){
 
-    toast.textContent = text;
+  toast.textContent=text;
 
-    toast.classList.add('show');
+  toast.classList.add("on");
 
-    clearTimeout(window.tt);
+  clearTimeout(window.tt);
 
-    window.tt = setTimeout(
+  window.tt=setTimeout(()=>{
+    toast.classList.remove("on");
+  },1000);
 
-        () => toast.classList.remove('show'),
-
-        1300
-
-    );
 }
 
 
-/* DEPLACEMENT DU POINT */
+/* ================================
+   MONTANT
+================================ */
 
-function moveMarker(index){
+function setAmount(n){
 
-    selected = index;
+  amount=Math.max(0,Math.floor(n));
 
-    marker.style.left =
-        cards[index].x + '%';
+  if(amount===0){
 
-    marker.style.top =
-        cards[index].y + '%';
+    stake.value="";
 
-    show(
-        [
-            'Plus de 7',
-            'Égal 7',
-            'Moins de 7'
-        ][index]
-    );
+  }else{
+
+    stake.value=
+      amount.toLocaleString("fr-FR")+" XOF";
+
+  }
+
 }
 
 
-/* LIRE LA MISE */
+function read(){
 
-function readAmount(){
+  let n=parseInt(
+    String(stake.value).replace(/\D/g,""),
+    10
+  );
 
-    let value = parseInt(
+  return Number.isFinite(n)?n:0;
 
-        String(stake.value)
-        .replace(/[^0-9]/g,''),
-
-        10
-
-    );
-
-    if(
-        !Number.isFinite(value)
-        ||
-        value < 1
-    ){
-
-        value = 1;
-
-    }
-
-    amount = value;
-
-    stake.value =
-        value + ' XOF';
-
-    return value;
 }
 
 
-/* MODIFIER LA MISE */
+/* ================================
+   CHOIX
+================================ */
 
-function setAmount(value){
+function choose(k){
 
-    amount =
-        Math.max(
-            1,
-            Math.floor(value)
-        );
+  if(busy)return;
 
-    stake.value =
-        amount + ' XOF';
+  selected=k;
+
+  ["p","e","m"].forEach(x=>{
+
+    document
+      .getElementById("s"+x)
+      .classList.remove("on");
+
+    document
+      .getElementById("d"+x)
+      .classList.remove("on");
+
+  });
+
+
+  let z={
+
+    plus:["p","Plus de 7"],
+
+    equal:["e","Égal 7"],
+
+    minus:["m","Moins de 7"]
+
+  }[k];
+
+
+  document
+    .getElementById("s"+z[0])
+    .classList.add("on");
+
+
+  document
+    .getElementById("d"+z[0])
+    .classList.add("on");
+
+
+  msg(z[1]);
+
 }
 
 
-/* CHOIX */
+/* ================================
+   CHOIX DES COTES
+================================ */
 
-document.getElementById('c1')
-.onclick = function(){
+plus.onclick=()=>{
+  choose("plus");
+};
 
-    moveMarker(0);
+equal.onclick=()=>{
+  choose("equal");
+};
 
+minus.onclick=()=>{
+  choose("minus");
 };
 
 
-document.getElementById('c2')
-.onclick = function(){
+/* ================================
+   BOUTONS MISE
+================================ */
 
-    moveMarker(1);
+min.onclick=()=>{
 
-};
-
-
-document.getElementById('c3')
-.onclick = function(){
-
-    moveMarker(2);
-
-};
-
-
-/* MIN */
-
-document.getElementById('min')
-.onclick = function(){
+  if(!busy){
 
     setAmount(1);
 
-    show('Mise minimale');
+    msg("MIN");
+
+  }
 
 };
 
 
-/* X2 */
+x2.onclick=()=>{
 
-document.getElementById('x2')
-.onclick = function(){
+  if(!busy){
 
     setAmount(
-        readAmount() * 2
+      Math.max(1,read()*2)
     );
 
-    show('Mise ×2');
+    msg("X2");
+
+  }
 
 };
 
 
-/* X/2 */
+half.onclick=()=>{
 
-document.getElementById('half')
-.onclick = function(){
+  if(!busy){
 
     setAmount(
-
-        Math.max(
-            1,
-            Math.floor(
-                readAmount() / 2
-            )
-        )
-
+      Math.max(
+        1,
+        Math.floor(read()/2)
+      )
     );
 
-    show('Mise ÷2');
+    msg("X/2");
+
+  }
 
 };
 
 
-/* MAX */
+max.onclick=()=>{
 
-document.getElementById('max')
-.onclick = function(){
+  if(!busy){
 
-    setAmount(1000000);
+    /*
+      MAX = 100 000 F
+    */
 
-    show('Mise maximale');
+    setAmount(100000);
 
-};
+    msg("MAX");
 
-
-/* CHAMP DE MISE */
-
-stake.onclick = function(){
-
-    stake.select();
+  }
 
 };
 
 
-stake.onfocus = function(){
+/* ================================
+   CHAMP MISE
+================================ */
 
-    stake.value =
-        String(amount);
+stake.onfocus=()=>{
 
-};
+  stake.value=amount>0
+    ?String(amount)
+    :"";
 
-
-stake.onblur = function(){
-
-    readAmount();
-
-};
-
-
-stake.onkeydown = function(event){
-
-    if(event.key === 'Enter'){
-
-        readAmount();
-
-        stake.blur();
-
-    }
+  stake.select();
 
 };
 
 
-/* BOUTON PIÈCES */
+stake.onblur=()=>{
 
-document.getElementById('coins')
-.onclick = function(){
-
-    show('Bouton pièces');
+  setAmount(read());
 
 };
 
 
-/* JOUER */
+stake.onkeydown=e=>{
 
-document.getElementById('play')
-.onclick = function(){
+  if(e.key==="Enter"){
 
-    show(
+    setAmount(read());
 
-        'Sélection : ' +
+    stake.blur();
 
-        [
-            'Plus de 7',
-            'Égal 7',
-            'Moins de 7'
-        ][selected]
+  }
 
-        +
+};
 
-        ' • ' +
 
-        amount +
+/* ================================
+   BOUTON PIECES
+================================ */
 
-        ' XOF'
+coins.onclick=()=>{
 
+  if(!busy){
+
+    msg("Pièces");
+
+  }
+
+};
+
+
+/* ================================
+   JEU
+================================ */
+
+async function play(){
+
+  if(busy)return;
+
+
+  if(!selected){
+
+    msg(
+      "Choisis Plus de 7, Égal 7 ou Moins de 7"
     );
 
+    return;
+
+  }
+
+
+  amount=read();
+
+
+  if(amount<=0){
+
+    msg("Entre un montant");
+
+    return;
+
+  }
+
+
+  busy=true;
+
+
+  /*
+    Petite animation avant le mouvement
+  */
+
+  bg.src=move;
+
+
+  await new Promise(
+    r=>setTimeout(r,450)
+  );
+
+
+  /*
+    Animation des dés pendant environ
+    3 secondes
+  */
+
+  const frames=[
+    idle,
+    move,
+    move,
+    idle,
+    move
+  ];
+
+
+  for(let i=0;i<18;i++){
+
+    bg.src=
+      frames[i%frames.length];
+
+
+    await new Promise(
+      r=>setTimeout(r,167)
+    );
+
+  }
+
+
+  /*
+    Arrêt final
+  */
+
+  bg.src=move;
+
+
+  busy=false;
+
+
+  msg(
+    "Tour terminé — simulation"
+  );
+
+}
+
+
+/* ================================
+   BOUTON PLAY
+================================ */
+
+play.onclick=play;
+
+
+/* ================================
+   RESET
+================================ */
+
+reset.onclick=()=>{
+
+  if(busy)return;
+
+
+  selected=null;
+
+
+  ["p","e","m"].forEach(x=>{
+
+    document
+      .getElementById("s"+x)
+      .classList.remove("on");
+
+
+    document
+      .getElementById("d"+x)
+      .classList.remove("on");
+
+  });
+
+
+  setAmount(0);
+
+
+  bg.src=idle;
+
+
+  msg("Réinitialisé");
+
 };
 
 
-/* RESET */
+/* ================================
+   DÉPART
+================================ */
 
-document.getElementById('reset')
-.onclick = function(){
+setAmount(0);
 
-    setAmount(400);
-
-    moveMarker(0);
-
-    show('Réinitialisé');
-
-};
-
-
-/* POSITION INITIALE */
-
-moveMarker(0);
+bg.src=idle;
 
 </script>
 
