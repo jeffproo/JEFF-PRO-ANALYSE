@@ -65,7 +65,7 @@ body{font-family:Arial,Helvetica,sans-serif;background:linear-gradient(180deg,#e
 <div class="voice-box">
 <button class="voice-play" onclick="toggleVoice()" id="voiceButton">▶</button>
 <audio id="jeffVoice" preload="metadata">
-<source src="https://raw.githubusercontent.com/jeffproo/JEFF-PRO-ANALYSE/main/Jeff.pro.mp3.m4a" type="audio/mp4">
+<source src="./Jeff.pro.mp3.m4a?v=2" type="audio/mp4">
 </audio>
 <div class="voice-content">
 <div class="wave" id="voiceWave" onclick="seekVoice(event)"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
@@ -84,6 +84,11 @@ body{font-family:Arial,Helvetica,sans-serif;background:linear-gradient(180deg,#e
 <button class="question-btn" onclick="askQuestion('📝 Comment s’inscrire ?',startRegistrationChat)">📝 <span class="question-icon">Comment s’inscrire ?</span></button>
 </div>
 
+<div class="chat-box">
+<div id="chatMessages" class="chat-messages"></div>
+<div class="chat-input-row"><input id="chatInput" class="chat-input" type="text" placeholder="Écris ta question ici..." onkeydown="handleEnter(event)"><button class="send-btn" onclick="sendMessage()">➤</button></div>
+</div>
+
 <div id="content" class="content"></div>
 
 <div class="platform-section">
@@ -94,7 +99,6 @@ body{font-family:Arial,Helvetica,sans-serif;background:linear-gradient(180deg,#e
 <a class="platform paripesa" href="https://paripesa.bet/christtpronoso" target="_blank"><span class="platform-icon">P</span>PARIPESA</a>
 <a class="platform betwinner" href="https://bwredir.com/3cSE?p=%2Fregistration%2F" target="_blank"><span class="platform-icon">BW</span>BETWINNER</a>
 <a class="platform winwin" href="https://slim.link/qxyZnTd" target="_blank"><span class="platform-icon">W</span>WINWIN</a>
-<a class="platform onewin" href="https://1wymky.life/?p=1h2e" target="_blank"><span class="platform-icon">1W</span>1WIN</a>
 </div>
 </div>
 
@@ -106,10 +110,6 @@ body{font-family:Arial,Helvetica,sans-serif;background:linear-gradient(180deg,#e
 <a class="channel" style="display:block;margin-top:10px" href="https://whatsapp.com/channel/0029VbBw8FBDp2Q03qhB4t2b" target="_blank">📢 Rejoindre ma chaîne WhatsApp</a>
 </div>
 
-<div class="chat-box">
-<div id="chatMessages" class="chat-messages"></div>
-<div class="chat-input-row"><input id="chatInput" class="chat-input" type="text" placeholder="Écris ta question ici..." onkeydown="handleEnter(event)"><button class="send-btn" onclick="sendMessage()">➤</button></div>
-</div>
 </div>
 
 <script>
@@ -122,10 +122,10 @@ const PROCEDURE_IMAGES={"1WIN":"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIA
 function toggleVoice(){const b=document.getElementById("voiceButton"),a=document.getElementById("jeffVoice");if(a.paused){a.play().then(()=>b.textContent="Ⅱ").catch(()=>b.textContent="▶")}else{a.pause();b.textContent="▶"}a.onended=()=>{b.textContent="▶";document.getElementById("voiceProgress").style.width="0%";document.getElementById("voiceCurrent").textContent="0:00"}}
 function formatTime(s){if(!isFinite(s))return"0:00";return Math.floor(s/60)+":"+String(Math.floor(s%60)).padStart(2,"0")}
 function seekVoice(e){const a=document.getElementById("jeffVoice"),r=e.currentTarget.getBoundingClientRect();if(a.duration)a.currentTime=((e.clientX-r.left)/r.width)*a.duration}
-const voiceAudio=document.getElementById("jeffVoice");voiceAudio.addEventListener("loadedmetadata",()=>document.getElementById("voiceTotal").textContent=formatTime(voiceAudio.duration));voiceAudio.addEventListener("timeupdate",()=>{document.getElementById("voiceCurrent").textContent=formatTime(voiceAudio.currentTime);document.getElementById("voiceProgress").style.width=(voiceAudio.duration?voiceAudio.currentTime/voiceAudio.duration*100:0)+"%"});
+const voiceAudio=document.getElementById("jeffVoice");voiceAudio.addEventListener("loadedmetadata",()=>document.getElementById("voiceTotal").textContent=formatTime(voiceAudio.duration));voiceAudio.addEventListener("timeupdate",()=>{document.getElementById("voiceCurrent").textContent=formatTime(voiceAudio.currentTime);document.getElementById("voiceProgress").style.width=(voiceAudio.duration?voiceAudio.currentTime/voiceAudio.duration*100:0)+"%"});voiceAudio.addEventListener("error",()=>{document.getElementById("voiceTotal").textContent="Audio indisponible";document.getElementById("voiceButton").textContent="▶"});
 function escapeHTML(t){return t.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;")}
 function scrollChat(){const m=document.getElementById("chatMessages");setTimeout(()=>m.scrollTop=m.scrollHeight,20)}
-function focusChat(){document.querySelector(".chat-box")?.scrollIntoView({behavior:"smooth",block:"start"})}
+function focusChat(){const box=document.querySelector(".chat-box");if(box)box.scrollIntoView({behavior:"smooth",block:"center"});setTimeout(()=>document.getElementById("chatInput")?.focus(),450)}
 function addMessage(text,type){const m=document.getElementById("chatMessages"),d=document.createElement("div");d.className="message "+type;d.innerHTML=type==="bot-message"?text:escapeHTML(text);m.appendChild(d);scrollChat();return d}
 function showTyping(){const m=document.getElementById("chatMessages"),d=document.createElement("div");d.className="message bot-message typing-message";d.innerHTML='<span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>';m.appendChild(d);scrollChat();return d}
 function botReply(text,action,delay=550){const t=showTyping();setTimeout(()=>{if(t.parentNode)t.remove();const msg=addMessage(text,"bot-message");if(action)action(msg)},delay)}
