@@ -174,6 +174,27 @@ Je vous envoie les deux preuves : la preuve d’inscription avec le code promo 8
 function sendMessage(){const input=document.getElementById("chatInput"),originalText=input.value.trim();if(!originalText)return;focusChat();addMessage(originalText,"user-message");input.value="";const text=originalText.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[’']/g," ").replace(/[!?.,;:()]/g," ").replace(/\s+/g," ").trim();if(awaitingDepositAnswer){if(text==="oui"||text.includes("oui c est fait")||text.includes("oui cest fait")||text.includes("j ai fait")||text.includes("jai fait")||text.includes("c est fait")||text.includes("cest fait")){depositYesChat();return}if(text==="non"||text.includes("non merci")){depositNoChat();return}}if(text.includes("je veux le bot")||text.includes("veux le bot")||text.includes("acceder au bot")||text.includes("acces au bot")){startRegistrationChat();return}if(text.includes("code promo")||text.includes("code bonus")||text.includes("quel est le code")||text==="code"){botReply("🔑 Le code promo utilisé dans les procédures est : <strong>8F9Y</strong>.");return}if(text.includes("inscription")||text.includes("inscrire")||text.includes("comment s inscrire")){startRegistrationChat();return}if(text.includes("apple")||text.includes("fortune")){startAppleChat();return}if(text.includes("des")||text.includes("dice")||text.includes("jeu des")){startDiceChat();return}if(text.includes("aviator")){startAviatorChat();return}if(text.includes("lucky jet")||text.includes("luckyjet")){startLuckyJetChat();return}if(text.includes("mine")){startMineChat();return}if(text.includes("fifa")||text.includes("score exact")||text.includes("scores exacts")){startFifaChat();return}if(text.includes("crash")){startCrashChat();return}if(text.includes("depot")||text.includes("depos")){botReply("Le parcours demande une recharge de <strong>1 500 F</strong>. Après la recharge, reviens ici avec ta preuve pour la vérification.");return}if(text.includes("bonjour")||text.includes("salut")||text.includes("bonsoir")||text.includes("hello")||text.includes("coucou")){botReply("Bonjour 👋 Je suis Jeff Pro. Choisis une question ci-dessus ou écris « Je veux le bot » et je te guiderai étape par étape.");return}botReply("🤖 Je peux te guider pour l’inscription, le code promo <strong>8F9Y</strong> et les procédures des différents jeux. Écris « Je veux le bot » ou choisis une question ci-dessus.")}
 function handleEnter(e){if(e.key==="Enter")sendMessage()}
 
+<script>
+// Suivi Google Analytics des clics sur les plateformes
+document.querySelectorAll(".platform").forEach(function(link){
+  link.addEventListener("click", function(){
+    var platformMap = {
+      xbet: "1XBET",
+      melbet: "MELBET",
+      paripesa: "PARIPESA",
+      betwinner: "BETWINNER",
+      winwin: "WINWIN",
+      onewin: "1WIN"
+    };
+    var platform = platformMap[this.classList[1]] || this.textContent.trim();
+    if (typeof gtag === "function") {
+      gtag("event", "platform_click", {
+        platform: platform
+      });
+    }
+  });
+});
+</script>
 </script>
 </body>
 </html>
