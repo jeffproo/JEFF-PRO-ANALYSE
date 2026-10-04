@@ -62,6 +62,69 @@ body{font-family:Arial,Helvetica,sans-serif;background:linear-gradient(180deg,#e
   gtag('js', new Date());
   gtag('config', 'G-WOG71E5WEP');
 </script>
+
+<style id="jeff-bottom-layout">
+/* ===== BARRE BASSE JEFF PRO — alignée comme la vidéo ===== */
+:root{
+  --jp-header-h:86px;
+  --jp-platform-h:180px;
+  --jp-contact-h:58px;
+  --jp-input-h:70px;
+  --jp-kb:0px;
+}
+html,body{width:100%;min-height:100%;}
+body{padding-top:var(--jp-header-h);padding-bottom:calc(var(--jp-platform-h) + var(--jp-contact-h) + var(--jp-input-h) + 8px);overflow-x:hidden;}
+.container{max-width:650px;padding-bottom:0;}
+.header{position:fixed;top:0;left:50%;transform:translateX(-50%);width:min(650px,100%);height:var(--jp-header-h);z-index:100;background:linear-gradient(135deg,#6426d8,#40118b);}
+
+/* Zone de discussion : elle s'arrête juste au-dessus des plateformes. */
+.chat-box{position:fixed;left:50%;top:var(--jp-header-h);bottom:calc(var(--jp-platform-h) + var(--jp-contact-h) + var(--jp-input-h) + var(--jp-kb));transform:translateX(-50%);width:min(650px,100%);margin:0!important;padding:10px 14px 0!important;background:transparent;z-index:30;display:flex;flex-direction:column;overflow:hidden;border:0;}
+.chat-messages{flex:1;min-height:0;height:auto!important;max-height:none!important;overflow-y:auto!important;overflow-x:hidden;margin:0!important;padding:4px 0 10px!important;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;}
+.chat-input-row{position:relative!important;left:auto!important;bottom:auto!important;transform:none!important;width:100%;height:var(--jp-input-h);flex:0 0 var(--jp-input-h);display:flex;gap:9px;align-items:center;background:#fff;padding:6px 0 7px!important;border-top:1px solid #eadfff;z-index:5;}
+.chat-input{height:54px;padding:12px 17px!important;background:#f3eaff;border:2px solid #e5d8fa;border-radius:28px;font-size:16px;}
+.send-btn{width:54px;height:54px;flex:0 0 54px;font-size:23px;}
+
+/* Plateformes : bloc fixe immédiatement au-dessus du code promo. */
+.platform-section{position:fixed;left:50%;bottom:calc(var(--jp-contact-h) + var(--jp-input-h) + var(--jp-kb));transform:translateX(-50%);width:min(650px,100%);height:var(--jp-platform-h);margin:0!important;padding:12px 14px 10px!important;background:#fff;border-radius:0!important;box-shadow:0 -3px 16px rgba(80,30,150,.08);z-index:80;overflow:hidden;}
+.platform-heading{height:28px;margin:0 0 8px!important;font-size:14px;}
+.platforms{grid-template-columns:repeat(3,1fr);gap:7px!important;}
+.platform{min-height:54px;height:54px;padding:7px 8px!important;border-radius:13px!important;font-size:12px!important;}
+.platform-icon{width:32px!important;height:32px!important;margin-right:7px!important;font-size:11px!important;}
+.platform-section.collapsed{height:58px!important;}
+.platform-section.collapsed .platform-heading{margin-bottom:0!important;}
+
+/* Code promo + WhatsApp : une seule ligne, collée directement aux plateformes. */
+.contact-section{position:fixed;left:50%;bottom:calc(var(--jp-input-h) + var(--jp-kb));transform:translateX(-50%);width:min(650px,100%);height:var(--jp-contact-h);margin:0!important;padding:4px 14px!important;background:#fff;z-index:90;border:0;}
+.bottom-row{height:50px;grid-template-columns:112px 1fr!important;gap:7px!important;align-items:stretch;}
+.promo{width:112px;height:50px;margin:0!important;padding:5px 7px!important;border-radius:12px!important;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.promo-small{font-size:9px!important;margin:0!important;}
+.promo-code{font-size:21px!important;line-height:1.05;}
+.whatsapp{height:50px;border-radius:12px!important;padding:8px!important;font-size:14px!important;display:flex;align-items:center;justify-content:center;flex-direction:column;}
+.contact-number{font-size:10px!important;margin-top:1px!important;}
+/* Dans la vidéo, le bouton chaîne n'occupe pas la barre basse. */
+.contact-section>.channel{display:none!important;}
+
+@media(max-width:400px){
+  :root{--jp-header-h:78px;--jp-platform-h:174px;--jp-contact-h:57px;--jp-input-h:68px;}
+  .header{padding:12px 14px!important;}
+  .robot{width:52px!important;height:52px!important;font-size:27px!important;}
+  .brand-name{font-size:21px!important;}
+  .online{font-size:13px!important;}
+  .platform-section{padding-left:12px!important;padding-right:12px!important;}
+  .platform{min-height:52px;height:52px;font-size:11.5px!important;padding:6px!important;}
+  .platform-icon{width:30px!important;height:30px!important;margin-right:6px!important;}
+  .contact-section{padding-left:12px!important;padding-right:12px!important;}
+  .bottom-row{grid-template-columns:112px 1fr!important;}
+  .chat-box{padding-left:12px!important;padding-right:12px!important;}
+}
+/* ===== BAS DE L'ECRAN : ordre exact de la vidéo ===== */
+.chat-box{bottom:calc(var(--jp-platform-h) + var(--jp-contact-h) + var(--jp-input-h) + var(--jp-kb))!important;}
+.chat-input-row{position:fixed!important;left:50%!important;bottom:var(--jp-kb)!important;transform:translateX(-50%)!important;width:min(650px,100%)!important;height:var(--jp-input-h)!important;box-sizing:border-box!important;display:flex!important;align-items:center!important;gap:9px!important;background:#fff!important;padding:6px 14px 7px!important;border-top:1px solid #eadfff!important;z-index:120!important;}
+.platform-section{bottom:calc(var(--jp-contact-h) + var(--jp-input-h) + var(--jp-kb))!important;}
+.contact-section{bottom:calc(var(--jp-input-h) + var(--jp-kb))!important;}
+@media(max-width:400px){.chat-input-row{padding-left:12px!important;padding-right:12px!important;}}
+</style>
+
 </head>
 <body>
 <div class="container">
@@ -98,8 +161,9 @@ body{font-family:Arial,Helvetica,sans-serif;background:linear-gradient(180deg,#e
 
 <div class="chat-box" id="chatBox">
 <div id="chatMessages" class="chat-messages chat-collapsed"></div>
-<div class="chat-input-row"><input id="chatInput" class="chat-input" type="text" placeholder="Écris ta question ici..." onfocus="revealChat()" oninput="revealChat()" onkeydown="handleEnter(event)"><button class="send-btn" onclick="sendMessage()">➤</button></div>
 </div>
+
+<div class="chat-input-row"><input id="chatInput" class="chat-input" type="text" placeholder="Écris ta question ici..." onfocus="revealChat()" oninput="revealChat()" onkeydown="handleEnter(event)"><button class="send-btn" onclick="sendMessage()">➤</button></div>
 
 <div id="content" class="content"></div>
 
@@ -222,3 +286,143 @@ function handleEnter(e){if(e.key==="Enter")sendMessage()}
 </script>
 </body>
 </html>
+
+<style id="jeff-final-chat-layout">
+/* ===== JEFF PRO — disposition finale inspirée de la vidéo ===== */
+/* Les réponses de JEFF PRO restent à gauche. */
+#chatMessages .bot-message,
+#chatMessages .typing-message {
+  align-self:flex-start !important;
+  margin-left:0 !important;
+  margin-right:auto !important;
+  max-width:86% !important;
+  text-align:left !important;
+}
+/* Les questions/réponses écrites par l'utilisateur restent à droite. */
+#chatMessages .user-message {
+  align-self:flex-end !important;
+  margin-left:auto !important;
+  margin-right:0 !important;
+  max-width:76% !important;
+  text-align:left !important;
+}
+/* Les choix rapides suivent aussi la conversation côté utilisateur. */
+#chatMessages .chat-quick {
+  align-self:flex-end !important;
+  margin-left:auto !important;
+  margin-right:0 !important;
+  max-width:76% !important;
+}
+
+/* Empilement fixe, sans espace : plateformes -> code/WhatsApp -> écriture. */
+.platform-section {
+  bottom:calc(var(--jp-contact-h) + var(--jp-input-h) + var(--jp-kb)) !important;
+}
+.contact-section {
+  bottom:calc(var(--jp-input-h) + var(--jp-kb)) !important;
+}
+.chat-input-row {
+  bottom:var(--jp-kb) !important;
+}
+
+/* La zone d'écriture est toujours le bloc immédiatement sous le code promo. */
+.chat-input-row,
+.contact-section,
+.platform-section {
+  left:50% !important;
+  width:min(650px,100%) !important;
+  transform:translateX(-50%) !important;
+  box-sizing:border-box !important;
+}
+</style>
+
+<style id="jeff-whatsapp-conversation-layout">
+/* ===== Conversation JEFF PRO : rendu compact type WhatsApp ===== */
+#chatMessages{gap:5px!important;padding-left:6px!important;padding-right:6px!important}
+#chatMessages .message{width:auto!important;min-width:0!important;padding:8px 11px!important;margin-bottom:2px!important;font-size:14px!important;line-height:1.32!important;border-radius:17px!important;box-shadow:0 1px 3px rgba(70,30,120,.10)!important}
+#chatMessages .bot-message,#chatMessages .typing-message{align-self:flex-start!important;margin-left:7px!important;margin-right:auto!important;max-width:78%!important;border-radius:6px 17px 17px 17px!important}
+#chatMessages .user-message{align-self:flex-end!important;margin-left:auto!important;margin-right:7px!important;max-width:62%!important;border-radius:17px 17px 6px 17px!important;text-align:left!important}
+#chatMessages .chat-quick{align-self:flex-end!important;width:auto!important;max-width:62%!important;margin:2px 7px 2px auto!important;gap:4px!important}
+#chatMessages .chat-quick button{border-radius:16px!important;padding:7px 11px!important;font-size:13px!important;min-height:32px!important}
+.questions{align-items:flex-end!important;gap:5px!important;padding-left:12px!important;padding-right:12px!important}
+.question-btn{width:auto!important;max-width:82%!important;min-height:34px!important;padding:7px 12px!important;border-width:1.5px!important;border-radius:18px!important;font-size:13px!important;line-height:1.2!important;font-weight:700!important;box-shadow:0 1px 3px rgba(90,40,160,.08)!important}
+@media(max-width:400px){#chatMessages .bot-message{max-width:80%!important;margin-left:5px!important}#chatMessages .user-message{max-width:67%!important;margin-right:5px!important}#chatMessages .chat-quick{max-width:67%!important;margin-right:5px!important}.question-btn{max-width:88%!important;font-size:12.5px!important;padding:6px 10px!important}}
+</style>
+
+<!-- JEFF PRO conversation layout: accueil/vocal/questions à gauche, réponses à droite -->
+<style id="jeff-whatsapp-layout-v2">
+/* Accueil et vocal : côté gauche, comme un message entrant */
+.intro{
+  margin-left:12px!important;
+  margin-right:28%!important;
+  border-radius:0 18px 18px 18px!important;
+  text-align:left!important;
+}
+.voice-box{
+  margin-left:12px!important;
+  margin-right:44%!important;
+  border-radius:0 20px 20px 20px!important;
+}
+
+/* Questions de départ : petites bulles à gauche */
+.questions{
+  align-items:flex-start!important;
+  padding-left:12px!important;
+  padding-right:12px!important;
+  gap:5px!important;
+}
+.question-btn{
+  width:auto!important;
+  max-width:78%!important;
+  min-height:34px!important;
+  padding:7px 12px!important;
+  border:1.5px solid #8c3cff!important;
+  border-radius:17px 17px 17px 5px!important;
+  font-size:13px!important;
+  line-height:1.2!important;
+  font-weight:700!important;
+  text-align:left!important;
+  box-shadow:0 1px 3px rgba(90,40,160,.08)!important;
+}
+
+/* Dans la discussion : mes messages/questions à gauche, réponses de JEFF PRO à droite */
+#chatMessages .bot-message,
+#chatMessages .typing-message{
+  align-self:flex-end!important;
+  margin-left:auto!important;
+  margin-right:7px!important;
+  max-width:78%!important;
+  border-radius:17px 17px 6px 17px!important;
+  text-align:left!important;
+}
+#chatMessages .user-message{
+  align-self:flex-start!important;
+  margin-left:7px!important;
+  margin-right:auto!important;
+  max-width:62%!important;
+  border-radius:17px 17px 17px 6px!important;
+  text-align:left!important;
+}
+#chatMessages .chat-quick{
+  align-self:flex-end!important;
+  width:auto!important;
+  max-width:78%!important;
+  margin:2px 7px 2px auto!important;
+  gap:4px!important;
+}
+#chatMessages .chat-quick button{
+  border-radius:16px!important;
+  padding:7px 11px!important;
+  font-size:13px!important;
+  min-height:32px!important;
+}
+
+@media(max-width:400px){
+  .intro{margin-left:10px!important;margin-right:18%!important}
+  .voice-box{margin-left:10px!important;margin-right:34%!important}
+  .question-btn{max-width:88%!important;font-size:12.5px!important;padding:6px 10px!important}
+  #chatMessages .bot-message,#chatMessages .typing-message{max-width:80%!important;margin-right:5px!important}
+  #chatMessages .user-message{max-width:67%!important;margin-left:5px!important}
+  #chatMessages .chat-quick{max-width:80%!important;margin-right:5px!important}
+}
+</style>
