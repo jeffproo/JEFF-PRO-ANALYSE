@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JEFF PRO — Apple of Fortune</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:#070b16;color:#fff;min-height:100vh}
+.wrap{max-width:520px;margin:auto;padding:22px 16px 35px}
+.card{background:linear-gradient(180deg,#111a2d,#0c1220);border:1px solid #263653;border-radius:24px;padding:22px;box-shadow:0 20px 60px #0008}
+.logo{font-size:14px;letter-spacing:2px;color:#7dd3fc;font-weight:800}.title{font-size:30px;font-weight:900;margin:7px 0}.sub{color:#9eabc1;font-size:14px;line-height:1.5}
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:22px 0}
+.cell{aspect-ratio:1;border-radius:14px;background:#18243a;border:1px solid #2c3d5c;display:flex;align-items:center;justify-content:center;font-size:24px;transition:.2s}
+.cell.safe{background:#123d31;border-color:#22c55e}.cell.risk{background:#431d27;border-color:#ef4444}
+button{width:100%;border:0;border-radius:15px;padding:15px;font-size:16px;font-weight:800;cursor:pointer;background:#f59e0b;color:#160e02}
+button:active{transform:scale(.98)}.result{margin-top:16px;padding:15px;border-radius:15px;background:#0a1020;border:1px solid #263653;text-align:center;min-height:56px}
+.note{margin-top:16px;font-size:11px;line-height:1.5;color:#7f8da6;text-align:center}
+.back{display:inline-block;color:#7dd3fc;text-decoration:none;margin-top:16px;font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap"><div class="card">
+<div class="logo">JEFF PRO ANALYSE</div>
+<div class="title">🍎 Apple of Fortune</div>
+
+<div id="grid" class="grid"></div>
+<button id="go">🔮 Lancer l’analyse</button>
+<div id="result" class="result">Aucune analyse lancée.</div>
+
+<a class="back" href="../">← Retour à JEFF PRO</a>
+</div></div>
+<script>
+const grid=document.getElementById('grid'), result=document.getElementById('result');
+for(let i=0;i<25;i++){
+  const d=document.createElement('div');
+  d.className='cell';
+  d.textContent='🍎';
+  d.id='c'+i;
+  grid.appendChild(d);
+}
+document.getElementById('go').onclick=()=>{
+  document.querySelectorAll('.cell').forEach(x=>x.className='cell');
+  const picks=[...Array(25).keys()].sort(()=>Math.random()-0.5).slice(0,3);
+  picks.forEach(i=>document.getElementById('c'+i).className='cell safe');
+  result.innerHTML=`<strong>SÉLECTION ANALYSÉE</strong><br>Cases suggérées : <strong>${picks.map(i=>`L${Math.floor(i/5)+1} · C${i%5+1}`).join(' — ')}</strong>`;
+};
+</script>
+</body>
+</html>
