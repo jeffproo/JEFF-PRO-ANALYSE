@@ -132,14 +132,21 @@ body{padding-top:var(--jp-header-h);padding-bottom:calc(var(--jp-platform-h) + v
 .chat-box .chat-messages{pointer-events:auto!important;}
 </style>
 
+
+<style id="jeff-light-intro">
+.intro{padding:16px 20px!important;margin-top:10px!important;margin-bottom:10px!important;}
+.intro h2{font-size:24px!important;margin:0 0 6px!important;}
+.intro p{font-size:14px!important;line-height:1.35!important;margin:0!important;}
+@media(max-width:500px){.intro{padding:13px 16px!important;margin-left:14px!important;margin-right:14px!important;} .intro h2{font-size:21px!important;} .intro p{font-size:13px!important;line-height:1.3!important;}}
+</style>
 </head>
 <body>
 <div class="container">
 <div class="header"><div class="robot">🤖</div><div class="brand"><div class="brand-name">JEFF PRO</div><div class="online">🟢 En ligne</div></div></div>
 
 <div class="intro">
-<h2>Bienvenue 👋</h2>
-<p>Bienvenue sur la page officielle de <strong>Jeff Pro</strong> ! Si tu es ici, c’est que tu souhaites récupérer le bot qui me permet de gagner des millions chaque jour 💰🔥 Choisis l’option qui te convient et mon assistant te guidera étape par étape pour avoir accès gratuitement à ce bot ✅</p>
+<h2>Bonjour 👋</h2>
+<p>Je suis <strong>Jeff Pro Analyse</strong>. Écoute le message vocal ci-dessous, puis pose ta question ou choisis l’option qui te convient.</p>
 </div>
 
 <div class="voice-box">
@@ -157,7 +164,7 @@ body{padding-top:var(--jp-header-h);padding-bottom:calc(var(--jp-platform-h) + v
 <button class="question-btn" onclick="askQuestion('🍎 Comment gagner à Apple of Fortune ?',startAppleChat)">🍎 <span class="question-icon">Comment gagner à Apple of Fortune ?</span></button>
 <button class="question-btn" onclick="askQuestion('🎲 Comment gagner au Jeu des Dés ?',startDiceChat)">🎲 <span class="question-icon">Comment gagner au Jeu des Dés ?</span></button>
 <button class="question-btn" onclick="askQuestion('⚽ Comment gagner les scores exacts FIFA ?',startFifaChat)">⚽ <span class="question-icon">Comment gagner les scores exacts FIFA ?</span></button>
-<button class="question-btn" onclick="askQuestion('✈️ Comment gagner Aviator ?',startAviatorChat)">✈️ <span class="question-icon">Comment gagner Aviator ?</span></button>
+<button class="question-btn" onclick="askQuestion('📝 Comment s’inscrire ?',startRegistrationChat)">📝 <span class="question-icon">Comment s’inscrire ?</span></button>
 <button class="question-btn" onclick="askQuestion('🚀 Comment gagner Lucky Jet ?',startLuckyJetChat)">🚀 <span class="question-icon">Comment gagner Lucky Jet ?</span></button>
 <button class="question-btn" onclick="askQuestion('💥 Comment gagner Crash ?',startCrashChat)">💥 <span class="question-icon">Comment gagner Crash ?</span></button>
 <button class="question-btn" onclick="askQuestion('💎 Comment gagner Mine Classic ?',startMineChat)">💎 <span class="question-icon">Comment gagner Mine Classic ?</span></button>
@@ -189,9 +196,11 @@ body{padding-top:var(--jp-header-h);padding-bottom:calc(var(--jp-platform-h) + v
 <div class="contact-section">
 <div class="bottom-row">
 <button class="promo" onclick="navigator.clipboard&&navigator.clipboard.writeText(PROMO_CODE);this.querySelector('.promo-code').textContent='COPIÉ ✓';setTimeout(()=>this.querySelector('.promo-code').textContent=PROMO_CODE,1400)" title="Copier le code promo"><span class="promo-small">CODE PROMO</span><span class="promo-code">8F9Y</span></button>
-<a class="whatsapp" href="https://wa.me/22965061408" target="_blank">◉ &nbsp; Mon WhatsApp<span class="contact-number">+229 65 06 14 08</span></a>
+<div class="whatsapp-split whatsapp-channel-only">
+<a class="whatsapp whatsapp-main" href="https://whatsapp.com/channel/0029VbBw8FBDp2Q03qhB4t2b" target="_blank" rel="noopener noreferrer">📢 &nbsp; Ma chaîne WhatsApp</a>
 </div>
-<a class="channel" style="display:block;margin-top:10px" href="https://whatsapp.com/channel/0029VbBw8FBDp2Q03qhB4t2b" target="_blank">📢 Rejoindre ma chaîne WhatsApp</a>
+</div>
+
 </div>
 
 </div>
@@ -291,6 +300,207 @@ function handleEnter(e){if(e.key==="Enter")sendMessage()}
   }
 })();
 </script>
+
+<style id="jeff-final-chat-position">
+/* ===== FIL DE DISCUSSION : toujours sous description + vocal ===== */
+.questions{display:none!important;}
+.chat-box{
+  position:relative!important;
+  left:auto!important;
+  top:auto!important;
+  bottom:auto!important;
+  transform:none!important;
+  width:100%!important;
+  max-width:650px!important;
+  margin:12px auto 0!important;
+  padding:10px 14px 12px!important;
+  box-sizing:border-box!important;
+  background:linear-gradient(180deg,#f8f3ff 0%,#f2eaff 100%)!important;
+  border-top:1px solid #e5d8fa!important;
+  border-radius:18px 18px 0 0!important;
+  z-index:1!important;
+  overflow:visible!important;
+}
+.chat-messages{
+  max-height:430px!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  padding:8px 2px 14px!important;
+  -webkit-overflow-scrolling:touch!important;
+}
+#chatMessages .chat-question-menu{
+  align-self:stretch!important;
+  width:100%!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  gap:6px!important;
+  margin:8px 0 2px!important;
+  padding:0 7px!important;
+  box-sizing:border-box!important;
+}
+#chatMessages .chat-question-menu .question-btn{
+  align-self:flex-start!important;
+  width:auto!important;
+  max-width:88%!important;
+  background:#fff!important;
+  color:#5720ae!important;
+  text-align:left!important;
+  border:1.5px solid #8c3cff!important;
+  border-radius:17px 17px 17px 5px!important;
+}
+#chatMessages .user-message{
+  align-self:flex-end!important;
+  margin-left:auto!important;
+  margin-right:7px!important;
+}
+#chatMessages .bot-message,#chatMessages .typing-message{
+  align-self:flex-start!important;
+  margin-left:7px!important;
+  margin-right:auto!important;
+}
+@media(max-width:650px){
+  .chat-box{margin-top:10px!important;padding-left:10px!important;padding-right:10px!important;}
+}
+</style>
+<script id="jeff-final-chat-position-js">
+(function(){
+  function bootChat(){
+    const source=document.querySelector('.questions');
+    const m=document.getElementById('chatMessages');
+    if(!source || !m) return;
+    source.style.display='none';
+    if(typeof window.revealChat==='function') window.revealChat();
+    const menu=m.querySelector('.chat-question-menu');
+    if(menu) menu.remove();
+    if(typeof window.showQuestionMenu==='function') window.showQuestionMenu();
+  }
+  window.addEventListener('DOMContentLoaded',bootChat);
+  window.addEventListener('load',bootChat);
+
+  const oldAsk=window.askQuestion;
+  window.askQuestion=function(q,action){
+    const m=document.getElementById('chatMessages');
+    if(m) m.querySelectorAll('.chat-question-menu').forEach(el=>el.remove());
+    if(typeof window.revealChat==='function') window.revealChat();
+    window.addMessage(q,'user-message');
+    if(typeof action==='function') action();
+  };
+
+  /* Les deux boutons directs doivent eux aussi montrer la question à droite. */
+  window.startExistingAccountChat=function(){
+    if(typeof window.revealChat==='function') window.revealChat();
+    window.addMessage('👤 J’ai déjà compte','user-message');
+    window.botReply(`Si tu as déjà un compte, <strong>déconnecte-toi de ton ancien compte</strong> puis crée un nouveau compte avec le code promo <strong>8F9Y</strong>.<br><br>💰 Recharge ensuite <strong>1 500 F</strong>.<br><br>⚠️ Sans ces conditions, tu ne pourras pas accéder au bot.`);
+  };
+  window.startCantRegisterChat=function(){
+    if(typeof window.revealChat==='function') window.revealChat();
+    window.addMessage('❌ Je n’arrive pas à m’inscrire','user-message');
+    window.botReply(`D’accord, fais ceci 👇<br><br>📱 Utilise <strong>un nouveau numéro de téléphone</strong> ou <strong>une nouvelle adresse e-mail</strong>.<br><br>⚠️ <strong>Important :</strong> le même numéro ou la même adresse e-mail ne peut généralement pas être utilisé pour créer plusieurs comptes sur un même bookmaker. Assure-toi donc que ton numéro ou ton e-mail n’a jamais été utilisé pour créer un compte sur le bookmaker choisi.<br><br>🔑 Ensuite, inscris-toi avec le code promo <strong>8F9Y</strong> et suis les étapes indiquées.`);
+  };
+})();
+</script>
+
+<style id="jeff-final-chat-flow">
+/* ===== FLUX FINAL : 4 questions visibles, 6 cachées ===== */
+.questions .question-btn:nth-child(n+5){display:none!important;}
+.questions{display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:5px!important;margin-top:8px!important;}
+.questions .question-btn{width:auto!important;max-width:94%!important;display:block!important;}
+
+/* La conversation commence APRÈS la description et le vocal. */
+.chat-box{position:relative!important;left:auto!important;top:auto!important;bottom:auto!important;transform:none!important;width:100%!important;height:auto!important;min-height:0!important;margin:10px 0 0!important;padding:0 14px!important;background:transparent!important;z-index:1!important;overflow:visible!important;display:block!important;}
+.chat-messages{height:auto!important;max-height:none!important;min-height:0!important;overflow:visible!important;display:flex!important;flex-direction:column!important;padding:0 0 12px!important;}
+
+/* Question choisie / question écrite = droite. Réponse = gauche. */
+#chatMessages .user-message{align-self:flex-end!important;margin-left:auto!important;margin-right:7px!important;max-width:72%!important;text-align:left!important;}
+#chatMessages .bot-message,#chatMessages .typing-message{align-self:flex-start!important;margin-left:7px!important;margin-right:auto!important;max-width:82%!important;text-align:left!important;}
+
+/* Les 4 options reviennent sous chaque échange, toujours à gauche. */
+#chatMessages .chat-question-menu{align-self:flex-start!important;width:100%!important;display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:5px!important;margin:7px 0 5px!important;padding:0 7px!important;}
+#chatMessages .chat-question-menu .question-btn{display:block!important;width:auto!important;max-width:94%!important;min-height:32px!important;padding:6px 10px!important;font-size:12.5px!important;text-align:left!important;border-radius:15px 15px 15px 5px!important;}
+
+/* Le champ reste utilisable et les contrôles du bas ne sont pas masqués par le chat. */
+.chat-input-row{position:sticky!important;bottom:0!important;z-index:5!important;display:flex!important;gap:10px!important;align-items:center!important;background:white!important;padding-top:7px!important;pointer-events:auto!important;}
+@media(max-width:500px){
+  .questions .question-btn{max-width:96%!important;font-size:12px!important;padding:5px 9px!important;min-height:31px!important;}
+  #chatMessages .user-message{max-width:76%!important;margin-right:5px!important;}
+  #chatMessages .bot-message,#chatMessages .typing-message{max-width:86%!important;margin-left:5px!important;}
+}
+</style>
+<script id="jeff-final-chat-flow-js">
+(function(){
+  const source=document.querySelector('.questions');
+  const primary=()=>source?Array.from(source.querySelectorAll('.question-btn')).slice(0,4):[];
+  function scrollBottom(){const m=document.getElementById('chatMessages');if(m)setTimeout(()=>window.scrollTo({top:document.documentElement.scrollHeight,behavior:'smooth'}),30);}
+  function removeMenus(){document.querySelectorAll('#chatMessages .chat-question-menu').forEach(x=>x.remove());}
+  function showFour(){
+    const m=document.getElementById('chatMessages'); if(!m)return;
+    removeMenus();
+    const menu=document.createElement('div'); menu.className='chat-question-menu';
+    primary().forEach(src=>menu.appendChild(src.cloneNode(true)));
+    m.appendChild(menu);
+    scrollBottom();
+  }
+  function delayedReply(text,action,delay){
+    const typing=window.showTyping();
+    setTimeout(()=>{
+      if(typing&&typing.parentNode)typing.remove();
+      const msg=window.addMessage(text,'bot-message');
+      if(typeof action==='function')action(msg);
+      showFour();
+      scrollBottom();
+    },typeof delay==='number'&&delay>0?delay:2000);
+  }
+  window.botReply=function(text,action,delay){delayedReply(text,action,delay);};
+  window.askQuestion=function(q,action){
+    window.revealChat(); removeMenus();
+    window.addMessage(q,'user-message');
+    if(typeof action==='function')action();
+    scrollBottom();
+  };
+  window.revealChat=(function(old){return function(){old();const box=document.getElementById('chatBox');if(box)box.classList.remove('chat-hidden');const m=document.getElementById('chatMessages');if(m)m.classList.remove('chat-collapsed');};})(window.revealChat);
+  window.addEventListener('load',()=>{if(source){source.querySelectorAll('.question-btn').forEach((b,i)=>{if(i>=4)b.style.display='none';});}});
+})();
+</script>
+
+<style id="jeff-bottom-final-fix">
+/* ===== BARRE BASSE FINALE : saisie juste au-dessus, CODE + WHATSAPP tout en bas ===== */
+:root{--jp-contact-h:58px!important;--jp-input-h:70px!important;}
+.chat-input-row{position:fixed!important;left:50%!important;bottom:var(--jp-contact-h)!important;transform:translateX(-50%)!important;width:min(650px,100%)!important;height:var(--jp-input-h)!important;box-sizing:border-box!important;display:flex!important;align-items:center!important;gap:9px!important;background:#fff!important;padding:6px 14px 7px!important;border-top:1px solid #eadfff!important;border-bottom:0!important;z-index:95!important;margin:0!important;}
+.contact-section{position:fixed!important;left:50%!important;bottom:0!important;transform:translateX(-50%)!important;width:min(650px,100%)!important;height:var(--jp-contact-h)!important;box-sizing:border-box!important;margin:0!important;padding:4px 14px!important;background:#fff!important;z-index:96!important;border:0!important;}
+.platform-section{bottom:calc(var(--jp-contact-h) + var(--jp-input-h) + var(--jp-kb))!important;}
+.chat-box{bottom:calc(var(--jp-platform-h) + var(--jp-contact-h) + var(--jp-input-h) + var(--jp-kb))!important;}
+body{padding-bottom:calc(var(--jp-platform-h) + var(--jp-contact-h) + var(--jp-input-h) + 8px)!important;}
+@media(max-width:500px){
+  .chat-input-row{padding-left:10px!important;padding-right:10px!important;}
+  .contact-section{padding-left:10px!important;padding-right:10px!important;}
+}
+</style>
+
+<style id="jeff-whatsapp-split-final">
+/* WhatsApp du bas divisé en deux zones cliquables */
+.contact-section .bottom-row{display:flex!important;align-items:stretch!important;gap:8px!important;width:100%!important;}
+.contact-section .promo{flex:0 0 31%!important;min-width:0!important;}
+.contact-section .whatsapp-split{flex:1 1 auto!important;display:flex!important;gap:0!important;min-width:0!important;}
+.contact-section .whatsapp-split .whatsapp{flex:1 1 50%!important;width:50%!important;min-width:0!important;height:50px!important;box-sizing:border-box!important;text-decoration:none!important;}
+.contact-section .whatsapp-main{border-radius:12px 0 0 12px!important;border-right:1px solid rgba(255,255,255,.35)!important;}
+.contact-section .whatsapp-number{border-radius:0 12px 12px 0!important;}
+@media(max-width:500px){
+  .contact-section .promo{flex-basis:29%!important;}
+  .contact-section .whatsapp-split .whatsapp{font-size:12px!important;padding-left:5px!important;padding-right:5px!important;}
+}
+</style>
+
+<style id="jeff-channel-bottom-final">
+.contact-section .whatsapp-channel-only{display:flex!important;flex:1 1 auto!important;width:100%!important;min-width:0!important;}
+.contact-section .whatsapp-channel-only .whatsapp-main{display:flex!important;align-items:center!important;justify-content:center!important;width:100%!important;flex:1 1 100%!important;text-decoration:none!important;}
+.contact-section .whatsapp-number{display:none!important;}
+</style>
+
+<style id="jeff-remove-welcome-line">
+/* Supprime uniquement la fine ligne qui traverse le message d'accueil. */
+.chat-box{border-top:0!important;}
+</style>
 </body>
 </html>
 
@@ -466,6 +676,11 @@ function handleEnter(e){if(e.key==="Enter")sendMessage()}
  #chatMessages .user-message{max-width:72%!important;margin-right:5px!important}
  #chatMessages .chat-question-menu{padding:0 5px!important}
 }
+
+/* Questions initiales : légèrement plus compactes pour laisser respirer description + vocal. */
+.questions{gap:4px!important;}
+.questions .question-btn{min-height:34px!important;padding:5px 10px!important;font-size:13px!important;line-height:1.08!important;border-radius:13px!important;}
+@media(max-width:500px){.questions .question-btn{min-height:32px!important;padding:4px 9px!important;font-size:12.5px!important;}}
 </style>
 <script id="jeff-video-chat-exact-js">
 (function(){
@@ -484,11 +699,16 @@ function handleEnter(e){if(e.key==="Enter")sendMessage()}
     removeQuestionMenus();
     const menu=document.createElement('div');
     menu.className='chat-question-menu';
-    QUESTION_SOURCE.querySelectorAll('.question-btn').forEach(src=>{
+    /* Après le premier échange, seules les 4 options principales reviennent dans le fil.
+       Elles restent à gauche comme dans la vidéo : Apple, Dés, FIFA, Inscription. */
+    const sources=Array.from(QUESTION_SOURCE.querySelectorAll('.question-btn'));
+    const primary=[sources[0],sources[1],sources[2],sources[7]].filter(Boolean);
+    primary.forEach(src=>{
       const b=src.cloneNode(true);
       menu.appendChild(b);
     });
     m.appendChild(menu);
+    menu.scrollIntoView({behavior:"smooth",block:"nearest"});
     scrollToBottom();
     return menu;
   }
@@ -507,7 +727,10 @@ function handleEnter(e){if(e.key==="Enter")sendMessage()}
   window.askQuestion=function(q,action){
     window.revealChat();
     removeQuestionMenus();
+    /* La question choisie est le message de l'abonné : à droite. */
     window.addMessage(q,'user-message');
+    /* Les fonctions existantes déclenchent ensuite le typing de 2 secondes
+       puis leur réponse originale et le retour des 4 options en bas à gauche. */
     if(typeof action==='function')action();
     scrollToBottom();
   };
