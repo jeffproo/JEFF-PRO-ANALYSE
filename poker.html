@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="fr"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JEFF PRO — Poker</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#070b16;color:#fff;font-family:Arial,sans-serif}
+.wrap{max-width:520px;margin:auto;padding:22px 16px}.card{background:#111a2d;border:1px solid #263653;border-radius:24px;padding:22px}
+.logo{color:#7dd3fc;font-weight:900;letter-spacing:2px;font-size:14px}h1{font-size:30px;margin:10px 0 20px}
+.panel{background:#0a1020;border:1px solid #263653;border-radius:18px;padding:18px;text-align:center}
+.label{color:#9eabc1;font-size:13px;margin-bottom:12px}.result{font-size:25px;font-weight:900;min-height:38px}
+button{width:100%;margin-top:18px;border:0;border-radius:15px;padding:15px;font-size:16px;font-weight:900;background:#f59e0b;color:#160e02}
+.history{display:flex;gap:7px;flex-wrap:wrap;margin-top:15px}.tag{padding:8px 10px;border-radius:10px;background:#18243a;border:1px solid #2c3d5c;font-size:12px}
+.small{margin-top:18px;color:#7f8da6;font-size:11px;line-height:1.5;text-align:center}
+</style></head><body><div class="wrap"><div class="card">
+<div class="logo">JEFF PRO ANALYSE</div><h1>🃏 Poker</h1>
+<div class="panel"><div class="label">ANALYSE DU MOMENT</div><div id="result" class="result">—</div></div>
+<button id="go">🔮 Lancer l'analyse</button><div id="history" class="history"></div>
+<div class="small">Analyse indicative uniquement. Aucun résultat de jeu aléatoire ne peut être garanti.</div>
+</div></div>
+<script>
+const choices=["CONSERVATIVE", "BALANCED", "AGGRESSIVE"];
+const result=document.getElementById('result'), history=document.getElementById('history');
+document.getElementById('go').onclick=()=>{
+ const pick=choices[Math.floor(Math.random()*choices.length)];
+ result.textContent=pick;
+ const tag=document.createElement('span'); tag.className='tag'; tag.textContent=pick;
+ history.prepend(tag); if(history.children.length>5) history.lastChild.remove();
+};
+</script></body></html>
