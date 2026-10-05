@@ -29,7 +29,7 @@ body{font-family:Arial,Helvetica,sans-serif;background:linear-gradient(180deg,#e
 .platform-icon{width:40px;height:40px;border-radius:50%;background:#7141b9;color:white;display:flex;align-items:center;justify-content:center;margin-right:9px;font-size:13px;font-weight:1000;flex-shrink:0}
 .promo{margin-top:12px;background:#f3eaff;border:2px dashed #7b32e8;border-radius:18px;padding:11px 15px;text-align:center;max-width:175px}.promo-small{display:block;font-size:10px;font-weight:900;color:#5721aa;margin-bottom:2px}.promo-code{display:block;font-size:25px;font-weight:1000;letter-spacing:2px;color:#5520b2}
 .contact-section{background:white;padding:0 22px 18px}.contact-title{display:none}.bottom-row{display:grid;grid-template-columns:1fr 1.9fr;gap:10px;align-items:stretch}.whatsapp,.channel{text-decoration:none;color:white;border-radius:16px;padding:14px 8px;text-align:center;font-weight:900;font-size:15px}.whatsapp{background:#32d06a}.channel{background:linear-gradient(135deg,#7d35ec,#5520b6)}.contact-number{display:block;margin-top:4px;font-size:11px}
-.chat-box.chat-hidden{display:none}.chat-messages.chat-collapsed{display:none}.chat-box{margin-top:8px;background:white;padding:14px 22px 18px;border-top:1px solid #eadfff;display:flex;flex-direction:column}.chat-messages{height:auto;max-height:none;overflow:visible;margin-bottom:7px;padding:2px 0;scroll-behavior:auto;display:flex;flex-direction:column;justify-content:flex-start;gap:0;overscroll-behavior:auto}.message{max-width:90%;padding:9px 13px;border-radius:16px;margin-bottom:5px;font-size:15px;line-height:1.38;white-space:pre-line}.bot-message{background:white;color:#24194b;border-radius:20px 20px 6px 0;box-shadow:0 4px 14px rgba(90,40,160,.06);margin-left:auto;margin-right:0}.user-message{background:linear-gradient(135deg,#913bea,#5c1eb4);color:white;margin-left:0;margin-right:auto;border-radius:20px 20px 20px 5px}.chat-input-row{position:sticky;bottom:0;z-index:5;display:flex;gap:10px;align-items:center;background:white;padding-top:7px}.chat-input{flex:1;border:2px solid #e5d8fa;background:#eee2ff;border-radius:28px;padding:14px 18px;outline:none;font-size:16px;min-width:0}.send-btn{width:58px;height:58px;border:none;border-radius:50%;background:linear-gradient(135deg,#7228df,#4e17b8);color:white;font-size:25px;cursor:pointer;flex-shrink:0}
+.chat-box.chat-hidden{display:none}.chat-messages.chat-collapsed{display:none}.chat-box{margin-top:8px;background:white;padding:14px 22px 18px;border-top:1px solid #eadfff;display:flex;flex-direction:column}.chat-messages{height:auto;max-height:none;overflow:visible;margin-bottom:7px;padding:2px 0;scroll-behavior:auto;display:flex;flex-direction:column;justify-content:flex-start;gap:0;overscroll-behavior:auto}.message{max-width:90%;padding:9px 13px;border-radius:16px;margin-bottom:5px;font-size:15px;line-height:1.38;white-space:pre-line}.bot-message{background:white;color:#24194b;border-radius:0 20px 20px 6px;box-shadow:0 4px 14px rgba(90,40,160,.06)}.user-message{background:linear-gradient(135deg,#913bea,#5c1eb4);color:white;margin-left:auto;border-radius:20px 20px 5px 20px}.chat-input-row{position:sticky;bottom:0;z-index:5;display:flex;gap:10px;align-items:center;background:white;padding-top:7px}.chat-input{flex:1;border:2px solid #e5d8fa;background:#eee2ff;border-radius:28px;padding:14px 18px;outline:none;font-size:16px;min-width:0}.send-btn{width:58px;height:58px;border:none;border-radius:50%;background:linear-gradient(135deg,#7228df,#4e17b8);color:white;font-size:25px;cursor:pointer;flex-shrink:0}
 .choice-buttons{display:flex;flex-direction:column;gap:10px;margin-top:15px}.choice-btn{padding:14px;border-radius:12px;border:2px solid #8c3cff;background:white;color:#5120a9;font-weight:800;cursor:pointer;width:100%}.choice-btn:hover{background:#f5efff}
 .success{background:#effcf3;border:1px solid #9ee4b4;border-radius:15px;padding:15px;margin-top:15px}.warning{background:#fff8e1;border:1px solid #f1d36b;border-radius:15px;padding:15px;margin-top:15px}.code-box{background:#2b1551;border-radius:14px;padding:10px;margin-top:10px}.code-item{display:flex;align-items:center;justify-content:space-between;gap:8px;background:white;border-radius:12px;padding:12px;margin-top:9px}.code-name{font-weight:900;color:#24194b;font-size:13px}.code-value{font-weight:900;color:#5c22b8;letter-spacing:1px;margin-top:4px}.download-btn{border:none;background:#16c95b;color:white;border-radius:9px;padding:9px 11px;font-size:12px;font-weight:900;cursor:pointer}.platform-selected{background:#f0e8ff;border-radius:12px;padding:12px;text-align:center;font-weight:900;margin-top:12px}
 
@@ -162,8 +162,8 @@ body{padding-top:var(--jp-header-h);padding-bottom:calc(var(--jp-platform-h) + v
 <button class="question-btn" onclick="askQuestion('💥 Comment gagner Crash ?',startCrashChat)">💥 <span class="question-icon">Comment gagner Crash ?</span></button>
 <button class="question-btn" onclick="askQuestion('💎 Comment gagner Mine Classic ?',startMineChat)">💎 <span class="question-icon">Comment gagner Mine Classic ?</span></button>
 <button class="question-btn" onclick="askQuestion('📝 Comment s’inscrire ?',startRegistrationChat)">📝 <span class="question-icon">Comment s’inscrire ?</span></button>
-<button class="question-btn" onclick="startExistingAccountChat()">👤 J’ai déjà compte</button>
-<button class="question-btn" onclick="startCantRegisterChat()">❌ Je n’arrive pas à m’inscrire</button>
+<button class="question-btn" onclick="askQuestion('👤 J’ai déjà compte',startExistingAccountChat)">👤 J’ai déjà compte</button>
+<button class="question-btn" onclick="askQuestion('❌ Je n’arrive pas à m’inscrire',startCantRegisterChat)">❌ Je n’arrive pas à m’inscrire</button>
 </div>
 
 <div class="chat-box" id="chatBox">
@@ -215,7 +215,7 @@ function scrollChat(){const m=document.getElementById("chatMessages");setTimeout
 function focusChat(){revealChat();const box=document.querySelector(".chat-box");if(box)box.scrollIntoView({behavior:"auto",block:"nearest"});document.getElementById("chatInput")?.focus()}
 function addMessage(text,type){revealChat();const m=document.getElementById("chatMessages"),d=document.createElement("div");d.className="message "+type;d.innerHTML=type==="bot-message"?text:escapeHTML(text);m.appendChild(d);scrollChat();if(type==="bot-message")setTimeout(()=>d.scrollIntoView({behavior:"auto",block:"center"}),30);return d}
 function showTyping(){const m=document.getElementById("chatMessages"),d=document.createElement("div");d.className="message bot-message typing-message";d.innerHTML='<span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>';m.appendChild(d);scrollChat();return d}
-function botReply(text,action,delay=2000){const wait=Number(delay)||2000;const typing=showTyping();setTimeout(()=>{if(typing&&typing.parentNode)typing.remove();const msg=addMessage(text,"bot-message");if(action)action(msg)},wait)}
+function botReply(text,action,delay=0){const msg=addMessage(text,"bot-message");if(action)action(msg)}
 function addQuickChoices(items){const m=document.getElementById("chatMessages"),w=document.createElement("div");w.className="chat-quick";items.forEach(item=>{const b=document.createElement("button");b.textContent=item.label;b.onclick=()=>{w.remove();addMessage(item.label,"user-message");item.action()};w.appendChild(b)});m.appendChild(w);scrollChat();return w}
 function askQuestion(q,action){revealChat();addMessage(q,"user-message");action()}
 function platformChoices(){addQuickChoices([{label:"🔵 1XBET",action:()=>choosePlatformChat("1XBET")},{label:"🟡 MELBET",action:()=>choosePlatformChat("MELBET")},{label:"🟢 BETWINNER",action:()=>choosePlatformChat("BETWINNER")},{label:"🟢 WINWIN",action:()=>choosePlatformChat("WINWIN")},{label:"🔵 PARIPESA",action:()=>choosePlatformChat("PARIPESA")},{label:"🔷 1WIN",action:()=>choosePlatformChat("1WIN")}])}
@@ -433,3 +433,122 @@ function handleEnter(e){if(e.key==="Enter")sendMessage()}
   #chatMessages .chat-quick{max-width:80%!important;margin-right:5px!important}
 }
 </style>
+
+
+<style id="jeff-video-chat-exact">
+/* Référence vidéo : menu des questions à gauche, question choisie à droite, réponse à gauche. */
+#chatMessages .message{box-sizing:border-box;}
+#chatMessages .bot-message,#chatMessages .typing-message{
+  align-self:flex-start!important;margin-left:7px!important;margin-right:auto!important;
+  max-width:82%!important;text-align:left!important;
+  border-radius:6px 17px 17px 17px!important;
+}
+#chatMessages .user-message{
+  align-self:flex-end!important;margin-left:auto!important;margin-right:7px!important;
+  max-width:70%!important;text-align:left!important;
+  border-radius:17px 17px 6px 17px!important;
+}
+#chatMessages .chat-question-menu{
+  align-self:stretch!important;width:100%!important;
+  display:flex!important;flex-direction:column!important;align-items:flex-start!important;
+  gap:5px!important;margin:6px 0 4px!important;padding:0 7px!important;box-sizing:border-box!important;
+}
+#chatMessages .chat-question-menu .question-btn{
+  width:auto!important;max-width:92%!important;min-height:36px!important;
+  padding:7px 12px!important;text-align:left!important;
+  border:1.5px solid #8c3cff!important;border-radius:17px 17px 17px 5px!important;
+  background:#fff!important;color:#5720ae!important;
+}
+#chatMessages .chat-quick{align-self:flex-start!important;margin-left:7px!important;margin-right:auto!important;max-width:82%!important;}
+.chat-input-row{pointer-events:auto!important}.chat-input-row *{pointer-events:auto!important}
+@media(max-width:400px){
+ #chatMessages .bot-message,#chatMessages .typing-message{max-width:84%!important;margin-left:5px!important}
+ #chatMessages .user-message{max-width:72%!important;margin-right:5px!important}
+ #chatMessages .chat-question-menu{padding:0 5px!important}
+}
+</style>
+<script id="jeff-video-chat-exact-js">
+(function(){
+  const QUESTION_SOURCE = document.querySelector('.questions');
+  function scrollToBottom(){
+    const m=document.getElementById('chatMessages');
+    if(!m)return;
+    setTimeout(()=>{m.scrollTop=m.scrollHeight;},30);
+  }
+  function removeQuestionMenus(){
+    document.querySelectorAll('#chatMessages .chat-question-menu').forEach(el=>el.remove());
+  }
+  function showQuestionMenu(){
+    const m=document.getElementById('chatMessages');
+    if(!m || !QUESTION_SOURCE)return null;
+    removeQuestionMenus();
+    const menu=document.createElement('div');
+    menu.className='chat-question-menu';
+    QUESTION_SOURCE.querySelectorAll('.question-btn').forEach(src=>{
+      const b=src.cloneNode(true);
+      menu.appendChild(b);
+    });
+    m.appendChild(menu);
+    scrollToBottom();
+    return menu;
+  }
+  function answerAfterTyping(text,action,delay){
+    const typing=window.showTyping();
+    const wait=(typeof delay==='number' && delay>0)?delay:2000;
+    setTimeout(()=>{
+      if(typing && typing.parentNode)typing.remove();
+      const msg=window.addMessage(text,'bot-message');
+      if(typeof action==='function')action(msg);
+      showQuestionMenu();
+      scrollToBottom();
+    },wait);
+  }
+  window.botReply=function(text,action,delay){ answerAfterTyping(text,action,delay); };
+  window.askQuestion=function(q,action){
+    window.revealChat();
+    removeQuestionMenus();
+    window.addMessage(q,'user-message');
+    if(typeof action==='function')action();
+    scrollToBottom();
+  };
+  window.accessIntro=function(game,only1Win=false){
+    const html=`Parfait 👌 Tu veux accéder à <strong>${game}</strong>.<br><br><strong>Respecte simplement ces 2 conditions :</strong><br><br>1️⃣ <strong>Inscris-toi</strong> sur le bookmaker partenaire avec le code promo <strong>8F9Y</strong>.<br><br>2️⃣ <strong>Recharge ton compte avec 1 500 F</strong> puis reviens pour la vérification.<br><br>👇 <strong>Choisis ton bookmaker et je te guide étape par étape.</strong>`;
+    window.botReply(html,()=>{
+      if(only1Win)window.addQuickChoices([{label:'🔷 1WIN — code 8F9Y',action:()=>window.choosePlatformChat('1WIN')}]);
+      else window.platformChoices();
+    });
+  };
+  window.startExistingAccountChat=function(){
+    window.botReply(`Si tu as déjà un compte, <strong>déconnecte-toi de ton ancien compte</strong> puis crée un nouveau compte avec le code promo <strong>8F9Y</strong>.<br><br>💰 Recharge ensuite <strong>1 500 F</strong>.<br><br>⚠️ Sans ces conditions, tu ne pourras pas accéder au bot.`);
+  };
+  window.startCantRegisterChat=function(){
+    window.botReply(`D’accord, fais ceci 👇<br><br>📱 Utilise <strong>un nouveau numéro de téléphone</strong> ou <strong>une nouvelle adresse e-mail</strong>.<br><br>⚠️ <strong>Important :</strong> le même numéro ou la même adresse e-mail ne peut généralement pas être utilisé pour créer plusieurs comptes sur un même bookmaker. Assure-toi donc que ton numéro ou ton e-mail n’a jamais été utilisé pour créer un compte sur le bookmaker choisi.<br><br>🔑 Ensuite, inscris-toi avec le code promo <strong>8F9Y</strong> et suis les étapes indiquées.`);
+  };
+  window.startRegistrationChat=function(){
+    window.botReply("C’est simple 👌<br><br><strong>Choisis ton bookmaker partenaire et je te guide étape par étape.</strong><br><br>Tu verras directement l’image de la procédure, les étapes, le lien d’inscription et le lien de téléchargement de l’application.",()=>window.platformChoices());
+  };
+  window.choosePlatformChat=function(platform){
+    selectedUserPlatform=platform;
+    window.botReply(`Parfait 👌 Tu as choisi <strong>${platform}</strong>.<br><br>Je te guide maintenant <strong>étape par étape</strong>. Suis l’image et les indications ci-dessous.`,()=>{
+      window.addMessage(window.procedureHTML(platform),'bot-message');
+      window.addQuickChoices([{label:'✅ J’ai terminé mon inscription',action:window.registrationDoneChat}]);
+    });
+  };
+  window.oneWinProcedureChat=function(game){
+    selectedUserPlatform='1WIN';
+    window.botReply(`<strong>${game}</strong><br><br>Parfait 👌 Pour cette demande, l’inscription se fait uniquement sur <strong>1WIN</strong> avec le code promo <strong>8F9Y</strong>.<br><br>Respecte les 2 conditions puis suis la procédure ci-dessous.`,()=>{
+      window.addMessage(window.procedureHTML('1WIN'),'bot-message');
+      window.addQuickChoices([{label:'✅ J’ai terminé mon inscription',action:window.registrationDoneChat}]);
+    });
+  };
+  /* Les menus de questions restent visibles au départ à gauche. */
+  window.addEventListener('load',()=>{ if(document.getElementById('chatMessages')?.classList.contains('chat-collapsed')) return; showQuestionMenu(); });
+  /* Quand le chat est révélé après un clic, le menu initial est injecté dans le fil. */
+  const oldReveal=window.revealChat;
+  window.revealChat=function(){
+    oldReveal();
+    const m=document.getElementById('chatMessages');
+    if(m && !m.querySelector('.chat-question-menu')) showQuestionMenu();
+  };
+})();
+</script>
