@@ -139,47 +139,6 @@ body{padding-top:var(--jp-header-h);padding-bottom:calc(var(--jp-platform-h) + v
 .intro p{font-size:14px!important;line-height:1.35!important;margin:0!important;}
 @media(max-width:500px){.intro{padding:13px 16px!important;margin-left:14px!important;margin-right:14px!important;} .intro h2{font-size:21px!important;} .intro p{font-size:13px!important;line-height:1.3!important;}}
 </style>
-<!-- JEFF PRO : verrouillage du domaine officiel -->
-<script id="jp-domain-lock">
-(function(){
-  'use strict';
-  var ALLOWED_HOSTS = [
-    'jeffpro.is-a.dev',
-    'jeffproo.github.io'
-  ];
-  var host = (location.hostname || '').toLowerCase();
-  var allowed = ALLOWED_HOSTS.indexOf(host) !== -1;
-  if (!allowed && host !== 'localhost' && host !== '127.0.0.1') {
-    document.documentElement.classList.add('jp-copy-blocked');
-    window.JEFF_PRO_OFFICIAL = false;
-    document.addEventListener('DOMContentLoaded', function(){
-      var style=document.createElement('style');
-      style.textContent='.jp-lock-screen{position:fixed;inset:0;z-index:2147483647;background:#0b0712;color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;font-family:Arial,sans-serif}.jp-lock-box{max-width:420px;background:#171022;border:1px solid #5b3b80;border-radius:20px;padding:28px;box-shadow:0 20px 60px #0008}.jp-lock-title{font-size:25px;font-weight:900;margin-bottom:10px}.jp-lock-text{font-size:15px;line-height:1.5;color:#cfc4da}';
-      document.head.appendChild(style);
-      var d=document.createElement('div');
-      d.className='jp-lock-screen';
-      d.innerHTML='<div class="jp-lock-box"><div class="jp-lock-title">🔐 JEFF PRO</div><div class="jp-lock-text">Cette version fonctionne uniquement sur le domaine officiel JEFF PRO.</div></div>';
-      document.body.innerHTML='';
-      document.body.appendChild(d);
-    });
-  } else {
-    window.JEFF_PRO_OFFICIAL = true;
-  }
-})();
-</script>
-<!-- JEFF PRO DOMAIN LOCK -->
-<script id="jp-domain-lock">
-(function(){
-  var allowed=["jeffpro-analyse.pages.dev","jeffproo.github.io"];
-  var host=(location.hostname||"").toLowerCase();
-  var ok=allowed.indexOf(host)!==-1 || host==="localhost" || host==="127.0.0.1";
-  if(!ok){
-    document.documentElement.innerHTML="<body style=\"margin:0;background:#120d1d;color:#fff;font-family:Arial,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;text-align:center;padding:24px;box-sizing:border-box\"><div><div style=\"font-size:48px\">🔒</div><h2>JEFF PRO</h2><p>Accès non autorisé.</p><p>Cette version fonctionne uniquement sur le domaine officiel.</p></div></body>";
-    throw new Error("JEFF PRO: unauthorized domain");
-  }
-})();
-</script>
-
 </head>
 <body>
 <div class="container">
@@ -291,7 +250,30 @@ function depositYesChat(){awaitingDepositAnswer=false;addMessage("Oui / J’ai f
 
 Je viens de terminer mon inscription sur ${selectedUserPlatform} avec le code promo 8F9Y.
 J’ai effectué mon dépôt de 1 500 FCFA.
-Je vous envoie les deux preuves : la preuve d’inscription avec le code promo 8F9Y et la preuve du dépôt de 1 500 FCFA.`)}" target="_blank" rel="noopener noreferrer">📲 ENVOIE TES DEUX PREUVES SUR WHATSAPP</a><div class="chat-note">La vérification est effectuée manuellement à partir des deux preuves envoyées.</div>`)}
+Je vous envoie les deux preuves : la preuve d’inscription avec le code promo 8F9Y et la preuve du dépôt de 1 500 FCFA.`)}" target="_blank" rel="noopener noreferrer">📲 ENVOIE TES DEUX PREUVES SUR WHATSAPP</a><div class="chat-note">La vérification est effectuée manuellement à partir des deux preuves envoyées.</div>`)<br><br><div id="jpTelegramGate" style="margin-top:12px;padding:14px;border-radius:14px;background:linear-gradient(135deg,#7d35ec,#5520b6);color:#fff;text-align:center;font-weight:800">🔐 Accès Telegram verrouillé<br><span id="jpTelegramTimer" style="font-size:22px">01:00</span><br><a id="jpTelegramBtn" href="https://t.me/JeffProAnalyseBot" target="_blank" rel="noopener noreferrer" style="display:block;margin-top:10px;padding:12px;border-radius:12px;background:#aaa;color:#fff;text-decoration:none;pointer-events:none;opacity:.6">🤖 ACCÉDER AU BOT TELEGRAM</a></div>`,startTelegramGate)}
+
+function startTelegramGate(msg){
+  setTimeout(function(){
+    var timer=document.getElementById("jpTelegramTimer"),btn=document.getElementById("jpTelegramBtn");
+    if(!timer||!btn)return;
+    var remaining=60;
+    timer.textContent="01:00";
+    var interval=setInterval(function(){
+      remaining--;
+      if(remaining<=0){
+        clearInterval(interval);
+        timer.textContent="00:00";
+        btn.style.pointerEvents="auto";
+        btn.style.opacity="1";
+        btn.style.background="#229ED9";
+        btn.textContent="🤖 ACCÉDER AU BOT TELEGRAM";
+        return;
+      }
+      var m=String(Math.floor(remaining/60)).padStart(2,"0"), sec=String(remaining%60).padStart(2,"0");
+      timer.textContent=m+":"+sec;
+    },1000);
+  },50);
+}
 function sendMessage(){const input=document.getElementById("chatInput"),originalText=input.value.trim();if(!originalText)return;focusChat();addMessage(originalText,"user-message");input.value="";const text=originalText.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[’']/g," ").replace(/[!?.,;:()]/g," ").replace(/\s+/g," ").trim();if(awaitingDepositAnswer){if(text==="oui"||text.includes("oui c est fait")||text.includes("oui cest fait")||text.includes("j ai fait")||text.includes("jai fait")||text.includes("c est fait")||text.includes("cest fait")){depositYesChat();return}if(text==="non"||text.includes("non merci")){depositNoChat();return}}if(text.includes("je veux le bot")||text.includes("veux le bot")||text.includes("acceder au bot")||text.includes("acces au bot")){startRegistrationChat();return}if(text.includes("code promo")||text.includes("code bonus")||text.includes("quel est le code")||text==="code"){botReply("🔑 Le code promo utilisé dans les procédures est : <strong>8F9Y</strong>.");return}if(text.includes("inscription")||text.includes("inscrire")||text.includes("comment s inscrire")){startRegistrationChat();return}if(text.includes("apple")||text.includes("fortune")){startAppleChat();return}if(text.includes("des")||text.includes("dice")||text.includes("jeu des")){startDiceChat();return}if(text.includes("aviator")){startAviatorChat();return}if(text.includes("lucky jet")||text.includes("luckyjet")){startLuckyJetChat();return}if(text.includes("mine")){startMineChat();return}if(text.includes("fifa")||text.includes("score exact")||text.includes("scores exacts")){startFifaChat();return}if(text.includes("crash")){startCrashChat();return}if(text.includes("depot")||text.includes("depos")){botReply("Le parcours demande une recharge de <strong>1 500 F</strong>. Après la recharge, reviens ici avec ta preuve pour la vérification.");return}if(text.includes("bonjour")||text.includes("salut")||text.includes("bonsoir")||text.includes("hello")||text.includes("coucou")){botReply("Bonjour 👋 Je suis Jeff Pro. Choisis une question ci-dessus ou écris « Je veux le bot » et je te guiderai étape par étape.");return}botReply("🤖 Je peux te guider pour l’inscription, le code promo <strong>8F9Y</strong> et les procédures des différents jeux. Écris « Je veux le bot » ou choisis une question ci-dessus.")}
 function handleEnter(e){if(e.key==="Enter")sendMessage()}
 
