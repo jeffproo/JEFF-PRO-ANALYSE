@@ -755,3 +755,113 @@ function handleEnter(e){if(e.key==="Enter")sendMessage()}
   };
 })();
 </script>
+
+<!-- ===== JEFF PRO : AJOUTS (compteur 1→1000, notifications 1000 prénoms, animation d'écriture) ===== -->
+<style id="jp-add-style">
+/* 1) Compteur d'inscrits, sous l'en-tête */
+:root{--jp-counter-h:38px;}
+body{padding-top:calc(var(--jp-header-h) + var(--jp-counter-h))!important;}
+#jpCounter{position:fixed;top:var(--jp-header-h);left:50%;transform:translateX(-50%);width:min(650px,100%);height:var(--jp-counter-h);z-index:99;display:flex;align-items:center;justify-content:center;gap:7px;background:#ede6ff;border-bottom:1px solid #ddd0fa;color:#5420ad;font-size:14px;font-weight:800;box-sizing:border-box;white-space:nowrap}
+#jpCounter .jp-star{font-size:13px;color:#7c2cff}
+#jpCounter b{font-weight:900;color:#4e17ba;font-variant-numeric:tabular-nums}
+@media(max-width:400px){#jpCounter{font-size:13px}}
+
+/* 2) Notification d'inscription, en bas */
+#jpToast{position:fixed;left:50%;bottom:calc(var(--jp-kb,0px) + 8px);width:min(630px,calc(100% - 20px));transform:translate(-50%,140%);opacity:0;z-index:300;display:flex;align-items:center;gap:11px;background:#fff;border:1px solid #e5d8fa;border-left:4px solid #6c2bd9;border-radius:12px;padding:10px 13px;box-shadow:0 8px 24px rgba(70,20,150,.22);box-sizing:border-box;pointer-events:none;transition:transform .45s cubic-bezier(.2,.9,.3,1),opacity .35s ease}
+#jpToast.show{transform:translate(-50%,0);opacity:1}
+#jpToast .jp-av{width:34px;height:34px;border-radius:50%;flex:0 0 34px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#7c2cff,#4e17ba);color:#fff;font-weight:900;font-size:15px}
+#jpToast .jp-tx{font-size:13.5px;line-height:1.3;color:#24194b;font-weight:500}
+#jpToast .jp-tx b{color:#5c22b8;font-weight:900}
+
+/* 3) Animation d'écriture : le contenu qui suit reste caché pendant la frappe */
+#chatMessages .message.jp-typing ~ *{display:none!important}
+.jp-caret{display:inline-block;width:2px;height:1em;background:#8c3cff;margin-left:1px;vertical-align:-2px;animation:jpBlink .7s steps(1) infinite}
+@keyframes jpBlink{50%{opacity:0}}
+</style>
+
+<div id="jpCounter" aria-live="polite"><span class="jp-star">★</span><b id="jpCount">1</b><span>personnes se sont inscrites aujourd'hui</span></div>
+<div id="jpToast" aria-hidden="true"><div class="jp-av" id="jpToastAv">S</div><div class="jp-tx"><b id="jpToastName">Solange</b> vient de s'inscrire avec le code promo <b>8F9Y</b> et a eu accès au bot 🔥</div></div>
+
+<script id="jp-add-js">
+(function(){
+  /* ---------- Réglages ---------- */
+  var COUNT_MIN_MS=5000, COUNT_MAX_MS=9400;  /* délai entre deux +1 du compteur : moyenne 7,2 s → 1000 en ≈ 2 h */
+  var TOAST_SHOW_MS=5500, TOAST_GAP_MS=2500; /* 8 s par prénom → 1000 prénoms en ≈ 2 h 13 */
+  var TYPE_TICK_MS=18, TYPE_MAX_MS=3800;    /* vitesse d'écriture / durée max d'un message */
+
+  /* ---------- 1) Compteur 1 → 1000 ---------- */
+  var count=1, cEl=document.getElementById('jpCount');
+  function tickCount(){
+    if(count>=1000) return;
+    count++; cEl.textContent=count;
+    setTimeout(tickCount, COUNT_MIN_MS+Math.random()*(COUNT_MAX_MS-COUNT_MIN_MS));
+  }
+  setTimeout(tickCount, 600);
+
+  /* ---------- 2) Notifications : 1000 prénoms différents ---------- */
+  var NAMES=["Léa", "Emma", "Chloé", "Camille", "Manon", "Inès", "Sarah", "Jade", "Louise", "Alice", "Lina", "Zoé", "Juliette", "Clara", "Eva", "Anna", "Lola", "Nina", "Mia", "Rose", "Jeanne", "Ambre", "Agathe", "Romane", "Margaux", "Pauline", "Océane", "Marion", "Laura", "Julie", "Marine", "Justine", "Charlotte", "Clémence", "Mathilde", "Élise", "Capucine", "Anaïs", "Lucie", "Noémie", "Salomé", "Axelle", "Coralie", "Aurélie", "Céline", "Sandrine", "Nathalie", "Valérie", "Isabelle", "Sophie", "Karine", "Florence", "Audrey", "Estelle", "Delphine", "Morgane", "Typhaine", "Solène", "Maëlle", "Lou", "Éloïse", "Victoire", "Adèle", "Apolline", "Joséphine", "Constance", "Albane", "Gaëlle", "Hélène", "Cécile", "Brigitte", "Monique", "Josiane", "Odile", "Colette", "Simone", "Yvette", "Martine", "Bernadette", "Ginette", "Liliane", "Mireille", "Danielle", "Chantal", "Francine", "Lucienne", "Denise", "Nadine", "Sylvie", "Corinne", "Patricia", "Véronique", "Stéphanie", "Émilie", "Élodie", "Marjorie", "Mélanie", "Vanessa", "Jessica", "Priscilla", "Laetitia", "Carine", "Sabrina", "Samantha", "Cindy", "Wendy", "Maëva", "Lisa", "Elsa", "Iris", "Lena", "Maya", "Nour", "Yasmine", "Sofia", "Mélissa", "Katia", "Anouk", "Faustine", "Gwenaëlle", "Héloïse", "Ludivine", "Maryse", "Muriel", "Noëlle", "Océanne", "Perrine", "Raphaëlle", "Sidonie", "Tiphaine", "Ursule", "Viviane", "Yolande", "Zélie", "Armelle", "Blandine", "Clotilde", "Domitille", "Eugénie", "Fanny", "Gisèle", "Hortense", "Irène", "Jacqueline", "Léonie", "Madeleine", "Nicole", "Ophélie", "Paulette", "Quitterie", "Rolande", "Suzanne", "Thérèse", "Valentine", "Violette", "Léana", "Maëlys", "Lyna", "Mila", "Jeannette", "Léontine", "Philomène", "Roselyne", "Solange", "Épiphanie", "Rosine", "Bénédicte", "Prisca", "Prudence", "Fidélia", "Larissa", "Euphrasie", "Géraldine", "Flore", "Edwige", "Eunice", "Aïcha", "Fatou", "Awa", "Aminata", "Mariama", "Khadija", "Rokia", "Safiatou", "Fatoumata", "Kadiatou", "Nafissatou", "Salimata", "Oumou", "Hawa", "Djénéba", "Mariam", "Bintou", "Aïssatou", "Ramatou", "Adjoa", "Akosua", "Afi", "Ama", "Abla", "Akouavi", "Sènami", "Mawuena", "Fadila", "Rafiatou", "Moufidatou", "Latifatou", "Sakinatou", "Wassila", "Mémounatou", "Adjara", "Zouera", "Ramanatou", "Ayélé", "Ayaba", "Mahouna", "Akpéné", "Ayoko", "Adjovi", "Akouvi", "Abra", "Kafui", "Sika", "Enyonam", "Mawuli", "Yawa", "Ablavi", "Afiwa", "Kossiwa", "Dzifa", "Éyram", "Elikplim", "Mawussi", "Akossiwa", "Sitsofé", "Affoué", "Amenan", "Adjoua", "Akissi", "Aya", "Ahou", "Amoin", "Tenin", "Massandjé", "Gnamien", "Yvonne", "Marguerite", "Pélagie", "Honorine", "Scholastique", "Clémentine", "Reine", "Espérance", "Providence", "Chancelle", "Grâce", "Merveille", "Divine", "Gloria", "Précieuse", "Bénie", "Déborah", "Esther", "Ruth", "Naomi", "Rébecca", "Rachel", "Judith", "Lydie", "Priscille", "Syntyche", "Tabitha", "Dorcas", "Phoebé", "Lois", "Salomée", "Sarra", "Myriam", "Élisabeth", "Marthe", "Marie", "Bernice", "Carole", "Cynthia", "Dalila", "Doriane", "Églantine", "Falonne", "Gaëtane", "Hermine", "Jocelyne", "Kelly", "Laurette", "Mélina", "Nancy", "Odette", "Pamela", "Régine", "Sabine", "Tatiana", "Uriel", "Wilhelmine", "Yasmina", "Zita", "Fabiola", "Fidélie", "Floriane", "Gertrude", "Huguette", "Ines", "Karelle", "Lorraine", "Murielle", "Nelly", "Olga", "Rosalie", "Stella", "Térésa", "Winnie", "Anicette", "Béatrice", "Carmen", "Diane", "Edna", "Félicité", "Georgette", "Hilda", "Ingrid", "Joëlle", "Kady", "Laïla", "Mina", "Nawel", "Oumaima", "Rania", "Salma", "Soumaya", "Wafa", "Zineb", "Assia", "Badiaa", "Chaïma", "Dounia", "Fatima", "Ghita", "Hajar", "Imane", "Jamila", "Kenza", "Leïla", "Meryem", "Nadia", "Ouarda", "Rim", "Sana", "Soukaina", "Samira", "Amel", "Farah", "Hind", "Ikram", "Lamia", "Malika", "Nabila", "Rabia", "Souad", "Sihem", "Yousra", "Zahra", "Amina", "Basma", "Dina", "Hanane", "Lucas", "Hugo", "Louis", "Nathan", "Gabriel", "Arthur", "Raphaël", "Léo", "Adam", "Jules", "Paul", "Tom", "Théo", "Noah", "Enzo", "Maxime", "Antoine", "Alexandre", "Clément", "Baptiste", "Quentin", "Romain", "Julien", "Thomas", "Nicolas", "Kévin", "Florian", "Mathieu", "Benjamin", "Vincent", "Sébastien", "Guillaume", "Damien", "Cédric", "Frédéric", "Laurent", "Philippe", "Pascal", "Thierry", "Olivier", "Christophe", "Stéphane", "Fabrice", "Ludovic", "Yannick", "Anthony", "Dylan", "Valentin", "Axel", "Bastien", "Corentin", "Dorian", "Étienne", "Gaspard", "Gaëtan", "Grégoire", "Henri", "Hervé", "Jérémy", "Jonathan", "Loïc", "Marc", "Michel", "Patrick", "Rémi", "Rodolphe", "Sylvain", "Tristan", "Xavier", "Yoann", "Aurélien", "Bertrand", "Denis", "Didier", "Éric", "Fabien", "Gilles", "Jacques", "Joël", "Lionel", "Marcel", "Médéric", "Norbert", "Régis", "Serge", "Yves", "Alain", "Bruno", "Claude", "Daniel", "Eliott", "Évan", "Gabin", "Ilan", "Kylian", "Lenny", "Malo", "Mathis", "Nolan", "Oscar", "Pierre", "Rayan", "Sacha", "Timéo", "Victor", "Yanis", "Alexis", "Anatole", "Augustin", "Barnabé", "Cyprien", "Dimitri", "Edgar", "Félix", "Gustave", "Hector", "Isidore", "Jérôme", "Léon", "Martin", "Octave", "Pacôme", "Robin", "Samuel", "Théophile", "Ulysse", "Valère", "Wilfrid", "Yvan", "Zacharie", "Wilfried", "Hermann", "Rodrigue", "Donatien", "Fulbert", "Parfait", "Romuald", "Aristide", "Landry", "Cyriaque", "Désiré", "Séraphin", "Constant", "Césaire", "Gildas", "Gédéon", "Arnaud", "Éloi", "Hippolyte", "Prosper", "Sylvestre", "Fortuné", "Armel", "Brice", "Cyrille", "Dieudonné", "Emmanuel", "Ghislain", "Hyacinthe", "Innocent", "Léonce", "Modeste", "Narcisse", "Privat", "Rigobert", "Ulrich", "Abdoul", "Ibrahim", "Moussa", "Mamadou", "Ousmane", "Seydou", "Souleymane", "Issa", "Idrissa", "Boubacar", "Cheikh", "Modou", "Pape", "Lamine", "Alassane", "Abdoulaye", "Amadou", "Oumar", "Karim", "Bakary", "Sékou", "Mahamadou", "Salif", "Drissa", "Yacouba", "Lassana", "Adama", "Aliou", "Tidiane", "Moctar", "Ismaël", "Kader", "Rachid", "Samir", "Yassine", "Mehdi", "Walid", "Bilal", "Omar", "Hamza", "Ayoub", "Anis", "Amine", "Nabil", "Farid", "Sofiane", "Ilyes", "Zakaria", "Soufiane", "Tarik", "Jamal", "Mounir", "Hicham", "Redouane", "Mourad", "Younès", "Idriss", "Marwan", "Nassim", "Sami", "Jawad", "Khalil", "Nadir", "Brahim", "Mustapha", "Abdelkader", "Abdel", "Hakim", "Hassan", "Hussein", "Jaouad", "Kamel", "Lotfi", "Mohamed", "Noureddine", "Othmane", "Saïd", "Tahar", "Yacine", "Zinédine", "Kouamé", "Kouadio", "Konan", "Kouassi", "Yao", "Koffi", "Kofi", "Kwame", "Kwabena", "Kwaku", "Yaw", "Kwasi", "Kodjo", "Komlan", "Kokou", "Kossi", "Mensah", "Ayité", "Edem", "Elom", "Yawovi", "Agbéko", "Dossou", "Codjo", "Houénou", "Sèmèvo", "Aimé", "Théodore", "Clovis", "Gérard", "Basile", "Ferdinand", "Eustache", "Hilaire", "Ignace", "Justin", "Kléber", "Lazare", "Maurice", "Nestor", "Urbain", "Yvon", "Zéphirin", "Alphonse", "Anselme", "Anicet", "Apollinaire", "Aubin", "Aurèle", "Bonaventure", "Calixte", "Célestin", "Chrysostome", "Damase", "Éphrem", "Eugène", "Évariste", "Faustin", "Firmin", "Fidèle", "Florent", "Gaspar", "Honoré", "Isaac", "Jonas", "Josué", "Judicaël", "Lambert", "Léandre", "Mathurin", "Nicaise", "Noé", "Pantaléon", "Prudent", "Raoul", "Roméo", "Salomon", "Siméon", "Stanislas", "Tobie", "Vital", "Euloge", "Fiacre", "Bienvenu", "Béni", "Cadet", "Chrétien", "Dorothée", "Elvis", "Franck", "Gaël", "Habib", "Jordan", "Kevin", "Larry", "Mike", "Nelson", "Oswald", "Patrice", "Ruben", "Steve", "Trésor", "Victorien", "Warren", "Yohan", "Zinsou", "Abel", "Achille", "Adélaïde", "Adrien", "Alban", "Albert", "Alfred", "Ambroise", "André", "Angelo", "Armand", "Aymeric", "Balthazar", "Bastian", "Benoît", "Bernard", "Blaise", "Boris", "Brandon", "Brieuc", "Carlos", "Cédrick", "Charles", "Christian", "Cyril", "David", "Dominique", "Donovan", "Édouard", "Élie", "Elias", "Emeric", "Emilien", "Ernest", "Esteban", "Ezéchiel", "Fernand", "Fiston", "Flavien", "Francis", "François", "Fred", "Gautier", "Geoffrey", "Georges", "Gérald", "Ghyslain", "Gianni", "Giovanni", "Gontran", "Grégory", "Harold", "Hugues", "Jason", "Jean", "Jocelyn", "Josias", "Joseph", "Jude", "Karl", "Kenny", "Kilian", "Léopold", "Lilian", "Luc", "Marius", "Mario", "Mathéo", "Matthias", "Maximilien", "Morgan", "Nathanaël", "Néhémie", "Noël", "Orlando", "Pacifique", "Paulin", "Philémon", "Pierrick", "Rafaël", "Raymond", "René", "Richard", "Rolland", "Ronan", "Rudy", "Salvador", "Sidoine", "Simon", "Stéphen", "Sylvère", "Tanguy", "Teddy", "Théodule", "Timothée", "Tony", "Vivien", "Yann", "Yohann", "Zachée", "Adjo", "Akouété", "Agossou", "Amavi", "Bernardin", "Dodji", "Edoh", "Eyram", "Folly", "Kadjo", "Kangni", "Kossivi", "Kpatcha", "Sénamé", "Sewa", "Togbé", "Tchalla", "Yaovi", "Aké", "Ahmed", "Bamba", "Bakayoko", "Bi", "Dago", "Dobé", "Gbagbo", "Gnagne", "Guy", "Lago", "Mathias", "Moro", "Nanan", "Sidiki", "Soro", "Tiémoko", "Tra", "Vamara", "Yéo", "Zadi", "Zahui", "Zoumana", "Mory", "Fodé", "Ibou", "Kalidou", "Libasse", "Mbaye", "Ndiaga", "Ndiaye", "Ousseynou", "Samba", "Serigne", "Thierno", "Waly", "Yoro", "Abou", "Boureima", "Daouda", "Gaoussou", "Harouna", "Issouf", "Lanciné", "Mahama", "Nouhoum", "Oumarou", "Siaka", "Tiéba", "Zakari", "Alexandrine", "Chimène", "Anastasie", "Basilie", "Bérénice", "Cassandre", "Cléophée", "Évelyne", "Fabienne", "Ghislaine", "Isaure", "Jeannine", "Karolane", "Lorène", "Maïmouna", "Néné", "Ophélia", "Pascaline", "Rosemonde", "Sylvanie", "Thaïs", "Urielle", "Vanina", "Wivine", "Zénaïde", "Abibatou", "Aïda", "Bibata", "Chérifa", "Dieynaba", "Fanta", "Habibatou", "Lalla", "Maïmounata", "Nana", "Penda", "Ramata", "Tata", "Zeïnab", "Adeline", "Albertine", "Alexia", "Alix", "Amandine", "Ambroisine", "Angèle", "Angélique", "Annabelle", "Annick", "Antoinette", "Arlette", "Aurore", "Barbara", "Bérengère", "Betty", "Candice", "Carla", "Cassie", "Catherine", "Cathy", "Chrystelle", "Claire", "Claudia", "Clarisse", "Cléo", "Clélia", "Corine", "Daphné", "Édith", "Eléonore", "Élia", "Élina", "Elvire", "Emmanuelle", "Ernestine", "Eve", "Fiona", "Flavie", "Gabrielle", "Gwendoline", "Inaya", "Ivana", "Jenny", "Jeanne-Marie", "Joanna", "Julia", "Juliane", "Kamélia", "Karen", "Katy", "Lauriane", "Léane", "Leslie", "Liana", "Linda", "Lorena", "Lorie", "Louane", "Lucile", "Luna", "Lydia", "Magali", "Maëlie", "Maud", "Mégane", "Mélodie", "Mylène"];
+  for(var i=NAMES.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=NAMES[i];NAMES[i]=NAMES[j];NAMES[j]=t;}
+  var idx=0, toast=document.getElementById('jpToast'), tName=document.getElementById('jpToastName'), tAv=document.getElementById('jpToastAv');
+  function nextToast(){
+    if(idx>=NAMES.length) return;               /* les 1000 prénoms ont tous été affichés une fois */
+    var n=NAMES[idx++];
+    tName.textContent=n; tAv.textContent=n.charAt(0).toUpperCase();
+    toast.classList.add('show');
+    setTimeout(function(){
+      toast.classList.remove('show');
+      setTimeout(nextToast, TOAST_GAP_MS);
+    }, TOAST_SHOW_MS);
+  }
+  setTimeout(nextToast, 1500);
+
+  /* ---------- 3) Animation d'écriture des réponses de JEFF PRO ---------- */
+  function typeIn(el){
+    var steps=[], total=0;
+    var w=document.createTreeWalker(el,NodeFilter.SHOW_TEXT|NodeFilter.SHOW_ELEMENT,null);
+    var n;
+    while((n=w.nextNode())){
+      if(n.nodeType===3){
+        if(n.nodeValue.length){steps.push({t:n,full:n.nodeValue});total+=n.nodeValue.length;n.nodeValue='';}
+      }else if(n.tagName==='IMG'){
+        steps.push({img:n,disp:n.style.display});n.style.display='none';
+      }
+    }
+    if(!steps.length) return;
+    el.classList.add('jp-typing');
+    var caret=document.createElement('span');caret.className='jp-caret';
+    var perTick=Math.max(1,Math.ceil(total/(TYPE_MAX_MS/TYPE_TICK_MS)));
+    var si=0, ci=0;
+    function place(node){ if(node.parentNode){ node.parentNode.insertBefore(caret,node.nextSibling);} }
+    function follow(){
+      var m=document.getElementById('chatMessages');
+      var last=el.classList.contains('jp-typing')?el:(m&&m.lastElementChild)||el;
+      try{last.scrollIntoView({block:'nearest'});}catch(e){}
+    }
+    var timer=setInterval(function(){
+      var left=perTick;
+      while(left>0 && si<steps.length){
+        var s=steps[si];
+        if(s.img){ s.img.style.display=s.disp; si++; continue; }
+        var take=Math.min(left,s.full.length-ci);
+        ci+=take; left-=take;
+        s.t.nodeValue=s.full.slice(0,ci);
+        place(s.t);
+        if(ci>=s.full.length){si++;ci=0;}
+      }
+      if(si>=steps.length){
+        clearInterval(timer);
+        if(caret.parentNode) caret.parentNode.removeChild(caret);
+        el.classList.remove('jp-typing');
+        var m=document.getElementById('chatMessages');
+        var lastEl=m&&m.lastElementChild; if(lastEl){try{lastEl.scrollIntoView({block:'nearest'});}catch(e){}}
+      }else{follow();}
+    },TYPE_TICK_MS);
+  }
+  var origAdd=window.addMessage;
+  window.addMessage=function(text,type){
+    var d=origAdd.apply(this,arguments);
+    if(type==='bot-message' && d) typeIn(d);
+    return d;
+  };
+})();
+</script>
