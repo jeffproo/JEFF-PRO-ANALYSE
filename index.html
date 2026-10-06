@@ -865,3 +865,22 @@ body{padding-top:calc(var(--jp-header-h) + var(--jp-counter-h))!important;}
   };
 })();
 </script>
+
+<style id="jp-reduce-style">
+/* « Réduire » : masque aussi le code promo et la chaîne ; « Afficher » remet tout */
+body.jp-reduced .contact-section{display:none!important}
+body.jp-reduced .platform-section{bottom:calc(var(--jp-input-h) + var(--jp-kb,0px))!important;height:42px!important;padding:6px 14px!important}
+body.jp-reduced .platform-heading{height:30px!important;margin:0!important}
+body.jp-reduced .reduce-btn{padding:5px 10px!important}
+body.jp-reduced{padding-bottom:calc(42px + var(--jp-input-h) + 4px)!important}
+</style>
+<script id="jp-reduce-js">
+(function(){
+  var orig=window.togglePlatforms;
+  window.togglePlatforms=function(){
+    if(typeof orig==='function') orig.apply(this,arguments);
+    var s=document.getElementById('platformSection');
+    document.body.classList.toggle('jp-reduced', !!(s&&s.classList.contains('collapsed')));
+  };
+})();
+</script>
