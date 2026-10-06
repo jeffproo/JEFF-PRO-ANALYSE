@@ -884,3 +884,37 @@ body.jp-reduced{padding-bottom:calc(42px + var(--jp-input-h) + 4px)!important}
   };
 })();
 </script>
+
+<script id="jp-keyboard-js">
+/* Clavier iPhone : les blocs fixes (en-tête, compteur, plateformes, code promo, champ d'écriture, notification)
+   restent collés à la zone réellement visible. Seul le clavier pousse le champ d'écriture, il ne suit plus le défilement. */
+(function(){
+  var vv=window.visualViewport;
+  if(!vv||!(window.CSS&&CSS.supports&&CSS.supports('translate','0 0')))return;
+  var top=[],bottom=[],raf=0;
+  function collect(){
+    top=[].slice.call(document.querySelectorAll('.header,#jpCounter'));
+    bottom=[].slice.call(document.querySelectorAll('.platform-section,.contact-section,.chat-input-row,#jpToast'));
+  }
+  function apply(){
+    raf=0;
+    var off=Math.max(0,vv.offsetTop);
+    var kb=Math.max(0,window.innerHeight-vv.height-vv.offsetTop);
+    var ty=off, by=-kb;
+    top.forEach(function(e){e.style.translate=ty?('0 '+ty+'px'):'';});
+    bottom.forEach(function(e){e.style.translate=by?('0 '+by+'px'):'';});
+  }
+  function schedule(){ if(!raf) raf=requestAnimationFrame(apply); }
+  collect();
+  vv.addEventListener('resize',schedule);
+  vv.addEventListener('scroll',schedule);
+  window.addEventListener('scroll',schedule,{passive:true});
+  window.addEventListener('orientationchange',function(){setTimeout(schedule,300);});
+  var inp=document.getElementById('chatInput');
+  if(inp){
+    inp.addEventListener('focus',function(){schedule();setTimeout(schedule,120);setTimeout(schedule,350);setTimeout(schedule,700);});
+    inp.addEventListener('blur',function(){setTimeout(schedule,50);setTimeout(schedule,350);});
+  }
+  schedule();
+})();
+</script>
