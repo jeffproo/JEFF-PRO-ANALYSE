@@ -884,105 +884,6 @@ body.jp-reduced{padding-bottom:calc(42px + var(--jp-input-h) + 4px)!important}
   };
 })();
 </script>
-
-<script id="jp-keyboard-js">
-/* Clavier iPhone : les blocs fixes (en-tête, compteur, plateformes, code promo, champ d'écriture, notification)
-   restent collés à la zone réellement visible. Seul le clavier pousse le champ d'écriture, il ne suit plus le défilement. */
-(function(){
-  var vv=window.visualViewport;
-  if(!vv||!(window.CSS&&CSS.supports&&CSS.supports('translate','0 0')))return;
-  var top=[],bottom=[],raf=0;
-  function collect(){
-    top=[].slice.call(document.querySelectorAll('.header,#jpCounter'));
-    bottom=[].slice.call(document.querySelectorAll('.platform-section,.contact-section,.chat-input-row,#jpToast'));
-  }
-  function apply(){
-    raf=0;
-    var off=Math.max(0,vv.offsetTop);
-    var kb=Math.max(0,window.innerHeight-vv.height-vv.offsetTop);
-    var ty=off, by=-kb;
-    top.forEach(function(e){e.style.translate=ty?('0 '+ty+'px'):'';});
-    bottom.forEach(function(e){e.style.translate=by?('0 '+by+'px'):'';});
-  }
-  function schedule(){ if(!raf) raf=requestAnimationFrame(apply); }
-  collect();
-  vv.addEventListener('resize',schedule);
-  vv.addEventListener('scroll',schedule);
-  window.addEventListener('scroll',schedule,{passive:true});
-  window.addEventListener('orientationchange',function(){setTimeout(schedule,300);});
-  var inp=document.getElementById('chatInput');
-  if(inp){
-    inp.addEventListener('focus',function(){schedule();setTimeout(schedule,120);setTimeout(schedule,350);setTimeout(schedule,700);});
-    inp.addEventListener('blur',function(){setTimeout(schedule,50);setTimeout(schedule,350);});
-  }
-  schedule();
-})();
-</script>
-
-<script id="jp-keyboard-lock-js">
-/* Clavier ouvert = vraie conversation façon WhatsApp :
-   la page est figée, la discussion défile toute seule entre l'en-tête et le champ d'écriture,
-   le champ reste collé au clavier, et les nouvelles réponses descendent automatiquement. */
-(function(){
-  var vv=window.visualViewport, inp=document.getElementById('chatInput'), box=document.querySelector('.container');
-  if(!vv||!inp||!box)return;
-  var locked=false,savedY=0,raf=0,atBottom=true,obs=null;
-  var props=['position','top','left','right','margin','width','maxWidth','height','overflowY','overflowX','paddingTop','paddingBottom','boxSizing','overscrollBehavior','webkitOverflowScrolling'];
-  function stackH(){
-    var ir=document.querySelector('.chat-input-row'),cs=document.querySelector('.contact-section'),ps=document.querySelector('.platform-section');
-    return (ir?ir.offsetHeight:0)+((cs&&cs.offsetParent!==null)?cs.offsetHeight:0)+(ps?ps.offsetHeight:0);
-  }
-  function topPad(){
-    var hd=document.querySelector('.header'),ct=document.getElementById('jpCounter');
-    return (hd?hd.offsetHeight:0)+(ct?ct.offsetHeight:0);
-  }
-  function layout(){
-    raf=0; if(!locked)return;
-    var h=Math.max(120,vv.height-stackH());
-    box.style.top=Math.max(0,vv.offsetTop)+'px';
-    box.style.height=h+'px';
-    if(atBottom) box.scrollTop=box.scrollHeight;
-  }
-  function sched(){ if(!raf) raf=requestAnimationFrame(layout); }
-  function onScroll(){ atBottom=(box.scrollHeight-box.scrollTop-box.clientHeight)<120; }
-  function lock(){
-    if(locked)return; locked=true;
-    savedY=window.pageYOffset||document.documentElement.scrollTop||0;
-    var b=document.body;
-    b.style.position='fixed';b.style.top=(-savedY)+'px';b.style.left='0';b.style.right='0';b.style.width='100%';
-    document.documentElement.style.overflow='hidden';
-    var s=box.style;
-    s.position='fixed';s.left='0';s.right='0';s.margin='0 auto';s.width='100%';s.maxWidth='650px';
-    s.overflowY='auto';s.overflowX='hidden';s.boxSizing='border-box';s.overscrollBehavior='contain';s.webkitOverflowScrolling='touch';
-    s.paddingTop=topPad()+'px';s.paddingBottom='10px';
-    layout();
-    box.scrollTop=box.scrollHeight; atBottom=true;
-    box.addEventListener('scroll',onScroll,{passive:true});
-    var m=document.getElementById('chatMessages');
-    if(m&&window.MutationObserver){obs=new MutationObserver(sched);obs.observe(m,{childList:true,subtree:true,characterData:true});}
-  }
-  function unlock(){
-    if(!locked)return; locked=false;
-    if(obs){obs.disconnect();obs=null;}
-    box.removeEventListener('scroll',onScroll);
-    var y=box.scrollTop;
-    props.forEach(function(k){box.style[k]='';});
-    var b=document.body;
-    b.style.position='';b.style.top='';b.style.left='';b.style.right='';b.style.width='';
-    document.documentElement.style.overflow='';
-    window.scrollTo(0,y);
-  }
-  window.jpForceBottom=function(){
-    atBottom=true;
-    if(locked){ sched(); box.scrollTop=box.scrollHeight; }
-  };
-  inp.addEventListener('focus',function(){lock();setTimeout(sched,120);setTimeout(sched,350);setTimeout(sched,800);});
-  inp.addEventListener('blur',function(){setTimeout(function(){ if(document.activeElement!==inp)unlock(); },60);});
-  vv.addEventListener('resize',function(){ if(locked)sched(); });
-  vv.addEventListener('scroll',function(){ if(locked)sched(); });
-})();
-</script>
-
 <script id="jp-follow-answer-js">
 /* Quand l'abonné pose une question (même après avoir remonté l'historique),
    la conversation redescend automatiquement et suit la réponse qui s'écrit. */
@@ -1008,5 +909,17 @@ body.jp-reduced{padding-bottom:calc(42px + var(--jp-input-h) + 4px)!important}
     if(type==='user-message') startFollow();
     return d;
   };
+})();
+</script>
+
+<style id="jp-kb-style">
+/* Clavier ouvert : seul le champ d'écriture reste au-dessus du clavier (comme WhatsApp) */
+body.jp-kb .platform-section,body.jp-kb .contact-section,body.jp-kb #jpToast{display:none!important}
+</style>
+<script id="jp-kb-js">
+(function(){
+  var i=document.getElementById('chatInput'); if(!i)return;
+  i.addEventListener('focus',function(){document.body.classList.add('jp-kb');});
+  i.addEventListener('blur',function(){setTimeout(function(){ if(document.activeElement!==i) document.body.classList.remove('jp-kb'); },120);});
 })();
 </script>
