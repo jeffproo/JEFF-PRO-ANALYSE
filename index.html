@@ -487,7 +487,7 @@ function handleEnter(e){if(e.key==="Enter")sendMessage()}
 </style>
 <script id="jeff-telegram-gate-js">
 (function(){
-  var DURATION=5*60*1000;
+  var DURATION=60*1000;
   var startedAt=0;
   function format(ms){
     var total=Math.max(0,Math.ceil(ms/1000));
@@ -502,7 +502,7 @@ function handleEnter(e){if(e.key==="Enter")sendMessage()}
     var unlocked=gate.querySelector('.telegram-bot-unlocked');
     var note=gate.querySelector('.telegram-countdown-note');
     startedAt=Date.now();
-    if(countdown)countdown.textContent='05:00';
+    if(countdown)countdown.textContent='01:00';
     if(lock)lock.style.display='block';
     if(unlocked)unlocked.style.display='none';
     if(note)note.style.display='block';
@@ -514,7 +514,7 @@ function handleEnter(e){if(e.key==="Enter")sendMessage()}
         window.__jeffTelegramTimer=null;
         if(lock)lock.style.display='none';
         if(unlocked)unlocked.style.display='block';
-        if(note)note.innerHTML='✅ Le délai de 5 minutes est écoulé. Le bot est maintenant accessible.';
+        if(note)note.innerHTML='✅ Le délai de 1 minute est écoulé. Le bot est maintenant accessible.';
         return;
       }
       if(countdown)countdown.textContent=format(left);
