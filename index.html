@@ -911,15 +911,3 @@ body.jp-reduced{padding-bottom:calc(42px + var(--jp-input-h) + 4px)!important}
   };
 })();
 </script>
-
-<style id="jp-kb-style">
-/* Clavier ouvert : seul le champ d'écriture reste au-dessus du clavier (comme WhatsApp) */
-body.jp-kb .platform-section,body.jp-kb .contact-section,body.jp-kb #jpToast{display:none!important}
-</style>
-<script id="jp-kb-js">
-(function(){
-  var i=document.getElementById('chatInput'); if(!i)return;
-  i.addEventListener('focus',function(){document.body.classList.add('jp-kb');});
-  i.addEventListener('blur',function(){setTimeout(function(){ if(document.activeElement!==i) document.body.classList.remove('jp-kb'); },120);});
-})();
-</script>
