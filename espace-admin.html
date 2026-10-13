@@ -54,13 +54,43 @@ button{font:inherit;cursor:pointer;border:0;border-radius:10px;padding:11px 14px
   </div>
 
   <div id="panel" hidden>
-    <div class="tabs"><button class="on" data-t="abonnes">Abonnés</button><button class="b-ghost" data-t="pronos">Pronos VIP</button><button class="b-ghost" data-t="preuves">Preuves</button><button class="b-ghost" data-t="logos">Logos</button><button class="b-ghost" id="out2">Quitter</button></div>
+    <div class="tabs"><button class="on" data-t="abonnes">Abonnés</button><button class="b-ghost" data-t="matchs">Matchs</button><button class="b-ghost" data-t="pronos">Pronos VIP</button><button class="b-ghost" data-t="preuves">Preuves</button><button class="b-ghost" data-t="logos">Logos</button><button class="b-ghost" id="out2">Quitter</button></div>
 
     <div id="t-abonnes">
       <h2>Abonnés</h2>
       <input id="search" placeholder="Rechercher un email…">
       <p class="count" id="count" style="margin-top:8px"></p>
       <div class="card" id="users" style="padding:4px 16px"></div>
+    </div>
+
+    <div id="t-matchs" hidden>
+      <h2 id="mTitle">Ajouter un match</h2>
+      <form class="card" id="mForm" novalidate>
+        <div class="grid">
+          <div><label>Compétition</label><input id="ml" list="mLigues" placeholder="Ligue 1"><datalist id="mLigues"><option value="Premier League"><option value="Ligue 1"><option value="Serie A"><option value="LaLiga"><option value="Bundesliga"><option value="Championship"><option value="Ligue des champions"><option value="Brasileirão"></datalist></div>
+          <div><label>Date et heure</label><input id="md" type="datetime-local"></div>
+          <div><label>Équipe domicile</label><input id="mh" list="lclubs" placeholder="Équipe A"></div>
+          <div><label>Équipe extérieur</label><input id="ma" list="lclubs" placeholder="Équipe B"></div>
+        </div>
+        <label>Pronostic gratuit</label>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px">
+          <button type="button" class="b-ghost" data-q="1">Victoire A</button>
+          <button type="button" class="b-ghost" data-q="1X">A ou nul (1X)</button>
+          <button type="button" class="b-ghost" data-q="X2">B ou nul (X2)</button>
+          <button type="button" class="b-ghost" data-q="2">Victoire B</button>
+        </div>
+        <input id="mp" placeholder="Ex : Victoire PSG">
+        <div class="grid">
+          <div><label>Cote (facultatif)</label><input id="mc" placeholder="1.45"></div>
+          <div><label>Confiance</label><select id="mf"><option>Forte</option><option>Moyenne</option><option>Très forte</option></select></div>
+        </div>
+        <button class="b-amber full" id="mSave">AJOUTER LE MATCH</button>
+        <button type="button" class="b-ghost full" id="mCancel" hidden style="margin-top:8px">Annuler la modification</button>
+        <p class="msg" id="mMsg"></p>
+      </form>
+      <h2>Matchs à venir</h2>
+      <div id="mImport" hidden class="card"><p class="msg" style="margin:0 0 10px">Aucun match enregistré ici. Ta page affiche pour l'instant les matchs du fichier. Importe-les pour pouvoir les modifier :</p><button class="b-dark full" id="mImportBtn">IMPORTER LES MATCHS ACTUELS</button></div>
+      <div class="card" id="mlist" style="padding:4px 16px"></div>
     </div>
 
     <div id="t-logos" hidden>
@@ -148,7 +178,7 @@ else{
 
   document.querySelectorAll("[data-t]").forEach(b=>b.onclick=()=>{
     document.querySelectorAll("[data-t]").forEach(x=>{x.classList.toggle("on",x===b);x.classList.toggle("b-ghost",x!==b)});
-    $("#t-abonnes").hidden=b.dataset.t!=="abonnes";$("#t-pronos").hidden=b.dataset.t!=="pronos";$("#t-preuves").hidden=b.dataset.t!=="preuves";$("#t-logos").hidden=b.dataset.t!=="logos";});
+    $("#t-abonnes").hidden=b.dataset.t!=="abonnes";$("#t-pronos").hidden=b.dataset.t!=="pronos";$("#t-preuves").hidden=b.dataset.t!=="preuves";$("#t-logos").hidden=b.dataset.t!=="logos";$("#t-matchs").hidden=b.dataset.t!=="matchs";});
 
   A.onAuthStateChanged(auth,user=>{
     unsubs.forEach(u=>u());unsubs=[];
@@ -177,6 +207,16 @@ else{
   $("#search").oninput=drawUsers;
 
   function startPanel(){
+    unsubs.push(F.onSnapshot(F.collection(db,"matchs"),s=>{
+      const now=Date.now()-3*3600e3;
+      const docs=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>new Date(a.date)-new Date(b.date));
+      matchById={};docs.forEach(m=>matchById[m.id]=m);
+      $("#mImport").hidden=!s.empty;
+      const up=docs.filter(m=>new Date(m.date).getTime()>now);
+      $("#mlist").innerHTML=up.length?up.map(m=>'<div class="row"><div class="e"><b>'+esc(m.dom)+' vs '+esc(m.ext)+'</b><small>'+esc(m.ligue)+' · '+esc(new Date(m.date).toLocaleString("fr-FR",{weekday:"short",day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"}))+'<br>'+(m.prono?'✅ '+esc(m.prono)+(m.cote?' @ '+esc(m.cote):''):'⏳ pas encore de prono')+'</small></div><div style="display:grid;gap:6px;flex:none"><button class="b-ghost" data-medit="'+esc(m.id)+'">Modifier</button><button class="b-red" data-mdel="'+esc(m.id)+'">Supprimer</button></div></div>').join(""):'<p class="msg" style="padding:12px 0">Aucun match à venir.</p>';
+      document.querySelectorAll("[data-mdel]").forEach(b=>b.onclick=async()=>{if(confirm("Supprimer ce match ?"))await F.deleteDoc(F.doc(db,"matchs",b.dataset.mdel))});
+      document.querySelectorAll("[data-medit]").forEach(b=>b.onclick=()=>editMatch(b.dataset.medit));
+    },e=>{$("#mlist").innerHTML='<p class="msg err" style="padding:12px 0">Accès refusé : mets à jour les règles Firestore (matchs).</p>'}));
     unsubs.push(F.onSnapshot(F.collection(db,"logos"),s=>{
       $("#llist").innerHTML=s.empty?'<p class="msg" style="padding:12px 0">Aucun logo enregistré.</p>':s.docs.map(d=>{const p=d.data();
         return '<div class="row"><img src="'+esc(p.image)+'" style="width:40px;height:40px;object-fit:contain;flex:none"><div class="e"><b>'+esc(p.nom)+'</b></div><button class="b-red" data-ldel="'+esc(d.id)+'">Supprimer</button></div>'}).join("");
@@ -239,6 +279,30 @@ else{
   let qData="";
   $("#qimg").onchange=async()=>{const f=$("#qimg").files[0];qData="";$("#qprev").style.display="none";if(!f)return;
     try{qData=await compress(f);$("#qprev").src=qData;$("#qprev").style.display="block"}catch(e){alert("Image illisible, essaie une autre capture.")}};
+  // ---- Matchs ----
+  let matchById={},editId=null;
+  document.querySelectorAll("[data-q]").forEach(b=>b.onclick=()=>{const A=$("#mh").value.trim()||"Équipe A",B=$("#ma").value.trim()||"Équipe B";
+    $("#mp").value={"1":"Victoire "+A,"1X":"Double chance : "+A+" ou nul (1X)","X2":"Double chance : "+B+" ou nul (X2)","2":"Victoire "+B}[b.dataset.q]});
+  function resetMatch(){editId=null;$("#mForm").reset();$("#mTitle").textContent="Ajouter un match";$("#mSave").textContent="AJOUTER LE MATCH";$("#mCancel").hidden=true}
+  function editMatch(id){const m=matchById[id];if(!m)return;editId=id;
+    $("#ml").value=m.ligue||"";$("#md").value=(m.date||"").slice(0,16);$("#mh").value=m.dom||"";$("#ma").value=m.ext||"";
+    $("#mp").value=m.prono||"";$("#mc").value=m.cote||"";$("#mf").value=m.confiance||"Forte";
+    $("#mTitle").textContent="Modifier le match";$("#mSave").textContent="ENREGISTRER LES MODIFICATIONS";$("#mCancel").hidden=false;$("#mMsg").textContent="";
+    $("#mTitle").scrollIntoView({behavior:"smooth"})}
+  $("#mCancel").onclick=resetMatch;
+  $("#mForm").onsubmit=async e=>{e.preventDefault();const m=$("#mMsg"),btn=$("#mSave");
+    const data={ligue:$("#ml").value.trim(),date:$("#md").value,dom:$("#mh").value.trim(),ext:$("#ma").value.trim(),prono:$("#mp").value.trim(),cote:$("#mc").value.trim(),confiance:$("#mf").value,analyse:"",vip:false};
+    if(!data.ligue||!data.date||!data.dom||!data.ext){m.className="msg err";m.textContent="Remplis la compétition, la date et les deux équipes.";return}
+    btn.disabled=true;
+    try{if(editId)await F.setDoc(F.doc(db,"matchs",editId),data);else await F.addDoc(F.collection(db,"matchs"),data);
+      m.className="msg ok";m.textContent=editId?"✅ Match modifié.":"✅ Match ajouté : il est déjà sur ta page.";resetMatch();}
+    catch(err){m.className="msg err";m.textContent="Erreur : mets à jour les règles Firestore (matchs).";}
+    finally{btn.disabled=false}};
+  $("#mImportBtn").onclick=async()=>{const list=(typeof MATCHS!=="undefined"?MATCHS:[]);if(!list.length)return;
+    $("#mImportBtn").disabled=true;$("#mImportBtn").textContent="Import en cours…";
+    try{for(const x of list)await F.addDoc(F.collection(db,"matchs"),{ligue:x.ligue,date:x.date,dom:x.dom,ext:x.ext,prono:x.prono||"",cote:x.cote||"",confiance:x.confiance||"",analyse:x.analyse||"",vip:false});}
+    catch(e){alert("Erreur : mets à jour les règles Firestore (matchs).");$("#mImportBtn").disabled=false;$("#mImportBtn").textContent="IMPORTER LES MATCHS ACTUELS"}};
+
   // ---- Logos ----
   try{const names=[...new Set((typeof MATCHS!=="undefined"?MATCHS:[]).flatMap(m=>[m.dom,m.ext]))].sort();
     $("#lclubs").innerHTML=names.map(n=>'<option value="'+esc(n)+'">').join("");}catch(e){}

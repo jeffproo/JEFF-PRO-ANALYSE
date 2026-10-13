@@ -124,6 +124,29 @@ input[type=file]{padding:9px;background:#fafbfc}
 .vp .pr{display:flex;justify-content:space-between;background:var(--bg);border-radius:8px;padding:10px;font-size:14px}
 .hdr-vip{font-family:"Bebas Neue";font-size:24px;margin:6px 0 10px;display:flex;align-items:center;gap:8px}
 [hidden]{display:none!important}
+/* Écran de connexion */
+#gate{display:none;min-height:100vh;background:var(--bg);padding:0 0 40px}
+body.locked #gate,body.pending #gate{display:block}
+body.locked>header,body.locked>main,body.locked>footer,body.locked>.tabbar,
+body.pending>header,body.pending>main,body.pending>footer,body.pending>.tabbar{display:none!important}
+body.locked,body.pending{padding-bottom:0}
+#gate .gtop{background:var(--navy);color:#fff;padding:22px 0 26px}
+#gate .gtitle{font-family:"Bebas Neue";font-size:44px;display:flex;align-items:center;gap:10px;margin:26px 0 14px;color:var(--navy)}
+#gate .gcode{display:inline-flex;gap:8px;align-items:center;background:rgba(255,178,30,.15);border:1px dashed var(--amber);color:#fff;border-radius:10px;padding:6px 12px;margin-top:10px;font-size:13px}
+#gate .gcode b{color:var(--amber);font-family:"Bebas Neue";font-size:22px;letter-spacing:3px}
+#gate .gload{text-align:center;color:var(--muted);padding:30px 0}
+body.pending #gateForm{display:none}body:not(.pending) #gate .gload{display:none}
+/* Notification bookmaker */
+.ptoast{position:fixed;left:12px;right:12px;bottom:92px;max-width:480px;margin:0 auto;background:#fff;border-left:5px solid var(--amber);border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,.22);padding:16px 16px 16px;z-index:41;display:none}
+.ptoast.on{display:block;animation:up .35s ease}
+.ptoast .x{position:absolute;top:8px;right:12px;font-size:24px;color:var(--muted)}
+.ptoast .ph{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.ptoast .pic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;color:#fff;font-weight:700;font-size:18px;flex:none}
+.ptoast h4{font-family:"Bebas Neue";font-weight:400;font-size:26px}
+.ptoast p{font-size:14px;margin-bottom:12px;color:var(--ink)}
+.ptoast .pc{display:inline-block;border:1px dashed var(--amber-d);color:var(--amber-d);font-weight:700;padding:0 6px;border-radius:6px}
+.ptoast .btn{border-radius:999px;padding:11px 22px}
+.freeLbl{display:inline-block;font-size:11px;font-weight:700;color:#fff;background:var(--green);padding:2px 8px;border-radius:999px;margin-bottom:8px}
 .gbtn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:13px;border:1px solid var(--line);border-radius:10px;background:#fff;font-weight:600;font-size:15px;color:var(--ink)}
 .wa-help{text-align:center;font-size:14px;color:var(--muted);margin-top:14px}
 .wa-help a{color:#128c4a;font-weight:700}
@@ -170,15 +193,44 @@ footer .l{display:flex;gap:14px;margin-bottom:8px;opacity:.8}
 </style>
 </head>
 <body>
+<script>try{if(typeof window!=="undefined")document.body.classList.add("pending")}catch(e){}</script>
+
+<!-- ÉCRAN DE CONNEXION (avant tout) -->
+<div id="gate">
+  <div class="gtop"><div class="wrap">
+    <div class="brand">JEFF <span>PRO</span></div>
+    <div class="gcode">Code promo <b>8F9Y</b></div>
+  </div></div>
+  <div class="wrap">
+    <div class="gtitle"><svg width="34" height="34" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l8 3v6c0 5-3.4 9.4-8 11-4.6-1.6-8-6-8-11V5l8-3z"/></svg><span id="aTitle">CONNEXION</span></div>
+    <div class="gload">Chargement…</div>
+    <div class="card" id="gateForm">
+      <div id="authBox" hidden>
+      <p class="hint" id="aSub" style="margin-top:0"></p>
+      <form id="authForm" novalidate>
+        <input id="aEmail" type="email" inputmode="email" autocomplete="email" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="Email">
+        <input id="aPass" type="password" autocomplete="current-password" placeholder="Mot de passe" style="margin-top:12px">
+        <div id="aPass2Wrap"><input id="aPass2" type="password" autocomplete="new-password" placeholder="Confirme le mot de passe" style="margin-top:12px"></div>
+        <button class="btn dark" id="aSubmit" type="submit" style="margin-top:16px">SE CONNECTER</button>
+        <p class="hint" id="aMsg" style="margin-top:10px"></p>
+        <p class="switch" style="text-align:left"><span id="aSwitchTxt">Pas encore de compte ?</span> <button type="button" id="aSwitch">S'inscrire</button></p>
+        <button type="button" class="linkbtn" id="aForgot">Mot de passe oublié ?</button>
+      </form>
+      </div>
+      <p class="hint err" id="gateErr" hidden>Connexion impossible pour le moment. Vérifie ta connexion internet puis recharge la page.</p>
+    </div>
+    <p class="resp">18+ | Jouez de façon responsable.</p>
+  </div>
+</div>
 
 <header>
   <div class="wrap">
     <div class="brand" id="brand">JEFF <span>PRO</span></div>
     <nav class="topnav">
-      <a id="homeLink" href="index.html">Accueil</a>
-      <a href="#preuves" data-tab="preuves">Résultats</a>
+      <a href="#pronos" data-tab="pronos" class="on">Avis</a>
+      <a href="#coupons" data-tab="coupons">Pronostic</a>
       <a href="#vip" data-tab="vip">VIP</a>
-      <a href="#pronos" data-tab="pronos" class="on">Pronostics</a>
+      <a href="#preuves" data-tab="preuves">Résultats</a>
       <a href="#contact" data-tab="contact">Contact</a>
       <a href="#profil" data-tab="profil">Mon compte</a>
     </nav>
@@ -205,15 +257,22 @@ footer .l{display:flex;gap:14px;margin-bottom:8px;opacity:.8}
 
   <!-- PRONOSTICS -->
   <section id="pronos" class="on">
-    <h1 class="title">Mes avis du jour</h1>
+    <h1 class="title">💬 Avis</h1>
+    <p class="sub" style="margin-bottom:6px">Retrouve les matchs à venir et mes pronostics gratuits.</p>
     <p class="sub" id="todayTxt"></p>
     <div class="chips" id="chips"></div>
     <div class="vipban">
-      <p><b>Pronostics VIP</b> — mes analyses complètes et mes sélections premium, validées chaque jour.</p>
-      <a href="#vip" data-tab="vip" class="btn">Voir l'offre VIP</a>
+      <p><b>Coupons VIP</b> : mes sélections premium du jour, réservées aux membres VIP.</p>
+      <a href="#coupons" data-tab="coupons" class="btn">Voir les coupons</a>
     </div>
-    <div id="vipPronos" hidden></div>
     <div id="list"></div>
+  </section>
+
+  <!-- PRONOSTIC : coupons du jour (VIP) -->
+  <section id="coupons">
+    <h1 class="title">⚽ Pronostics</h1>
+    <p class="sub">Les coupons du jour, partagés avant les matchs.</p>
+    <div id="vipPronos"></div>
   </section>
 
   <!-- VIP -->
@@ -239,7 +298,7 @@ footer .l{display:flex;gap:14px;margin-bottom:8px;opacity:.8}
     <form class="card" id="proofForm" novalidate>
       <h3>📸 Envoie tes 2 captures</h3>
       <p class="hint" style="margin-top:0">Je vérifie moi-même tes preuves puis je te donne l'accès VIP.</p>
-      <p class="hint" id="acctHint" hidden style="background:#fff7e6;border:1px solid var(--amber);border-radius:10px;padding:10px;color:var(--ink)">💡 <a href="#profil" data-tab="profil" style="font-weight:700;text-decoration:underline">Crée ton compte</a> avant d'envoyer tes preuves : c'est ce compte que je passerai en VIP.</p>
+      <p class="hint" id="acctHint" hidden></p>
       <label for="fNom">Ton nom ou pseudo</label>
       <input id="fNom" required placeholder="Ex : Koffi">
       <label for="fTel">Ton numéro WhatsApp</label>
@@ -262,8 +321,8 @@ footer .l{display:flex;gap:14px;margin-bottom:8px;opacity:.8}
 
   <!-- PREUVES -->
   <section id="preuves">
-    <h1 class="title">🏆 Mes preuves</h1>
-    <p class="sub">Les coupons gagnés de mon groupe. Clique sur une capture pour l'agrandir.</p>
+    <h1 class="title">🏆 Résultats du groupe</h1>
+    <p class="sub">Les coupons gagnés et leurs validations. Touche une capture pour l'agrandir.</p>
     <div id="gallery"></div>
   </section>
 
@@ -271,22 +330,6 @@ footer .l{display:flex;gap:14px;margin-bottom:8px;opacity:.8}
   <section id="profil">
     <h1 class="title">👤 Mon profil</h1>
     <div class="card" id="authOff"><p class="sub" style="margin:0">L'espace membre arrive bientôt. En attendant, rejoins ma chaîne WhatsApp.</p></div>
-
-    <div class="card" id="authBox" hidden>
-      <h3 id="aTitle" style="margin-bottom:4px">Créer mon compte</h3>
-      <p class="hint" id="aSub" style="margin-top:0">Inscris-toi pour accéder à ton espace et passer VIP.</p>
-      <form id="authForm" novalidate>
-        <label for="aEmail">Email</label>
-        <input id="aEmail" type="email" inputmode="email" autocomplete="email" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="ton@email.com">
-        <label for="aPass">Mot de passe</label>
-        <input id="aPass" type="password" autocomplete="new-password" placeholder="6 caractères minimum">
-        <div id="aPass2Wrap"><label for="aPass2">Confirme le mot de passe</label><input id="aPass2" type="password" autocomplete="new-password"></div>
-        <button class="btn dark" id="aSubmit" type="submit" style="margin-top:16px">S'INSCRIRE</button>
-        <p class="hint" id="aMsg" style="margin-top:10px"></p>
-        <button type="button" class="linkbtn" id="aForgot" hidden>Mot de passe oublié ?</button>
-        <p class="switch"><span id="aSwitchTxt">Déjà un compte ?</span> <button type="button" id="aSwitch">Se connecter</button></p>
-      </form>
-    </div>
 
     <div id="profileBox" hidden>
       <div class="card">
@@ -301,8 +344,8 @@ footer .l{display:flex;gap:14px;margin-bottom:8px;opacity:.8}
       </div>
       <div class="card" id="pIsVip" hidden>
         <h3>★ Tu es VIP</h3>
-        <p class="sub" style="margin-bottom:12px">Tes pronos VIP sont dans l'onglet Pronos.</p>
-        <a href="#pronos" data-tab="pronos" class="btn">Voir mes pronos VIP</a>
+        <p class="sub" style="margin-bottom:12px">Tes coupons VIP sont dans l'onglet Pronostic.</p>
+        <a href="#coupons" data-tab="coupons" class="btn">Voir mes coupons VIP</a>
       </div>
     </div>
   </section>
@@ -323,29 +366,42 @@ footer .l{display:flex;gap:14px;margin-bottom:8px;opacity:.8}
   </section>
 </main>
 
-<footer><div class="wrap"><div class="l"><a href="index.html">Accueil</a><a href="#vip" data-tab="vip">VIP</a><a href="#preuves" data-tab="preuves">Résultats</a></div><div id="copyTxt"></div></div></footer>
+<footer><div class="wrap"><div class="l"><a href="#pronos" data-tab="pronos">Avis</a><a href="#vip" data-tab="vip">VIP</a><a href="#contact" data-tab="contact">Contact</a><a href="#preuves" data-tab="preuves">Résultats</a></div><div id="copyTxt"></div></div></footer>
 
 <!-- Popup résultats -->
 <div class="toast" id="toast">
   <button class="x" id="toastX" aria-label="Fermer">×</button>
   <h4>🏆 Résultats du groupe d'hier</h4>
-  <p>Retrouve les résultats et les gains de mon groupe d'hier.</p>
-  <a href="#preuves" data-tab="preuves" class="btn dark" id="toastGo">VOIR LES RÉSULTATS</a>
+  <p>Regarde les coupons gagnés et leurs validations d'hier.</p>
+  <a href="#preuves" data-tab="preuves" class="btn dark" id="toastGo">VOIR LES VALIDATIONS</a>
   <small id="toastCount"></small>
+</div>
+
+<!-- Notification bookmaker -->
+<div class="ptoast" id="ptoast" role="dialog" aria-live="polite">
+  <button class="x" id="ptoastX" aria-label="Fermer">×</button>
+  <div class="ph"><span class="pic" id="pIc">M</span><h4 id="pName">MELBET</h4></div>
+  <p id="pTxt"></p>
+  <a class="btn" id="pGo" target="_blank" rel="noopener">INSCRIS-TOI</a>
 </div>
 
 <div class="lb" id="lb"><button id="lbX" aria-label="Fermer">×</button><span class="cap" id="lbCap1" hidden>Coupon</span><img id="lbImg" alt="Preuve"><span class="cap" id="lbCap2" hidden>Validation ✅</span><img id="lbImg2" alt="Validation" hidden></div>
 
 <nav class="tabbar">
-  <a href="#pronos" data-tab="pronos" class="on"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 3l2.6 1.9-1 3.1H10.4l-1-3.1L12 5zm-6.5 4l2.9-.5 1 3.1-2 2.4-2.6-.9.7-4.1zm13 0l.7 4.1-2.6.9-2-2.4 1-3.1 2.9.5zM9.3 16.3h5.4l1 2.9a8 8 0 01-7.4 0l1-2.9z"/></svg>PRONOS</a>
+  <a href="#pronos" data-tab="pronos" class="on"><svg viewBox="0 0 24 24"><path d="M4 3h12a2 2 0 012 2v7a2 2 0 01-2 2H9l-4 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2zm16 5h1a1 1 0 011 1v10l-3-3h-7a2 2 0 01-2-2v-1h8a2 2 0 002-2V8z"/></svg>AVIS</a>
+  <a href="#coupons" data-tab="coupons"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 3l2.6 1.9-1 3.1H10.4l-1-3.1L12 5zm-6.5 4l2.9-.5 1 3.1-2 2.4-2.6-.9.7-4.1zm13 0l.7 4.1-2.6.9-2-2.4 1-3.1 2.9.5zM9.3 16.3h5.4l1 2.9a8 8 0 01-7.4 0l1-2.9z"/></svg>PRONOSTIC</a>
   <a href="#vip" data-tab="vip"><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg>VIP</a>
-  <a href="#preuves" data-tab="preuves"><svg viewBox="0 0 24 24"><path d="M18 2H6v2H2v3a5 5 0 004.4 5A6 6 0 0011 15.9V19H7v3h10v-3h-4v-3.1a6 6 0 004.6-3.9A5 5 0 0022 7V4h-4V2zM4 7V6h2v4a3 3 0 01-2-3zm16 0a3 3 0 01-2 3V6h2v1z"/></svg>PREUVES</a>
-  <a href="#contact" data-tab="contact"><svg viewBox="0 0 24 24"><path d="M20 2H4a2 2 0 00-2 2v18l4-4h14a2 2 0 002-2V4a2 2 0 00-2-2z"/></svg>CONTACT</a>
+  <a href="#preuves" data-tab="preuves"><svg viewBox="0 0 24 24"><path d="M18 2H6v2H2v3a5 5 0 004.4 5A6 6 0 0011 15.9V19H7v3h10v-3h-4v-3.1a6 6 0 004.6-3.9A5 5 0 0022 7V4h-4V2zM4 7V6h2v4a3 3 0 01-2-3zm16 0a3 3 0 01-2 3V6h2v1z"/></svg>RÉSULTATS</a>
   <a href="#profil" data-tab="profil"><svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 100-10 5 5 0 000 10zm0 2c-5 0-9 2.5-9 5.5V22h18v-2.5C21 16.5 17 14 12 14z"/></svg>PROFIL</a>
 </nav>
 
 <script src="vip-data.js"></script>
 <script src="firebase-config.js?v=3"></script>
+<script>
+// Sans configuration des comptes : pas d'écran de connexion
+if(!(typeof FIREBASE_CONFIG!=="undefined"&&FIREBASE_CONFIG.apiKey)){document.body.classList.remove("pending")}
+else setTimeout(()=>{if(document.body.classList.contains("pending")){document.body.classList.remove("pending");document.body.classList.add("locked");var g=document.getElementById("gateErr");if(g)g.hidden=false}},12000);
+</script>
 <script>
 (function(){
   const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
@@ -363,7 +419,7 @@ footer .l{display:flex;gap:14px;margin-bottom:8px;opacity:.8}
   setLink("#waBtn",C.chaineWhatsapp); setLink("#tgBtn2",C.chaineWhatsapp); setLink("#tgBtn",C.bot); setLink("#botBtn2",C.bot);
   const waHi=wa("Salut "+C.nom+" !"); setLink("#waContact",waHi); setLink("#waHelpLink",waHi); if(!waHi)$("#waHelp").hidden=true;
   $("#steps").innerHTML=(typeof ETAPES!=="undefined"?ETAPES:[]).map((e,i)=>'<div class="step"><b><span class="n">'+(i+1)+'</span>'+esc(e.titre)+'</b><p>'+esc(e.texte)+'</p></div>').join("");
-  $("#homeLink").href=C.accueil;
+
   $("#copyTxt").textContent="© "+new Date().getFullYear()+" "+C.nom+" — Pronostics à titre informatif. 18+, jouez responsable.";
 
   $("#copyBtn").onclick=()=>{
@@ -392,11 +448,11 @@ footer .l{display:flex;gap:14px;margin-bottom:8px;opacity:.8}
 
   // Tabs
   function show(tab){
-    if(!document.getElementById(tab)||!["pronos","vip","preuves","contact","profil"].includes(tab))tab="pronos";
+    if(!document.getElementById(tab)||!["pronos","coupons","vip","preuves","contact","profil"].includes(tab))tab="pronos";
     $$("main section").forEach(s=>s.classList.toggle("on",s.id===tab));
     $$("[data-tab]").forEach(a=>a.classList.toggle("on",a.dataset.tab===tab));
   }
-  document.addEventListener("click",e=>{const a=e.target.closest("[data-tab]");if(!a)return;e.preventDefault();history.replaceState(null,"","#"+a.dataset.tab);show(a.dataset.tab);hideToast();window.scrollTo({top:document.querySelector("main section.on").offsetTop-10,behavior:"smooth"})});
+  document.addEventListener("click",e=>{const a=e.target.closest("[data-tab]");if(!a)return;e.preventDefault();history.replaceState(null,"","#"+a.dataset.tab);show(a.dataset.tab);hideToast();onAction();window.scrollTo({top:document.querySelector("main section.on").offsetTop-10,behavior:"smooth"})});
   window.JP_show=show;
   show(location.hash.slice(1)||"pronos");
 
@@ -409,9 +465,12 @@ footer .l{display:flex;gap:14px;margin-bottom:8px;opacity:.8}
   $("#todayTxt").textContent="Tous les matchs et pronostics du "+JOURS[now.getDay()].toLowerCase()+" "+now.getDate()+" "+MOIS[now.getMonth()].replace(".","")+".";
 
   // Matchs à venir (on cache ceux commencés depuis plus de 2h)
-  const upcoming=MATCHS.map(m=>({...m,d:new Date(m.date)}))
-    .filter(m=>!isNaN(m.d)&&m.d.getTime()>now.getTime()-2*3600e3)
+  const build=list=>list.map(m=>({...m,d:new Date(m.date)}))
+    .filter(m=>!isNaN(m.d)&&m.d.getTime()>Date.now()-2*3600e3)
     .sort((a,b)=>a.d-b.d);
+  let upcoming=build(MATCHS);
+  // Matchs gérés depuis l'espace admin (remplacent ceux du fichier dès qu'il y en a)
+  window.JP_setMatchs=list=>{if(list&&list.length){upcoming=build(list);render()}};
 
   const chips=[{k:"all",t:"Tous"}];
   for(let i=0;i<7;i++){const d=new Date(day0);d.setDate(d.getDate()+i);
@@ -438,7 +497,7 @@ footer .l{display:flex;gap:14px;margin-bottom:8px;opacity:.8}
   function pronoHTML(m){
     if(m.vip) return '<div class="lock"><p>🔒 Ce prono est réservé aux membres VIP.</p><a href="#vip" data-tab="vip" class="btn">Débloquer l\'analyse VIP</a></div>';
     if(!m.prono) return '<div class="lock"><p>⏳ Prono bientôt disponible. Rejoins mon canal pour être alerté.</p></div>';
-    return '<table><tr><th>Pronostic</th><th>Cote</th></tr><tr><td><b>'+esc(m.prono)+'</b>'
+    return '<span class="freeLbl">PRONOSTIC GRATUIT</span><table><tr><th>Pronostic</th><th>Cote</th></tr><tr><td><b>'+esc(m.prono)+'</b>'
       +(m.confiance?'<div class="meta">Confiance : <b>'+esc(m.confiance)+'</b></div>':'')
       +(m.analyse?'<div class="meta">'+esc(m.analyse)+'</div>':'')
       +'</td><td><b>'+esc(m.cote||"—")+'</b></td></tr></table>';
@@ -454,7 +513,7 @@ footer .l{display:flex;gap:14px;margin-bottom:8px;opacity:.8}
         +'<div class="mfoot"><button data-i="'+i+'">Voir le pronostic ▾</button><time>'+fmt(m.d)+'</time></div>'
         +'<div class="prono" id="p'+i+'">'+pronoHTML(m)+'</div></article>';
     }).join("")).join("");
-    $$("#list .mfoot button").forEach(b=>b.onclick=()=>{const p=$("#p"+b.dataset.i);p.classList.toggle("open");b.textContent=p.classList.contains("open")?"Masquer ▴":"Voir le pronostic ▾"});
+    $$("#list .mfoot button").forEach(b=>b.onclick=()=>{const p=$("#p"+b.dataset.i);p.classList.toggle("open");b.textContent=p.classList.contains("open")?"Masquer ▴":"Voir le pronostic ▾";if(p.classList.contains("open"))showPromo()});
   }
   render();
   window.JP_setLogos=map=>{Object.assign(LG,map||{});render()};
@@ -470,7 +529,6 @@ footer .l{display:flex;gap:14px;margin-bottom:8px;opacity:.8}
       $("#lbImg").src=p.image;$("#lbCap1").hidden=!p.image2;
       $("#lbImg2").hidden=$("#lbCap2").hidden=!p.image2;if(p.image2)$("#lbImg2").src=p.image2;
       $("#lb").classList.add("on");$("#lb").scrollTop=0});
-    if(all.length&&!toastShown)showToast();
   }
   window.JP_setProofs=list=>{remoteProofs=list||[];renderProofs()};
   $("#lbX").onclick=$("#lb").onclick=e=>{if(e.target.tagName!=="IMG")$("#lb").classList.remove("on")};
@@ -541,12 +599,30 @@ footer .l{display:flex;gap:14px;margin-bottom:8px;opacity:.8}
   let tm;function hideToast(){$("#toast").classList.remove("on");clearInterval(tm)}
   $("#toastX").onclick=hideToast;
   var toastShown=false;
-  function showToast(){toastShown=true;
+  function showToast(){if(toastShown)return;toastShown=true;hidePromo();
     setTimeout(()=>{$("#toast").classList.add("on");let s=15;
       const up=()=>$("#toastCount").textContent="Ce message se fermera dans "+s+" s.";up();
       tm=setInterval(()=>{s--;up();if(s<=0)hideToast()},1000)},1500);
   }
   renderProofs();
+
+  // ---- Notifications bookmakers ----
+  let pIdx=0,pTimer=null,actions=0;
+  function hidePromo(){$("#ptoast").classList.remove("on")}
+  function showPromo(){
+    if(document.body.classList.contains("locked")||document.body.classList.contains("pending"))return;
+    if($("#toast").classList.contains("on"))return;
+    const b=BOOKMAKERS[pIdx%BOOKMAKERS.length];pIdx++;
+    $("#pIc").textContent=b.nom[0];$("#pIc").style.background=b.couleur;$("#pName").textContent=b.nom;
+    $("#pTxt").innerHTML="Inscris-toi sur <b>"+esc(b.nom)+"</b> avec mon code promo <span class=\"pc\">"+esc(C.codePromo)+"</span> et reçois jusqu'à <b>"+esc(b.bonus.replace(/Bonus\s*/i,""))+" de bonus</b> sur ta première recharge.";
+    if(b.lien){$("#pGo").href=b.lien;$("#pGo").hidden=false}else $("#pGo").hidden=true;
+    $("#ptoast").classList.add("on");
+  }
+  function onAction(){actions++;if(actions%2===0)showPromo()}
+  $("#ptoastX").onclick=()=>{hidePromo();clearTimeout(pTimer);pTimer=setTimeout(showPromo,60000)};
+  $("#pGo").addEventListener("click",hidePromo);
+  // Appelé quand l'abonné est connecté
+  window.JP_onLogin=()=>{showToast();clearTimeout(pTimer);pTimer=setTimeout(showPromo,20000)};
 })();
 </script>
 <script type="module" src="comptes.js"></script>

@@ -6,7 +6,11 @@ const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": 
 
 const cfg = typeof FIREBASE_CONFIG !== "undefined" ? FIREBASE_CONFIG : null;
 
-if (cfg && cfg.apiKey) start().catch(e => console.error("Comptes :", e));
+if (cfg && cfg.apiKey) start().catch(e => {
+  console.error("Comptes :", e);
+  document.body.classList.remove("pending"); document.body.classList.add("locked");
+  const g = document.getElementById("gateErr"); if (g) g.hidden = false;
+});
 
 async function start() {
   const { initializeApp } = await import(`https://www.gstatic.com/firebasejs/${V}/firebase-app.js`);
@@ -25,20 +29,25 @@ async function start() {
     s => { if (window.JP_setProofs) window.JP_setProofs(s.docs.map(d => d.data())); },
     e => console.warn("Preuves :", e && e.code));
 
+  // --- Matchs et pronostics gratuits (publics, gérés depuis l'admin) ---
+  F.onSnapshot(F.collection(db, "matchs"),
+    s => { if (window.JP_setMatchs) window.JP_setMatchs(s.docs.map(d => d.data())); },
+    e => console.warn("Matchs :", e && e.code));
+
   // --- Logos des clubs (publics) ---
   F.onSnapshot(F.collection(db, "logos"),
     s => { const map = {}; s.docs.forEach(d => { const p = d.data(); if (p.nom && p.image) map[p.nom] = p.image; }); if (window.JP_setLogos) window.JP_setLogos(map); },
     e => console.warn("Logos :", e && e.code));
 
   // --- Connexion / inscription ---
-  let mode = "register";
+  let mode = "login";
   const setMode = m => {
     mode = m;
     const reg = m === "register";
     $("#aPass2Wrap").hidden = !reg;
     $("#aForgot").hidden = reg;
-    $("#aTitle").textContent = reg ? "Créer mon compte" : "Se connecter";
-    $("#aSub").textContent = reg ? "Inscris-toi pour accéder à ton espace et passer VIP." : "Content de te revoir !";
+    $("#aTitle").textContent = reg ? "INSCRIPTION" : "CONNEXION";
+    $("#aSub").textContent = reg ? "Crée ton compte gratuit pour voir mes avis et pronostics." : "";
     $("#aSubmit").textContent = reg ? "S'INSCRIRE" : "SE CONNECTER";
     $("#aSwitchTxt").textContent = reg ? "Déjà un compte ?" : "Pas encore de compte ?";
     $("#aSwitch").textContent = reg ? "Se connecter" : "S'inscrire";
@@ -48,7 +57,7 @@ async function start() {
   $("#aSwitch").onclick = () => setMode(mode === "register" ? "login" : "register");
   const msg = (t, ok) => { const m = $("#aMsg"); m.textContent = t; m.className = "hint " + (t ? (ok ? "ok" : "err") : ""); };
 
-  setMode("register");
+  setMode("login");
 
   const ERR = {
     "auth/invalid-email": "Adresse email invalide.",
@@ -105,7 +114,11 @@ async function start() {
     if (stopVip) { stopVip(); stopVip = null; }
     if (stopUser) { stopUser(); stopUser = null; }
     window.JP_USER = user ? { email: user.email, uid: user.uid } : null;
+    document.body.classList.remove("pending");
+    document.body.classList.toggle("locked", !user);
     $("#authBox").hidden = !!user;
+    if (user && !window.__jpLogged) { window.__jpLogged = true; window.scrollTo(0, 0); if (window.JP_onLogin) window.JP_onLogin(); }
+    if (!user) window.__jpLogged = false;
     $("#profileBox").hidden = !user;
     if (!user) { renderVip("out"); return; }
 
