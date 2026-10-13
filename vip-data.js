@@ -11,12 +11,15 @@ const CONFIG = {
   depotMin: "2000 FCFA",
   chaineWhatsapp: "https://whatsapp.com/channel/0029VbBw8FBDp2Q03qhB4t2b",
   bot: "https://t.me/JeffProAnalyseBot",
+  // Ton compte Telegram perso (ex : "https://t.me/tonpseudo") : les abonnés t'y envoient leurs captures.
+  // Laisse vide pour utiliser le bot ci-dessus.
+  telegramPerso: "",
   // Ton numéro WhatsApp (sans + ni espaces) : solution de secours pour recevoir les captures
   whatsapp: "22965061408",
   // Adresse de ton relais Cloudflare (voir RECEVOIR-LES-CAPTURES.txt).
   // Quand elle est remplie, les captures de tes abonnés arrivent directement dans ton Telegram.
   // Tant qu'elle est vide, le bouton envoie les abonnés sur ton WhatsApp.
-  envoiCaptures: "",
+  envoiCaptures: "https://jeffpro-preuves.calebhounnon77.workers.dev",
   // Lien de ton site principal (ton index.html)
   accueil: "index.html"
 };

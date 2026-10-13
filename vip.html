@@ -125,6 +125,8 @@ input[type=file]{padding:9px;background:#fafbfc}
 .hdr-vip{font-family:"Bebas Neue";font-size:24px;margin:6px 0 10px;display:flex;align-items:center;gap:8px}
 [hidden]{display:none!important}
 .gbtn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:13px;border:1px solid var(--line);border-radius:10px;background:#fff;font-weight:600;font-size:15px;color:var(--ink)}
+.wa-help{text-align:center;font-size:14px;color:var(--muted);margin-top:14px}
+.wa-help a{color:#128c4a;font-weight:700}
 .switch{text-align:center;margin-top:14px;font-size:14px;color:var(--muted)}
 .switch button{color:#1f6feb;font-weight:700;font-size:14px;text-decoration:underline}
 .or{display:flex;align-items:center;gap:10px;margin:14px 0 12px;color:var(--muted);font-size:12px}
@@ -181,6 +183,7 @@ footer .l{display:flex;gap:14px;margin-bottom:8px;opacity:.8}
     <div class="social">
       <a class="pill tg" id="tgBtn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M9.8 15.4l-.4 5.3c.6 0 .8-.2 1.1-.5l2.6-2.5 5.4 4c1 .6 1.7.3 2-.9l3.6-17c.3-1.5-.6-2.1-1.6-1.7L1.3 9.8c-1.4.6-1.4 1.4-.2 1.8l5.4 1.7 12.5-7.9c.6-.4 1.1-.2.7.2"/></svg>Mon bot VIP</a>
       <a class="pill wa" id="waBtn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-8.6 15l-1.4 5 5.2-1.4A10 10 0 1012 2zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1-.4-.1-1-.3-1.7-.6-3-1.3-5-4.3-5.1-4.5-.2-.2-1.2-1.6-1.2-3.1s.8-2.2 1-2.5c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.3.5-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.1 1.4z"/></svg>Ma chaîne WhatsApp</a>
+      <a class="pill wa" id="waContact" target="_blank" rel="noopener" style="background:#128c4a">💬 M'écrire sur WhatsApp</a>
     </div>
   </div>
 </header>
@@ -243,12 +246,15 @@ footer .l{display:flex;gap:14px;margin-bottom:8px;opacity:.8}
       <select id="fBk" required><option value="">— Choisir un bookmaker —</option></select>
       <label for="ident">Ton identifiant / numéro de compte</label>
       <input id="ident" placeholder="Ex : 1732717973">
+      <div id="capWrap">
       <label for="cap1">Capture 1 : ton inscription (profil avec identifiant)</label>
       <input type="file" id="cap1" accept="image/*" required>
       <label for="cap2">Capture 2 : ta recharge de <span class="dmin">2000 FCFA</span> minimum</label>
       <input type="file" id="cap2" accept="image/*" required>
+      </div>
       <button class="btn green" id="sendProof" type="submit" style="margin-top:16px">ENVOYER MES PREUVES</button>
       <p class="hint" id="sendNote" style="margin-top:10px"></p>
+      <p class="wa-help" id="waHelp">Une question ? <a id="waHelpLink" target="_blank" rel="noopener">💬 Écris-moi sur WhatsApp</a></p>
     </form>
   </section>
 
@@ -353,6 +359,7 @@ footer .l{display:flex;gap:14px;margin-bottom:8px;opacity:.8}
   const wa=t=>C.whatsapp?"https://wa.me/"+C.whatsapp+(t?"?text="+encodeURIComponent(t):""):"";
   const setLink=(sel,url)=>{const a=$(sel);if(url){a.href=url}else{a.style.display="none"}};
   setLink("#waBtn",C.chaineWhatsapp); setLink("#tgBtn2",C.chaineWhatsapp); setLink("#tgBtn",C.bot); setLink("#botBtn2",C.bot);
+  const waHi=wa("Salut "+C.nom+" !"); setLink("#waContact",waHi); setLink("#waHelpLink",waHi); if(!waHi)$("#waHelp").hidden=true;
   $("#steps").innerHTML=(typeof ETAPES!=="undefined"?ETAPES:[]).map((e,i)=>'<div class="step"><b><span class="n">'+(i+1)+'</span>'+esc(e.titre)+'</b><p>'+esc(e.texte)+'</p></div>').join("");
   $("#homeLink").href=C.accueil;
   $("#copyTxt").textContent="© "+new Date().getFullYear()+" "+C.nom+" — Pronostics à titre informatif. 18+, jouez responsable.";
@@ -470,20 +477,23 @@ footer .l{display:flex;gap:14px;margin-bottom:8px;opacity:.8}
     }
     alert("Lien du bot pas encore configuré.");return false;
   }
-  // Bouton WhatsApp : partage les 2 photos directement (téléphones compatibles), sinon message pré-écrit
-  function showWaShare(texte,files){
+  // Boutons d'envoi : ouvrent DIRECTEMENT ta discussion WhatsApp ou Telegram
+  const tgLink=()=>C.telegramPerso||C.bot||"";
+  function showSendButtons(texte){
     let box=$("#waShare");
-    if(!box){box=document.createElement("div");box.id="waShare";box.style.cssText="display:grid;gap:8px;margin-top:10px";$("#proofForm").appendChild(box)}
-    const canFiles=!!(navigator.canShare&&navigator.canShare({files}));
-    box.innerHTML='<button type="button" class="btn green" style="background:var(--wa)">📲 ENVOYER MES CAPTURES SUR WHATSAPP</button>'
-      +'<p class="hint" style="margin:0">'+(canFiles?'Choisis <b>WhatsApp</b> puis la discussion <b>'+esc(C.nom)+'</b> (+'+esc(C.whatsapp)+').':'WhatsApp va s\'ouvrir : envoie le message puis joins tes 2 captures avec le trombone 📎.')+'</p>';
-    box.querySelector("button").onclick=async()=>{
-      if(canFiles){
-        try{await navigator.share({files,text:texte});return}catch(e){if(e&&e.name==="AbortError")return}
-      }
-      sendTo(texte+"\nJe t'envoie mes 2 captures (inscription + recharge) ici.");
-    };
+    if(!box){box=document.createElement("div");box.id="waShare";box.style.cssText="display:grid;gap:10px;margin-top:12px";$("#proofForm").appendChild(box)}
+    const full=texte+"\nJe t'envoie mes 2 captures (inscription + recharge).";
+    let h='';
+    if(tgLink()) h+='<button type="button" class="btn" id="tgSend" style="background:var(--tg);color:#fff;border-radius:10px;padding:14px">✈️ ENVOYER SUR TELEGRAM</button>';
+    h+='<div class="step" style="margin-top:0"><b>Comment faire :</b><p>1. Touche le bouton : Telegram s\'ouvre directement.<br>2. Colle le message (il est déjà copié) et envoie-le.<br>3. Touche le trombone 📎 et envoie tes <b>2 captures</b> (inscription + recharge).</p></div>';
+    box.innerHTML=h;
+    const tb=$("#tgSend");
+    if(tb) tb.onclick=()=>{try{navigator.clipboard.writeText(full).catch(()=>{})}catch(e){}window.open(tgLink(),"_blank");$("#sendNote").className="hint ok";$("#sendNote").textContent="✅ Message copié : colle-le dans Telegram puis joins tes 2 captures.";};
+    box.scrollIntoView({behavior:"smooth",block:"center"});
   }
+
+  // Sans relais, les captures s'envoient dans WhatsApp/Telegram : on cache les champs photo
+  // Les champs photo sont toujours visibles : l'abonné envoie tout depuis la page.
 
   // Envoi des captures
   $("#proofForm").onsubmit=async e=>{
@@ -495,11 +505,11 @@ footer .l{display:flex;gap:14px;margin-bottom:8px;opacity:.8}
     if(!nom||!tel||!bk){note.className="hint err";note.textContent="Remplis ton nom, ton numéro et ton bookmaker.";return}
     const mail=(window.JP_USER&&window.JP_USER.email)||"";
     const texte="Salut "+C.nom+" ! Je veux rejoindre le VIP.\nNom : "+nom+(mail?"\nEmail du compte : "+mail:"")+"\nWhatsApp : "+tel+"\nBookmaker : "+bk+"\nIdentifiant : "+(id||"—")+"\nCode promo : "+C.codePromo+"\nRecharge : "+C.depotMin+" minimum";
-    // Pas encore de relais : on passe par WhatsApp
+    // Sans relais : envoi direct par WhatsApp ou Telegram
     if(!f1||!f2){note.className="hint err";note.textContent="Ajoute tes 2 captures (inscription + recharge).";return}
     if(!C.envoiCaptures){
-      note.className="hint ok";note.textContent="Envoie tes captures sur mon WhatsApp 👇";
-      showWaShare(texte,[f1,f2]);return;
+      note.className="hint err";note.innerHTML="L'envoi est momentanément indisponible."+(C.whatsapp?' <a class="ok" href="'+wa(texte)+'" target="_blank" rel="noopener">Écris-moi sur WhatsApp</a>':'');
+      return;
     }
     if(f1.size>10e6||f2.size>10e6){note.className="hint err";note.textContent="Une capture est trop lourde (10 Mo maximum).";return}
     const fd=new FormData();
@@ -510,8 +520,7 @@ footer .l{display:flex;gap:14px;margin-bottom:8px;opacity:.8}
       const r=await fetch(C.envoiCaptures,{method:"POST",body:fd});
       if(!r.ok)throw new Error(r.status);
       $("#proofForm").reset();
-      note.className="hint ok";note.innerHTML="✅ Preuves envoyées ! Dernière étape : envoie-les aussi sur mon WhatsApp 👇";
-      showWaShare(texte,[f1,f2]);
+      note.className="hint ok";note.innerHTML="✅ <b>Preuves envoyées !</b> Je vérifie tes captures et je t'active le VIP. Je te contacte sur WhatsApp au <b>"+esc(tel)+"</b>.";
     }catch(err){
       note.className="hint err";note.textContent="L'envoi n'a pas marché. Réessaie, ou envoie tes captures sur mon WhatsApp.";
       if(C.whatsapp)note.innerHTML+=' <a class="ok" href="'+wa(texte)+'" target="_blank" rel="noopener">Ouvrir WhatsApp</a>';
