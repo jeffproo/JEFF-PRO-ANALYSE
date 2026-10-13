@@ -21,18 +21,24 @@ async function start() {
   $("#acctHint").hidden = false;
 
   // --- Connexion / inscription ---
-  let mode = "login";
+  let mode = "register";
   const setMode = m => {
     mode = m;
-    document.querySelectorAll(".seg button").forEach(b => b.classList.toggle("on", b.dataset.m === m));
-    $("#aPass2Wrap").hidden = m !== "register";
-    $("#aForgot").hidden = m !== "login";
-    $("#aSubmit").textContent = m === "login" ? "SE CONNECTER" : "CRÉER MON COMPTE";
-    $("#aPass").autocomplete = m === "login" ? "current-password" : "new-password";
+    const reg = m === "register";
+    $("#aPass2Wrap").hidden = !reg;
+    $("#aForgot").hidden = reg;
+    $("#aTitle").textContent = reg ? "Créer mon compte" : "Se connecter";
+    $("#aSub").textContent = reg ? "Inscris-toi pour accéder à ton espace et passer VIP." : "Content de te revoir !";
+    $("#aSubmit").textContent = reg ? "S'INSCRIRE" : "SE CONNECTER";
+    $("#aSwitchTxt").textContent = reg ? "Déjà un compte ?" : "Pas encore de compte ?";
+    $("#aSwitch").textContent = reg ? "Se connecter" : "S'inscrire";
+    $("#aPass").autocomplete = reg ? "new-password" : "current-password";
     msg("");
   };
-  document.querySelectorAll(".seg button").forEach(b => b.onclick = () => setMode(b.dataset.m));
+  $("#aSwitch").onclick = () => setMode(mode === "register" ? "login" : "register");
   const msg = (t, ok) => { const m = $("#aMsg"); m.textContent = t; m.className = "hint " + (t ? (ok ? "ok" : "err") : ""); };
+
+  setMode("register");
 
   const ERR = {
     "auth/invalid-email": "Adresse email invalide.",
@@ -49,7 +55,8 @@ async function start() {
 
   $("#authForm").onsubmit = async e => {
     e.preventDefault();
-    const email = $("#aEmail").value.trim(), pass = $("#aPass").value;
+    const email = $("#aEmail").value.replace(/\s+/g, "").toLowerCase(), pass = $("#aPass").value;
+    if (!email) return msg("Écris ton adresse email.");
     if (mode === "register" && pass !== $("#aPass2").value) return msg("Les deux mots de passe ne sont pas identiques.");
     $("#aSubmit").disabled = true;
     try {
@@ -64,28 +71,13 @@ async function start() {
   };
 
   $("#aForgot").onclick = async () => {
-    const email = $("#aEmail").value.trim();
+    const email = $("#aEmail").value.replace(/\s+/g, "").toLowerCase();
     if (!email) return msg("Écris ton email au-dessus, puis clique à nouveau sur « Mot de passe oublié ».");
     try { await A.sendPasswordResetEmail(auth, email); msg("📩 Email envoyé : regarde ta boîte mail (et les spams).", true); }
     catch (err) { msg(fr(err)); }
   };
 
   $("#logout").onclick = () => A.signOut(auth);
-
-  // --- Connexion Google ---
-  $("#gLogin").onclick = async () => {
-    const m = $("#gMsg"); m.textContent = ""; m.className = "hint";
-    try {
-      const c = await A.signInWithPopup(auth, new A.GoogleAuthProvider());
-      await ensureProfile(c.user);
-    } catch (err) {
-      if (err && (err.code === "auth/popup-closed-by-user" || err.code === "auth/cancelled-popup-request")) return;
-      m.className = "hint err";
-      m.textContent = err && err.code === "auth/popup-blocked"
-        ? "Ton navigateur a bloqué la fenêtre Google. Autorise les pop-ups ou utilise ton email."
-        : "La connexion Google n'a pas marché. Utilise ton email et un mot de passe.";
-    }
-  };
 
   async function ensureProfile(user) {
     const ref = F.doc(db, "users", user.uid);

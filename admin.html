@@ -41,10 +41,9 @@ button{font:inherit;cursor:pointer;border:0;border-radius:10px;padding:11px 14px
 
   <form class="card" id="login" hidden>
     <h2 style="margin-top:0">Connexion admin</h2>
-    <label>Email</label><input id="em" type="email" autocomplete="email">
+    <label>Email</label><input id="em" type="email" autocomplete="email" autocapitalize="none" autocorrect="off" spellcheck="false">
     <label>Mot de passe</label><input id="pw" type="password" autocomplete="current-password">
     <button class="b-dark full">SE CONNECTER</button>
-    <button type="button" class="b-ghost full" id="gAdmin" style="margin-top:8px">Continuer avec Google</button>
     <p class="msg err" id="lMsg"></p>
   </form>
 
@@ -100,9 +99,8 @@ else{
   let unsubs=[];
 
   $("#login").onsubmit=async e=>{e.preventDefault();$("#lMsg").textContent="";
-    try{await A.signInWithEmailAndPassword(auth,$("#em").value.trim(),$("#pw").value)}catch(err){$("#lMsg").textContent="Email ou mot de passe incorrect."}};
+    try{await A.signInWithEmailAndPassword(auth,$("#em").value.replace(/\s+/g,"").toLowerCase(),$("#pw").value)}catch(err){$("#lMsg").textContent="Email ou mot de passe incorrect."}};
   $("#out1").onclick=$("#out2").onclick=()=>A.signOut(auth);
-  $("#gAdmin").onclick=async()=>{$("#lMsg").textContent="";try{await A.signInWithPopup(auth,new A.GoogleAuthProvider())}catch(e){if(e&&e.code!=="auth/popup-closed-by-user")$("#lMsg").textContent="Connexion Google impossible."}};
 
   document.querySelectorAll("[data-t]").forEach(b=>b.onclick=()=>{
     document.querySelectorAll("[data-t]").forEach(x=>{x.classList.toggle("on",x===b);x.classList.toggle("b-ghost",x!==b)});
