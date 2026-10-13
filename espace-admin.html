@@ -65,17 +65,21 @@ button{font:inherit;cursor:pointer;border:0;border-radius:10px;padding:11px 14px
 
     <div id="t-pronos" hidden>
       <h2>Publier un prono VIP</h2>
-      <form class="card" id="pForm">
+      <form class="card" id="pForm" novalidate>
         <div class="grid">
-          <div><label>Compétition</label><input id="pl" placeholder="Ligue 1" required></div>
-          <div><label>Date et heure</label><input id="pd" type="datetime-local" required></div>
-          <div><label>Équipe domicile</label><input id="ph" required></div>
-          <div><label>Équipe extérieur</label><input id="pa" required></div>
-          <div><label>Pronostic</label><input id="pp" placeholder="Plus de 2,5 buts" required></div>
+          <div><label>Compétition</label><input id="pl" placeholder="Ligue 1"></div>
+          <div><label>Date et heure</label><input id="pd" type="datetime-local"></div>
+          <div><label>Équipe domicile</label><input id="ph"></div>
+          <div><label>Équipe extérieur</label><input id="pa"></div>
+          <div><label>Pronostic</label><input id="pp" placeholder="Plus de 2,5 buts"></div>
           <div><label>Cote</label><input id="pc" placeholder="1.85"></div>
           <div><label>Confiance</label><select id="pf"><option>Forte</option><option>Moyenne</option><option>Très forte</option></select></div>
         </div>
+        <label>Photo du coupon / ticket (facultatif)</label>
+        <input type="file" id="pimg" accept="image/*">
+        <img id="pprev" alt="" style="display:none;max-width:100%;max-height:260px;border-radius:10px;margin-top:8px">
         <label>Analyse (facultatif)</label><textarea id="pn" rows="3"></textarea>
+        <p class="msg" style="color:var(--muted)">Tu peux publier seulement une photo, ou un match avec pronostic, ou les deux. Sans date, le prono reste visible jusqu'à minuit.</p>
         <button class="b-amber full">PUBLIER POUR LES VIP</button>
         <p class="msg" id="pMsg"></p>
       </form>
@@ -137,16 +141,34 @@ else{
       e=>{$("#users").innerHTML='<p class="msg err" style="padding:12px 0">Accès refusé : vérifie ton UID dans les règles Firestore.</p>'}));
     unsubs.push(F.onSnapshot(F.query(F.collection(db,"vip_pronos"),F.orderBy("date","desc")),s=>{
       $("#plist").innerHTML=s.empty?'<p class="msg" style="padding:12px 0">Aucun prono VIP publié.</p>':s.docs.map(d=>{const p=d.data();
-        return '<div class="row"><div class="e"><b>'+esc(p.dom)+' vs '+esc(p.ext)+'</b><small>'+esc(p.ligue)+' · '+esc(new Date(p.date).toLocaleString("fr-FR"))+' · '+esc(p.prono)+(p.cote?' @ '+esc(p.cote):'')+'</small></div><button class="b-red" data-del="'+d.id+'">Supprimer</button></div>'}).join("");
+        const titre=(p.dom||p.ext)?esc(p.dom)+' vs '+esc(p.ext):'📷 Coupon VIP';
+        return '<div class="row">'+(p.image?'<img src="'+esc(p.image)+'" style="width:54px;height:54px;object-fit:cover;border-radius:8px;flex:none">':'')+'<div class="e"><b>'+titre+'</b><small>'+esc(p.ligue)+' · '+esc(new Date(p.date).toLocaleString("fr-FR"))+' · '+esc(p.prono)+(p.cote?' @ '+esc(p.cote):'')+'</small></div><button class="b-red" data-del="'+d.id+'">Supprimer</button></div>'}).join("");
       document.querySelectorAll("[data-del]").forEach(b=>b.onclick=async()=>{if(confirm("Supprimer ce prono VIP ?"))await F.deleteDoc(F.doc(db,"vip_pronos",b.dataset.del))});
     }));
   }
 
-  $("#pForm").onsubmit=async e=>{e.preventDefault();const m=$("#pMsg");
-    try{await F.addDoc(F.collection(db,"vip_pronos"),{ligue:$("#pl").value.trim(),date:$("#pd").value,dom:$("#ph").value.trim(),ext:$("#pa").value.trim(),
-      prono:$("#pp").value.trim(),cote:$("#pc").value.trim(),confiance:$("#pf").value,analyse:$("#pn").value.trim(),createdAt:F.serverTimestamp()});
-      e.target.reset();m.className="msg ok";m.textContent="✅ Publié : tes abonnés VIP le voient déjà.";}
-    catch(err){m.className="msg err";m.textContent="Erreur de publication : vérifie les règles Firestore.";}};
+  // Compression de la photo (pour rester sous la limite gratuite de Firebase)
+  function compress(file,max=1100,q=0.72){return new Promise((ok,ko)=>{
+    const img=new Image(),url=URL.createObjectURL(file);
+    img.onload=()=>{let w=img.naturalWidth,h=img.naturalHeight;const r=Math.min(1,max/Math.max(w,h));w=Math.round(w*r);h=Math.round(h*r);
+      const c=document.createElement("canvas");c.width=w;c.height=h;c.getContext("2d").drawImage(img,0,0,w,h);URL.revokeObjectURL(url);
+      let d=c.toDataURL("image/jpeg",q);if(d.length>700000)d=c.toDataURL("image/jpeg",0.5);ok(d)};
+    img.onerror=()=>ko(new Error("img"));img.src=url;})}
+  let imgData="";
+  $("#pimg").onchange=async()=>{const f=$("#pimg").files[0];imgData="";$("#pprev").style.display="none";if(!f)return;
+    try{imgData=await compress(f);$("#pprev").src=imgData;$("#pprev").style.display="block"}catch(e){alert("Image illisible, essaie une autre capture.")}};
+  const endOfDay=()=>{const d=new Date();d.setHours(23,59,0,0);const z=n=>String(n).padStart(2,"0");return d.getFullYear()+"-"+z(d.getMonth()+1)+"-"+z(d.getDate())+"T23:59"};
+
+  $("#pForm").onsubmit=async e=>{e.preventDefault();const m=$("#pMsg"),btn=e.target.querySelector("button");
+    const data={ligue:$("#pl").value.trim(),date:$("#pd").value||endOfDay(),dom:$("#ph").value.trim(),ext:$("#pa").value.trim(),
+      prono:$("#pp").value.trim(),cote:$("#pc").value.trim(),confiance:$("#pf").value,analyse:$("#pn").value.trim(),image:imgData,createdAt:F.serverTimestamp()};
+    if(!data.image&&!data.prono){m.className="msg err";m.textContent="Ajoute au moins une photo ou un pronostic.";return}
+    if(data.image.length>900000){m.className="msg err";m.textContent="Photo trop lourde, essaie une capture plus petite.";return}
+    btn.disabled=true;
+    try{await F.addDoc(F.collection(db,"vip_pronos"),data);
+      e.target.reset();imgData="";$("#pprev").style.display="none";m.className="msg ok";m.textContent="✅ Publié : tes abonnés VIP le voient déjà.";}
+    catch(err){m.className="msg err";m.textContent="Erreur de publication : vérifie les règles Firestore.";}
+    finally{btn.disabled=false}};
 }
 </script>
 </body>

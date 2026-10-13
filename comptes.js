@@ -142,12 +142,16 @@ async function start() {
     const now = Date.now() - 3 * 3600e3;
     const rows = (list || []).filter(p => !p.date || new Date(p.date).getTime() > now);
     const fmt = d => { const x = new Date(d); return isNaN(x) ? "" : x.toLocaleString("fr-FR", { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }); };
-    box.innerHTML = '<div class="hdr-vip">★ Mes pronos VIP</div>' + (rows.length ? rows.map(p =>
-      '<div class="vp"><div class="top"><span>' + esc(p.ligue) + '</span><span>' + esc(fmt(p.date)) + '</span></div>'
-      + '<h4>' + esc(p.dom) + ' vs ' + esc(p.ext) + '</h4>'
-      + '<div class="pr"><b>' + esc(p.prono) + '</b><b>' + esc(p.cote ? "Cote " + p.cote : "") + '</b></div>'
-      + (p.confiance ? '<p class="meta">Confiance : <b>' + esc(p.confiance) + '</b></p>' : '')
-      + (p.analyse ? '<p class="meta">' + esc(p.analyse) + '</p>' : '') + '</div>').join("")
+    box.innerHTML = '<div class="hdr-vip">★ Mes pronos VIP</div>' + (rows.length ? rows.map(p => {
+      const has = p.dom || p.ext;
+      return '<div class="vp"><div class="top"><span>' + esc(p.ligue || "VIP") + '</span><span>' + esc(fmt(p.date)) + '</span></div>'
+      + (has ? '<h4>' + esc(p.dom) + ' vs ' + esc(p.ext) + '</h4>' : '')
+      + (p.image ? '<img src="' + esc(p.image) + '" alt="Coupon VIP" class="vp-img" style="width:100%;border-radius:10px;margin:6px 0;cursor:zoom-in">' : '')
+      + (p.prono ? '<div class="pr"><b>' + esc(p.prono) + '</b><b>' + esc(p.cote ? "Cote " + p.cote : "") + '</b></div>' : '')
+      + (p.prono && p.confiance ? '<p class="meta">Confiance : <b>' + esc(p.confiance) + '</b></p>' : '')
+      + (p.analyse ? '<p class="meta">' + esc(p.analyse) + '</p>' : '') + '</div>';
+    }).join("")
       : '<div class="empty">Les pronos VIP du jour arrivent bientôt.</div>');
+    box.querySelectorAll(".vp-img").forEach(im => im.onclick = () => { const lb = $("#lb"); if (lb) { $("#lbImg").src = im.src; lb.classList.add("on"); } });
   }
 }
