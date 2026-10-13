@@ -15,4 +15,4 @@ const FIREBASE_CONFIG = {
 
 // Ton identifiant (UID) Firebase, pour accéder à admin.html.
 // Tu l'obtiens après t'être inscrit toi-même sur ta page (voir le guide).
-const ADMIN_UID = "";
+const ADMIN_UID = "YXQJr7GS2lf6Q8UIDB6aYmSxmLn1";
