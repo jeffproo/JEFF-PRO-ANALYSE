@@ -27,7 +27,7 @@ button{font:inherit;cursor:pointer;border:0;border-radius:10px;padding:11px 14px
 .row small{display:block;color:var(--muted);font-size:12px}
 .st{font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:#e8ebf0;color:var(--muted);flex:none}
 .st.vip{background:var(--amber);color:var(--navy)}
-.tabs{display:flex;gap:8px;margin:14px 0 0}.tabs button{flex:1}.tabs .on{background:var(--navy);color:#fff}
+.tabs{display:flex;gap:6px;margin:14px 0 0;flex-wrap:wrap}.tabs button{flex:1}.tabs .on{background:var(--navy);color:#fff}
 .count{color:var(--muted);font-size:13px;margin-bottom:8px}
 [hidden]{display:none!important}
 @media(max-width:480px){.grid{grid-template-columns:1fr}}
@@ -54,13 +54,51 @@ button{font:inherit;cursor:pointer;border:0;border-radius:10px;padding:11px 14px
   </div>
 
   <div id="panel" hidden>
-    <div class="tabs"><button class="on" data-t="abonnes">Abonnés</button><button class="b-ghost" data-t="pronos">Pronos VIP</button><button class="b-ghost" id="out2">Quitter</button></div>
+    <div class="tabs"><button class="on" data-t="abonnes">Abonnés</button><button class="b-ghost" data-t="pronos">Pronos VIP</button><button class="b-ghost" data-t="preuves">Preuves</button><button class="b-ghost" data-t="logos">Logos</button><button class="b-ghost" id="out2">Quitter</button></div>
 
     <div id="t-abonnes">
       <h2>Abonnés</h2>
       <input id="search" placeholder="Rechercher un email…">
       <p class="count" id="count" style="margin-top:8px"></p>
       <div class="card" id="users" style="padding:4px 16px"></div>
+    </div>
+
+    <div id="t-logos" hidden>
+      <h2>Logos des clubs</h2>
+      <form class="card" id="lForm" novalidate>
+        <label>Club</label>
+        <input id="lclub" list="lclubs" placeholder="Commence à taper le nom du club…">
+        <datalist id="lclubs"></datalist>
+        <label>Image du logo (depuis ta galerie)</label>
+        <input type="file" id="limg" accept="image/*">
+        <img id="lprev" alt="" style="display:none;width:72px;height:72px;object-fit:contain;margin-top:8px;background:#fff;border:1px solid var(--line);border-radius:12px">
+        <button class="b-amber full">ENREGISTRER LE LOGO</button>
+        <p class="msg" id="lMsg"></p>
+        <p class="msg" style="color:var(--muted)">Le logo s'affiche tout de suite sur ta page pour ce club. Choisis le nom dans la liste pour qu'il corresponde exactement au match. Utilise des images que tu as le droit de diffuser.</p>
+      </form>
+      <h2>Logos enregistrés</h2>
+      <div class="card" id="llist" style="padding:4px 16px"></div>
+    </div>
+
+    <div id="t-preuves" hidden>
+      <h2>Publier une preuve</h2>
+      <form class="card" id="qForm" novalidate>
+        <label>Capture du coupon</label>
+        <input type="file" id="qimg" accept="image/*">
+        <img id="qprev" alt="" style="display:none;max-width:100%;max-height:260px;border-radius:10px;margin-top:8px">
+        <label>Capture de validation / ticket gagné (facultatif)</label>
+        <input type="file" id="qimg2" accept="image/*">
+        <img id="qprev2" alt="" style="display:none;max-width:100%;max-height:260px;border-radius:10px;margin-top:8px">
+        <div class="grid">
+          <div><label>Titre</label><input id="qt" placeholder="Coupon VIP gagné ✅"></div>
+          <div><label>Cote (facultatif)</label><input id="qc" placeholder="4.20"></div>
+        </div>
+        <button class="b-amber full">PUBLIER LA PREUVE</button>
+        <p class="msg" id="qMsg"></p>
+        <p class="msg" style="color:var(--muted)">Les preuves restent visibles par <b>tout le monde</b> dans l'onglet PREUVES de ta page, même sans compte. Ne publie pas les captures de tes abonnés (identifiants, dépôts) : elles sont privées.</p>
+      </form>
+      <h2>Preuves publiées</h2>
+      <div class="card" id="qlist" style="padding:4px 16px"></div>
     </div>
 
     <div id="t-pronos" hidden>
@@ -82,6 +120,7 @@ button{font:inherit;cursor:pointer;border:0;border-radius:10px;padding:11px 14px
         <p class="msg" style="color:var(--muted)">Tu peux publier seulement une photo, ou un match avec pronostic, ou les deux. Sans date, le prono reste visible jusqu'à minuit.</p>
         <button class="b-amber full">PUBLIER POUR LES VIP</button>
         <p class="msg" id="pMsg"></p>
+        <p class="msg" style="color:var(--muted)">🔒 Les coupons publiés ici sont visibles <b>uniquement par les VIP</b>. Après le match, touche <b>« ✅ Gagné »</b> sur le coupon et ajoute la capture de validation : le coupon + la validation passent alors dans les <b>PREUVES publiques</b>.</p>
       </form>
       <h2>Pronos VIP publiés</h2>
       <div class="card" id="plist" style="padding:4px 16px"></div>
@@ -89,6 +128,7 @@ button{font:inherit;cursor:pointer;border:0;border-radius:10px;padding:11px 14px
   </div>
 </div>
 
+<script src="vip-data.js?v=7"></script>
 <script src="firebase-config.js?v=3"></script>
 <script type="module">
 const V="10.12.2";
@@ -108,7 +148,7 @@ else{
 
   document.querySelectorAll("[data-t]").forEach(b=>b.onclick=()=>{
     document.querySelectorAll("[data-t]").forEach(x=>{x.classList.toggle("on",x===b);x.classList.toggle("b-ghost",x!==b)});
-    $("#t-abonnes").hidden=b.dataset.t!=="abonnes";$("#t-pronos").hidden=b.dataset.t!=="pronos";});
+    $("#t-abonnes").hidden=b.dataset.t!=="abonnes";$("#t-pronos").hidden=b.dataset.t!=="pronos";$("#t-preuves").hidden=b.dataset.t!=="preuves";$("#t-logos").hidden=b.dataset.t!=="logos";});
 
   A.onAuthStateChanged(auth,user=>{
     unsubs.forEach(u=>u());unsubs=[];
@@ -137,12 +177,36 @@ else{
   $("#search").oninput=drawUsers;
 
   function startPanel(){
+    unsubs.push(F.onSnapshot(F.collection(db,"logos"),s=>{
+      $("#llist").innerHTML=s.empty?'<p class="msg" style="padding:12px 0">Aucun logo enregistré.</p>':s.docs.map(d=>{const p=d.data();
+        return '<div class="row"><img src="'+esc(p.image)+'" style="width:40px;height:40px;object-fit:contain;flex:none"><div class="e"><b>'+esc(p.nom)+'</b></div><button class="b-red" data-ldel="'+esc(d.id)+'">Supprimer</button></div>'}).join("");
+      document.querySelectorAll("[data-ldel]").forEach(b=>b.onclick=async()=>{if(confirm("Supprimer ce logo ?"))await F.deleteDoc(F.doc(db,"logos",b.dataset.ldel))});
+    },e=>{$("#llist").innerHTML='<p class="msg err" style="padding:12px 0">Accès refusé : mets à jour les règles Firestore (logos).</p>'}));
+    unsubs.push(F.onSnapshot(F.query(F.collection(db,"preuves"),F.orderBy("createdAt","desc")),s=>{
+      $("#qlist").innerHTML=s.empty?'<p class="msg" style="padding:12px 0">Aucune preuve publiée.</p>':s.docs.map(d=>{const p=d.data();
+        return '<div class="row"><img src="'+esc(p.image)+'" style="width:54px;height:54px;object-fit:cover;border-radius:8px;flex:none"><div class="e"><b>'+esc(p.titre||"Coupon gagné")+'</b><small>'+esc(p.date||"")+(p.cote?' · cote '+esc(p.cote):'')+'</small></div><button class="b-red" data-qdel="'+d.id+'">Supprimer</button></div>'}).join("");
+      document.querySelectorAll("[data-qdel]").forEach(b=>b.onclick=async()=>{if(confirm("Supprimer cette preuve ?"))await F.deleteDoc(F.doc(db,"preuves",b.dataset.qdel))});
+    },e=>{$("#qlist").innerHTML='<p class="msg err" style="padding:12px 0">Accès refusé : mets à jour les règles Firestore (preuves).</p>'}));
     unsubs.push(F.onSnapshot(F.query(F.collection(db,"users"),F.orderBy("createdAt","desc")),s=>{users=s.docs.map(d=>({id:d.id,...d.data()}));drawUsers()},
       e=>{$("#users").innerHTML='<p class="msg err" style="padding:12px 0">Accès refusé : vérifie ton UID dans les règles Firestore.</p>'}));
     unsubs.push(F.onSnapshot(F.query(F.collection(db,"vip_pronos"),F.orderBy("date","desc")),s=>{
       $("#plist").innerHTML=s.empty?'<p class="msg" style="padding:12px 0">Aucun prono VIP publié.</p>':s.docs.map(d=>{const p=d.data();
         const titre=(p.dom||p.ext)?esc(p.dom)+' vs '+esc(p.ext):'📷 Coupon VIP';
-        return '<div class="row">'+(p.image?'<img src="'+esc(p.image)+'" style="width:54px;height:54px;object-fit:cover;border-radius:8px;flex:none">':'')+'<div class="e"><b>'+titre+'</b><small>'+esc(p.ligue)+' · '+esc(new Date(p.date).toLocaleString("fr-FR"))+' · '+esc(p.prono)+(p.cote?' @ '+esc(p.cote):'')+'</small></div><button class="b-red" data-del="'+d.id+'">Supprimer</button></div>'}).join("");
+        return '<div class="row">'+(p.image?'<img src="'+esc(p.image)+'" style="width:54px;height:54px;object-fit:cover;border-radius:8px;flex:none">':'')+'<div class="e"><b>'+titre+'</b><small>'+esc(p.ligue)+' · '+esc(new Date(p.date).toLocaleString("fr-FR"))+' · '+esc(p.prono)+(p.cote?' @ '+esc(p.cote):'')+'</small></div><div style="display:grid;gap:6px;flex:none"><button class="b-amber" data-win="'+d.id+'">✅ Gagné</button><button class="b-red" data-del="'+d.id+'">Supprimer</button></div></div>'}).join("");
+      const byId={};s.docs.forEach(d=>byId[d.id]=d.data());
+      document.querySelectorAll("[data-win]").forEach(b=>{const p=byId[b.dataset.win];
+        if(p.publie){b.textContent="Publié ✓";b.disabled=true;return}
+        b.onclick=()=>{
+          if(!p.image){alert("Ce prono n'a pas de photo du coupon. Publie-le plutôt dans l'onglet Preuves.");return}
+          alert("Choisis maintenant la capture de VALIDATION (le ticket gagné).");
+          const inp=document.createElement("input");inp.type="file";inp.accept="image/*";
+          inp.onchange=async()=>{const f=inp.files[0];if(!f)return;b.disabled=true;b.textContent="Envoi…";
+            try{const val=await compress(f);
+              await F.addDoc(F.collection(db,"preuves"),{image:p.image,image2:val,titre:((p.dom||p.ext)?p.dom+" vs "+p.ext+" ✅":"Coupon VIP gagné ✅"),cote:p.cote||"",date:new Date().toLocaleDateString("fr-FR",{day:"numeric",month:"short",year:"numeric"}),createdAt:F.serverTimestamp()});
+              await F.updateDoc(F.doc(db,"vip_pronos",b.dataset.win),{publie:true});
+              b.textContent="Publié ✓";}
+            catch(e){alert("Erreur : vérifie les règles Firestore (preuves).");b.disabled=false;b.textContent="✅ Gagné"}};
+          inp.click();};});
       document.querySelectorAll("[data-del]").forEach(b=>b.onclick=async()=>{if(confirm("Supprimer ce prono VIP ?"))await F.deleteDoc(F.doc(db,"vip_pronos",b.dataset.del))});
     }));
   }
@@ -152,7 +216,9 @@ else{
     const img=new Image(),url=URL.createObjectURL(file);
     img.onload=()=>{let w=img.naturalWidth,h=img.naturalHeight;const r=Math.min(1,max/Math.max(w,h));w=Math.round(w*r);h=Math.round(h*r);
       const c=document.createElement("canvas");c.width=w;c.height=h;c.getContext("2d").drawImage(img,0,0,w,h);URL.revokeObjectURL(url);
-      let d=c.toDataURL("image/jpeg",q);if(d.length>700000)d=c.toDataURL("image/jpeg",0.5);ok(d)};
+      let d=c.toDataURL("image/jpeg",q);if(d.length>420000)d=c.toDataURL("image/jpeg",0.5);
+      if(d.length>420000){const c2=document.createElement("canvas"),k=800/Math.max(w,h);c2.width=Math.round(w*k);c2.height=Math.round(h*k);c2.getContext("2d").drawImage(c,0,0,c2.width,c2.height);d=c2.toDataURL("image/jpeg",0.6)}
+      ok(d)};
     img.onerror=()=>ko(new Error("img"));img.src=url;})}
   let imgData="";
   $("#pimg").onchange=async()=>{const f=$("#pimg").files[0];imgData="";$("#pprev").style.display="none";if(!f)return;
@@ -168,6 +234,39 @@ else{
     try{await F.addDoc(F.collection(db,"vip_pronos"),data);
       e.target.reset();imgData="";$("#pprev").style.display="none";m.className="msg ok";m.textContent="✅ Publié : tes abonnés VIP le voient déjà.";}
     catch(err){m.className="msg err";m.textContent="Erreur de publication : vérifie les règles Firestore.";}
+    finally{btn.disabled=false}};
+
+  let qData="";
+  $("#qimg").onchange=async()=>{const f=$("#qimg").files[0];qData="";$("#qprev").style.display="none";if(!f)return;
+    try{qData=await compress(f);$("#qprev").src=qData;$("#qprev").style.display="block"}catch(e){alert("Image illisible, essaie une autre capture.")}};
+  // ---- Logos ----
+  try{const names=[...new Set((typeof MATCHS!=="undefined"?MATCHS:[]).flatMap(m=>[m.dom,m.ext]))].sort();
+    $("#lclubs").innerHTML=names.map(n=>'<option value="'+esc(n)+'">').join("");}catch(e){}
+  function smallLogo(file){return new Promise((ok,ko)=>{const img=new Image(),url=URL.createObjectURL(file);
+    img.onload=()=>{const k=Math.min(1,160/Math.max(img.naturalWidth,img.naturalHeight));const c=document.createElement("canvas");
+      c.width=Math.round(img.naturalWidth*k);c.height=Math.round(img.naturalHeight*k);c.getContext("2d").drawImage(img,0,0,c.width,c.height);URL.revokeObjectURL(url);ok(c.toDataURL("image/png"))};
+    img.onerror=()=>ko(new Error("img"));img.src=url;})}
+  let lData="";
+  $("#limg").onchange=async()=>{const f=$("#limg").files[0];lData="";$("#lprev").style.display="none";if(!f)return;
+    try{lData=await smallLogo(f);$("#lprev").src=lData;$("#lprev").style.display="block"}catch(e){alert("Image illisible.")}};
+  $("#lForm").onsubmit=async e=>{e.preventDefault();const m=$("#lMsg"),btn=e.target.querySelector("button");const nom=$("#lclub").value.trim();
+    if(!nom||!lData){m.className="msg err";m.textContent="Choisis le club et l'image du logo.";return}
+    btn.disabled=true;
+    try{await F.setDoc(F.doc(db,"logos",nom.replace(/[\/]/g,"-")),{nom,image:lData});
+      e.target.reset();lData="";$("#lprev").style.display="none";m.className="msg ok";m.textContent="✅ Logo enregistré pour "+nom+".";}
+    catch(err){m.className="msg err";m.textContent="Erreur : mets à jour les règles Firestore (logos).";}
+    finally{btn.disabled=false}};
+
+  let qData2="";
+  $("#qimg2").onchange=async()=>{const f=$("#qimg2").files[0];qData2="";$("#qprev2").style.display="none";if(!f)return;
+    try{qData2=await compress(f);$("#qprev2").src=qData2;$("#qprev2").style.display="block"}catch(e){alert("Image illisible, essaie une autre capture.")}};
+  $("#qForm").onsubmit=async e=>{e.preventDefault();const m=$("#qMsg"),btn=e.target.querySelector("button");
+    if(!qData){m.className="msg err";m.textContent="Ajoute la capture du coupon.";return}
+    btn.disabled=true;
+    try{await F.addDoc(F.collection(db,"preuves"),{image:qData,image2:qData2,titre:$("#qt").value.trim()||"Coupon gagné ✅",cote:$("#qc").value.trim(),
+        date:new Date().toLocaleDateString("fr-FR",{day:"numeric",month:"short",year:"numeric"}),createdAt:F.serverTimestamp()});
+      e.target.reset();qData="";qData2="";$("#qprev").style.display="none";$("#qprev2").style.display="none";m.className="msg ok";m.textContent="✅ Preuve publiée : visible par tout le monde.";}
+    catch(err){m.className="msg err";m.textContent="Erreur : mets à jour les règles Firestore (preuves).";}
     finally{btn.disabled=false}};
 }
 </script>

@@ -145,8 +145,10 @@ input[type=file]{padding:9px;background:#fafbfc}
 .won{color:var(--green);font-weight:700}
 
 /* Lightbox / popups */
-.lb{position:fixed;inset:0;background:rgba(5,10,20,.92);display:none;place-items:center;z-index:50;padding:16px}
-.lb.on{display:grid}.lb img{max-width:100%;max-height:85vh;border-radius:10px}
+.lb{position:fixed;inset:0;background:rgba(5,10,20,.94);display:none;flex-direction:column;align-items:center;gap:12px;z-index:50;padding:56px 16px 24px;overflow:auto}
+.lb.on{display:flex}.lb img{max-width:100%;max-height:80vh;border-radius:10px}
+.lb .cap{color:#fff;font-size:13px;font-weight:600;opacity:.85}
+.proof .two{display:inline-block;background:var(--green);color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:999px;margin-top:4px}
 .lb button{position:absolute;top:14px;right:18px;color:#fff;font-size:30px}
 .toast{position:fixed;left:12px;right:12px;bottom:92px;max-width:480px;margin:0 auto;background:#fff;border-left:5px solid var(--amber);border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,.2);padding:16px;z-index:40;display:none}
 .toast.on{display:block;animation:up .35s ease}
@@ -332,7 +334,7 @@ footer .l{display:flex;gap:14px;margin-bottom:8px;opacity:.8}
   <small id="toastCount"></small>
 </div>
 
-<div class="lb" id="lb"><button id="lbX" aria-label="Fermer">×</button><img id="lbImg" alt="Preuve"></div>
+<div class="lb" id="lb"><button id="lbX" aria-label="Fermer">×</button><span class="cap" id="lbCap1" hidden>Coupon</span><img id="lbImg" alt="Preuve"><span class="cap" id="lbCap2" hidden>Validation ✅</span><img id="lbImg2" alt="Validation" hidden></div>
 
 <nav class="tabbar">
   <a href="#pronos" data-tab="pronos" class="on"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 3l2.6 1.9-1 3.1H10.4l-1-3.1L12 5zm-6.5 4l2.9-.5 1 3.1-2 2.4-2.6-.9.7-4.1zm13 0l.7 4.1-2.6.9-2-2.4 1-3.1 2.9.5zM9.3 16.3h5.4l1 2.9a8 8 0 01-7.4 0l1-2.9z"/></svg>PRONOS</a>
@@ -455,16 +457,23 @@ footer .l{display:flex;gap:14px;margin-bottom:8px;opacity:.8}
     $$("#list .mfoot button").forEach(b=>b.onclick=()=>{const p=$("#p"+b.dataset.i);p.classList.toggle("open");b.textContent=p.classList.contains("open")?"Masquer ▴":"Voir le pronostic ▾"});
   }
   render();
+  window.JP_setLogos=map=>{Object.assign(LG,map||{});render()};
 
-  // Preuves
-  if(!PREUVES.length){
-    $("#gallery").innerHTML='<div class="empty">Mes premières preuves arrivent très bientôt.</div>';
-  }else{
-    $("#gallery").innerHTML='<div class="stats"><div class="stat"><b>'+PREUVES.length+'</b><span>Coupons gagnés publiés</span></div></div><div class="gallery">'
-      +PREUVES.map(p=>'<button class="proof" data-src="'+esc(p.image)+'"><img loading="lazy" src="'+esc(p.image)+'" alt="'+esc(p.titre||"Preuve")+'"><div><b>'+esc(p.titre||"Coupon gagné")+'</b>'+esc(p.date||"")+(p.cote?' · <span class="won">Cote '+esc(p.cote)+'</span>':'')+'</div></button>').join("")+'</div>';
-    $$(".proof").forEach(b=>b.onclick=()=>{$("#lbImg").src=b.dataset.src;$("#lb").classList.add("on")});
+  // Preuves : celles de vip-data.js + celles publiées depuis l'espace admin
+  let remoteProofs=[];
+  function renderProofs(){
+    const all=remoteProofs.concat(PREUVES);
+    if(!all.length){$("#gallery").innerHTML='<div class="empty">Mes premières preuves arrivent très bientôt.</div>';return}
+    $("#gallery").innerHTML='<div class="stats"><div class="stat"><b>'+all.length+'</b><span>Coupons gagnés publiés</span></div></div><div class="gallery">'
+      +all.map((p,i)=>'<button class="proof" data-i="'+i+'"><img loading="lazy" src="'+esc(p.image)+'" alt="'+esc(p.titre||"Preuve")+'"><div><b>'+esc(p.titre||"Coupon gagné")+'</b>'+esc(p.date||"")+(p.cote?' · <span class="won">Cote '+esc(p.cote)+'</span>':'')+(p.image2?'<br><span class="two">Coupon + validation</span>':'')+'</div></button>').join("")+'</div>';
+    $$(".proof").forEach(b=>b.onclick=()=>{const p=all[+b.dataset.i];
+      $("#lbImg").src=p.image;$("#lbCap1").hidden=!p.image2;
+      $("#lbImg2").hidden=$("#lbCap2").hidden=!p.image2;if(p.image2)$("#lbImg2").src=p.image2;
+      $("#lb").classList.add("on");$("#lb").scrollTop=0});
+    if(all.length&&!toastShown)showToast();
   }
-  $("#lbX").onclick=$("#lb").onclick=e=>{if(e.target.id!=="lbImg")$("#lb").classList.remove("on")};
+  window.JP_setProofs=list=>{remoteProofs=list||[];renderProofs()};
+  $("#lbX").onclick=$("#lb").onclick=e=>{if(e.target.tagName!=="IMG")$("#lb").classList.remove("on")};
 
   // WhatsApp envois
   function sendTo(text){
@@ -531,11 +540,13 @@ footer .l{display:flex;gap:14px;margin-bottom:8px;opacity:.8}
   // Popup résultats d'hier (15 s)
   let tm;function hideToast(){$("#toast").classList.remove("on");clearInterval(tm)}
   $("#toastX").onclick=hideToast;
-  if(PREUVES.length){
+  var toastShown=false;
+  function showToast(){toastShown=true;
     setTimeout(()=>{$("#toast").classList.add("on");let s=15;
       const up=()=>$("#toastCount").textContent="Ce message se fermera dans "+s+" s.";up();
       tm=setInterval(()=>{s--;up();if(s<=0)hideToast()},1000)},1500);
   }
+  renderProofs();
 })();
 </script>
 <script type="module" src="comptes.js"></script>

@@ -20,6 +20,16 @@ async function start() {
   $("#authBox").hidden = false;
   $("#acctHint").hidden = false;
 
+  // --- Preuves publiques (visibles par tout le monde, même sans compte) ---
+  F.onSnapshot(F.query(F.collection(db, "preuves"), F.orderBy("createdAt", "desc"), F.limit(80)),
+    s => { if (window.JP_setProofs) window.JP_setProofs(s.docs.map(d => d.data())); },
+    e => console.warn("Preuves :", e && e.code));
+
+  // --- Logos des clubs (publics) ---
+  F.onSnapshot(F.collection(db, "logos"),
+    s => { const map = {}; s.docs.forEach(d => { const p = d.data(); if (p.nom && p.image) map[p.nom] = p.image; }); if (window.JP_setLogos) window.JP_setLogos(map); },
+    e => console.warn("Logos :", e && e.code));
+
   // --- Connexion / inscription ---
   let mode = "register";
   const setMode = m => {
@@ -152,6 +162,6 @@ async function start() {
       + (p.analyse ? '<p class="meta">' + esc(p.analyse) + '</p>' : '') + '</div>';
     }).join("")
       : '<div class="empty">Les pronos VIP du jour arrivent bientôt.</div>');
-    box.querySelectorAll(".vp-img").forEach(im => im.onclick = () => { const lb = $("#lb"); if (lb) { $("#lbImg").src = im.src; lb.classList.add("on"); } });
+    box.querySelectorAll(".vp-img").forEach(im => im.onclick = () => { const lb = $("#lb"); if (lb) { $("#lbImg").src = im.src; ["#lbImg2","#lbCap1","#lbCap2"].forEach(x => { const e = $(x); if (e) e.hidden = true; }); lb.classList.add("on"); } });
   }
 }
