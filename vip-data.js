@@ -53,6 +53,69 @@ const ETAPES = [
   { titre: "Envoie tes 2 captures ci-dessous", texte: "Je vérifie moi-même tes preuves, puis je te donne l'accès VIP." }
 ];
 
+/* ---------- COULEURS DES CLUBS ----------
+   "Nom du club": ["couleur 1", "couleur 2", "ABRÉVIATION"]
+   Pour un nouveau club, ajoute une ligne. Sans ligne, la page met une couleur automatique. */
+const COULEURS = {
+  // Championship
+  "Wolverhampton":       ["#FDB913", "#231F20", "WOL"],
+  "Bolton Wanderers":    ["#263C7E", "#FFFFFF", "BOL"],
+  "Wrexham":             ["#D71920", "#FFFFFF", "WRE"],
+  "West Bromwich Albion":["#122F67", "#FFFFFF", "WBA"],
+  "Burnley":             ["#6C1D45", "#99D6EA", "BUR"],
+  "Charlton Athletic":   ["#D4021D", "#FFFFFF", "CHA"],
+  "Lincoln City":        ["#E2231A", "#FFFFFF", "LIN"],
+  "West Ham United":     ["#7A263A", "#1BB1E7", "WHU"],
+  "Watford":             ["#FBEE23", "#231F20", "WAT"],
+  "Preston North End":   ["#0A1F44", "#FFFFFF", "PNE"],
+  "Portsmouth":          ["#001489", "#FFFFFF", "POR"],
+  // Premier League
+  "Brentford":           ["#E30613", "#FFFFFF", "BRE"],
+  "Liverpool":           ["#C8102E", "#FFFFFF", "LIV"],
+  "Newcastle United":    ["#241F20", "#FFFFFF", "NEW"],
+  "Aston Villa":         ["#670E36", "#95BFE5", "AVL"],
+  "Brighton":            ["#0057B8", "#FFFFFF", "BHA"],
+  "Crystal Palace":      ["#1B458F", "#C4122E", "CRY"],
+  // Serie A
+  "Venezia":             ["#231F20", "#F26722", "VEN"],
+  "Napoli":              ["#12A0D7", "#FFFFFF", "NAP"],
+  "Bologna":             ["#A21C26", "#1A2F48", "BFC"],
+  "Inter Milan":         ["#0068A8", "#231F20", "INT"],
+  "AS Roma":             ["#8E1F2F", "#F0BC42", "ROM"],
+  "Genoa":               ["#C8102E", "#002F6C", "GEN"],
+  // Ligue 1
+  "Le Mans":             ["#D52B1E", "#F7D117", "LMA"],
+  "Toulouse":            ["#4B2C82", "#FFFFFF", "TFC"],
+  "Strasbourg":          ["#009FE3", "#FFFFFF", "RCS"],
+  "Paris Saint-Germain": ["#004170", "#DA291C", "PSG"],
+  "Lille":               ["#E01E13", "#20325F", "LIL"],
+  "Brest":               ["#E2001A", "#FFFFFF", "BRS"],
+  "Troyes":              ["#005BAC", "#FFFFFF", "TRO"],
+  "Lens":                ["#EC1C24", "#FFD700", "RCL"],
+  "Le Havre":            ["#8AC6E8", "#1A2D53", "HAC"],
+  "Auxerre":             ["#004B9B", "#FFFFFF", "AJA"],
+  "Lyon":                ["#1D3E8C", "#DA001A", "OL"],
+  "Nice":                ["#C8102E", "#231F20", "OGC"],
+  // Brasileirão
+  "Mirassol":            ["#FFE000", "#00843D", "MIR"],
+  "Internacional":       ["#E30613", "#FFFFFF", "SCI"],
+  "Botafogo":            ["#231F20", "#FFFFFF", "BOT"],
+  "Chapecoense":         ["#00843D", "#FFFFFF", "CHP"],
+  "Atlético Mineiro":    ["#231F20", "#FFFFFF", "CAM"],
+  "Coritiba":            ["#00544D", "#FFFFFF", "CFC"],
+  "Corinthians":         ["#231F20", "#FFFFFF", "COR"],
+  "Vitória":             ["#E30613", "#231F20", "VIT"]
+};
+
+/* ---------- LOGOS DES CLUBS (facultatif) ----------
+   Mets l'image du logo dans le dossier images/logos sur GitHub,
+   puis ajoute une ligne : "Nom exact du club comme dans MATCHS": "chemin de l'image".
+   Sans logo, la page affiche un rond avec les initiales. */
+const LOGOS = {
+  // "Liverpool": "images/logos/liverpool.png",
+  // "Brentford": "images/logos/brentford.png",
+};
+
 /* ---------- MATCHS À VENIR ----------
    date : "AAAA-MM-JJTHH:MM" (heure de Porto-Novo / Cotonou)
    prono, cote, confiance, analyse : remplis-les quand ton prono est prêt.

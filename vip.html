@@ -77,6 +77,8 @@ section.on{display:block}
 .teams{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:14px 0;text-align:center;gap:6px}
 .team{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:13px;font-weight:600}
 .badge{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:700;font-size:14px}
+.badge.club{width:44px;height:44px;font-size:12px;letter-spacing:.3px;border:2px solid #fff;box-shadow:0 0 0 1px var(--line),0 2px 6px rgba(0,0,0,.12);text-shadow:0 1px 2px rgba(0,0,0,.85),0 0 3px rgba(0,0,0,.6)}
+.lwrap{position:relative;width:40px;height:40px}.lwrap .badge{position:absolute;inset:0}.logo{position:absolute;inset:0;width:40px;height:40px;object-fit:contain;background:var(--card)}
 .vs{font-family:"Bebas Neue";font-size:20px;color:var(--muted)}
 .mfoot{display:flex;justify-content:space-between;align-items:center;font-size:13px}
 .mfoot button{color:var(--green);font-weight:600}
@@ -405,7 +407,17 @@ footer .l{display:flex;gap:14px;margin-bottom:8px;opacity:.8}
   const colors=["#0c1a2f","#c0392b","#1f6feb","#18a957","#8e44ad","#d35400","#16a085","#b7950b","#2c3e50","#e0413b"];
   const col=s=>{let h=0;for(const c of s)h=(h*31+c.charCodeAt(0))>>>0;return colors[h%colors.length]};
   const ini=s=>s.split(/[\s-]+/).filter(Boolean).map(w=>w[0]).join("").slice(0,2).toUpperCase();
-  const team=n=>'<div class="team"><span class="badge" style="background:'+col(n)+'">'+esc(ini(n))+'</span>'+esc(n)+'</div>';
+  const LG=(typeof LOGOS!=="undefined"&&LOGOS)||{};
+  const team=n=>{
+    const CC=(typeof COULEURS!=="undefined"&&COULEURS[n])||null;
+    const badge=CC
+      ?'<span class="badge club" style="background:linear-gradient(135deg,'+esc(CC[0])+' 0 50%,'+esc(CC[1])+' 50% 100%)">'+esc(CC[2]||ini(n))+'</span>'
+      :'<span class="badge" style="background:'+col(n)+'">'+esc(ini(n))+'</span>';
+    if(!LG[n]) return '<div class="team">'+badge+esc(n)+'</div>';
+    return '<div class="team"><span class="lwrap">'+badge+'<img class="logo" src="'+esc(LG[n])+'" alt="'+esc(n)+'"></span>'+esc(n)+'</div>';
+  };
+  // Logo introuvable => on garde les initiales
+  document.addEventListener("error",e=>{if(e.target.classList&&e.target.classList.contains("logo"))e.target.remove()},true);
 
   function pronoHTML(m){
     if(m.vip) return '<div class="lock"><p>🔒 Ce prono est réservé aux membres VIP.</p><a href="#vip" data-tab="vip" class="btn">Débloquer l\'analyse VIP</a></div>';
