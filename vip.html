@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>JEFF PRO — Espace VIP</title>
+<meta name="theme-color" content="#0c1a2f">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f3f4f7; --card:#ffffff; --ink:#0c1a2f; --muted:#5d6a7e; --line:#e3e7ee;
+  --navy:#0c1a2f; --navy2:#16294a; --amber:#ffb21e; --amber-d:#e0960a;
+  --green:#18a957; --wa:#25d366; --tg:#2aa3e0; --red:#e0413b;
+  --radius:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--ink);padding-bottom:84px;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+.wrap{max-width:720px;margin:0 auto;padding:0 16px}
+h1,h2,h3,.disp{font-family:"Bebas Neue",Impact,sans-serif;letter-spacing:.5px;font-weight:400}
+
+/* Header */
+header{background:var(--navy);color:#fff;padding:18px 0 20px}
+.brand{font-family:"Bebas Neue";font-size:30px;letter-spacing:1px}
+.brand span{color:var(--amber)}
+.topnav{display:flex;gap:16px;margin:8px 0 14px;font-size:14px;flex-wrap:wrap}
+.topnav a{opacity:.8}.topnav a.on{color:var(--amber);opacity:1;font-weight:600}
+.social{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:999px;font-size:14px;font-weight:600;color:#fff}
+.pill.tg{background:var(--tg)}.pill.wa{background:var(--wa)}
+.pill svg{width:16px;height:16px;fill:#fff}
+
+/* Promo */
+.promo{margin:20px 0 14px;border-radius:18px;padding:26px 18px 20px;text-align:center;color:#fff;
+  background:radial-gradient(120% 90% at 50% 0%,#24406e 0%,var(--navy2) 45%,var(--navy) 100%);box-shadow:0 10px 30px rgba(12,26,47,.25);position:relative;overflow:hidden}
+.promo:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(255,255,255,.035) 0 12px,transparent 12px 24px)}
+.promo>*{position:relative}
+.tag{display:inline-block;background:var(--amber);color:var(--navy);font-weight:700;font-size:11px;letter-spacing:1px;padding:4px 10px;border-radius:999px}
+.promo h2{font-size:30px;line-height:1.05;margin:12px 0 6px}
+.promo h2 em{font-style:normal;color:var(--amber)}
+.promo p{font-size:14px;opacity:.85}
+.code{margin:14px auto 8px;display:inline-flex;align-items:center;gap:12px;border:2px dashed var(--amber);border-radius:12px;padding:8px 10px 8px 20px}
+.code b{font-family:"Bebas Neue";font-size:44px;letter-spacing:6px;color:var(--amber)}
+.copy{background:var(--amber);color:var(--navy);font-weight:700;font-size:12px;padding:8px 12px;border-radius:8px}
+.small{font-size:12px;opacity:.7}
+
+/* Bookmakers */
+.books{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.book{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--c);border-radius:12px;padding:10px 12px}
+.book .ic{width:30px;height:30px;border-radius:8px;background:var(--c);color:#fff;display:grid;place-items:center;font-weight:700;font-size:14px;flex:none}
+.book b{display:block;font-size:14px}.book small{color:var(--c);font-size:12px;font-weight:600;white-space:nowrap}
+.book .ar{margin-left:auto;opacity:.5}
+.resp{font-size:11px;color:var(--muted);margin:12px 0 0}
+
+/* Sections */
+section{display:none;padding:22px 0}
+section.on{display:block}
+.title{font-size:38px;line-height:1;margin-bottom:6px;display:flex;align-items:center;gap:10px}
+.sub{color:var(--muted);font-size:15px;margin-bottom:16px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.chip{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:7px 14px;font-size:13px}
+.chip.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.vipban{background:var(--navy);color:#fff;border-radius:var(--radius);padding:18px;margin-bottom:16px}
+.vipban p{font-size:15px;margin-bottom:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--amber);color:var(--navy);font-weight:700;padding:10px 18px;border-radius:999px;font-size:14px}
+.btn.dark{background:var(--navy);color:#fff;border-radius:10px;width:100%;padding:13px;letter-spacing:.5px}
+.btn.green{background:var(--green);color:#fff;border-radius:10px;width:100%;padding:13px}
+
+/* Match cards */
+.league{font-family:"Bebas Neue";font-size:22px;margin:18px 0 8px;color:var(--navy2)}
+.match{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px;margin-bottom:10px}
+.match .lg{font-size:12px;font-weight:600;color:var(--muted);padding-bottom:10px;border-bottom:1px solid var(--line)}
+.teams{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:14px 0;text-align:center;gap:6px}
+.team{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:13px;font-weight:600}
+.badge{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:700;font-size:14px}
+.vs{font-family:"Bebas Neue";font-size:20px;color:var(--muted)}
+.mfoot{display:flex;justify-content:space-between;align-items:center;font-size:13px}
+.mfoot button{color:var(--green);font-weight:600}
+.mfoot time{color:var(--amber-d);font-family:"Bebas Neue";font-size:18px}
+.prono{display:none;margin-top:12px;background:var(--bg);border-radius:10px;padding:12px;font-size:14px}
+.prono.open{display:block}
+.prono table{width:100%;border-collapse:collapse}
+.prono th{text-align:left;font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;padding-bottom:6px}
+.prono th:last-child,.prono td:last-child{text-align:right}
+.prono td{padding:4px 0;vertical-align:top}
+.meta{font-size:12px;color:var(--muted);margin-top:6px}
+.lock{text-align:center;padding:6px}
+.lock p{margin-bottom:10px;font-size:14px}
+.empty{background:var(--card);border:1px dashed var(--line);border-radius:var(--radius);padding:22px;text-align:center;color:var(--muted)}
+
+/* VIP */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin-bottom:14px}
+.card h3{font-size:24px;margin-bottom:8px}
+.step{border:1px solid var(--line);border-radius:12px;padding:14px;margin-top:12px;background:#fafbfc}
+.step b{display:block;margin-bottom:4px}
+.step p{font-size:14px;color:var(--muted)}
+.n{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:6px;background:var(--navy);color:#fff;font-size:12px;margin-right:6px}
+.warn{background:#fff7e6;border:1px solid var(--amber);border-radius:12px;padding:12px;font-size:14px;font-weight:600;text-align:center;margin-top:12px}
+.hl{background:var(--amber);color:var(--navy);font-weight:700;padding:1px 6px;border-radius:4px}
+label{display:block;font-weight:600;font-size:14px;margin:14px 0 6px}
+select,input,textarea{width:100%;font:inherit;font-size:14px;padding:11px;border:1px solid var(--line);border-radius:10px;background:#fff}
+.hint{font-size:12px;color:var(--muted);margin:6px 0 12px}
+.proc{margin-top:12px}
+.proc img{width:100%;border-radius:12px;border:1px solid var(--line);display:block;margin-bottom:10px}
+.proc .acts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.proc .acts a{border-radius:10px;padding:12px;text-align:center;font-weight:700;font-size:14px}
+.ok{color:var(--green);font-weight:600}.err{color:var(--red);font-weight:600}
+input[type=file]{padding:9px;background:#fafbfc}
+.seg{display:grid;grid-template-columns:1fr 1fr;background:var(--bg);border-radius:10px;padding:4px;margin-bottom:6px}
+.seg button{padding:10px;border-radius:8px;font-weight:600;font-size:14px;color:var(--muted)}
+.seg button.on{background:var(--navy);color:#fff}
+.st{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.5px;padding:3px 10px;border-radius:999px;background:#e8ebf0;color:var(--muted)}
+.st.vip{background:var(--amber);color:var(--navy)}
+.linkbtn{color:var(--green);font-weight:600;font-size:14px;margin-top:12px;display:inline-block}
+.vp{background:var(--card);border:1px solid var(--amber);border-radius:var(--radius);padding:14px;margin-bottom:10px}
+.vp .top{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:6px}
+.vp h4{font-size:16px;margin-bottom:8px}
+.vp .pr{display:flex;justify-content:space-between;background:var(--bg);border-radius:8px;padding:10px;font-size:14px}
+.hdr-vip{font-family:"Bebas Neue";font-size:24px;margin:6px 0 10px;display:flex;align-items:center;gap:8px}
+[hidden]{display:none!important}
+
+/* Preuves */
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px}
+.stat{background:var(--navy);color:#fff;border-radius:12px;padding:14px}
+.stat b{font-family:"Bebas Neue";font-size:32px;color:var(--amber);display:block;line-height:1}
+.stat span{font-size:12px;opacity:.8}
+.gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.proof{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;text-align:left}
+.proof img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;background:#dde2ea}
+.proof div{padding:8px 10px;font-size:12px}
+.proof div b{display:block;font-size:13px}
+.won{color:var(--green);font-weight:700}
+
+/* Lightbox / popups */
+.lb{position:fixed;inset:0;background:rgba(5,10,20,.92);display:none;place-items:center;z-index:50;padding:16px}
+.lb.on{display:grid}.lb img{max-width:100%;max-height:85vh;border-radius:10px}
+.lb button{position:absolute;top:14px;right:18px;color:#fff;font-size:30px}
+.toast{position:fixed;left:12px;right:12px;bottom:92px;max-width:480px;margin:0 auto;background:#fff;border-left:5px solid var(--amber);border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,.2);padding:16px;z-index:40;display:none}
+.toast.on{display:block;animation:up .35s ease}
+@keyframes up{from{transform:translateY(20px);opacity:0}}
+.toast h4{font-family:"Bebas Neue";font-size:22px;font-weight:400;margin-bottom:4px}
+.toast p{font-size:14px;margin-bottom:12px;color:var(--muted)}
+.toast .x{position:absolute;top:8px;right:12px;font-size:22px;color:var(--muted)}
+.toast small{display:block;font-size:11px;color:var(--muted);margin-top:8px;text-align:center}
+
+/* Bottom nav */
+.tabbar{position:fixed;left:0;right:0;bottom:0;background:var(--navy);display:flex;justify-content:space-around;padding:8px 4px calc(8px + env(safe-area-inset-bottom));z-index:30}
+.tabbar a{display:flex;flex-direction:column;align-items:center;gap:3px;color:#fff;opacity:.65;font-size:10px;font-weight:600;letter-spacing:.5px;min-width:56px}
+.tabbar a.on{color:var(--amber);opacity:1}
+.tabbar svg{width:22px;height:22px;fill:currentColor}
+
+footer{background:var(--navy);color:#fff;padding:18px 0 24px;font-size:12px;opacity:.95}
+footer .l{display:flex;gap:14px;margin-bottom:8px;opacity:.8}
+@media(min-width:620px){.gallery{grid-template-columns:repeat(3,1fr)}.stats{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="brand" id="brand">JEFF <span>PRO</span></div>
+    <nav class="topnav">
+      <a id="homeLink" href="index.html">Accueil</a>
+      <a href="#preuves" data-tab="preuves">Résultats</a>
+      <a href="#vip" data-tab="vip">VIP</a>
+      <a href="#pronos" data-tab="pronos" class="on">Pronostics</a>
+      <a href="#contact" data-tab="contact">Contact</a>
+      <a href="#profil" data-tab="profil">Mon compte</a>
+    </nav>
+    <div class="social">
+      <a class="pill tg" id="tgBtn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M9.8 15.4l-.4 5.3c.6 0 .8-.2 1.1-.5l2.6-2.5 5.4 4c1 .6 1.7.3 2-.9l3.6-17c.3-1.5-.6-2.1-1.6-1.7L1.3 9.8c-1.4.6-1.4 1.4-.2 1.8l5.4 1.7 12.5-7.9c.6-.4 1.1-.2.7.2"/></svg>Mon bot VIP</a>
+      <a class="pill wa" id="waBtn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-8.6 15l-1.4 5 5.2-1.4A10 10 0 1012 2zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1-.4-.1-1-.3-1.7-.6-3-1.3-5-4.3-5.1-4.5-.2-.2-1.2-1.6-1.2-3.1s.8-2.2 1-2.5c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.3.5-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.1 1.4z"/></svg>Ma chaîne WhatsApp</a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- Promo + bookmakers -->
+  <div class="promo">
+    <span class="tag">OFFRE LIMITÉE</span>
+    <h2>Gagne jusqu'à <em>200% de bonus</em><br>sur ton premier dépôt</h2>
+    <p>Inscris-toi avec mon code promo :</p>
+    <div class="code"><b id="codeTxt">8F9Y</b><button class="copy" id="copyBtn">COPIER</button></div>
+    <p class="small">Valable sur les bookmakers partenaires ci-dessous</p>
+  </div>
+  <div class="books" id="books"></div>
+  <p class="resp">18+ | Jouez de façon responsable. Les paris comportent des risques de perte.</p>
+
+  <!-- PRONOSTICS -->
+  <section id="pronos" class="on">
+    <h1 class="title">Mes avis du jour</h1>
+    <p class="sub" id="todayTxt"></p>
+    <div class="chips" id="chips"></div>
+    <div class="vipban">
+      <p><b>Pronostics VIP</b> — mes analyses complètes et mes sélections premium, validées chaque jour.</p>
+      <a href="#vip" data-tab="vip" class="btn">Voir l'offre VIP</a>
+    </div>
+    <div id="vipPronos" hidden></div>
+    <div id="list"></div>
+  </section>
+
+  <!-- VIP -->
+  <section id="vip">
+    <h1 class="title">★ Espace VIP</h1>
+    <div class="card">
+      <h3>Pour rejoindre le club VIP JEFF PRO — lis bien</h3>
+      <p class="sub" style="margin:0">Suis ces étapes dans l'ordre. Les 2 captures sont obligatoires pour la validation :</p>
+      <div id="steps"></div>
+      <div class="warn">⚠️ Sans ces 2 captures, ton accès VIP ne pourra pas être validé.</div>
+    </div>
+
+    <div class="card">
+      <h3>Sélection du bookmaker</h3>
+      <p style="font-size:14px">Inscris-toi avec le code promo <span class="hl" id="code2">8F9Y</span> et fais un dépôt de <b id="dep2">2000 FCFA minimum</b> sur un de ces bookmakers :</p>
+      <div class="books" id="books2" style="margin-top:12px"></div>
+
+      <label for="bk">Choisis ton bookmaker :</label>
+      <select id="bk"><option value="">— Choisir un bookmaker —</option></select>
+      <div id="proc" class="proc"></div>
+    </div>
+
+    <form class="card" id="proofForm" novalidate>
+      <h3>📸 Envoie tes 2 captures</h3>
+      <p class="hint" style="margin-top:0">Je vérifie moi-même tes preuves puis je te donne l'accès VIP.</p>
+      <p class="hint" id="acctHint" hidden style="background:#fff7e6;border:1px solid var(--amber);border-radius:10px;padding:10px;color:var(--ink)">💡 <a href="#profil" data-tab="profil" style="font-weight:700;text-decoration:underline">Crée ton compte</a> avant d'envoyer tes preuves : c'est ce compte que je passerai en VIP.</p>
+      <label for="fNom">Ton nom ou pseudo</label>
+      <input id="fNom" required placeholder="Ex : Koffi">
+      <label for="fTel">Ton numéro WhatsApp</label>
+      <input id="fTel" required inputmode="tel" placeholder="Ex : 229 01 00 00 00 00">
+      <label for="fBk">Bookmaker utilisé</label>
+      <select id="fBk" required><option value="">— Choisir un bookmaker —</option></select>
+      <label for="ident">Ton identifiant / numéro de compte</label>
+      <input id="ident" placeholder="Ex : 1732717973">
+      <label for="cap1">Capture 1 : ton inscription (profil avec identifiant)</label>
+      <input type="file" id="cap1" accept="image/*" required>
+      <label for="cap2">Capture 2 : ta recharge de <span class="dmin">2000 FCFA</span> minimum</label>
+      <input type="file" id="cap2" accept="image/*" required>
+      <button class="btn green" id="sendProof" type="submit" style="margin-top:16px">ENVOYER MES PREUVES</button>
+      <p class="hint" id="sendNote" style="margin-top:10px"></p>
+    </form>
+  </section>
+
+  <!-- PREUVES -->
+  <section id="preuves">
+    <h1 class="title">🏆 Mes preuves</h1>
+    <p class="sub">Les coupons gagnés de mon groupe. Clique sur une capture pour l'agrandir.</p>
+    <div id="gallery"></div>
+  </section>
+
+  <!-- PROFIL -->
+  <section id="profil">
+    <h1 class="title">👤 Mon profil</h1>
+    <div class="card" id="authOff"><p class="sub" style="margin:0">L'espace membre arrive bientôt. En attendant, rejoins ma chaîne WhatsApp.</p></div>
+
+    <div class="card" id="authBox" hidden>
+      <div class="seg"><button type="button" data-m="login" class="on">Connexion</button><button type="button" data-m="register">Inscription</button></div>
+      <form id="authForm" novalidate>
+        <label for="aEmail">Email</label>
+        <input id="aEmail" type="email" autocomplete="email" placeholder="ton@email.com">
+        <label for="aPass">Mot de passe</label>
+        <input id="aPass" type="password" autocomplete="current-password" placeholder="6 caractères minimum">
+        <div id="aPass2Wrap" hidden><label for="aPass2">Confirme le mot de passe</label><input id="aPass2" type="password" autocomplete="new-password"></div>
+        <button class="btn dark" id="aSubmit" type="submit" style="margin-top:16px">SE CONNECTER</button>
+        <p class="hint" id="aMsg" style="margin-top:10px"></p>
+        <button type="button" class="linkbtn" id="aForgot">Mot de passe oublié ?</button>
+      </form>
+    </div>
+
+    <div id="profileBox" hidden>
+      <div class="card">
+        <p style="margin-bottom:8px"><b>Email :</b> <span id="pEmail"></span></p>
+        <p><b>Statut :</b> <span class="st" id="pStatut">STANDARD</span></p>
+      </div>
+      <button class="btn" style="background:#fff;border:1px solid var(--line);border-radius:10px;margin-bottom:14px" id="logout">⏻ SE DÉCONNECTER</button>
+      <div class="card" id="pUpgrade">
+        <h3>Passer VIP</h3>
+        <p class="sub">Débloque mes pronostics premium et l'analyse détaillée de chaque match.</p>
+        <a href="#vip" data-tab="vip" class="btn">★ Découvrir l'offre VIP</a>
+      </div>
+      <div class="card" id="pIsVip" hidden>
+        <h3>★ Tu es VIP</h3>
+        <p class="sub" style="margin-bottom:12px">Tes pronos VIP sont dans l'onglet Pronos.</p>
+        <a href="#pronos" data-tab="pronos" class="btn">Voir mes pronos VIP</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <h1 class="title">Contact</h1>
+    <div class="card">
+      <h3>Écris-moi</h3>
+      <label for="msg">Ton message</label>
+      <textarea id="msg" rows="4" placeholder="Écris un message…"></textarea>
+      <div style="display:grid;gap:10px;margin-top:12px">
+        <button class="btn green" id="sendMsg">ENVOYER SUR WHATSAPP</button>
+        <a class="btn dark" id="botBtn2" target="_blank" rel="noopener">🤖 MON BOT TELEGRAM</a>
+        <a class="btn dark" id="tgBtn2" target="_blank" rel="noopener">REJOINDRE MA CHAÎNE WHATSAPP</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap"><div class="l"><a href="index.html">Accueil</a><a href="#vip" data-tab="vip">VIP</a><a href="#preuves" data-tab="preuves">Résultats</a></div><div id="copyTxt"></div></div></footer>
+
+<!-- Popup résultats -->
+<div class="toast" id="toast">
+  <button class="x" id="toastX" aria-label="Fermer">×</button>
+  <h4>🏆 Résultats du groupe d'hier</h4>
+  <p>Retrouve les résultats et les gains de mon groupe d'hier.</p>
+  <a href="#preuves" data-tab="preuves" class="btn dark" id="toastGo">VOIR LES RÉSULTATS</a>
+  <small id="toastCount"></small>
+</div>
+
+<div class="lb" id="lb"><button id="lbX" aria-label="Fermer">×</button><img id="lbImg" alt="Preuve"></div>
+
+<nav class="tabbar">
+  <a href="#pronos" data-tab="pronos" class="on"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 3l2.6 1.9-1 3.1H10.4l-1-3.1L12 5zm-6.5 4l2.9-.5 1 3.1-2 2.4-2.6-.9.7-4.1zm13 0l.7 4.1-2.6.9-2-2.4 1-3.1 2.9.5zM9.3 16.3h5.4l1 2.9a8 8 0 01-7.4 0l1-2.9z"/></svg>PRONOS</a>
+  <a href="#vip" data-tab="vip"><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg>VIP</a>
+  <a href="#preuves" data-tab="preuves"><svg viewBox="0 0 24 24"><path d="M18 2H6v2H2v3a5 5 0 004.4 5A6 6 0 0011 15.9V19H7v3h10v-3h-4v-3.1a6 6 0 004.6-3.9A5 5 0 0022 7V4h-4V2zM4 7V6h2v4a3 3 0 01-2-3zm16 0a3 3 0 01-2 3V6h2v1z"/></svg>PREUVES</a>
+  <a href="#contact" data-tab="contact"><svg viewBox="0 0 24 24"><path d="M20 2H4a2 2 0 00-2 2v18l4-4h14a2 2 0 002-2V4a2 2 0 00-2-2z"/></svg>CONTACT</a>
+  <a href="#profil" data-tab="profil"><svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 100-10 5 5 0 000 10zm0 2c-5 0-9 2.5-9 5.5V22h18v-2.5C21 16.5 17 14 12 14z"/></svg>PROFIL</a>
+</nav>
+
+<script src="vip-data.js"></script>
+<script src="firebase-config.js"></script>
+<script>
+(function(){
+  const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+  const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const C=CONFIG;
+
+  // Config
+  const parts=C.nom.split(" ");
+  $("#brand").innerHTML=esc(parts[0])+(parts[1]?" <span>"+esc(parts.slice(1).join(" "))+"</span>":"");
+  document.title=C.nom+" — Espace VIP";
+  ["#codeTxt","#code2"].forEach(s=>$(s).textContent=C.codePromo);
+  $("#dep2").textContent=C.depotMin+" minimum";
+  const wa=t=>C.whatsapp?"https://wa.me/"+C.whatsapp+(t?"?text="+encodeURIComponent(t):""):"";
+  const setLink=(sel,url)=>{const a=$(sel);if(url){a.href=url}else{a.style.display="none"}};
+  setLink("#waBtn",C.chaineWhatsapp); setLink("#tgBtn2",C.chaineWhatsapp); setLink("#tgBtn",C.bot); setLink("#botBtn2",C.bot);
+  $("#steps").innerHTML=(typeof ETAPES!=="undefined"?ETAPES:[]).map((e,i)=>'<div class="step"><b><span class="n">'+(i+1)+'</span>'+esc(e.titre)+'</b><p>'+esc(e.texte)+'</p></div>').join("");
+  $("#homeLink").href=C.accueil;
+  $("#copyTxt").textContent="© "+new Date().getFullYear()+" "+C.nom+" — Pronostics à titre informatif. 18+, jouez responsable.";
+
+  $("#copyBtn").onclick=()=>{
+    const done=()=>{$("#copyBtn").textContent="COPIÉ ✓";setTimeout(()=>$("#copyBtn").textContent="COPIER",1600)};
+    try{navigator.clipboard.writeText(C.codePromo).then(done,done)}catch(e){done()}
+  };
+
+  // Bookmakers
+  const bookHTML=BOOKMAKERS.map(b=>{
+    const tag=b.lien?'a href="'+esc(b.lien)+'" target="_blank" rel="noopener"':'div';
+    return '<'+tag+' class="book" style="--c:'+esc(b.couleur)+'"><span class="ic">'+esc(b.nom[0])+'</span><span><b>'+esc(b.nom)+'</b><small>'+esc(b.bonus)+'</small></span>'+(b.lien?'<span class="ar">→</span>':'')+'</'+tag.split(" ")[0]+'>';
+  }).join("");
+  $("#books").innerHTML=bookHTML; $("#books2").innerHTML=bookHTML;
+  BOOKMAKERS.forEach(b=>["#bk","#fBk"].forEach(sel=>{const o=document.createElement("option");o.textContent=b.nom;$(sel).appendChild(o)}));
+  $$(".dmin").forEach(e=>e.textContent=C.depotMin);
+  // Procédure du bookmaker choisi
+  $("#bk").onchange=()=>{
+    const b=BOOKMAKERS.find(x=>x.nom===$("#bk").value);
+    if(!b){$("#proc").innerHTML="";return}
+    $("#fBk").value=b.nom;
+    $("#proc").innerHTML=(b.procedure?'<img src="'+esc(b.procedure)+'" alt="Procédure d\'inscription '+esc(b.nom)+'">':'')
+      +'<div class="step" style="margin-top:0"><b>Procédure '+esc(b.nom)+'</b><p>1. Ouvre le lien d\'inscription. 2. Mets le code promo <span class="hl">'+esc(C.codePromo)+'</span>. 3. Valide ton inscription. 4. Recharge '+esc(C.depotMin)+' minimum.</p></div>'
+      +'<div class="acts" style="margin-top:10px">'+(b.lien?'<a class="btn green" style="width:auto" href="'+esc(b.lien)+'" target="_blank" rel="noopener">🔗 S\'inscrire</a>':'')
+      +(b.appli?'<a class="btn dark" style="width:auto" href="'+esc(b.appli)+'" target="_blank" rel="noopener">📥 Télécharger</a>':'')+'</div>';
+  };
+
+  // Tabs
+  function show(tab){
+    if(!document.getElementById(tab)||!["pronos","vip","preuves","contact","profil"].includes(tab))tab="pronos";
+    $$("main section").forEach(s=>s.classList.toggle("on",s.id===tab));
+    $$("[data-tab]").forEach(a=>a.classList.toggle("on",a.dataset.tab===tab));
+  }
+  document.addEventListener("click",e=>{const a=e.target.closest("[data-tab]");if(!a)return;e.preventDefault();history.replaceState(null,"","#"+a.dataset.tab);show(a.dataset.tab);hideToast();window.scrollTo({top:document.querySelector("main section.on").offsetTop-10,behavior:"smooth"})});
+  window.JP_show=show;
+  show(location.hash.slice(1)||"pronos");
+
+  // Dates
+  const JOURS=["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"];
+  const MOIS=["janv.","févr.","mars","avr.","mai","juin","juil.","août","sept.","oct.","nov.","déc."];
+  const now=new Date(); const day0=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  const key=d=>d.getFullYear()+"-"+d.getMonth()+"-"+d.getDate();
+  const fmt=d=>JOURS[d.getDay()].slice(0,3).toLowerCase()+". "+d.getDate()+" "+MOIS[d.getMonth()]+", "+String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0");
+  $("#todayTxt").textContent="Tous les matchs et pronostics du "+JOURS[now.getDay()].toLowerCase()+" "+now.getDate()+" "+MOIS[now.getMonth()].replace(".","")+".";
+
+  // Matchs à venir (on cache ceux commencés depuis plus de 2h)
+  const upcoming=MATCHS.map(m=>({...m,d:new Date(m.date)}))
+    .filter(m=>!isNaN(m.d)&&m.d.getTime()>now.getTime()-2*3600e3)
+    .sort((a,b)=>a.d-b.d);
+
+  const chips=[{k:"all",t:"Tous"}];
+  for(let i=0;i<7;i++){const d=new Date(day0);d.setDate(d.getDate()+i);
+    chips.push({k:key(d),t:i===0?"Aujourd'hui":i===1?"Demain":JOURS[d.getDay()]});}
+  let filt="all";
+  $("#chips").innerHTML=chips.map(c=>'<button class="chip'+(c.k==="all"?" on":"")+'" data-k="'+c.k+'">'+c.t+'</button>').join("");
+  $$("#chips .chip").forEach(b=>b.onclick=()=>{filt=b.dataset.k;$$("#chips .chip").forEach(x=>x.classList.toggle("on",x===b));render()});
+
+  const colors=["#0c1a2f","#c0392b","#1f6feb","#18a957","#8e44ad","#d35400","#16a085","#b7950b","#2c3e50","#e0413b"];
+  const col=s=>{let h=0;for(const c of s)h=(h*31+c.charCodeAt(0))>>>0;return colors[h%colors.length]};
+  const ini=s=>s.split(/[\s-]+/).filter(Boolean).map(w=>w[0]).join("").slice(0,2).toUpperCase();
+  const team=n=>'<div class="team"><span class="badge" style="background:'+col(n)+'">'+esc(ini(n))+'</span>'+esc(n)+'</div>';
+
+  function pronoHTML(m){
+    if(m.vip) return '<div class="lock"><p>🔒 Ce prono est réservé aux membres VIP.</p><a href="#vip" data-tab="vip" class="btn">Débloquer l\'analyse VIP</a></div>';
+    if(!m.prono) return '<div class="lock"><p>⏳ Prono bientôt disponible. Rejoins mon canal pour être alerté.</p></div>';
+    return '<table><tr><th>Pronostic</th><th>Cote</th></tr><tr><td><b>'+esc(m.prono)+'</b>'
+      +(m.confiance?'<div class="meta">Confiance : <b>'+esc(m.confiance)+'</b></div>':'')
+      +(m.analyse?'<div class="meta">'+esc(m.analyse)+'</div>':'')
+      +'</td><td><b>'+esc(m.cote||"—")+'</b></td></tr></table>';
+  }
+
+  function render(){
+    const rows=upcoming.filter(m=>filt==="all"||key(m.d)===filt);
+    if(!rows.length){$("#list").innerHTML='<div class="empty">Aucun match prévu pour ce jour. Reviens bientôt !</div>';return}
+    const byL={};rows.forEach(m=>(byL[m.ligue]=byL[m.ligue]||[]).push(m));
+    $("#list").innerHTML=Object.entries(byL).map(([l,ms])=>'<div class="league">'+esc(l)+'</div>'+ms.map(m=>{
+      const i=upcoming.indexOf(m);
+      return '<article class="match"><div class="lg">'+esc(m.ligue)+'</div><div class="teams">'+team(m.dom)+'<span class="vs">VS</span>'+team(m.ext)+'</div>'
+        +'<div class="mfoot"><button data-i="'+i+'">Voir le pronostic ▾</button><time>'+fmt(m.d)+'</time></div>'
+        +'<div class="prono" id="p'+i+'">'+pronoHTML(m)+'</div></article>';
+    }).join("")).join("");
+    $$("#list .mfoot button").forEach(b=>b.onclick=()=>{const p=$("#p"+b.dataset.i);p.classList.toggle("open");b.textContent=p.classList.contains("open")?"Masquer ▴":"Voir le pronostic ▾"});
+  }
+  render();
+
+  // Preuves
+  if(!PREUVES.length){
+    $("#gallery").innerHTML='<div class="empty">Mes premières preuves arrivent très bientôt.</div>';
+  }else{
+    $("#gallery").innerHTML='<div class="stats"><div class="stat"><b>'+PREUVES.length+'</b><span>Coupons gagnés publiés</span></div></div><div class="gallery">'
+      +PREUVES.map(p=>'<button class="proof" data-src="'+esc(p.image)+'"><img loading="lazy" src="'+esc(p.image)+'" alt="'+esc(p.titre||"Preuve")+'"><div><b>'+esc(p.titre||"Coupon gagné")+'</b>'+esc(p.date||"")+(p.cote?' · <span class="won">Cote '+esc(p.cote)+'</span>':'')+'</div></button>').join("")+'</div>';
+    $$(".proof").forEach(b=>b.onclick=()=>{$("#lbImg").src=b.dataset.src;$("#lb").classList.add("on")});
+  }
+  $("#lbX").onclick=$("#lb").onclick=e=>{if(e.target.id!=="lbImg")$("#lb").classList.remove("on")};
+
+  // WhatsApp envois
+  function sendTo(text){
+    // 1) WhatsApp si numéro rempli (message pré-écrit), sinon 2) le bot (message copié)
+    const w=wa(text);
+    if(w){window.open(w,"_blank");return true}
+    if(C.bot){
+      try{navigator.clipboard.writeText(text)}catch(e){}
+      window.open(C.bot,"_blank");return true;
+    }
+    alert("Lien du bot pas encore configuré.");return false;
+  }
+  // Bouton WhatsApp : partage les 2 photos directement (téléphones compatibles), sinon message pré-écrit
+  function showWaShare(texte,files){
+    let box=$("#waShare");
+    if(!box){box=document.createElement("div");box.id="waShare";box.style.cssText="display:grid;gap:8px;margin-top:10px";$("#proofForm").appendChild(box)}
+    const canFiles=!!(navigator.canShare&&navigator.canShare({files}));
+    box.innerHTML='<button type="button" class="btn green" style="background:var(--wa)">📲 ENVOYER MES CAPTURES SUR WHATSAPP</button>'
+      +'<p class="hint" style="margin:0">'+(canFiles?'Choisis <b>WhatsApp</b> puis la discussion <b>'+esc(C.nom)+'</b> (+'+esc(C.whatsapp)+').':'WhatsApp va s\'ouvrir : envoie le message puis joins tes 2 captures avec le trombone 📎.')+'</p>';
+    box.querySelector("button").onclick=async()=>{
+      if(canFiles){
+        try{await navigator.share({files,text:texte});return}catch(e){if(e&&e.name==="AbortError")return}
+      }
+      sendTo(texte+"\nJe t'envoie mes 2 captures (inscription + recharge) ici.");
+    };
+  }
+
+  // Envoi des captures
+  $("#proofForm").onsubmit=async e=>{
+    e.preventDefault();
+    const note=$("#sendNote"), btn=$("#sendProof");
+    const nom=$("#fNom").value.trim(), tel=$("#fTel").value.trim(), bk=$("#fBk").value, id=$("#ident").value.trim();
+    const f1=$("#cap1").files[0], f2=$("#cap2").files[0];
+    note.className="hint";
+    if(!nom||!tel||!bk){note.className="hint err";note.textContent="Remplis ton nom, ton numéro et ton bookmaker.";return}
+    const mail=(window.JP_USER&&window.JP_USER.email)||"";
+    const texte="Salut "+C.nom+" ! Je veux rejoindre le VIP.\nNom : "+nom+(mail?"\nEmail du compte : "+mail:"")+"\nWhatsApp : "+tel+"\nBookmaker : "+bk+"\nIdentifiant : "+(id||"—")+"\nCode promo : "+C.codePromo+"\nRecharge : "+C.depotMin+" minimum";
+    // Pas encore de relais : on passe par WhatsApp
+    if(!f1||!f2){note.className="hint err";note.textContent="Ajoute tes 2 captures (inscription + recharge).";return}
+    if(!C.envoiCaptures){
+      note.className="hint ok";note.textContent="Envoie tes captures sur mon WhatsApp 👇";
+      showWaShare(texte,[f1,f2]);return;
+    }
+    if(f1.size>10e6||f2.size>10e6){note.className="hint err";note.textContent="Une capture est trop lourde (10 Mo maximum).";return}
+    const fd=new FormData();
+    fd.append("nom",nom);fd.append("tel",tel);fd.append("bookmaker",bk);fd.append("identifiant",id);fd.append("code",C.codePromo);fd.append("email",mail);
+    fd.append("capture1",f1);fd.append("capture2",f2);
+    btn.disabled=true;btn.textContent="ENVOI EN COURS…";
+    try{
+      const r=await fetch(C.envoiCaptures,{method:"POST",body:fd});
+      if(!r.ok)throw new Error(r.status);
+      $("#proofForm").reset();
+      note.className="hint ok";note.innerHTML="✅ Preuves envoyées ! Dernière étape : envoie-les aussi sur mon WhatsApp 👇";
+      showWaShare(texte,[f1,f2]);
+    }catch(err){
+      note.className="hint err";note.textContent="L'envoi n'a pas marché. Réessaie, ou envoie tes captures sur mon WhatsApp.";
+      if(C.whatsapp)note.innerHTML+=' <a class="ok" href="'+wa(texte)+'" target="_blank" rel="noopener">Ouvrir WhatsApp</a>';
+    }finally{btn.disabled=false;btn.textContent="ENVOYER MES PREUVES";}
+  };
+  $("#sendMsg").onclick=()=>{const t=$("#msg").value.trim();sendTo(t||"Salut "+C.nom+" !")};
+
+  // Popup résultats d'hier (15 s)
+  let tm;function hideToast(){$("#toast").classList.remove("on");clearInterval(tm)}
+  $("#toastX").onclick=hideToast;
+  if(PREUVES.length){
+    setTimeout(()=>{$("#toast").classList.add("on");let s=15;
+      const up=()=>$("#toastCount").textContent="Ce message se fermera dans "+s+" s.";up();
+      tm=setInterval(()=>{s--;up();if(s<=0)hideToast()},1000)},1500);
+  }
+})();
+</script>
+<script type="module" src="comptes.js"></script>
+</body>
+</html>
