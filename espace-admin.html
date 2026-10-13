@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>JEFF PRO — Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f3f4f7;--card:#fff;--ink:#0c1a2f;--muted:#5d6a7e;--line:#e3e7ee;--navy:#0c1a2f;--amber:#ffb21e;--green:#18a957;--red:#e0413b}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:var(--navy);color:#fff;padding:16px}
+header b{font-family:"Bebas Neue";font-size:26px;letter-spacing:1px}header b span{color:var(--amber)}
+.wrap{max-width:760px;margin:0 auto;padding:16px}
+h2{font-family:"Bebas Neue";font-weight:400;font-size:28px;margin:18px 0 10px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:12px}
+label{display:block;font-weight:600;font-size:13px;margin:10px 0 4px}
+input,select,textarea{width:100%;font:inherit;font-size:14px;padding:10px;border:1px solid var(--line);border-radius:10px;background:#fff}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:0 10px}
+button{font:inherit;cursor:pointer;border:0;border-radius:10px;padding:11px 14px;font-weight:700;font-size:14px}
+.b-dark{background:var(--navy);color:#fff}.b-amber{background:var(--amber);color:var(--navy)}.b-ghost{background:#eef0f4;color:var(--ink)}.b-red{background:#fdecea;color:var(--red)}
+.full{width:100%;margin-top:14px}
+.msg{font-size:13px;margin-top:8px}.err{color:var(--red)}.ok{color:var(--green)}
+.row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
+.row:last-child{border:0}.row .e{flex:1;min-width:0;overflow-wrap:anywhere}
+.row small{display:block;color:var(--muted);font-size:12px}
+.st{font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:#e8ebf0;color:var(--muted);flex:none}
+.st.vip{background:var(--amber);color:var(--navy)}
+.tabs{display:flex;gap:8px;margin:14px 0 0}.tabs button{flex:1}.tabs .on{background:var(--navy);color:#fff}
+.count{color:var(--muted);font-size:13px;margin-bottom:8px}
+[hidden]{display:none!important}
+@media(max-width:480px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><b>JEFF <span>PRO</span> · ADMIN</b></header>
+<div class="wrap">
+
+  <div class="card" id="notConf" hidden>La connexion n'est pas encore configurée : remplis <b>firebase-config.js</b> (voir COMPTES-ABONNES.txt).</div>
+
+  <form class="card" id="login" hidden>
+    <h2 style="margin-top:0">Connexion admin</h2>
+    <label>Email</label><input id="em" type="email" autocomplete="email" autocapitalize="none" autocorrect="off" spellcheck="false">
+    <label>Mot de passe</label><input id="pw" type="password" autocomplete="current-password">
+    <button class="b-dark full">SE CONNECTER</button>
+    <p class="msg err" id="lMsg"></p>
+  </form>
+
+  <div class="card" id="denied" hidden>
+    <p>Ce compte n'est pas administrateur.</p>
+    <p class="msg" id="myUid"></p>
+    <button class="b-ghost full" id="out1">Se déconnecter</button>
+  </div>
+
+  <div id="panel" hidden>
+    <div class="tabs"><button class="on" data-t="abonnes">Abonnés</button><button class="b-ghost" data-t="pronos">Pronos VIP</button><button class="b-ghost" id="out2">Quitter</button></div>
+
+    <div id="t-abonnes">
+      <h2>Abonnés</h2>
+      <input id="search" placeholder="Rechercher un email…">
+      <p class="count" id="count" style="margin-top:8px"></p>
+      <div class="card" id="users" style="padding:4px 16px"></div>
+    </div>
+
+    <div id="t-pronos" hidden>
+      <h2>Publier un prono VIP</h2>
+      <form class="card" id="pForm">
+        <div class="grid">
+          <div><label>Compétition</label><input id="pl" placeholder="Ligue 1" required></div>
+          <div><label>Date et heure</label><input id="pd" type="datetime-local" required></div>
+          <div><label>Équipe domicile</label><input id="ph" required></div>
+          <div><label>Équipe extérieur</label><input id="pa" required></div>
+          <div><label>Pronostic</label><input id="pp" placeholder="Plus de 2,5 buts" required></div>
+          <div><label>Cote</label><input id="pc" placeholder="1.85"></div>
+          <div><label>Confiance</label><select id="pf"><option>Forte</option><option>Moyenne</option><option>Très forte</option></select></div>
+        </div>
+        <label>Analyse (facultatif)</label><textarea id="pn" rows="3"></textarea>
+        <button class="b-amber full">PUBLIER POUR LES VIP</button>
+        <p class="msg" id="pMsg"></p>
+      </form>
+      <h2>Pronos VIP publiés</h2>
+      <div class="card" id="plist" style="padding:4px 16px"></div>
+    </div>
+  </div>
+</div>
+
+<script src="firebase-config.js?v=3"></script>
+<script type="module">
+const V="10.12.2";
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+if(typeof FIREBASE_CONFIG==="undefined"||!FIREBASE_CONFIG.apiKey){$("#notConf").hidden=false;}
+else{
+  const {initializeApp}=await import(`https://www.gstatic.com/firebasejs/${V}/firebase-app.js`);
+  const A=await import(`https://www.gstatic.com/firebasejs/${V}/firebase-auth.js`);
+  const F=await import(`https://www.gstatic.com/firebasejs/${V}/firebase-firestore.js`);
+  const app=initializeApp(FIREBASE_CONFIG),auth=A.getAuth(app),db=F.getFirestore(app);
+  let unsubs=[];
+
+  $("#login").onsubmit=async e=>{e.preventDefault();$("#lMsg").textContent="";
+    try{await A.signInWithEmailAndPassword(auth,$("#em").value.replace(/\s+/g,"").toLowerCase(),$("#pw").value)}catch(err){$("#lMsg").textContent="Email ou mot de passe incorrect."}};
+  $("#out1").onclick=$("#out2").onclick=()=>A.signOut(auth);
+
+  document.querySelectorAll("[data-t]").forEach(b=>b.onclick=()=>{
+    document.querySelectorAll("[data-t]").forEach(x=>{x.classList.toggle("on",x===b);x.classList.toggle("b-ghost",x!==b)});
+    $("#t-abonnes").hidden=b.dataset.t!=="abonnes";$("#t-pronos").hidden=b.dataset.t!=="pronos";});
+
+  A.onAuthStateChanged(auth,user=>{
+    unsubs.forEach(u=>u());unsubs=[];
+    $("#login").hidden=!!user;
+    const ADMINS=["YXQJr7GS2lf6Q8UIDB6aYmSxmLn1",(typeof ADMIN_UID!=="undefined"?ADMIN_UID:"")];
+    const ADMIN_EMAILS=["calebhounnon77@gmail.com"];
+    const admin=!!user&&(ADMINS.includes(user.uid)||ADMIN_EMAILS.includes((user.email||"").toLowerCase()));
+    $("#denied").hidden=!user||admin;$("#panel").hidden=!admin;
+    if(user&&!admin)$("#myUid").innerHTML="Email : <b>"+esc(user.email||"")+"</b><br>UID : <code style=\"font-size:15px;background:#eef0f4;padding:2px 6px;border-radius:6px\">"+esc(user.uid)+"</code><br><small>Version de la page : 4</small>";
+    if(admin)startPanel();
+  });
+
+  let users=[];
+  function drawUsers(){
+    const q=$("#search").value.trim().toLowerCase();
+    const list=users.filter(u=>!q||(u.email||"").toLowerCase().includes(q));
+    $("#count").textContent=users.length+" abonnés · "+users.filter(u=>u.statut==="VIP").length+" VIP";
+    $("#users").innerHTML=list.length?list.map(u=>{
+      const vip=u.statut==="VIP";const d=u.createdAt&&u.createdAt.toDate?u.createdAt.toDate().toLocaleDateString("fr-FR"):"";
+      return '<div class="row"><div class="e">'+esc(u.email)+'<small>Inscrit le '+esc(d)+'</small></div><span class="st'+(vip?" vip":"")+'">'+(vip?"VIP":"STANDARD")+'</span>'
+        +'<button class="'+(vip?"b-red":"b-amber")+'" data-id="'+esc(u.id)+'" data-to="'+(vip?"STANDARD":"VIP")+'">'+(vip?"Retirer VIP":"Passer VIP")+'</button></div>'}).join("")
+      :'<p class="msg" style="padding:12px 0">Aucun abonné.</p>';
+    document.querySelectorAll("#users [data-id]").forEach(b=>b.onclick=async()=>{
+      b.disabled=true;try{await F.updateDoc(F.doc(db,"users",b.dataset.id),{statut:b.dataset.to})}catch(e){alert("Erreur : vérifie les règles Firestore.");b.disabled=false}});
+  }
+  $("#search").oninput=drawUsers;
+
+  function startPanel(){
+    unsubs.push(F.onSnapshot(F.query(F.collection(db,"users"),F.orderBy("createdAt","desc")),s=>{users=s.docs.map(d=>({id:d.id,...d.data()}));drawUsers()},
+      e=>{$("#users").innerHTML='<p class="msg err" style="padding:12px 0">Accès refusé : vérifie ton UID dans les règles Firestore.</p>'}));
+    unsubs.push(F.onSnapshot(F.query(F.collection(db,"vip_pronos"),F.orderBy("date","desc")),s=>{
+      $("#plist").innerHTML=s.empty?'<p class="msg" style="padding:12px 0">Aucun prono VIP publié.</p>':s.docs.map(d=>{const p=d.data();
+        return '<div class="row"><div class="e"><b>'+esc(p.dom)+' vs '+esc(p.ext)+'</b><small>'+esc(p.ligue)+' · '+esc(new Date(p.date).toLocaleString("fr-FR"))+' · '+esc(p.prono)+(p.cote?' @ '+esc(p.cote):'')+'</small></div><button class="b-red" data-del="'+d.id+'">Supprimer</button></div>'}).join("");
+      document.querySelectorAll("[data-del]").forEach(b=>b.onclick=async()=>{if(confirm("Supprimer ce prono VIP ?"))await F.deleteDoc(F.doc(db,"vip_pronos",b.dataset.del))});
+    }));
+  }
+
+  $("#pForm").onsubmit=async e=>{e.preventDefault();const m=$("#pMsg");
+    try{await F.addDoc(F.collection(db,"vip_pronos"),{ligue:$("#pl").value.trim(),date:$("#pd").value,dom:$("#ph").value.trim(),ext:$("#pa").value.trim(),
+      prono:$("#pp").value.trim(),cote:$("#pc").value.trim(),confiance:$("#pf").value,analyse:$("#pn").value.trim(),createdAt:F.serverTimestamp()});
+      e.target.reset();m.className="msg ok";m.textContent="✅ Publié : tes abonnés VIP le voient déjà.";}
+    catch(err){m.className="msg err";m.textContent="Erreur de publication : vérifie les règles Firestore.";}};
+}
+</script>
+</body>
+</html>
