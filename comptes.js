@@ -72,6 +72,21 @@ async function start() {
 
   $("#logout").onclick = () => A.signOut(auth);
 
+  // --- Connexion Google ---
+  $("#gLogin").onclick = async () => {
+    const m = $("#gMsg"); m.textContent = ""; m.className = "hint";
+    try {
+      const c = await A.signInWithPopup(auth, new A.GoogleAuthProvider());
+      await ensureProfile(c.user);
+    } catch (err) {
+      if (err && (err.code === "auth/popup-closed-by-user" || err.code === "auth/cancelled-popup-request")) return;
+      m.className = "hint err";
+      m.textContent = err && err.code === "auth/popup-blocked"
+        ? "Ton navigateur a bloqué la fenêtre Google. Autorise les pop-ups ou utilise ton email."
+        : "La connexion Google n'a pas marché. Utilise ton email et un mot de passe.";
+    }
+  };
+
   async function ensureProfile(user) {
     const ref = F.doc(db, "users", user.uid);
     const snap = await F.getDoc(ref);
