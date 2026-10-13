@@ -85,7 +85,7 @@ button{font:inherit;cursor:pointer;border:0;border-radius:10px;padding:11px 14px
   </div>
 </div>
 
-<script src="firebase-config.js"></script>
+<script src="firebase-config.js?v=3"></script>
 <script type="module">
 const V="10.12.2";
 const $=s=>document.querySelector(s);
@@ -109,7 +109,8 @@ else{
   A.onAuthStateChanged(auth,user=>{
     unsubs.forEach(u=>u());unsubs=[];
     $("#login").hidden=!!user;
-    const admin=user&&user.uid===ADMIN_UID;
+    const ADMINS=["YXQJr7GS2lf6Q8UIDB6aYmSxmLn1",(typeof ADMIN_UID!=="undefined"?ADMIN_UID:"")];
+    const admin=!!user&&ADMINS.includes(user.uid);
     $("#denied").hidden=!user||admin;$("#panel").hidden=!admin;
     if(user&&!admin)$("#myUid").innerHTML="Ton UID : <b>"+esc(user.uid)+"</b><br>Copie-le dans firebase-config.js (ADMIN_UID) et dans les règles Firestore.";
     if(admin)startPanel();
