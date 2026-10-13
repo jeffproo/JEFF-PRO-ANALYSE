@@ -110,9 +110,10 @@ else{
     unsubs.forEach(u=>u());unsubs=[];
     $("#login").hidden=!!user;
     const ADMINS=["YXQJr7GS2lf6Q8UIDB6aYmSxmLn1",(typeof ADMIN_UID!=="undefined"?ADMIN_UID:"")];
-    const admin=!!user&&ADMINS.includes(user.uid);
+    const ADMIN_EMAILS=["calebhounnon77@gmail.com"];
+    const admin=!!user&&(ADMINS.includes(user.uid)||ADMIN_EMAILS.includes((user.email||"").toLowerCase()));
     $("#denied").hidden=!user||admin;$("#panel").hidden=!admin;
-    if(user&&!admin)$("#myUid").innerHTML="Ton UID : <b>"+esc(user.uid)+"</b><br>Copie-le dans firebase-config.js (ADMIN_UID) et dans les règles Firestore.";
+    if(user&&!admin)$("#myUid").innerHTML="Email : <b>"+esc(user.email||"")+"</b><br>UID : <code style=\"font-size:15px;background:#eef0f4;padding:2px 6px;border-radius:6px\">"+esc(user.uid)+"</code><br><small>Version de la page : 4</small>";
     if(admin)startPanel();
   });
 
