@@ -551,7 +551,7 @@ footer .l{display:flex;gap:14px;margin-bottom:8px;opacity:.8}
   <a href="#profil" data-tab="profil"><svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 100-10 5 5 0 000 10zm0 2c-5 0-9 2.5-9 5.5V22h18v-2.5C21 16.5 17 14 12 14z"/></svg>PROFIL</a>
 </nav>
 
-<script src="vip-data.js"></script>
+<script src="vip-data.js?v=19"></script>
 <script src="firebase-config.js?v=3"></script>
 <script>
 // Sans configuration des comptes : pas d'écran de connexion
@@ -626,16 +626,28 @@ else setTimeout(()=>{if(document.body.classList.contains("pending")){document.bo
   const build=list=>list.map(m=>({...m,d:new Date(m.date)}))
     .filter(m=>!isNaN(m.d)&&m.d.getTime()>Date.now()-2*3600e3)
     .sort((a,b)=>a.d-b.d);
-  let upcoming=build(MATCHS);
-  // Matchs gérés depuis l'espace admin (remplacent ceux du fichier dès qu'il y en a)
-  window.JP_setMatchs=list=>{if(list&&list.length){upcoming=build(list);render()}};
+  // Matchs du fichier + changements faits dans l'espace admin (modifiés, retirés ou ajoutés)
+  const cleM=m=>String(m.date||"").slice(0,10)+"|"+m.dom+"|"+m.ext;
+  let remoteM=[];
+  const merge=()=>{const over={};remoteM.forEach(r=>{over[r.cle||cleM(r)]=r});
+    return MATCHS.filter(m=>!over[cleM(m)]).concat(remoteM.filter(r=>!r.masque&&r.dom))};
+  let rawMatchs=merge(),upcoming=build(rawMatchs);
+  window.JP_setMatchs=list=>{remoteM=list||[];rawMatchs=merge();upcoming=build(rawMatchs);render()};
+  // Chaque minute : on retire les matchs terminés ; à minuit, on recharge les jours
+  let curDay=key(new Date());
+  setInterval(()=>{const k=key(new Date());if(k!==curDay){curDay=k;buildChips();upcoming=build(rawMatchs);render();return}
+    const n=build(rawMatchs);if(n.length!==upcoming.length){upcoming=n;render()}},60000);
 
-  const chips=[{k:"all",t:"Tous"}];
-  for(let i=0;i<7;i++){const d=new Date(day0);d.setDate(d.getDate()+i);
-    chips.push({k:key(d),t:i===0?"Aujourd'hui":i===1?"Demain":JOURS[d.getDay()]});}
   let filt="all";
-  $("#chips").innerHTML=chips.map(c=>'<button class="chip'+(c.k==="all"?" on":"")+'" data-k="'+c.k+'">'+c.t+'</button>').join("");
-  $$("#chips .chip").forEach(b=>b.onclick=()=>{filt=b.dataset.k;$$("#chips .chip").forEach(x=>x.classList.toggle("on",x===b));render()});
+  function buildChips(){const t=new Date(),d0=new Date(t.getFullYear(),t.getMonth(),t.getDate());
+    $("#todayTxt").textContent="Tous les matchs et pronostics du "+JOURS[t.getDay()].toLowerCase()+" "+t.getDate()+" "+MOIS[t.getMonth()].replace(".","")+".";
+    const chips=[{k:"all",t:"Tous"}];
+    for(let i=0;i<7;i++){const d=new Date(d0);d.setDate(d.getDate()+i);
+      chips.push({k:key(d),t:i===0?"Aujourd'hui":i===1?"Demain":JOURS[d.getDay()]});}
+    if(!chips.some(c=>c.k===filt))filt="all";
+    $("#chips").innerHTML=chips.map(c=>'<button class="chip'+(c.k===filt?" on":"")+'" data-k="'+c.k+'">'+c.t+'</button>').join("");
+    $$("#chips .chip").forEach(b=>b.onclick=()=>{filt=b.dataset.k;$$("#chips .chip").forEach(x=>x.classList.toggle("on",x===b));render()});}
+  buildChips();
 
   const colors=["#0c1a2f","#c0392b","#1f6feb","#18a957","#8e44ad","#d35400","#16a085","#b7950b","#2c3e50","#e0413b"];
   const col=s=>{let h=0;for(const c of s)h=(h*31+c.charCodeAt(0))>>>0;return colors[h%colors.length]};
@@ -662,13 +674,15 @@ else setTimeout(()=>{if(document.body.classList.contains("pending")){document.bo
   }
 
   function render(){
-    const rows=upcoming.filter(m=>filt==="all"||key(m.d)===filt);
+    const lim=new Date();lim.setHours(0,0,0,0);lim.setDate(lim.getDate()+7);
+    const rows=upcoming.filter(m=>filt==="all"?m.d<lim:key(m.d)===filt);
     if(!rows.length){$("#list").innerHTML='<div class="empty">Aucun match prévu pour ce jour. Reviens bientôt !</div>';return}
     const byL={};rows.forEach(m=>(byL[m.ligue]=byL[m.ligue]||[]).push(m));
-    $("#list").innerHTML=Object.entries(byL).map(([l,ms])=>'<div class="league">'+esc(l)+'</div>'+ms.map(m=>{
+    const ORD=["Ligue des champions","Premier League","Liga","Serie A","Bundesliga","Ligue 1","Championship","Brasileirão"],rk=l=>{const i=ORD.indexOf(l);return i<0?99:i};
+    $("#list").innerHTML=Object.entries(byL).sort((x,y)=>rk(x[0])-rk(y[0])).map(([l,ms])=>'<div class="league">'+esc(l)+'</div>'+ms.map(m=>{
       const i=upcoming.indexOf(m);
       return '<article class="match"><div class="lg">'+esc(m.ligue)+'</div><div class="teams">'+team(m.dom)+'<span class="vs">VS</span>'+team(m.ext)+'</div>'
-        +'<div class="mfoot"><button data-i="'+i+'">Voir le pronostic ▾</button><time>'+fmt(m.d)+'</time></div>'
+        +'<div class="mfoot"><button data-i="'+i+'">Voir le pronostic ▾</button><time>'+(m.hc?fmt(m.d).replace(/, \d\d:\d\d$/,"")+" · heure à confirmer":fmt(m.d))+'</time></div>'
         +'<div class="prono" id="p'+i+'">'+pronoHTML(m)+'</div></article>';
     }).join("")).join("");
     $$("#list .mfoot button").forEach(b=>b.onclick=()=>{const p=$("#p"+b.dataset.i);p.classList.toggle("open");b.textContent=p.classList.contains("open")?"Masquer ▴":"Voir le pronostic ▾";if(p.classList.contains("open"))showPromo()});
