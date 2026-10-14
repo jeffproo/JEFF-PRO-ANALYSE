@@ -267,6 +267,7 @@ footer .l{display:flex;gap:14px;margin-bottom:8px;opacity:.8}
 .lockbox:has(.lockimg){padding:0}.lockimg{display:block;width:100%;max-height:340px;object-fit:cover;filter:blur(4px);transform:scale(1.05)}
 .lockbox span{background:rgba(255,255,255,.35);position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-weight:700;color:#4b2fd6;font-size:14.5px}
 .lockbtn{width:100%;margin-top:8px;background:linear-gradient(90deg,#7c5cff,#a855f7)!important;color:#fff!important}
+.telrow{display:flex;gap:8px}.telrow .ind{flex:0 0 118px;width:118px;padding-left:8px;padding-right:4px}.telrow input{flex:1;min-width:0}
 </style>
 </head>
 <body>
@@ -409,7 +410,7 @@ footer .l{display:flex;gap:14px;margin-bottom:8px;opacity:.8}
       <label for="fNom">Ton nom ou pseudo</label>
       <input id="fNom" required placeholder="Ex : Koffi">
       <label for="fTel">Ton numéro WhatsApp</label>
-      <input id="fTel" required inputmode="tel" placeholder="Ex : 229 01 00 00 00 00">
+      <div class="telrow"><select id="fInd" class="ind" aria-label="Indicatif du pays"></select><input id="fTel" required inputmode="tel" placeholder="01 00 00 00 00"></div>
       <label for="fBk">Bookmaker utilisé</label>
       <select id="fBk" required><option value="">— Choisir un bookmaker —</option></select>
       <label for="ident">Ton identifiant / numéro de compte</label>
@@ -455,7 +456,7 @@ footer .l{display:flex;gap:14px;margin-bottom:8px;opacity:.8}
       <form class="card" id="payForm" novalidate>
         <h3>3. Envoie la capture de ton paiement</h3>
         <label for="pyNom">Ton nom</label><input id="pyNom" placeholder="Ex : Koffi">
-        <label for="pyTel">Ton numéro WhatsApp</label><input id="pyTel" inputmode="tel" placeholder="Ex : 229 01 00 00 00 00">
+        <label for="pyTel">Ton numéro WhatsApp</label><div class="telrow"><select id="pyInd" class="ind" aria-label="Indicatif du pays"></select><input id="pyTel" inputmode="tel" placeholder="01 00 00 00 00"></div>
         <label for="pyCap">Capture du paiement (montant, date et numéro visibles)</label><input type="file" id="pyCap" accept="image/*">
         <button class="btn green" id="pySend" type="submit" style="margin-top:16px;width:100%">J’AI PAYÉ — ENVOYER LA CAPTURE</button>
         <p class="hint" id="pyNote" style="margin-top:10px"></p>
@@ -552,6 +553,19 @@ footer .l{display:flex;gap:14px;margin-bottom:8px;opacity:.8}
 </nav>
 
 <script src="vip-data.js?v=19"></script>
+<script>
+/* Indicatifs téléphoniques de tous les pays */
+window.JP_IND="BJ|Bénin|229;TG|Togo|228;CI|Côte d'Ivoire|225;BF|Burkina Faso|226;NE|Niger|227;ML|Mali|223;SN|Sénégal|221;CM|Cameroun|237;GA|Gabon|241;CG|Congo|242;CD|Congo (Rép. dém.)|243;GN|Guinée|224;TD|Tchad|235;CF|République centrafricaine|236;MG|Madagascar|261;FR|France|33;AF|Afghanistan|93;ZA|Afrique du Sud|27;AX|Ahvenanmaa|35818;AL|Albanie|355;DZ|Algérie|213;DE|Allemagne|49;AD|Andorre|376;AO|Angola|244;AI|Anguilla|1264;AG|Antigua-et-Barbuda|1268;SA|Arabie Saoudite|966;AR|Argentine|54;AM|Arménie|374;AW|Aruba|297;AU|Australie|61;AT|Autriche|43;AZ|Azerbaïdjan|994;BS|Bahamas|1242;BH|Bahreïn|973;BD|Bangladesh|880;BB|Barbade|1246;BE|Belgique|32;BZ|Belize|501;BM|Bermudes|1441;BT|Bhoutan|975;BY|Biélorussie|375;MM|Birmanie|95;BO|Bolivie|591;BA|Bosnie-Herzégovine|387;BW|Botswana|267;BR|Brésil|55;BN|Brunei|673;BG|Bulgarie|359;BI|Burundi|257;KH|Cambodge|855;CA|Canada|1;CL|Chili|56;CN|Chine|86;CY|Chypre|357;VA|Cité du Vatican|3;CO|Colombie|57;KM|Comores|269;KP|Corée du Nord|850;KR|Corée du Sud|82;CR|Costa Rica|506;HR|Croatie|385;CU|Cuba|53;CW|Curaçao|599;DK|Danemark|45;DJ|Djibouti|253;DM|Dominique|1767;EG|Égypte|20;AE|Émirats arabes unis|971;EC|Équateur|593;ER|Érythrée|291;ES|Espagne|34;EE|Estonie|372;SZ|Eswatini|268;US|États-Unis|1;ET|Éthiopie|251;FJ|Fidji|679;FI|Finlande|358;GM|Gambie|220;GE|Géorgie|995;GS|Géorgie du Sud-et-les Îles Sandwich du Sud|500;GH|Ghana|233;GI|Gibraltar|350;GR|Grèce|30;GD|Grenade|1473;GL|Groenland|299;GP|Guadeloupe|590;GU|Guam|1671;GT|Guatemala|502;GG|Guernesey|44;GQ|Guinée équatoriale|240;GW|Guinée-Bissau|245;GY|Guyana|592;GF|Guyane|594;HT|Haïti|509;HN|Honduras|504;HK|Hong Kong|852;HU|Hongrie|36;BV|Île Bouvet|47;CX|Île Christmas|61;IM|Île de Man|44;MU|Île Maurice|230;NF|Île Norfolk|672;KY|Îles Caïmans|1345;CC|Îles Cocos|61;CK|Îles Cook|682;CV|Îles du Cap-Vert|238;FO|Îles Féroé|298;FK|Îles Malouines|500;MP|Îles Mariannes du Nord|1670;MH|Îles Marshall|692;UM|Îles mineures éloignées des États-Unis|268;PN|Îles Pitcairn|64;SB|Îles Salomon|677;TC|Îles Turques-et-Caïques|1649;VG|Îles Vierges britanniques|1284;VI|Îles Vierges des États-Unis|1340;IN|Inde|91;ID|Indonésie|62;IQ|Irak|964;IR|Iran|98;IE|Irlande|353;IS|Islande|354;IL|Israël|972;IT|Italie|39;JM|Jamaïque|1876;JP|Japon|81;JE|Jersey|44;JO|Jordanie|962;KZ|Kazakhstan|7;KE|Kenya|254;KG|Kirghizistan|996;KI|Kiribati|686;XK|Kosovo|383;KW|Koweït|965;LA|Laos|856;LS|Lesotho|266;LV|Lettonie|371;LB|Liban|961;LR|Liberia|231;LY|Libye|218;LI|Liechtenstein|423;LT|Lituanie|370;LU|Luxembourg|352;MO|Macao|853;MK|Macédoine du Nord|389;MY|Malaisie|60;MW|Malawi|265;MV|Maldives|960;MT|Malte|356;MA|Maroc|212;MQ|Martinique|596;MR|Mauritanie|222;YT|Mayotte|262;MX|Mexique|52;FM|Micronésie|691;MD|Moldavie|373;MC|Monaco|377;MN|Mongolie|976;ME|Monténégro|382;MS|Montserrat|1664;MZ|Mozambique|258;NA|Namibie|264;NR|Nauru|674;NP|Népal|977;NI|Nicaragua|505;NG|Nigéria|234;NU|Niue|683;NO|Norvège|47;NC|Nouvelle-Calédonie|687;NZ|Nouvelle-Zélande|64;OM|Oman|968;UG|Ouganda|256;UZ|Ouzbékistan|998;PK|Pakistan|92;PW|Palaos (Palau)|680;PS|Palestine|970;PA|Panama|507;PG|Papouasie-Nouvelle-Guinée|675;PY|Paraguay|595;NL|Pays-Bas|31;BQ|Pays-Bas caribéens|599;PE|Pérou|51;PH|Philippines|63;PL|Pologne|48;PF|Polynésie française|689;PR|Porto Rico|1;PT|Portugal|351;QA|Qatar|974;DO|République dominicaine|1;RE|Réunion|262;RO|Roumanie|40;GB|Royaume-Uni|44;RU|Russie|7;RW|Rwanda|250;EH|Sahara Occidental|2;BL|Saint-Barthélemy|590;KN|Saint-Christophe-et-Niévès|1869;SM|Saint-Marin|378;MF|Saint-Martin|590;SX|Saint-Martin|1721;PM|Saint-Pierre-et-Miquelon|508;VC|Saint-Vincent-et-les-Grenadines|1784;SH|Sainte-Hélène, Ascension et Tristan da Cunha|2;LC|Sainte-Lucie|1758;SV|Salvador|503;WS|Samoa|685;AS|Samoa américaines|1684;ST|São Tomé et Príncipe|239;RS|Serbie|381;SC|Seychelles|248;SL|Sierra Leone|232;SG|Singapour|65;SK|Slovaquie|421;SI|Slovénie|386;SO|Somalie|252;SD|Soudan|249;SS|Soudan du Sud|211;LK|Sri Lanka|94;SE|Suède|46;CH|Suisse|41;SR|Surinam|597;SJ|Svalbard et Jan Mayen|4779;SY|Syrie|963;TJ|Tadjikistan|992;TW|Taïwan|886;TZ|Tanzanie|255;CZ|Tchéquie|420;TF|Terres australes et antarctiques françaises|262;IO|Territoire britannique de l'océan Indien|246;TH|Thaïlande|66;TL|Timor oriental|670;TK|Tokelau|690;TO|Tonga|676;TT|Trinité-et-Tobago|1868;TN|Tunisie|216;TM|Turkménistan|993;TR|Turquie|90;TV|Tuvalu|688;UA|Ukraine|380;UY|Uruguay|598;VU|Vanuatu|678;VE|Venezuela|58;VN|Viêt Nam|84;WF|Wallis-et-Futuna|681;YE|Yémen|967;ZM|Zambie|260;ZW|Zimbabwe|263".split(";").map(x=>x.split("|"));
+(function(){const fl=c=>String.fromCodePoint(...[...c].map(x=>127397+x.charCodeAt(0)));
+  const html=JP_IND.map(([c,n,i])=>'<option value="'+i+'" data-c="'+c+'">'+fl(c)+' +'+i+' '+n.replace(/</g,"")+'</option>').join("");
+  const fill=()=>["fInd","pyInd"].forEach(id=>{const s=document.getElementById(id);if(s&&!s.options.length){s.innerHTML=html;s.selectedIndex=0}});
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",fill);else fill();
+  /* numéro complet : +indicatif + chiffres (8 à 14 chiffres en tout) */
+  window.JP_tel=(indId,telId)=>{const ind=document.getElementById(indId).value;let d=document.getElementById(telId).value.replace(/\D/g,"");
+    if(d.startsWith("00"+ind))d=d.slice(2+ind.length);else if(d.startsWith(ind)&&d.length-ind.length>=6)d=d.slice(ind.length);
+    const tot=(ind+d).length;return d.length>=6&&tot>=8&&tot<=15?"+"+ind+" "+d:null};
+})();
+</script>
 <script src="firebase-config.js?v=3"></script>
 <script>
 // Sans configuration des comptes : pas d'écran de connexion
@@ -738,10 +752,11 @@ else setTimeout(()=>{if(document.body.classList.contains("pending")){document.bo
   $("#proofForm").onsubmit=async e=>{
     e.preventDefault();
     const note=$("#sendNote"), btn=$("#sendProof");
-    const nom=$("#fNom").value.trim(), tel=$("#fTel").value.trim(), bk=$("#fBk").value, id=$("#ident").value.trim();
+    const nom=$("#fNom").value.trim(), tel=window.JP_tel("fInd","fTel"), bk=$("#fBk").value, id=$("#ident").value.trim();
     const f1=$("#cap1").files[0], f2=$("#cap2").files[0];
     note.className="hint";
-    if(!nom||!tel||!bk){note.className="hint err";note.textContent="Remplis ton nom, ton numéro et ton bookmaker.";return}
+    if(!nom||!bk){note.className="hint err";note.textContent="Remplis ton nom et ton bookmaker.";return}
+    if(!tel){note.className="hint err";note.textContent="Numéro WhatsApp invalide : choisis l’indicatif de ton pays et écris ton numéro complet.";return}
     const mail=(window.JP_USER&&window.JP_USER.email)||"";
     const texte="Salut "+C.nom+" ! Je veux rejoindre le VIP.\nNom : "+nom+(mail?"\nEmail du compte : "+mail:"")+"\nWhatsApp : "+tel+"\nBookmaker : "+bk+"\nIdentifiant : "+(id||"—")+"\nCode promo : "+C.codePromo+"\nRecharge : "+C.depotMin+" minimum";
     // Sans relais : envoi direct par WhatsApp ou Telegram
@@ -915,10 +930,11 @@ $("#pCountry").onchange=drawPay;
 document.addEventListener("click",e=>{const b=e.target.closest("[data-copy]");if(!b)return;try{navigator.clipboard.writeText(b.dataset.copy).catch(()=>{})}catch(x){}b.textContent="Copié ✓";setTimeout(()=>b.textContent="Copier",1500)});
 drawPlans();
 $("#payForm").onsubmit=async e=>{e.preventDefault();const note=$("#pyNote"),btn=$("#pySend");
-  const nom=$("#pyNom").value.trim(),tel=$("#pyTel").value.trim(),pays=$("#pCountry").value,f=$("#pyCap").files[0];
+  const nom=$("#pyNom").value.trim(),tel=window.JP_tel("pyInd","pyTel"),pays=$("#pCountry").value,f=$("#pyCap").files[0];
   note.className="hint";
   if(!pays){note.className="hint err";note.textContent="Choisis ton pays.";return}
-  if(!nom||!tel){note.className="hint err";note.textContent="Remplis ton nom et ton numéro.";return}
+  if(!nom){note.className="hint err";note.textContent="Remplis ton nom.";return}
+  if(!tel){note.className="hint err";note.textContent="Numéro WhatsApp invalide : choisis l’indicatif de ton pays et écris ton numéro complet.";return}
   if(!f){note.className="hint err";note.textContent="Ajoute la capture de ton paiement.";return}
   if(f.size>10e6){note.className="hint err";note.textContent="Capture trop lourde (10 Mo maximum).";return}
   if(!CONFIG.envoiCaptures){note.className="hint err";note.textContent="Envoi indisponible pour le moment.";return}
@@ -955,6 +971,7 @@ window.JP_couponLists=(vipL,premL,isPrem,apercu)=>{
   $("#planTitle").textContent=isPrem?"Prolonger mon Premium":"1. Choisis ta formule";
 };
 document.addEventListener("click",e=>{const b=e.target.closest("[data-vm-go]");if(b){const t=document.querySelector('[data-vm="'+b.dataset.vmGo+'"]');if(t)t.click();window.scrollTo({top:document.querySelector("#vip").offsetTop-10,behavior:"smooth"})}});
+$("#pCountry").addEventListener("change",()=>{const n=$("#pCountry").value.toLowerCase().replace(/’/g,"'");const k=(window.JP_IND||[]).findIndex(x=>x[1].toLowerCase().replace(/’/g,"'")===n);if(k>=0)$("#pyInd").selectedIndex=k});
 window.JP_premState=t=>{const el=$("#premState");if(!t){el.hidden=true;return}el.hidden=false;el.innerHTML='<span style="color:var(--amber);font-weight:700">✅ Ton Premium est actif jusqu’au '+esc(t)+'</span>'};
 })();
 </script>
