@@ -143,6 +143,8 @@ button{font:inherit;cursor:pointer;border:0;border-radius:10px;padding:11px 14px
           <div><label>Cote</label><input id="pc" placeholder="1.85"></div>
           <div><label>Confiance</label><select id="pf"><option>Forte</option><option>Moyenne</option><option>Très forte</option></select></div>
         </div>
+        <label>Pour qui ?</label>
+        <select id="pdest"><option value="vip_pronos">VIP gratuit (et Premium)</option><option value="premium_pronos">💎 Premium seulement</option></select>
         <label>Photo du coupon / ticket (facultatif)</label>
         <input type="file" id="pimg" accept="image/*">
         <img id="pprev" alt="" style="display:none;max-width:100%;max-height:260px;border-radius:10px;margin-top:8px">
@@ -152,8 +154,10 @@ button{font:inherit;cursor:pointer;border:0;border-radius:10px;padding:11px 14px
         <p class="msg" id="pMsg"></p>
         <p class="msg" style="color:var(--muted)">🔒 Les coupons publiés ici sont visibles <b>uniquement par les VIP</b>. Après le match, touche <b>« ✅ Gagné »</b> sur le coupon et ajoute la capture de validation : le coupon + la validation passent alors dans les <b>PREUVES publiques</b>.</p>
       </form>
-      <h2>Pronos VIP publiés</h2>
+      <h2>Coupons VIP gratuit publiés</h2>
       <div class="card" id="plist" style="padding:4px 16px"></div>
+      <h2>💎 Coupons Premium publiés</h2>
+      <div class="card" id="plist2" style="padding:4px 16px"></div>
     </div>
   </div>
 </div>
@@ -192,17 +196,27 @@ else{
   });
 
   let users=[];
+  const premOn=u=>u.statut==="PREMIUM"&&u.premiumUntil&&u.premiumUntil.toDate&&u.premiumUntil.toDate()>new Date();
   function drawUsers(){
     const q=$("#search").value.trim().toLowerCase();
     const list=users.filter(u=>!q||(u.email||"").toLowerCase().includes(q));
-    $("#count").textContent=users.length+" abonnés · "+users.filter(u=>u.statut==="VIP").length+" VIP";
+    $("#count").textContent=users.length+" abonnés · "+users.filter(u=>u.statut==="VIP"||u.statut==="PREMIUM").length+" VIP · "+users.filter(premOn).length+" Premium";
     $("#users").innerHTML=list.length?list.map(u=>{
-      const vip=u.statut==="VIP";const d=u.createdAt&&u.createdAt.toDate?u.createdAt.toDate().toLocaleDateString("fr-FR"):"";
-      return '<div class="row"><div class="e">'+esc(u.email)+'<small>Inscrit le '+esc(d)+'</small></div><span class="st'+(vip?" vip":"")+'">'+(vip?"VIP":"STANDARD")+'</span>'
-        +'<button class="'+(vip?"b-red":"b-amber")+'" data-id="'+esc(u.id)+'" data-to="'+(vip?"STANDARD":"VIP")+'">'+(vip?"Retirer VIP":"Passer VIP")+'</button></div>'}).join("")
+      const pr=premOn(u),vip=u.statut==="VIP";const d=u.createdAt&&u.createdAt.toDate?u.createdAt.toDate().toLocaleDateString("fr-FR"):"";
+      const exp=u.statut==="PREMIUM"&&!pr;const lab=pr?"PREMIUM":vip?"VIP":(exp?"VIP · Premium expiré":"STANDARD");const isV=vip||pr||exp;
+      return '<div class="row" style="flex-wrap:wrap"><div class="e">'+esc(u.email)+'<small>Inscrit le '+esc(d)+(pr?' · Premium jusqu’au '+esc(u.premiumUntil.toDate().toLocaleDateString("fr-FR")):'')+'</small></div><span class="st'+(isV?" vip":"")+'">'+lab+'</span>'
+        +'<div style="display:flex;gap:6px;flex-wrap:wrap;width:100%;margin-top:6px">'
+        +(isV?'<button class="b-red" data-id="'+esc(u.id)+'" data-to="STANDARD">Retirer l’accès</button>':'<button class="b-amber" data-id="'+esc(u.id)+'" data-to="VIP">Passer VIP gratuit</button>')
+        +(isV?[7,14,30].map(n=>'<button class="b-ghost" data-prem="'+esc(u.id)+'" data-days="'+n+'">💎 +'+n+' j</button>').join(""):'<small style="align-self:center;color:var(--muted)">Premium : d’abord VIP gratuit</small>')
+        +'</div></div>'}).join("")
       :'<p class="msg" style="padding:12px 0">Aucun abonné.</p>';
     document.querySelectorAll("#users [data-id]").forEach(b=>b.onclick=async()=>{
-      b.disabled=true;try{await F.updateDoc(F.doc(db,"users",b.dataset.id),{statut:b.dataset.to})}catch(e){alert("Erreur : vérifie les règles Firestore.");b.disabled=false}});
+      b.disabled=true;try{await F.updateDoc(F.doc(db,"users",b.dataset.id),b.dataset.to==="STANDARD"?{statut:"STANDARD",premiumUntil:null}:{statut:b.dataset.to})}catch(e){alert("Erreur : vérifie les règles Firestore.");b.disabled=false}});
+    document.querySelectorAll("#users [data-prem]").forEach(b=>b.onclick=async()=>{
+      const u=users.find(x=>x.id===b.dataset.prem),n=+b.dataset.days;
+      const base=premOn(u)?u.premiumUntil.toDate():new Date();const until=new Date(base.getTime()+n*864e5);
+      if(!confirm("Activer le Premium "+n+" jours pour "+u.email+" ?\nFin : "+until.toLocaleDateString("fr-FR")))return;
+      b.disabled=true;try{await F.updateDoc(F.doc(db,"users",u.id),{statut:"PREMIUM",premiumUntil:F.Timestamp.fromDate(until)})}catch(e){alert("Erreur : vérifie les règles Firestore.");b.disabled=false}});
   }
   $("#search").oninput=drawUsers;
 
@@ -229,12 +243,13 @@ else{
     },e=>{$("#qlist").innerHTML='<p class="msg err" style="padding:12px 0">Accès refusé : mets à jour les règles Firestore (preuves).</p>'}));
     unsubs.push(F.onSnapshot(F.query(F.collection(db,"users"),F.orderBy("createdAt","desc")),s=>{users=s.docs.map(d=>({id:d.id,...d.data()}));drawUsers()},
       e=>{$("#users").innerHTML='<p class="msg err" style="padding:12px 0">Accès refusé : vérifie ton UID dans les règles Firestore.</p>'}));
-    unsubs.push(F.onSnapshot(F.query(F.collection(db,"vip_pronos"),F.orderBy("date","desc")),s=>{
-      $("#plist").innerHTML=s.empty?'<p class="msg" style="padding:12px 0">Aucun prono VIP publié.</p>':s.docs.map(d=>{const p=d.data();
+    const listPronos=(COL,SEL)=>
+    unsubs.push(F.onSnapshot(F.query(F.collection(db,COL),F.orderBy("date","desc")),s=>{
+      $(SEL).innerHTML=s.empty?'<p class="msg" style="padding:12px 0">Aucun coupon publié ici.</p>':s.docs.map(d=>{const p=d.data();
         const titre=(p.dom||p.ext)?esc(p.dom)+' vs '+esc(p.ext):'📷 Coupon VIP';
         return '<div class="row">'+(p.image?'<img src="'+esc(p.image)+'" style="width:54px;height:54px;object-fit:cover;border-radius:8px;flex:none">':'')+'<div class="e"><b>'+titre+'</b><small>'+esc(p.ligue)+' · '+esc(new Date(p.date).toLocaleString("fr-FR"))+' · '+esc(p.prono)+(p.cote?' @ '+esc(p.cote):'')+'</small></div><div style="display:grid;gap:6px;flex:none"><button class="b-amber" data-win="'+d.id+'">✅ Gagné</button><button class="b-red" data-del="'+d.id+'">Supprimer</button></div></div>'}).join("");
       const byId={};s.docs.forEach(d=>byId[d.id]=d.data());
-      document.querySelectorAll("[data-win]").forEach(b=>{const p=byId[b.dataset.win];
+      $(SEL).querySelectorAll("[data-win]").forEach(b=>{const p=byId[b.dataset.win];
         if(p.publie){b.textContent="Publié ✓";b.disabled=true;return}
         b.onclick=()=>{
           if(!p.image){alert("Ce prono n'a pas de photo du coupon. Publie-le plutôt dans l'onglet Preuves.");return}
@@ -243,12 +258,15 @@ else{
           inp.onchange=async()=>{const f=inp.files[0];if(!f)return;b.disabled=true;b.textContent="Envoi…";
             try{const val=await compress(f);
               await F.addDoc(F.collection(db,"preuves"),{image:p.image,image2:val,titre:((p.dom||p.ext)?p.dom+" vs "+p.ext+" ✅":"Coupon VIP gagné ✅"),cote:p.cote||"",date:new Date().toLocaleDateString("fr-FR",{day:"numeric",month:"short",year:"numeric"}),createdAt:F.serverTimestamp()});
-              await F.updateDoc(F.doc(db,"vip_pronos",b.dataset.win),{publie:true});
+              await F.updateDoc(F.doc(db,COL,b.dataset.win),{publie:true});
+              if(COL==="premium_pronos")await F.deleteDoc(F.doc(db,"premium_apercu",b.dataset.win)).catch(()=>{});
               b.textContent="Publié ✓";}
             catch(e){alert("Erreur : vérifie les règles Firestore (preuves).");b.disabled=false;b.textContent="✅ Gagné"}};
           inp.click();};});
-      document.querySelectorAll("[data-del]").forEach(b=>b.onclick=async()=>{if(confirm("Supprimer ce prono VIP ?"))await F.deleteDoc(F.doc(db,"vip_pronos",b.dataset.del))});
+      $(SEL).querySelectorAll("[data-del]").forEach(b=>b.onclick=async()=>{if(confirm("Supprimer ce prono VIP ?")){await F.deleteDoc(F.doc(db,COL,b.dataset.del));if(COL==="premium_pronos")await F.deleteDoc(F.doc(db,"premium_apercu",b.dataset.del)).catch(()=>{})}});
     }));
+    listPronos("vip_pronos","#plist");
+    listPronos("premium_pronos","#plist2");
   }
 
   // Compression de la photo (pour rester sous la limite gratuite de Firebase)
@@ -260,6 +278,12 @@ else{
       if(d.length>420000){const c2=document.createElement("canvas"),k=800/Math.max(w,h);c2.width=Math.round(w*k);c2.height=Math.round(h*k);c2.getContext("2d").drawImage(c,0,0,c2.width,c2.height);d=c2.toDataURL("image/jpeg",0.6)}
       ok(d)};
     img.onerror=()=>ko(new Error("img"));img.src=url;})}
+  // Version floutée (irréversible) de la photo pour l'aperçu Premium
+  function flou(src){return new Promise(ok=>{const img=new Image();img.onload=()=>{
+    const W=420,H=Math.round(img.naturalHeight*W/img.naturalWidth),sw=16,sh=Math.max(1,Math.round(H*sw/W));
+    const t=document.createElement("canvas");t.width=sw;t.height=sh;t.getContext("2d").drawImage(img,0,0,sw,sh);
+    const c=document.createElement("canvas");c.width=W;c.height=H;const x=c.getContext("2d");x.imageSmoothingEnabled=true;x.filter="blur(6px)";x.drawImage(t,0,0,W,H);
+    ok(c.toDataURL("image/jpeg",0.6))};img.onerror=()=>ok("");img.src=src})}
   let imgData="";
   $("#pimg").onchange=async()=>{const f=$("#pimg").files[0];imgData="";$("#pprev").style.display="none";if(!f)return;
     try{imgData=await compress(f);$("#pprev").src=imgData;$("#pprev").style.display="block"}catch(e){alert("Image illisible, essaie une autre capture.")}};
@@ -271,8 +295,10 @@ else{
     if(!data.image&&!data.prono){m.className="msg err";m.textContent="Ajoute au moins une photo ou un pronostic.";return}
     if(data.image.length>900000){m.className="msg err";m.textContent="Photo trop lourde, essaie une capture plus petite.";return}
     btn.disabled=true;
-    try{await F.addDoc(F.collection(db,"vip_pronos"),data);
-      e.target.reset();imgData="";$("#pprev").style.display="none";m.className="msg ok";m.textContent="✅ Publié : tes abonnés VIP le voient déjà.";}
+    const dest=$("#pdest").value;
+    try{const ref=await F.addDoc(F.collection(db,dest),data);
+      if(dest==="premium_pronos")await F.setDoc(F.doc(db,"premium_apercu",ref.id),{ligue:data.ligue,date:data.date,dom:data.dom,ext:data.ext,cote:data.cote,image:data.image?await flou(data.image):"",createdAt:F.serverTimestamp()});
+      e.target.reset();imgData="";$("#pprev").style.display="none";m.className="msg ok";m.textContent=dest==="premium_pronos"?"✅ Publié pour les Premium.":"✅ Publié : tes abonnés VIP le voient déjà.";}
     catch(err){m.className="msg err";m.textContent="Erreur de publication : vérifie les règles Firestore.";}
     finally{btn.disabled=false}};
 

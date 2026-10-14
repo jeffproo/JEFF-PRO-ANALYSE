@@ -127,31 +127,47 @@ async function start() {
     try {
       statut = await ensureProfile(user);
       // Mise à jour en direct quand tu passes l'abonné en VIP
-      stopUser = F.onSnapshot(F.doc(db, "users", user.uid), s => { if (s.exists()) applyStatut(s.data().statut); });
-    } catch (e) { console.error(e); }
-    applyStatut(statut);
+      stopUser = F.onSnapshot(F.doc(db, "users", user.uid), s => { if (s.exists()) applyStatut(s.data().statut, s.data()); });
+    } catch (e) { console.error(e); applyStatut(statut); }
+    if (!stopUser) applyStatut(statut);
   });
 
   let current = null;
-  function applyStatut(statut) {
-    const vip = statut === "VIP";
-    $("#pStatut").textContent = vip ? "VIP" : "STANDARD";
+  let stopPrem = null, premTimer = null;
+  function applyStatut(statut, data) {
+    data = data || {};
+    const until = data.premiumUntil && data.premiumUntil.toDate ? data.premiumUntil.toDate() : null;
+    const prem = statut === "PREMIUM" && until && until > new Date();
+    const vip = statut === "VIP" || statut === "PREMIUM";
+    const fin = prem ? until.toLocaleDateString("fr-FR", { day: "numeric", month: "long" }) : "";
+    $("#pStatut").textContent = prem ? "💎 PREMIUM · jusqu’au " + fin : vip ? "VIP" : "STANDARD";
     $("#pStatut").classList.toggle("vip", vip);
     $("#pUpgrade").hidden = vip;
     $("#pIsVip").hidden = !vip;
     $("#acctHint").hidden = true;
-    if (current === statut) return;
-    current = statut;
+    if (window.JP_premState) window.JP_premState(prem ? fin : "");
+    if (window.JP_vipGate) window.JP_vipGate(vip);
+    clearTimeout(premTimer);
+    if (prem) premTimer = setTimeout(() => applyStatut(statut, data), Math.min(until - new Date() + 1000, 2147483000));
+    const key = statut + "|" + (prem ? "P" : "");
+    if (current === key) return;
+    current = key;
     if (stopVip) { stopVip(); stopVip = null; }
+    if (stopPrem) { stopPrem(); stopPrem = null; }
     if (vip) {
+      let vipList = [], premList = [], apercu = [];
+      const draw = () => { renderVip("vip", premList.map(p => ({ ...p, premium: true })).concat(vipList), prem ? [] : apercu); if (window.JP_couponLists) window.JP_couponLists(vipList, premList, prem, apercu); };
       stopVip = F.onSnapshot(F.query(F.collection(db, "vip_pronos"), F.orderBy("date")),
-        s => renderVip("vip", s.docs.map(d => d.data())),
-        () => renderVip("vip", []));
-    } else renderVip("standard");
+        s => { vipList = s.docs.map(d => d.data()); draw(); }, () => draw());
+      if (prem) stopPrem = F.onSnapshot(F.query(F.collection(db, "premium_pronos"), F.orderBy("date")),
+        s => { premList = s.docs.map(d => d.data()); draw(); }, () => draw());
+      else stopPrem = F.onSnapshot(F.collection(db, "premium_apercu"),
+        s => { apercu = s.docs.map(d => d.data()).sort((a, b) => String(a.date).localeCompare(String(b.date))); draw(); }, () => draw());
+    } else { renderVip("standard"); if (window.JP_couponLists) window.JP_couponLists([], [], false); }
   }
 
   // --- Pronos VIP dans l'onglet Pronos ---
-  function renderVip(state, list) {
+  function renderVip(state, list, locked) {
     const box = $("#vipPronos"); box.hidden = false;
     if (state === "out") {
       current = null;
@@ -159,22 +175,28 @@ async function start() {
       return;
     }
     if (state === "standard") {
-      box.innerHTML = '<div class="vp"><h4>🔒 Pronos VIP du jour</h4><p class="hint" style="margin-top:0">Ton compte est STANDARD. Passe VIP pour débloquer mes pronos premium.</p><a href="#vip" data-tab="vip" class="btn">Passer VIP</a></div>';
+      box.innerHTML = '<div class="vp"><h4>🔒 Pronos VIP du jour</h4><p class="hint" style="margin-top:0">Ton compte est STANDARD. Rejoins le VIP gratuit ou le 💎 Premium pour débloquer les coupons.</p><a href="#vip" data-tab="vip" class="btn">Passer VIP</a></div>';
       return;
     }
     const now = Date.now() - 3 * 3600e3;
     const rows = (list || []).filter(p => !p.date || new Date(p.date).getTime() > now);
     const fmt = d => { const x = new Date(d); return isNaN(x) ? "" : x.toLocaleString("fr-FR", { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }); };
+    const lk = (locked || []).filter(p => !p.date || new Date(p.date).getTime() > now);
+    const lockHtml = lk.map(p => '<div class="vp lockc"><div class="top"><span>💎 PREMIUM · ' + esc(p.ligue || "Coupon") + '</span><span>' + esc(fmt(p.date)) + '</span></div>'
+      + '<h4>' + ((p.dom || p.ext) ? esc(p.dom) + ' vs ' + esc(p.ext) : 'Coupon Premium') + '</h4>'
+      + '<div class="lockbox">' + (p.image ? '<img src="' + esc(p.image) + '" alt="" class="lockimg">' : '<div class="lockblur">██████ ███ ████<br>████ ██████ ██</div>') + '<span>🔒 Réservé aux membres Premium</span></div>'
+      + (p.cote ? '<div class="pr"><b>Prono caché</b><b>Cote ' + esc(p.cote) + '</b></div>' : '')
+      + '<button type="button" class="btn lockbtn" data-tab="vip" data-vm-go="prem">💎 Passe en Premium pour ce coupon</button></div>').join("");
     box.innerHTML = '<div class="hdr-vip">★ Mes pronos VIP</div>' + (rows.length ? rows.map(p => {
       const has = p.dom || p.ext;
-      return '<div class="vp"><div class="top"><span>' + esc(p.ligue || "VIP") + '</span><span>' + esc(fmt(p.date)) + '</span></div>'
+      return '<div class="vp"' + (p.premium ? ' style="border-color:#7c5cff;background:#faf8ff"' : '') + '><div class="top"><span>' + (p.premium ? '💎 PREMIUM · ' : '') + esc(p.ligue || "VIP") + '</span><span>' + esc(fmt(p.date)) + '</span></div>'
       + (has ? '<h4>' + esc(p.dom) + ' vs ' + esc(p.ext) + '</h4>' : '')
       + (p.image ? '<img src="' + esc(p.image) + '" alt="Coupon VIP" class="vp-img" style="width:100%;border-radius:10px;margin:6px 0;cursor:zoom-in">' : '')
       + (p.prono ? '<div class="pr"><b>' + esc(p.prono) + '</b><b>' + esc(p.cote ? "Cote " + p.cote : "") + '</b></div>' : '')
       + (p.prono && p.confiance ? '<p class="meta">Confiance : <b>' + esc(p.confiance) + '</b></p>' : '')
       + (p.analyse ? '<p class="meta">' + esc(p.analyse) + '</p>' : '') + '</div>';
     }).join("")
-      : '<div class="empty">Les pronos VIP du jour arrivent bientôt.</div>');
+      : '<div class="empty">Les pronos VIP du jour arrivent bientôt.</div>') + lockHtml;
     box.querySelectorAll(".vp-img").forEach(im => im.onclick = () => { const lb = $("#lb"); if (lb) { $("#lbImg").src = im.src; ["#lbImg2","#lbCap1","#lbCap2"].forEach(x => { const e = $(x); if (e) e.hidden = true; }); lb.classList.add("on"); } });
   }
 }
