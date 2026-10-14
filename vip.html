@@ -180,6 +180,8 @@ body.inchat #chat.on{display:flex;flex-direction:column;position:fixed;left:0;ri
 .cdots i:nth-child(2){animation-delay:.2s}.cdots i:nth-child(3){animation-delay:.4s}
 @keyframes cbl{0%,80%,100%{opacity:.3}40%{opacity:1}}
 .cacts{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 4px 2px}
+.clogo{width:22px;height:22px;border-radius:6px;object-fit:cover;vertical-align:middle;margin:-3px 7px 0 -4px;background:#fff}
+.sic,.pic{position:relative;overflow:hidden}.sic img,.pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#fff;z-index:1}
 .cchip{background:#fff;border:1.5px solid #0e7a66;color:#0b5e4f;border-radius:999px;padding:8px 13px;font-size:14px;font-weight:600;text-align:left}
 .cchip.solid{background:#0e7a66;color:#fff}.cchip.wa{background:#25d366;border-color:#25d366;color:#fff}.cchip.amber{background:var(--amber);border-color:var(--amber);color:var(--navy)}
 .cproc{background:#fff;border-radius:12px;overflow:hidden;max-width:92%;box-shadow:0 1px 2px rgba(0,0,0,.1);margin:4px 0}
@@ -763,13 +765,15 @@ else setTimeout(()=>{if(document.body.classList.contains("pending")){document.bo
   renderProofs();
 
   // ---- Notifications bookmakers ----
+  window.logoHtml=(b,cls)=>'<span class="'+cls+'" style="background:'+esc(b.couleur||b.c)+'">'+(b.logo?'<img src="'+esc(b.logo)+'" alt="" onerror="this.remove()">':'')+'<i>'+esc(b.nom[0])+'</i></span>';
+
   let pIdx=0,pTimer=null,actions=0;
   function hidePromo(){$("#ptoast").classList.remove("on")}
   function showPromo(){
     if(document.body.classList.contains("locked")||document.body.classList.contains("pending"))return;
     if($("#toast").classList.contains("on"))return;
     const b=BOOKMAKERS[pIdx%BOOKMAKERS.length];pIdx++;
-    $("#pIc").textContent=b.nom[0];$("#pIc").style.background=b.couleur;$("#pName").textContent=b.nom;
+    $("#pIc").outerHTML=logoHtml(b,"pic").replace('<span class="pic"','<span class="pic" id="pIc"');$("#pName").textContent=b.nom;
     $("#pTxt").innerHTML="Inscris-toi sur <b>"+esc(b.nom)+"</b> avec mon code promo <span class=\"pc\">"+esc(C.codePromo)+"</span> et reçois jusqu'à <b>"+esc(b.bonus.replace(/Bonus\s*/i,""))+" de bonus</b> sur ta première recharge.";
     if(b.lien){$("#pGo").href=b.lien;$("#pGo").hidden=false}else $("#pGo").hidden=true;
     $("#ptoast").classList.add("on");
@@ -791,7 +795,7 @@ const KB=[{"q":["combien pour le premium","prix du premium","c est combien le pr
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const C=CONFIG,CODE=C.codePromo,DEPOT=C.depotMin.replace(" FCFA"," F");
-const SITES=BOOKMAKERS.map(b=>({nom:b.nom,bonus:b.bonus.replace(/Bonus\s*/i,""),c:b.couleur,lien:b.lien,appli:b.appli,img:b.procedure}));
+const SITES=BOOKMAKERS.map(b=>({logo:b.logo,couleur:b.couleur,nom:b.nom,bonus:b.bonus.replace(/Bonus\s*/i,""),c:b.couleur,lien:b.lien,appli:b.appli,img:b.procedure}));
 const site=n=>SITES.find(s=>s.nom===n);
 const waLink=t=>"https://wa.me/"+C.whatsapp+(t?"?text="+encodeURIComponent(t):"");
 const go=t=>{const a=document.querySelector('.tabbar [data-tab="'+t+'"]')||document.querySelector('[data-tab="'+t+'"]');if(a)a.click()};
@@ -803,7 +807,7 @@ function row(cls,html){const r=document.createElement("div");r.className="crow "
 function me(t){row("me",'<div class="cbub">'+esc(t)+'<span class="ct">'+now()+'<i>✓✓</i></span></div>')}
 function botB(h){return row("bot",'<div class="cbub">'+h+'<span class="ct">'+now()+'</span></div>')}
 function acts(list){const r=document.createElement("div");r.className="cacts";
-  list.forEach(a=>{const el=document.createElement(a.href?"a":"button");el.className="cchip "+(a.cls||"");el.textContent=a.t;
+  list.forEach(a=>{const el=document.createElement(a.href?"a":"button");el.className="cchip "+(a.cls||"");el.textContent=a.t;if(a.logo){const im=document.createElement("img");im.src=a.logo;im.alt="";im.className="clogo";im.onerror=()=>im.remove();el.prepend(im)}
     if(a.href){el.href=a.href;el.target="_blank";el.rel="noopener"}else{el.type="button";el.onclick=a.fn}r.appendChild(el)});box.appendChild(r);toBottom()}
 let busy=0;
 function say(h,after){busy++;$("#cStatus").textContent="écrit…";
@@ -812,7 +816,7 @@ function say(h,after){busy++;$("#cStatus").textContent="écrit…";
 function procCard(n){const s=site(n);if(!s)return;const d=document.createElement("div");d.className="crow bot";
   d.innerHTML='<div class="cproc">'+(s.img?'<img class="zoomimg" src="'+esc(s.img)+'" alt="Procédure '+esc(s.nom)+'" loading="lazy">':'')+'<div class="cpb"><a style="background:#18a957" href="'+esc(s.lien)+'" target="_blank" rel="noopener">🔗 S’inscrire</a><a style="background:#0c1a2f" href="'+esc(s.appli)+'" target="_blank" rel="noopener">📥 Télécharger</a></div></div>';
   box.appendChild(d);toBottom()}
-function platforms(mode){acts(SITES.map(s=>({t:s.nom,fn:()=>pick(s.nom,mode)})))}
+function platforms(mode){acts(SITES.map(s=>({t:s.nom,logo:s.logo,fn:()=>pick(s.nom,mode)})))}
 const bonusMsg=n=>{const s=site(n);return s?"🎁 Excellent choix ! Sur <b>"+s.nom+"</b>, avec mon code promo <b>"+CODE+"</b>, tu reçois jusqu’à <b>"+s.bonus+" de bonus</b> sur ta première recharge.":""};
 function pick(n,mode){me(n);if(mode==="guide")return say(bonusMsg(n)+"<br><br>📸 Voici la procédure en image pour <b>"+n+"</b> 👇",()=>{procCard(n);guide(n,1)});
   say(bonusMsg(n)+"<br><br>📋 <b>Procédure "+n+"</b> : suis l’image, puis inscris-toi avec le code <b>"+CODE+"</b>.",()=>{procCard(n);
@@ -864,7 +868,7 @@ acts(["Je veux le VIP","Comment s’inscrire ?","Tu veux que je te guide ?"].map
 document.addEventListener("click",e=>{const im=e.target.closest(".zoomimg");if(im){$("#lbImg").src=im.src;["#lbImg2","#lbCap1","#lbCap2"].forEach(x=>{const el=$(x);if(el)el.hidden=true});$("#lb").classList.add("on")}});
 
 /* ---- VIP : sites + questions ---- */
-$("#sites").innerHTML=SITES.map((s,i)=>'<div class="site"><button type="button"><span class="sic" style="background:'+esc(s.c)+'">'+esc(s.nom[0])+'</span><span><b>'+esc(s.nom)+'</b><small style="color:'+esc(s.c)+'">Bonus '+esc(s.bonus)+' avec '+CODE+'</small></span><span class="sar">›</span></button>'
+$("#sites").innerHTML=SITES.map((s,i)=>'<div class="site"><button type="button">'+logoHtml(s,"sic")+'<span><b>'+esc(s.nom)+'</b><small style="color:'+esc(s.c)+'">Bonus '+esc(s.bonus)+' avec '+CODE+'</small></span><span class="sar">›</span></button>'
  +'<div class="sbody">'+(s.img?'<img class="zoomimg" src="'+esc(s.img)+'" alt="Procédure '+esc(s.nom)+'" loading="lazy">':'')+'<div class="sbtns"><a href="'+esc(s.lien)+'" target="_blank" rel="noopener" style="background:#18a957">🔗 S’inscrire</a><a href="'+esc(s.appli)+'" target="_blank" rel="noopener" style="background:#0c1a2f">📥 Télécharger</a></div>'
  +'<div class="qlist">'+["Comment s’inscrire sur "+s.nom+" ?","Tu veux que je te guide sur "+s.nom+" ?","Où mettre le code promo sur "+s.nom+" ?","Comment recharger sur "+s.nom+" ?"].map((q,k)=>'<button type="button" class="qchip" data-ask="'+esc(q)+'"'+(k===1?' data-guide="'+esc(s.nom)+'"':'')+'>'+esc(q)+'</button>').join("")+'</div></div></div>').join("");
 $$(".site>button").forEach(b=>b.onclick=()=>{const s=b.parentElement,o=!s.classList.contains("open");$$(".site").forEach(x=>x.classList.remove("open"));if(o)s.classList.add("open")});
