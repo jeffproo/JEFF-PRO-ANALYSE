@@ -273,6 +273,9 @@ footer .l{display:flex;gap:14px;margin-bottom:8px;opacity:.8}
 input[type=file]{width:100%;min-height:64px;padding:16px 14px!important;border:2px dashed #b9c3d3!important;border-radius:14px!important;background:#f7f9fc!important;font-size:15px!important;cursor:pointer}
 input[type=file]::file-selector-button{padding:11px 16px;margin-right:12px;border:0;border-radius:10px;background:#0c1a2f;color:#fff;font-weight:700;font-size:14.5px;cursor:pointer}
 .choixbk{margin:18px 0 10px;font-size:17px;font-weight:800;color:#0c1a2f}
+.walli{display:flex;gap:8px;margin:10px 0}.walli img{flex:1;min-width:0;max-height:220px;object-fit:contain;border-radius:12px;border:1px solid #e5e7eb;background:#fff;cursor:zoom-in}.paybox .autre{margin-top:12px;padding:10px 12px;background:#eefaf3;border-radius:10px;border-left:4px solid #18a957;line-height:1.6}
+.wapp{display:flex;align-items:center;gap:12px;margin:12px 0 8px}.wapp img{width:58px;height:58px;border-radius:14px;flex:none;box-shadow:0 2px 8px rgba(0,0,0,.15)}.wapp b{display:block;font-size:16px}.wapp small{color:#4b5563;font-size:14px}.wdl{display:flex;gap:8px;margin-bottom:12px}.wdl a{flex:1;text-align:center;padding:11px 8px;border-radius:12px;background:#0c1a2f;color:#fff!important;font-weight:700;text-decoration:none;font-size:14.5px}
+.moyen{margin:12px 0;padding:12px;border:1px solid #e5e7eb;border-radius:12px;background:#fff}.moyen .mt{font-weight:800;font-size:15.5px;margin-bottom:6px;color:#0c1a2f}.wsteps{margin:6px 0 10px;padding-left:22px;line-height:1.6}.wsteps li{margin:4px 0}
 </style>
 </head>
 <body>
@@ -454,7 +457,7 @@ input[type=file]::file-selector-button{padding:11px 16px;margin-right:12px;borde
       </div>
       <div class="card">
         <h3>2. Ton pays</h3>
-        <select id="pCountry"><option value="">— Choisir —</option><option>Bénin</option><option>Côte d'Ivoire</option><option>Togo</option><option>Burkina Faso</option><option>Mali</option><option>Niger</option><option>Sénégal</option><option>Cameroun</option><option>Guinée</option><option>Gabon</option><option>Congo</option><option>RDC Congo</option><option>France</option><option>Belgique</option><option>Autre pays</option></select>
+        <select id="pCountry"><option value="">— Choisis ton pays —</option><option value="Bénin">🇧🇯 Bénin</option><option value="Togo">🇹🇬 Togo</option><option value="Côte d&#39;Ivoire">🇨🇮 Côte d'Ivoire</option><option value="Burkina Faso">🇧🇫 Burkina Faso</option><option value="Mali">🇲🇱 Mali</option><option value="Niger">🇳🇪 Niger</option><option value="Sénégal">🇸🇳 Sénégal</option><option value="Cameroun">🇨🇲 Cameroun</option><option value="Guinée">🇬🇳 Guinée</option><option value="Gabon">🇬🇦 Gabon</option><option value="Congo">🇨🇬 Congo</option><option value="RDC Congo">🇨🇩 RDC Congo</option><option value="Tchad">🇹🇩 Tchad</option><option value="Centrafrique">🇨🇫 Centrafrique</option><option value="France">🇫🇷 France</option><option value="Belgique">🇧🇪 Belgique</option><option value="Autre pays">🌍 Autre pays</option></select>
         <div id="payInfo" style="margin-top:12px"></div>
       </div>
       <form class="card" id="payForm" novalidate>
@@ -571,7 +574,7 @@ window.JP_IND="BJ|Bénin|229|10|0195123456|;TG|Togo|228|8|90112345|;CI|Côte d'I
     s.addEventListener("change",()=>{upd(id);const t=document.getElementById(id+"Tel");t.value="";t.focus()});
     document.getElementById(id+"Tel").addEventListener("input",e=>{e.target.value=e.target.value.replace(/[^\d ]/g,"")});upd(id)});
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
-  window.JP_setPays=(id,nom)=>{const n=String(nom).toLowerCase().replace(/’/g,"'");const k=JP_IND.findIndex(p=>p.n.toLowerCase().replace(/’/g,"'")===n);
+  window.JP_setPays=(id,nom)=>{const n=String(nom).toLowerCase().replace(/’/g,"'");const AL={"rdc congo":"CD","congo":"CG","centrafrique":"CF","tchad":"TD","guinée":"GN","belgique":"BE"};let k=AL[n]?JP_IND.findIndex(p=>p.c===AL[n]):JP_IND.findIndex(p=>p.n.toLowerCase().replace(/’/g,"'")===n);
     if(k>=0){const s=document.getElementById(id+"Ind");if(s.value!==String(k)){s.value=String(k);upd(id)}}};
   /* Renvoie "+229 0195123456" si le nombre de chiffres est exact, sinon null */
   window.JP_tel=id=>{const p=JP_IND[document.getElementById(id+"Ind").value];let d=document.getElementById(id+"Tel").value.replace(/\D/g,"");
@@ -940,8 +943,24 @@ function drawPay(){const c=$("#pCountry").value,m="<b>"+F(plan.prix)+"</b>";let 
   if(low==="bénin")h="🇧🇯 Envoie "+m+" par Mobile Money à un de ces numéros :"+nums(PREMIUM.paiement);
   else if(low==="france"||low==="belgique"){const mtn=PREMIUM.paiement.filter(x=>/mtn/i.test(x));h="🌍 Envoie "+m+" (environ "+(plan.prix/655.957).toFixed(2).replace(".",",")+" €) sur le numéro <b>MTN</b> :"+nums(mtn.length?mtn:PREMIUM.paiement)+"Utilise l’application de transfert de ton choix (Mobile Money international, Western Union, WorldRemit, Remitly…) avec destination <b>Bénin → MTN MoMo</b>."}
   else if(low==="autre pays")h="🌍 Utilise un service de transfert disponible chez toi (Mobile Money international, Western Union, MoneyGram, Ria, WorldRemit) vers le <b>Bénin</b>, et envoie "+m+" (ou l’équivalent) à un de ces numéros :"+nums(PREMIUM.paiement);
-  else h="🌍 Depuis <b>"+esc(c)+"</b>, le plus simple est l’application <b>WalliSend</b> :<br>1️⃣ Télécharge-la : <a class=\"lnk\" href=\""+esc(PREMIUM.walliAndroid)+"\" target=\"_blank\" rel=\"noopener\">Android</a> · <a class=\"lnk\" href=\""+esc(PREMIUM.walliIphone)+"\" target=\"_blank\" rel=\"noopener\">iPhone</a><br>2️⃣ Ouvre « Transfert international » et choisis le <b>Bénin</b>.<br>3️⃣ Envoie "+m+" (ou l’équivalent) à un de ces numéros :"+nums(PREMIUM.paiement);
-  $("#payInfo").innerHTML='<div class="paybox">'+h+'<br>📸 Fais une <b>capture</b> de la confirmation et envoie-la ci-dessous.</div>'}
+  else{
+    const walli='<div class="wapp">'+(PREMIUM.walliIcone?'<img src="'+esc(PREMIUM.walliIcone)+'" alt="WalliSend">':'')+'<div><b>Application WalliSend</b><small>Transfert d’argent vers le Bénin</small></div></div>'
+      +((PREMIUM.walliPhotos||[]).length?'<div class="walli">'+PREMIUM.walliPhotos.map(u=>'<img class="zoomimg" src="'+esc(u)+'" alt="Application WalliSend">').join("")+'</div>':'')
+      +'<div class="wdl"><a href="'+esc(PREMIUM.walliAndroid)+'" target="_blank" rel="noopener">🤖 Android</a><a href="'+esc(PREMIUM.walliIphone)+'" target="_blank" rel="noopener">🍎 iPhone</a></div>'
+      +'<ol class="wsteps"><li><b>Télécharge</b> WalliSend avec un des boutons ci-dessus et crée ton compte avec ton numéro de téléphone.</li>'
+      +'<li>Dans l’application, choisis <b>« Transfert international »</b>.</li>'
+      +'<li>Pays du bénéficiaire : <b>Bénin</b> 🇧🇯, puis le réseau <b>MTN</b> ou <b>Moov</b>.</li>'
+      +'<li>Écris un de mes numéros ci-dessous et le montant : '+m+' (ou l’équivalent dans ta monnaie).</li>'
+      +'<li><b>Valide</b> le paiement avec ton Mobile Money.</li>'
+      +'<li>Fais une <b>capture de la confirmation</b> et envoie-la ci-dessous 📸</li></ol>'
+      +'Mes numéros :'+nums(PREMIUM.paiement);
+    if(low==="togo")h='🇹🇬 Depuis le <b>Togo</b>, tu as <b>2 moyens très simples</b> pour envoyer '+m+' :'
+      +'<div class="moyen"><div class="mt">⚡ Moyen 1 : Flooz (le plus rapide)</div>Envoie directement '+m+' par <b>Flooz</b> vers un de ces numéros :'+nums(PREMIUM.paiement)+'📲 <b>Flooz sur MTN</b> (rapide) · 📲 <b>Flooz sur Moov</b> (rapide)<br>Ensuite, fais une <b>capture</b> de la confirmation.</div>'
+      +'<div class="moyen"><div class="mt">📲 Moyen 2 : l’application WalliSend</div>'+walli+'</div>';
+    else h='🌍 Depuis <b>'+esc(c)+'</b>, le plus simple est l’application <b>WalliSend</b> (elle n’est pas obligatoire) :'+walli;
+  }
+  const autre='<div class="autre">💡 Si vous avez d’autres moyens d’envoyer, faites-le et envoyez juste une capture d’écran.</div>';
+  $("#payInfo").innerHTML='<div class="paybox">'+h+'<br>📸 Fais une <b>capture</b> de la confirmation et envoie-la ci-dessous.'+autre+'</div>'}
 $("#pCountry").onchange=drawPay;
 document.addEventListener("click",e=>{const b=e.target.closest("[data-copy]");if(!b)return;try{navigator.clipboard.writeText(b.dataset.copy).catch(()=>{})}catch(x){}b.textContent="Copié ✓";setTimeout(()=>b.textContent="Copier",1500)});
 drawPlans();
